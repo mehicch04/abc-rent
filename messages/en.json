@@ -356,7 +356,8 @@
     "eyebrow": "How it works",
     "title": "Your car in",
     "accent": "three steps",
-    "imageAlt": "Audi Q7 from the ABC Rent a Car fleet",
+    "lead": "No account to create and nothing to pay on the website. You send a request, we get back to you and sort out the rest.",
+    "cta": "Browse cars",
     "steps": [
       {
         "title": "Choose a car",

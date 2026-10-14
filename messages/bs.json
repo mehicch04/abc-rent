@@ -356,7 +356,8 @@
     "eyebrow": "Kako radimo",
     "title": "Do auta u",
     "accent": "tri koraka",
-    "imageAlt": "Audi Q7 iz voznog parka ABC Rent a Car",
+    "lead": "Bez otvaranja naloga i bez plaćanja na sajtu. Vi pošaljete upit, mi se javimo i dogovorimo ostalo.",
+    "cta": "Pogledaj vozila",
     "steps": [
       {
         "title": "Odaberite auto",
