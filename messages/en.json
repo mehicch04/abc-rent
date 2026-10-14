@@ -290,22 +290,9 @@
     "title": "A Sarajevo rental agency that brings the car wherever you need it,",
     "accent": "at any time of day.",
     "cta": "See the fleet",
-    "imageAlt": "Chauffeur opening a car door",
     "callout": "Flat tyre in the middle of the night? Just call, we're here.",
-    "title2": "Booking takes two minutes,",
-    "accent2": "picking up the car even less.",
-    "body2": "Choose a car and dates, send a request, and we confirm by message or call. Nothing is paid online in advance.",
-    "points": [
-      {
-        "title": "Book the way you like",
-        "body": "Through the website form, WhatsApp or a regular phone call."
-      },
-      {
-        "title": "Pick up where you are",
-        "body": "At the airport, outside your hotel, at your address or at our office."
-      }
-    ],
-    "cta2": "Book now"
+    "badge": "Open 24/7",
+    "whatsapp": "WhatsApp"
   },
   "HomeFleet": {
     "eyebrow": "Our fleet",
@@ -323,28 +310,48 @@
     "accent": "Here's what else we do.",
     "cta": "Message us",
     "more": "Learn more",
+    "premium": [
+      {
+        "label": "Premium service",
+        "title": "Chauffeur service",
+        "body": "A driver picks you up wherever you say and drives as long as you need. For business meetings, weddings and city tours, with no worries about parking or directions.",
+        "points": [
+          "Experienced, professional drivers",
+          "Punctual and reliable",
+          "Discreet and safe driving"
+        ],
+        "badge": "Available 24/7",
+        "cta": "Book a chauffeur",
+        "wa": "Hi, I'd like to ask about a car with a driver.",
+        "imageAlt": "Chauffeur opening the car door for a passenger"
+      },
+      {
+        "label": "Transfer",
+        "title": "Sarajevo Airport transfer",
+        "body": "We meet you at arrivals with your name on a sign and drive you to your hotel or address. On the way back we get you to the airport on time.",
+        "points": [
+          "To and from Sarajevo Airport (SJJ)",
+          "We track your flight in real time",
+          "Meet and greet with a name sign"
+        ],
+        "badge": "Every flight, day or night",
+        "cta": "Book a transfer",
+        "wa": "Hi, I'd like to ask about an airport transfer.",
+        "imageAlt": "Black car in front of the airport at night"
+      }
+    ],
     "items": [
       {
-        "title": "Car with a driver",
-        "body": "An experienced driver for business meetings, celebrations or a city tour.",
-        "wa": "Hello, I'm interested in a car with a driver."
-      },
-      {
-        "title": "Airport transfer",
-        "body": "We wait at arrivals with your name on a sign and drive you to your hotel.",
-        "wa": "Hello, I'm interested in an airport transfer."
-      },
-      {
         "title": "Delivery to your address",
-        "body": "We bring the car to your address in Sarajevo Canton and collect it when you're done."
+        "body": "We bring the car to your address in Sarajevo Canton and pick it up when you are done."
       },
       {
         "title": "Vans for groups",
-        "body": "Vito, Caravelle and Transporter for nine people and plenty of luggage."
+        "body": "Vito, Caravelle and Transporter for nine passengers and plenty of luggage."
       },
       {
         "title": "Premium cars",
-        "body": "Mercedes E-Class and Audi Q7 when you want to make a good impression."
+        "body": "Mercedes E Class and Audi Q7 when you want to make an impression."
       },
       {
         "title": "Family cars",
@@ -373,6 +380,101 @@
       }
     ]
   },
+  "Requirements": {
+    "eyebrow": "Before pick-up",
+    "title": "What you need",
+    "accent": "to rent.",
+    "lead": "Four things and the car is yours. If anything is unclear, ask us before you book and we will gladly explain.",
+    "cta": "Rental terms",
+    "ticket": "Pick-up checklist",
+    "items": [
+      {
+        "title": "Driving licence",
+        "body": "Valid, in the name of the driver picking up the car."
+      },
+      {
+        "title": "ID card or passport",
+        "body": "One of the two, together with your driving licence."
+      },
+      {
+        "title": "Card for the deposit",
+        "body": "Credit or debit. The deposit is {standard} €, or {premium} € for the Audi Q7 and Mercedes E Class."
+      },
+      {
+        "title": "No payment to book",
+        "body": "You pay nothing in advance. Cancellation is free up to 24 hours before pick-up."
+      }
+    ],
+    "footer": "The deposit is returned as soon as the car is back in good shape."
+  },
+  "Destinations": {
+    "eyebrow": "Trips from Sarajevo",
+    "title": "Where to this weekend?",
+    "accent": "All within a few hours.",
+    "lead": "Places our guests visit most often. Times are approximate and depend on the road and the season.",
+    "colPlace": "Destination",
+    "colKm": "Distance",
+    "colTime": "Drive",
+    "colSeason": "Season",
+    "ask": "Not sure which car to take? Message us and we will suggest a car and a route.",
+    "cta": "Ask us",
+    "waPrefix": "Hi, I'm planning a trip to:",
+    "items": [
+      {
+        "name": "Jahorina",
+        "note": "The Olympic mountain. Skiing in winter, hiking and bike trails in summer.",
+        "km": 30,
+        "time": "40 min",
+        "season": "Winter and summer"
+      },
+      {
+        "name": "Bjelašnica",
+        "note": "Ski slopes and the road to Lukomir, the highest village in Bosnia.",
+        "km": 30,
+        "time": "40 min",
+        "season": "Winter and summer"
+      },
+      {
+        "name": "Konjic",
+        "note": "Rafting on the Neretva and an old stone bridge in the town centre.",
+        "km": 60,
+        "time": "1 h",
+        "season": "Summer"
+      },
+      {
+        "name": "Mostar",
+        "note": "The Old Bridge and the bazaar, with Jablanica lake on the way.",
+        "km": 130,
+        "time": "2 h",
+        "season": "All year"
+      },
+      {
+        "name": "Kravice",
+        "note": "Waterfalls on the Trebižat river. You can swim there in summer.",
+        "km": 170,
+        "time": "2 h 30 min",
+        "season": "Summer"
+      },
+      {
+        "name": "Jajce",
+        "note": "The Pliva waterfall right in town and the old watermills on the lake.",
+        "km": 160,
+        "time": "2 h 45 min",
+        "season": "All year"
+      }
+    ],
+    "waAsk": "Hi, I'm planning a trip and need advice on which car to take."
+  },
+  "Reviews": {
+    "eyebrow": "Reviews",
+    "title": "What our guests",
+    "accent": "say.",
+    "count": "{count} reviews on Google",
+    "all": "All reviews",
+    "prev": "Previous review",
+    "next": "Next review",
+    "source": "Google"
+  },
   "Visit": {
     "eyebrow": "Find us",
     "title": "Drop by",
@@ -388,12 +490,8 @@
     "cta": "Message on WhatsApp",
     "items": [
       {
-        "q": "What do I need to rent a car?",
-        "a": "A valid driving licence, an ID card or passport and a card for the deposit."
-      },
-      {
-        "q": "How much is the deposit?",
-        "a": "200 € for every car, except the Audi Q7 and Mercedes E-Class where it's 300 €. You get it back as soon as the car is returned in order."
+        "q": "Are all cars automatic?",
+        "a": "Yes. The whole fleet has automatic transmission."
       },
       {
         "q": "What's included in the price?",

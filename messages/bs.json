@@ -290,22 +290,9 @@
     "title": "Sarajevska agencija koja vam dovozi auto tamo gdje vam treba,",
     "accent": "u bilo koje doba dana.",
     "cta": "Pogledaj vozni park",
-    "imageAlt": "Vozač otvara vrata automobila",
     "callout": "Pukla guma usred noći? Samo nazovite, tu smo.",
-    "title2": "Rezervacija traje dvije minute,",
-    "accent2": "preuzimanje još kraće.",
-    "body2": "Izaberete auto i termin, pošaljete upit, a mi potvrdimo porukom ili pozivom. Preko interneta ništa ne plaćate unaprijed.",
-    "points": [
-      {
-        "title": "Rezervišete kako vam odgovara",
-        "body": "Preko forme na sajtu, WhatsAppa ili običnim pozivom."
-      },
-      {
-        "title": "Preuzimanje tamo gdje ste vi",
-        "body": "Na aerodromu, ispred hotela, na vašoj adresi ili u našoj poslovnici."
-      }
-    ],
-    "cta2": "Rezerviši"
+    "badge": "Non-stop, 0 do 24h",
+    "whatsapp": "WhatsApp"
   },
   "HomeFleet": {
     "eyebrow": "Vozni park",
@@ -323,17 +310,37 @@
     "accent": "Imamo i ovo.",
     "cta": "Pišite nam",
     "more": "Saznaj više",
-    "items": [
+    "premium": [
       {
+        "label": "Premium usluga",
         "title": "Najam s vozačem",
-        "body": "Iskusan vozač za poslovne sastanke, proslave ili obilazak grada.",
-        "wa": "Zdravo, zanima me najam s vozačem."
+        "body": "Vozač vas preuzme gdje kažete i vozi koliko treba. Za poslovne sastanke, vjenčanja i obilazak grada, bez brige o parkingu i navigaciji.",
+        "points": [
+          "Iskusni i profesionalni vozači",
+          "Tačni i pouzdani, bez kašnjenja",
+          "Diskrecija i sigurnost u vožnji"
+        ],
+        "badge": "Dostupno 0 do 24h",
+        "cta": "Rezerviši vozača",
+        "wa": "Zdravo, zanima me najam s vozačem.",
+        "imageAlt": "Vozač otvara vrata putniku"
       },
       {
-        "title": "Transfer s aerodroma",
-        "body": "Dočekamo vas na izlazu s imenom na tabli i odvezemo do hotela.",
-        "wa": "Zdravo, zanima me transfer s aerodroma."
-      },
+        "label": "Transfer",
+        "title": "Transfer s Aerodroma Sarajevo",
+        "body": "Dočekamo vas na izlazu s tablom na kojoj piše vaše ime i odvezemo do hotela ili adrese. U povratku vas dovezemo na aerodrom na vrijeme.",
+        "points": [
+          "Do i od Aerodroma Sarajevo (SJJ)",
+          "Pratimo vaš let u stvarnom vremenu",
+          "Dočekujemo vas s tablom na izlazu"
+        ],
+        "badge": "Svaki let, i noću",
+        "cta": "Rezerviši transfer",
+        "wa": "Zdravo, zanima me transfer s aerodroma.",
+        "imageAlt": "Crni automobil ispred aerodroma noću"
+      }
+    ],
+    "items": [
       {
         "title": "Dostava na adresu",
         "body": "Auto dovezemo na vašu adresu u Kantonu Sarajevo i preuzmemo ga kad završite."
@@ -373,6 +380,101 @@
       }
     ]
   },
+  "Requirements": {
+    "eyebrow": "Prije preuzimanja",
+    "title": "Šta vam treba",
+    "accent": "za najam.",
+    "lead": "Četiri stvari i auto je vaš. Ako vam nešto nije jasno, pitajte nas prije rezervacije, rado ćemo objasniti.",
+    "cta": "Uslovi najma",
+    "ticket": "Lista za preuzimanje",
+    "items": [
+      {
+        "title": "Vozačka dozvola",
+        "body": "Važeća, na ime vozača koji preuzima auto."
+      },
+      {
+        "title": "Lična karta ili pasoš",
+        "body": "Jedan od ta dva dokumenta, uz vozačku dozvolu."
+      },
+      {
+        "title": "Kartica za depozit",
+        "body": "Kreditna ili debitna. Depozit je {standard} €, a za Audi Q7 i Mercedes E klasu {premium} €."
+      },
+      {
+        "title": "Rezervacija bez plaćanja",
+        "body": "Ništa ne plaćate unaprijed. Otkazivanje je besplatno do 24 sata prije preuzimanja."
+      }
+    ],
+    "footer": "Depozit vraćamo čim vratite auto u redu."
+  },
+  "Destinations": {
+    "eyebrow": "Izleti iz Sarajeva",
+    "title": "Kuda za vikend?",
+    "accent": "Sve je na par sati vožnje.",
+    "lead": "Mjesta koja naši gosti najčešće obiđu. Vremena su okvirna i zavise od puta i doba godine.",
+    "colPlace": "Destinacija",
+    "colKm": "Udaljenost",
+    "colTime": "Vožnja",
+    "colSeason": "Sezona",
+    "ask": "Ne znate koji auto uzeti? Pišite nam, preporučićemo vozilo i rutu.",
+    "cta": "Pitajte nas",
+    "waPrefix": "Zdravo, planiram izlet:",
+    "items": [
+      {
+        "name": "Jahorina",
+        "note": "Olimpijska planina. Zimi skijanje, ljeti šetnje i staze za bicikl.",
+        "km": 30,
+        "time": "40 min",
+        "season": "Zima i ljeto"
+      },
+      {
+        "name": "Bjelašnica",
+        "note": "Skijalište i put do Lukomira, najvišeg sela u BiH.",
+        "km": 30,
+        "time": "40 min",
+        "season": "Zima i ljeto"
+      },
+      {
+        "name": "Konjic",
+        "note": "Rafting na Neretvi i stari kameni most u centru grada.",
+        "km": 60,
+        "time": "1 h",
+        "season": "Ljeto"
+      },
+      {
+        "name": "Mostar",
+        "note": "Stari most i čaršija, a usput Jablaničko jezero.",
+        "km": 130,
+        "time": "2 h",
+        "season": "Cijela godina"
+      },
+      {
+        "name": "Kravice",
+        "note": "Slapovi na rijeci Trebižat. Ljeti se može i kupati.",
+        "km": 170,
+        "time": "2 h 30 min",
+        "season": "Ljeto"
+      },
+      {
+        "name": "Jajce",
+        "note": "Vodopad Plive u samom gradu i mlinčići na jezeru.",
+        "km": 160,
+        "time": "2 h 45 min",
+        "season": "Cijela godina"
+      }
+    ],
+    "waAsk": "Zdravo, planiram izlet i treba mi savjet koji auto uzeti."
+  },
+  "Reviews": {
+    "eyebrow": "Recenzije",
+    "title": "Šta kažu",
+    "accent": "naši gosti.",
+    "count": "{count} recenzija na Googleu",
+    "all": "Sve recenzije",
+    "prev": "Prethodna recenzija",
+    "next": "Sljedeća recenzija",
+    "source": "Google"
+  },
   "Visit": {
     "eyebrow": "Gdje smo",
     "title": "Svratite do nas",
@@ -388,12 +490,8 @@
     "cta": "Pišite na WhatsApp",
     "items": [
       {
-        "q": "Šta mi treba da iznajmim auto?",
-        "a": "Važeća vozačka dozvola, lična karta ili pasoš i kartica za depozit."
-      },
-      {
-        "q": "Koliki je depozit?",
-        "a": "200 € za sva vozila, osim za Audi Q7 i Mercedes E klasu gdje je 300 €. Vraćamo ga čim vratite auto u redu."
+        "q": "Jesu li sva vozila automatik?",
+        "a": "Jesu. Cijeli vozni park ima automatski mjenjač."
       },
       {
         "q": "Šta je uključeno u cijenu?",

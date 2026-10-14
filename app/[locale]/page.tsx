@@ -17,6 +17,10 @@ import { Visit } from "@/components/home/Visit";
 import { Faq } from "@/components/home/Faq";
 import { CtaBand } from "@/components/home/CtaBand";
 import { ReservationSearchForm } from "@/components/reservation/ReservationSearchForm";
+import { Requirements } from "@/components/home/Requirements";
+import { Destinations } from "@/components/home/Destinations";
+import { Reviews } from "@/components/home/Reviews";
+import { getReviews } from "@/lib/reviews";
 
 export const revalidate = 300;
 
@@ -41,11 +45,12 @@ export default async function HomePage({
 }) {
   setRequestLocale(locale);
 
-  const [cars, locations, extras, bookedExtras] = await Promise.all([
+  const [cars, locations, extras, bookedExtras, reviews] = await Promise.all([
     getBrowseCars().catch(() => [] as CarListItem[]),
     getActiveLocations().catch(() => []),
     getActiveExtras().catch(() => []),
     getBookedExtras().catch(() => []),
+    getReviews(locale),
   ]);
 
   const featured = [...cars.filter((c) => c.isFeatured), ...cars.filter((c) => !c.isFeatured)].slice(0, 6);
@@ -68,6 +73,9 @@ export default async function HomePage({
       />
       <Services />
       <HowItWorks />
+      <Requirements />
+      <Destinations />
+      <Reviews data={reviews} />
       <Visit address={SITE.address} />
       <Faq />
       <CtaBand />
