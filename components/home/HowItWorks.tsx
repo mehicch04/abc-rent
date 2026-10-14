@@ -14,8 +14,7 @@ export function HowItWorks() {
 
   return (
     <section className="px-3 sm:px-4">
-      <div className="relative isolate overflow-hidden rounded-[28px] bg-ink py-20 dark:ring-1 dark:ring-white/10 sm:py-24">
-        <div aria-hidden className="bg-grid absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black,transparent_75%)]" />
+      <div className="overflow-hidden rounded-[28px] bg-ink py-20 dark:ring-1 dark:ring-white/10 sm:py-24">
         <div className="mx-auto max-w-6xl px-5 sm:px-6">
           <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
             <Heading eyebrow={t("eyebrow")} title={t("title")} accent={t("accent")} tone="dark" />
