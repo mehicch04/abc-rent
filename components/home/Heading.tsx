@@ -43,14 +43,14 @@ export function Heading({
     >
       <span
         className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${
-          dark ? "bg-white/10 text-white/75" : "bg-surface-muted text-foreground/70"
+          dark ? "bg-white/10 text-white/75" : "bg-surface text-foreground/70 ring-1 ring-border"
         }`}
       >
         <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
         {eyebrow}
       </span>
       <h2
-        className={`mt-4 font-display text-[1.9rem] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-[2.6rem] ${
+        className={`mt-4 text-balance font-display text-[1.9rem] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-[2.6rem] ${
           dark ? "text-white" : "text-foreground"
         }`}
       >

@@ -23,7 +23,7 @@ export function Destinations() {
     <section className="bg-surface-muted py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <Heading eyebrow={t("eyebrow")} title={t("title")} accent={t("accent")} accentTone="muted" />
+          <Heading eyebrow={t("eyebrow")} title={t("title")} accent={t("accent")} />
           <p className="max-w-sm text-sm leading-relaxed text-muted-foreground lg:pb-1">{t("lead")}</p>
         </div>
 

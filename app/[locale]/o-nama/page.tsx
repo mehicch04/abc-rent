@@ -55,7 +55,7 @@ export default async function AboutPage({
 
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
-          <Heading eyebrow={t("storyTitle")} title={t("storyHeadline")} accent={t("storyAccent")} accentTone="muted" />
+          <Heading eyebrow={t("storyTitle")} title={t("storyHeadline")} accent={t("storyAccent")} />
           <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
             <p className="text-foreground">{t("intro2")}</p>
             <p>{t("storyP1")}</p>

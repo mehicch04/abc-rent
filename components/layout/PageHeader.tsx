@@ -32,7 +32,7 @@ export function PageHeader({
               {eyebrow}
             </span>
           )}
-          <h1 className="mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.08] tracking-[-0.025em] sm:text-[3.4rem]">
+          <h1 className="mt-5 max-w-3xl text-balance font-display text-4xl font-semibold leading-[1.08] tracking-[-0.025em] sm:text-[3.4rem]">
             {title}
           </h1>
           {lead && <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">{lead}</p>}

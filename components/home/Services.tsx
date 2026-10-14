@@ -37,7 +37,7 @@ export function Services() {
   return (
     <section id="usluge" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-20 sm:px-6 sm:py-28">
       <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-        <Heading eyebrow={t("eyebrow")} title={t("title")} accent={t("accent")} accentTone="muted" />
+        <Heading eyebrow={t("eyebrow")} title={t("title")} accent={t("accent")} />
         <PillLink href={wa()} variant="dark" className="self-start sm:self-auto">
           {t("cta")}
         </PillLink>

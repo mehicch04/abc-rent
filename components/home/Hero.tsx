@@ -28,16 +28,19 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
   return (
     <section className="px-3 pt-1 sm:px-4">
       <div className="relative isolate overflow-hidden rounded-[28px] bg-ink">
-        <Image
-          src="/img/hero-sarajevo.webp"
-          alt={t("imageAlt")}
-          fill
-          priority
-          sizes="100vw"
-          className="-z-10 object-cover object-[70%_center]"
-        />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/55 to-black/10" />
-        <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-gradient-to-t from-black/70 to-transparent" />
+        <div className="absolute inset-0 -z-10 lg:left-auto lg:w-[74%]">
+          <Image
+            src="/img/hero-fleet.webp"
+            alt={t("imageAlt")}
+            fill
+            priority
+            sizes="(max-width: 1023px) 100vw, 74vw"
+            className="object-cover object-[64%_55%] lg:object-[42%_center] lg:[mask-image:linear-gradient(to_right,transparent,black_38%)]"
+          />
+        </div>
+        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/75 via-ink/50 to-ink/85 lg:hidden" />
+        <div aria-hidden className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-ink via-ink/60 via-40% to-ink/0 to-70% lg:block" />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 hidden h-2/5 bg-gradient-to-t from-ink/80 to-transparent lg:block" />
 
         <div className="mx-auto flex min-h-[620px] max-w-6xl flex-col justify-between px-5 pb-28 pt-14 sm:px-6 lg:min-h-[700px] lg:pt-20">
           <div className="max-w-2xl text-white">
@@ -68,7 +71,7 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.12, ease }}
-              className="mt-6 max-w-lg text-base leading-relaxed text-white/75 sm:text-lg"
+              className="mt-6 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg"
             >
               {t("subtitle")}
             </motion.p>

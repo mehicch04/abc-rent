@@ -80,7 +80,7 @@ export function PriceBreakdown({
 
         <div className="flex items-baseline justify-between gap-4 border-t border-border pt-2.5">
           <dt className="font-semibold text-foreground">{t("estimate")}</dt>
-          <dd className="shrink-0 font-display text-lg font-bold tabular-nums text-brand-strong">
+          <dd className="shrink-0 font-display text-lg font-semibold tabular-nums text-brand-strong">
             {formatPrice(grandTotal, currency)}
           </dd>
         </div>

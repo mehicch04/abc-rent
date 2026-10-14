@@ -55,7 +55,7 @@ export async function ReservationSummary({
 
   return (
     <div className="mt-10">
-      <h2 className="mb-4 text-center font-display text-2xl font-bold tracking-tight sm:text-3xl">
+      <h2 className="mb-4 text-center font-display text-2xl font-semibold tracking-tight sm:text-3xl">
         {t("detailsTitle")}
       </h2>
       <div className="grid gap-4 sm:grid-cols-3">

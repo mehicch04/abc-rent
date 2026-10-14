@@ -21,7 +21,6 @@ export function HomeAbout() {
             eyebrow={t("eyebrow")}
             title={t("title")}
             accent={t("accent")}
-            accentTone="muted"
             className="max-w-3xl"
           />
           <PillLink href="/vozila" className="mt-8">
