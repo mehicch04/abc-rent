@@ -8,7 +8,6 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { NAV_LINKS, SITE } from "@/lib/site-config";
 import { useCompany } from "@/components/company/CompanyProvider";
-import { PillLink } from "@/components/ui/PillLink";
 import { ThemeToggle } from "./ThemeToggle";
 import { CurrencySwitch } from "@/components/currency/CurrencySwitch";
 import { LanguageToggle } from "./LanguageToggle";
@@ -72,9 +71,6 @@ export function Navbar() {
           <div className="hidden sm:block">
             <ThemeToggle />
           </div>
-          <PillLink href="/vozila" className="hidden sm:inline-flex">
-            {t("book")}
-          </PillLink>
           <button
             type="button"
             aria-label={t("menu")}

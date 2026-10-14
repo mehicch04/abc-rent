@@ -30,9 +30,9 @@ export function BackToTop() {
           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.92 }}
-          className="fixed bottom-5 right-5 z-40 inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand text-brand-foreground shadow-card ring-1 ring-white/15 transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:bottom-6 sm:right-6 sm:h-12 sm:w-12"
+          className="fixed bottom-[84px] right-[26px] z-40 inline-flex h-11 w-11 items-center justify-center rounded-full bg-surface text-foreground shadow-[0_6px_18px_-8px_rgba(11,18,32,0.35)] ring-1 ring-border transition-colors hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:bottom-[92px] sm:right-[30px]"
         >
-          <ArrowUp className="h-5 w-5" strokeWidth={2.5} />
+          <ArrowUp className="h-[18px] w-[18px]" strokeWidth={2.25} />
         </motion.button>
       )}
     </AnimatePresence>

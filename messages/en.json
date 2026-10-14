@@ -22,7 +22,9 @@
     "search": "Search cars",
     "placeholder": "Select a location",
     "errRequired": "Please fill in all fields.",
-    "errOrder": "Return must be after pick-up."
+    "errOrder": "Return must be after pick-up.",
+    "sameAsPickup": "Same as pick-up",
+    "change": "Change"
   },
   "Fleet": {
     "title": "Our fleet",
@@ -187,7 +189,10 @@
     "backToTop": "Back to top",
     "prevImage": "Previous photo",
     "nextImage": "Next photo",
-    "closeGallery": "Close gallery"
+    "closeGallery": "Close gallery",
+    "waLabel": "Message us on WhatsApp",
+    "waShort": "Message us",
+    "waText": "Hi, I'd like to ask about renting a car."
   },
   "Form": {
     "firstName": "First name",

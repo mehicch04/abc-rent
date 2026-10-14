@@ -16,6 +16,7 @@ import { getActiveLocations } from "@/lib/fleet-data";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
+import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 const inter = Inter({
@@ -154,6 +155,7 @@ export default async function LocaleLayout({
                 <Footer company={company} locations={footerLocations} />
               </div>
               <BackToTop />
+              <WhatsAppFab />
             </CurrencyProvider>
             </CompanyProvider>
           </NextIntlClientProvider>

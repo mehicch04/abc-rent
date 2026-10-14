@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import {
+  ArrowRight,
   Check,
   Armchair,
   Briefcase,
@@ -75,7 +76,7 @@ export function CarDetail({
   return (
     <>
       <div className="mt-6 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
-        <div className="overflow-hidden rounded-2xl">
+        <div className="isolate self-start overflow-hidden rounded-2xl [transform:translateZ(0)] lg:sticky lg:top-24">
           <CarGallery
             images={car.images ?? []}
             title={car.title}
@@ -114,9 +115,12 @@ export function CarDetail({
               <button
                 type="button"
                 onClick={() => setBooking(true)}
-                className="inline-flex h-12 flex-1 items-center justify-center rounded-full bg-brand px-6 text-sm font-medium text-white transition-colors hover:bg-brand-700"
+                className="group inline-flex h-12 flex-1 items-center justify-between rounded-full bg-brand pl-6 pr-1.5 text-sm font-medium text-white transition-colors hover:bg-brand-700"
               >
                 {t("bookNow")}
+                <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-brand-strong">
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
               </button>
               <a
                 href={whatsappUrl}

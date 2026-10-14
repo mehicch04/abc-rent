@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, CalendarDays, Clock, ArrowRight, AlertCircle, ChevronDown } from "lucide-react";
+import { MapPin, CalendarDays, Clock, ArrowRight, AlertCircle, ChevronDown, Repeat2 } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { DateField } from "@/components/ui/DateField";
@@ -35,18 +35,24 @@ function StyledSelect({
   onChange,
   children,
   ariaLabel,
+  disabled,
+  selectRef,
 }: {
   id?: string;
   value: string;
   onChange: (v: string) => void;
   children: React.ReactNode;
   ariaLabel?: string;
+  disabled?: boolean;
+  selectRef?: React.Ref<HTMLSelectElement>;
 }) {
   return (
     <div className="relative">
       <select
+        ref={selectRef}
         id={id}
         value={value}
+        disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
         aria-label={ariaLabel}
         className={`${CONTROL} appearance-none pr-10`}
@@ -73,6 +79,7 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
   const [returnTime, setReturnTime] = useState("09:00");
   const [today, setToday] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const returnRef = useRef<HTMLSelectElement>(null);
 
   useReturnAfterPickup(pickupDate, returnDate, setReturnDate);
 
@@ -83,6 +90,12 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
   }, []);
 
   const effectiveReturnId = sameLocation ? pickupLocationId : returnLocationId;
+  const pickupName = locations.find((l) => l.id === pickupLocationId)?.name;
+
+  function pickOtherReturn() {
+    setSameLocation(false);
+    requestAnimationFrame(() => returnRef.current?.focus());
+  }
 
   function handleSubmit() {
     setError(null);
@@ -117,8 +130,7 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
       className="w-full rounded-2xl border border-border bg-surface p-5 shadow-[0_24px_60px_-40px_rgba(11,18,32,0.45)] sm:p-6"
     >
       <div className="grid gap-4">
-        {/* Locations row */}
-        <div className={`grid grid-cols-1 gap-4 ${sameLocation ? "" : "sm:grid-cols-2"}`}>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="pickup-loc" className={LBL}>
               <MapPin className="h-3.5 w-3.5 text-brand" />
@@ -136,20 +148,25 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
             </StyledSelect>
           </div>
 
-          <AnimatePresence initial={false}>
-            {!sameLocation && (
-              <motion.div
-                key="return-loc"
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.22 }}
+          <div>
+            <label htmlFor="return-loc" className={LBL}>
+              <MapPin className="h-3.5 w-3.5 text-brand" />
+              {t("returnLocation")}
+            </label>
+            <div className="relative">
+              <div
+                aria-hidden={sameLocation}
+                className={`transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  sameLocation ? "pointer-events-none translate-y-1 opacity-0" : "translate-y-0 opacity-100"
+                }`}
               >
-                <label htmlFor="return-loc" className={LBL}>
-                  <MapPin className="h-3.5 w-3.5 text-brand" />
-                  {t("returnLocation")}
-                </label>
-                <StyledSelect id="return-loc" value={returnLocationId} onChange={setReturnLocationId}>
+                <StyledSelect
+                  id="return-loc"
+                  value={returnLocationId}
+                  onChange={setReturnLocationId}
+                  disabled={sameLocation}
+                  selectRef={returnRef}
+                >
                   <option value="" disabled>
                     {t("placeholder")}
                   </option>
@@ -159,9 +176,27 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
                     </option>
                   ))}
                 </StyledSelect>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
+              <button
+                type="button"
+                onClick={pickOtherReturn}
+                tabIndex={sameLocation ? 0 : -1}
+                aria-hidden={!sameLocation}
+                className={`group absolute inset-0 flex items-center gap-2.5 rounded-xl border border-dashed border-border bg-surface-muted px-3.5 text-left text-sm transition-[opacity,transform,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-brand/60 focus-visible:border-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 ${
+                  sameLocation ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
+                }`}
+              >
+                <Repeat2 className="h-4 w-4 shrink-0 text-brand" />
+                <span className="min-w-0 truncate text-muted-foreground">
+                  {t("sameAsPickup")}
+                  {pickupName && <span className="text-foreground">{` · ${pickupName}`}</span>}
+                </span>
+                <span className="ml-auto shrink-0 text-xs font-medium text-brand-strong underline-offset-4 group-hover:underline">
+                  {t("change")}
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Dates row */}
@@ -222,12 +257,16 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
 
       {/* Bottom row: same-location toggle + submit */}
       <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <label className="flex cursor-pointer select-none items-center gap-2 text-sm text-muted-foreground">
+        <label className="inline-flex cursor-pointer select-none items-center gap-3 self-start text-sm text-foreground/80">
           <input
             type="checkbox"
             checked={sameLocation}
             onChange={(e) => setSameLocation(e.target.checked)}
-            className="h-4 w-4 rounded border-border accent-brand"
+            className="peer sr-only"
+          />
+          <span
+            aria-hidden
+            className="relative h-6 w-11 shrink-0 rounded-full bg-foreground/15 transition-colors duration-300 after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow-sm after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.22,1,0.36,1)] peer-checked:bg-brand peer-checked:after:translate-x-5 peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-surface"
           />
           {t("sameLocation")}
         </label>

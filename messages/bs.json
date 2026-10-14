@@ -22,7 +22,9 @@
     "search": "Pretraži vozila",
     "placeholder": "Odaberite lokaciju",
     "errRequired": "Molimo popunite sva polja.",
-    "errOrder": "Datum vraćanja mora biti nakon datuma preuzimanja."
+    "errOrder": "Datum vraćanja mora biti nakon datuma preuzimanja.",
+    "sameAsPickup": "Isto kao preuzimanje",
+    "change": "Promijeni"
   },
   "Fleet": {
     "title": "Vozni park",
@@ -187,7 +189,10 @@
     "backToTop": "Nazad na vrh",
     "prevImage": "Prethodna slika",
     "nextImage": "Sljedeća slika",
-    "closeGallery": "Zatvori galeriju"
+    "closeGallery": "Zatvori galeriju",
+    "waLabel": "Pišite nam na WhatsApp",
+    "waShort": "Pišite nam",
+    "waText": "Zdravo, zanima me najam vozila."
   },
   "Form": {
     "firstName": "Ime",
