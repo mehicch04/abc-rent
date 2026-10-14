@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { SITE } from "@/lib/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -37,16 +38,10 @@ export default async function ContactPage({
   const mapSrc = `https://maps.google.com/maps?q=${company.map.lat},${company.map.lng}&z=15&hl=${locale}&output=embed`;
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-      <header className="max-w-2xl">
-        <h1 className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-          {t("title")}
-        </h1>
-        <p className="mt-4 text-lg text-muted-foreground">{t("lead")}</p>
-      </header>
-
-      {/* Quick-info strip */}
-      <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <>
+    <PageHeader eyebrow={company.name} title={t("title")} lead={t("lead")} />
+    <div className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
+      <div className="relative z-10 -mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {/* Working hours */}
         <div className="flex flex-col items-center rounded-2xl border border-border bg-surface p-6 text-center shadow-card transition-shadow duration-300 hover:shadow-card-hover">
           <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand/10 text-brand">
@@ -169,5 +164,6 @@ export default async function ContactPage({
         </div>
       </div>
     </div>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { buildPageMetadata } from "@/lib/seo";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AlertTriangle } from "lucide-react";
@@ -85,8 +86,12 @@ export default async function VehiclesPage({
   const heading = periodValid ? t("resultsTitle") : t("allVehicles");
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
-      <ReservationSearchForm locations={locations} />
+    <>
+    <PageHeader eyebrow={t("title")} title={heading} lead={t("subtitle")} />
+    <div className="mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6 sm:pb-14">
+      <div className="relative z-10 -mt-14">
+        <ReservationSearchForm locations={locations} />
+      </div>
 
       {periodValid && (
         <div className="mt-8">
@@ -106,12 +111,7 @@ export default async function VehiclesPage({
         </div>
       )}
 
-      <div className="mb-8 mt-12">
-        <h1 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          {heading}
-        </h1>
-        <p className="mt-3 text-muted-foreground">{t("subtitle")}</p>
-      </div>
+      <div className="mt-12" />
 
       {items.length > 0 ? (
         <FleetGrid
@@ -129,5 +129,6 @@ export default async function VehiclesPage({
         </p>
       )}
     </div>
+    </>
   );
 }

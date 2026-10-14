@@ -70,6 +70,14 @@ const config: Config = {
           "linear-gradient(to top, hsl(var(--background)) 4%, transparent 60%)",
       },
       keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        progress: {
+          "0%": { transform: "scaleX(0)" },
+          "100%": { transform: "scaleX(1)" },
+        },
         float: {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-8px)" },
@@ -82,6 +90,8 @@ const config: Config = {
       animation: {
         "fade-up": "fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both",
         float: "float 6s ease-in-out infinite",
+        marquee: "marquee 40s linear infinite",
+        progress: "progress 5.2s linear forwards",
       },
     },
   },

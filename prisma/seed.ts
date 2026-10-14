@@ -20,8 +20,8 @@ const locations = [
     street: "Munira Gavrankapetanovića 108",
     city: "Sarajevo",
     postalCode: "71210",
-    latitude: 43.8293,
-    longitude: 18.3086,
+    latitude: 43.837469,
+    longitude: 18.3302792,
     sortOrder: 0,
   },
   {

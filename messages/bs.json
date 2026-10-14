@@ -7,43 +7,41 @@
     "contact": "Kontakt",
     "menu": "Meni",
     "theme": "Promijeni temu",
-    "language": "Jezik"
+    "language": "Jezik",
+    "book": "Rezerviši",
+    "call": "Pozovi"
   },
   "Hero": {
-    "eyebrow": "Rent a Car Sarajevo",
+    "ratingChip": "{count} recenzija na Googleu",
     "titleA": "Sletite u Sarajevo.",
-    "titleB": "Auto vas već čeka.",
+    "titleB": "Auto vas čeka",
+    "rotating": [
+      "na aerodromu.",
+      "ispred hotela.",
+      "na vašoj adresi."
+    ],
     "subtitle": "Besplatno dovozimo vozilo na Aerodrom Sarajevo ili na vašu adresu. Depozit 200 €, neograničena kilometraža i puno osiguranje u svakoj cijeni.",
     "ctaSearch": "Rezerviši vozilo",
-    "ctaFleet": "Pogledaj vozni park",
-    "reviews": "Google ocjena",
-    "open247": "Otvoreno 0 do 24h",
+    "ctaFleet": "Vozni park",
+    "available": "Dostupno odmah",
     "fromLabel": "već od",
     "perDay": "/ dan",
+    "seats": "{n} sjedišta",
+    "bags": "{n} kofera",
+    "auto": "Automatik",
+    "details": "Detalji",
+    "groups": {
+      "city": "Gradski",
+      "suv": "SUV",
+      "premium": "Premium",
+      "van": "Kombi"
+    },
     "deliveryTitle": "Dostava na aerodrom",
     "deliveryValue": "Besplatno",
-    "imageAlt": "Vozila ABC Rent a Car u Sarajevu",
-    "scroll": "Na rezervaciju"
-  },
-  "Perks": {
-    "items": [
-      {
-        "title": "Besplatna dostava",
-        "body": "Aerodrom Sarajevo (SJJ) i bilo koja adresa u Sarajevu."
-      },
-      {
-        "title": "Depozit 200 €",
-        "body": "Isti za sva vozila. Za Audi Q7 i Mercedes E klasu 300 €."
-      },
-      {
-        "title": "Neograničeni kilometri",
-        "body": "Vozite koliko želite, bez doplate po kilometru."
-      },
-      {
-        "title": "Puno osiguranje",
-        "body": "Svako vozilo je potpuno osigurano za miran put."
-      }
-    ]
+    "statRating": "Google ocjena, {count} recenzija",
+    "statDelivery": "Dostava na aerodrom i adresu",
+    "statDeposit": "Depozit za sva vozila",
+    "statFleet": "Vozila u floti"
   },
   "Search": {
     "title": "Pronađite svoje vozilo",
@@ -143,7 +141,11 @@
     "follow": "Pratite nas",
     "tagline": "Rent a car u Sarajevu. Besplatna dostava na aerodrom i adresu, usluga vozača i transferi.",
     "rights": "Sva prava zadržana.",
-    "hours": "Radno vrijeme"
+    "hours": "Radno vrijeme",
+    "ctaA": "Vaš auto u Sarajevu",
+    "ctaB": "je spreman.",
+    "book": "Rezerviši vozilo",
+    "navTitle": "Stranice"
   },
   "About": {
     "eyebrow": "O nama",
@@ -232,37 +234,6 @@
       "imageAlt": "Automobil za transfer ispred aerodroma"
     }
   },
-  "WhyChoose": {
-    "eyebrow": "Zašto ABC",
-    "title": "Sve što očekujete od dobrog rent a cara",
-    "subtitle": "Bez sitnih slova i bez iznenađenja na kraju najma.",
-    "items": [
-      {
-        "title": "Potpuno osigurana vozila",
-        "body": "Sva vozila imaju puno osiguranje, za vožnju bez brige."
-      },
-      {
-        "title": "Dostupni 0 do 24h",
-        "body": "Naš tim je tu u svakom trenutku kada vam treba vozilo."
-      },
-      {
-        "title": "Besplatna dostava",
-        "body": "Dovozimo vozilo na vašu lokaciju u Sarajevu bez doplate."
-      },
-      {
-        "title": "Kvalitetna vozila",
-        "body": "Samo provjerena i redovno održavana vozila."
-      },
-      {
-        "title": "Pomoć na cesti",
-        "body": "Ako se nešto desi na putu, naš tim vam je na raspolaganju."
-      },
-      {
-        "title": "Jasne cijene",
-        "body": "Bez skrivenih troškova. Cijena koju vidite je cijena koju plaćate."
-      }
-    ]
-  },
   "HowItWorks": {
     "eyebrow": "Kako funkcioniše",
     "title": "Do vozila u tri koraka",
@@ -281,13 +252,6 @@
         "body": "Dovozimo vozilo na aerodrom, adresu ili vas čekamo u poslovnici."
       }
     ]
-  },
-  "Reviews": {
-    "eyebrow": "Iskustva klijenata",
-    "title": "Ocjena {score} na Googleu",
-    "subtitle": "Prosječna ocjena zadovoljnih klijenata koji su vozili s nama.",
-    "subtitleCount": "Prosječna ocjena na osnovu {count} recenzija zadovoljnih klijenata.",
-    "cta": "Pročitajte recenzije"
   },
   "Faq": {
     "eyebrow": "Česta pitanja",
@@ -317,13 +281,11 @@
         "q": "Šta ako doživim saobraćajnu nezgodu?",
         "a": "Odmah pozovite policiju i nas. Ne pomjerajte vozilo dok policija ne dođe, a mi ćemo vas voditi kroz sve dalje korake."
       }
-    ]
-  },
-  "FinalCta": {
-    "title": "Spremni za put?",
-    "subtitle": "Rezervišite vozilo u par klikova. Dostupnost potvrđujemo u najkraćem roku.",
-    "ctaPrimary": "Rezerviši vozilo",
-    "ctaSecondary": "Nazovite nas"
+    ],
+    "lead": "Najčešća pitanja prije najma. Ako ne nađete odgovor, javite nam se.",
+    "helpTitle": "Imate drugo pitanje?",
+    "helpText": "Odgovaramo brzo, svaki dan i u bilo koje doba.",
+    "call": "Pozovite nas"
   },
   "Form": {
     "firstName": "Ime",
@@ -387,5 +349,75 @@
     "estimateNote": "Okvirni iznos. Konačnu cijenu potvrđujemo uz rezervaciju.",
     "freeLeft": "Slobodno još: {count}",
     "unavailable": "Nedostupno u ovom periodu"
+  },
+  "Showcase": {
+    "eyebrow": "Vozni park",
+    "title": "Pronađite auto za svoj put",
+    "subtitle": "Od gradskih automobila do Mercedesa E klase i kombija za 9 putnika. Svi s automatskim mjenjačem.",
+    "all": "Sva vozila",
+    "prev": "Prethodna vozila",
+    "next": "Sljedeća vozila",
+    "auto": "Automatik",
+    "from": "od",
+    "perDay": "/ dan",
+    "viewAll": "Pogledaj svih {count} vozila"
+  },
+  "Bento": {
+    "eyebrow": "Zašto ABC",
+    "title": "Sve uključeno, bez sitnih slova",
+    "subtitle": "Ono što drugi naplaćuju posebno, kod nas je dio cijene.",
+    "delivery": {
+      "badge": "0 € dostava",
+      "title": "Auto vas čeka na Aerodromu Sarajevo",
+      "body": "Dovozimo vozilo na aerodrom ili na bilo koju adresu u Kantonu Sarajevo, bez doplate i u bilo koje doba."
+    },
+    "deposit": {
+      "value": "200 €",
+      "title": "Nizak depozit",
+      "body": "Isti za sva vozila. Za Audi Q7 i Mercedes E klasu 300 €."
+    },
+    "mileage": {
+      "title": "Neograničeni kilometri",
+      "body": "Vozite koliko želite, bez doplate po kilometru."
+    },
+    "support": {
+      "value": "24/7",
+      "title": "Uvijek dostupni",
+      "body": "Za rezervaciju i za pomoć na putu, danju i noću."
+    },
+    "quality": {
+      "title": "Provjerena vozila",
+      "body": "Redovno servisirana, čista i spremna za put."
+    },
+    "insurance": {
+      "title": "Puno osiguranje u cijeni",
+      "body": "Svako vozilo je potpuno osigurano, pa vozite bez brige.",
+      "chips": [
+        "Puno osiguranje",
+        "Neograničena kilometraža",
+        "Dostava u Sarajevu",
+        "Pomoć na cesti 24/7"
+      ]
+    },
+    "prices": {
+      "title": "Jasne cijene",
+      "body": "Cijena koju vidite je cijena koju plaćate."
+    },
+    "roadside": {
+      "title": "Pomoć na cesti",
+      "body": "Ako se nešto desi na putu, naš tim je odmah tu."
+    }
+  },
+  "Visit": {
+    "eyebrow": "Gdje smo",
+    "title": "Lako nas je pronaći",
+    "subtitle": "Poslovnica je u Sarajevu, a vozilo vam možemo dovesti i na aerodrom ili na vašu adresu.",
+    "directions": "Upute do nas",
+    "openMap": "Otvori u Google Maps",
+    "ratingLabel": "Google ocjena",
+    "reviews": "{count} recenzija",
+    "readReviews": "Pročitajte recenzije",
+    "hours": "Radno vrijeme",
+    "whatsapp": "Pišite nam na WhatsApp"
   }
 }

@@ -14,11 +14,11 @@ export const SITE = {
   city: "Sarajevo",
   region: "Kanton Sarajevo",
   map: {
-    lat: 43.8293,
-    lng: 18.3086,
+    lat: 43.837469,
+    lng: 18.3302792,
     link: "https://maps.google.com/?cid=7151839974306582764",
   },
-  rating: { score: 5.0, count: 0 },
+  rating: { score: 5.0, count: 189 },
   socials: {
     facebook: null as string | null,
     instagram: null as string | null,

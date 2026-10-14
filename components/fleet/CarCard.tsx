@@ -76,14 +76,14 @@ export function CarCard({
   return (
     <article
       data-frozen={lightbox !== null || undefined}
-      className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-[transform,box-shadow,border-color] duration-300 [@media(hover:hover)]:hover:-translate-y-1 hover:border-brand/50 hover:shadow-card-hover [@media(hover:hover)]:data-[frozen]:-translate-y-1 [@media(hover:hover)]:data-[frozen]:border-brand/50 [@media(hover:hover)]:data-[frozen]:shadow-card-hover"
+      className="group relative flex cursor-pointer flex-col overflow-hidden rounded-[1.75rem] border border-border bg-surface p-2 shadow-card transition-[transform,box-shadow,border-color] duration-300 [@media(hover:hover)]:hover:-translate-y-1 hover:border-brand/50 hover:shadow-card-hover [@media(hover:hover)]:data-[frozen]:-translate-y-1 [@media(hover:hover)]:data-[frozen]:border-brand/50 [@media(hover:hover)]:data-[frozen]:shadow-card-hover"
     >
-      <span className="absolute left-4 top-4 z-10 rounded-full bg-brand px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-foreground">
+      <span className="absolute left-5 top-5 z-20 rounded-full bg-white/85 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-ink backdrop-blur">
         {label(CLASS_LABELS[car.carClass], locale)}
       </span>
 
       {/* Above the stretched link so zooming a photo still works. */}
-      <div className="relative z-10">
+      <div className="relative z-10 overflow-hidden rounded-[1.35rem]">
         <CarGallery
           images={images}
           title={car.title}
@@ -102,9 +102,9 @@ export function CarCard({
         thumbSizes={imageSizes}
       />
 
-      <div className="flex flex-1 flex-col gap-4 p-5">
+      <div className="flex flex-1 flex-col gap-4 px-3 pb-3 pt-4">
         <div>
-          <h3 className="font-display text-lg font-semibold leading-tight tracking-tight">
+          <h3 className="font-display text-lg font-bold leading-tight tracking-tight">
             <Link
               href={`/${locale}/vozila/${car.slug}`}
               className="transition-colors before:absolute before:inset-0 before:z-0 before:content-[''] hover:text-brand-strong"
@@ -133,7 +133,7 @@ export function CarCard({
             {common("from")}{" "}
             <Price
               bam={car.pricePerDay}
-              className="text-base font-semibold text-foreground"
+              className="font-display text-2xl font-extrabold text-foreground"
             />{" "}
             / {common("perDay")}
           </p>
@@ -143,7 +143,7 @@ export function CarCard({
           <button
             type="button"
             onClick={() => onSelect?.(car)}
-            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-brand px-4 py-2.5 text-sm font-semibold text-brand-foreground shadow-brand transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-ink px-4 py-3 dark:bg-white dark:text-ink hover:!bg-brand hover:!text-white text-sm font-semibold text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             {t("select")}
             <ChevronRight className="h-4 w-4" />
@@ -154,7 +154,7 @@ export function CarCard({
             target="_blank"
             rel="noopener noreferrer"
             aria-label="WhatsApp"
-            className="inline-flex items-center justify-center rounded-xl border border-border bg-surface-muted px-3.5 py-2.5 text-foreground transition-colors hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface-muted text-foreground transition-colors hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <WhatsAppIcon className="h-5 w-5" />
           </a>

@@ -15,7 +15,6 @@ import { getCompany } from "@/lib/company";
 import { getActiveLocations } from "@/lib/fleet-data";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { PageBackground } from "@/components/layout/PageBackground";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { JsonLd } from "@/components/seo/JsonLd";
 
@@ -33,21 +32,20 @@ const montserrat = Montserrat({
 });
 
 const CLIENT_NAMESPACES = [
+  "Bento",
   "Common",
   "Extras",
   "Faq",
-  "FinalCta",
   "Fleet",
   "Form",
   "Hero",
   "HowItWorks",
   "Inquiry",
   "Nav",
-  "Perks",
-  "Reviews",
   "Search",
   "Services",
-  "WhyChoose",
+  "Showcase",
+  "Visit",
 ] as const;
 
 export const metadata: Metadata = {
@@ -147,7 +145,6 @@ export default async function LocaleLayout({
           <NextIntlClientProvider messages={messages}>
             <CompanyProvider value={company}>
             <CurrencyProvider defaultCurrency="EUR">
-              <PageBackground />
               <div className="flex min-h-dvh flex-col">
                 <Navbar />
                 <main className="flex-1">{children}</main>

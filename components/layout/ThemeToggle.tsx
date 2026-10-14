@@ -26,7 +26,7 @@ export function ThemeToggle() {
       type="button"
       aria-label={t("theme")}
       onClick={toggle}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-foreground/80 transition-colors hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground/80 transition-colors hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
       {/* Avoid hydration mismatch: render a neutral icon until mounted */}
       {!mounted ? (

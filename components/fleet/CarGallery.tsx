@@ -74,7 +74,7 @@ export function CarGallery({
 
   return (
     <div
-      className="group/gallery relative aspect-[16/10] w-full overflow-hidden bg-white"
+      className="group/gallery relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br from-[#F8FBFD] to-[#E3EEF7]"
       onPointerEnter={warmAll}
       onFocus={warmAll}
       onTouchStart={(e) => {
@@ -105,7 +105,7 @@ export function CarGallery({
               priority={priority && i === 0}
               sizes={sizes}
               quality={90}
-              className={`object-contain p-6 transition-[opacity,transform] duration-300 ease-out [@media(hover:hover)]:group-hover/gallery:scale-[1.03] ${
+              className={`object-contain p-4 mix-blend-multiply transition-[opacity,transform] duration-300 ease-out [@media(hover:hover)]:group-hover/gallery:scale-[1.03] ${
                 frozen ? "[@media(hover:hover)]:scale-[1.03]" : ""
               } ${
                 i === index ? "opacity-100" : "opacity-0"

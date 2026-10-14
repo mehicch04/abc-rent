@@ -1,25 +1,20 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ArrowRight } from "lucide-react";
 
-import { Link } from "@/i18n/navigation";
-import { prisma } from "@/lib/prisma";
-import { getActiveExtras } from "@/lib/extras";
-import { getBookedExtras } from "@/lib/extras-availability";
-import { toCarListItem } from "@/lib/types";
-import { getCompany } from "@/lib/company";
-import { getBrowseCars } from "@/lib/fleet-data";
-import { Hero } from "@/components/home/Hero";
-import { Perks } from "@/components/home/Perks";
+import { getActiveLocations, getBrowseCars } from "@/lib/fleet-data";
+import { carCategories } from "@/lib/car-categories";
+import { SITE } from "@/lib/site-config";
+import type { CarListItem } from "@/lib/types";
+import { Hero, type ShowcaseCar } from "@/components/home/Hero";
+import { BrandMarquee } from "@/components/home/BrandMarquee";
+import { FleetShowcase, type ShowcaseItem } from "@/components/home/FleetShowcase";
+import { Bento } from "@/components/home/Bento";
 import { Services } from "@/components/home/Services";
-import { WhyChoose } from "@/components/home/WhyChoose";
 import { HowItWorks } from "@/components/home/HowItWorks";
-import { Reviews } from "@/components/home/Reviews";
+import { Visit } from "@/components/home/Visit";
 import { Faq } from "@/components/home/Faq";
-import { FinalCta } from "@/components/home/FinalCta";
 import { ReservationSearchForm } from "@/components/reservation/ReservationSearchForm";
-import { FleetGrid } from "@/components/fleet/FleetGrid";
 
 export const revalidate = 300;
 
@@ -37,6 +32,33 @@ export async function generateMetadata({
   });
 }
 
+const GROUPS: { group: ShowcaseCar["group"]; test: (c: CarListItem) => boolean }[] = [
+  { group: "premium", test: (c) => carCategories(c).includes("LUXURY") && carCategories(c).includes("LIMUZINA") },
+  { group: "suv", test: (c) => carCategories(c).includes("SUV") && !carCategories(c).includes("LUXURY") },
+  { group: "city", test: (c) => carCategories(c).includes("COMPACT") && !carCategories(c).includes("SUV") },
+  { group: "van", test: (c) => carCategories(c).includes("MINIBUS") },
+];
+
+function pickShowcase(cars: CarListItem[]): ShowcaseCar[] {
+  const out: ShowcaseCar[] = [];
+  for (const g of GROUPS) {
+    const pool = cars.filter((c) => g.test(c) && c.images?.[0]);
+    const car = pool.find((c) => c.isFeatured) ?? pool[0];
+    if (!car) continue;
+    out.push({
+      group: g.group,
+      slug: car.slug,
+      title: car.title,
+      model: car.model,
+      image: car.images[0],
+      price: car.pricePerDay,
+      passengers: car.passengers,
+      luggage: car.luggage,
+    });
+  }
+  return out;
+}
+
 export default async function HomePage({
   params: { locale },
 }: {
@@ -44,87 +66,47 @@ export default async function HomePage({
 }) {
   setRequestLocale(locale);
 
-  const t = await getTranslations("Fleet");
-
-  const [locations, featured, allCars, extras, bookedExtras] = await Promise.all([
-    prisma.location.findMany({
-      where: { isActive: true },
-      orderBy: { sortOrder: "asc" },
-      select: { id: true, name: true, street: true, city: true },
-    }),
-    prisma.car.findMany({
-      where: { isAvailable: true, isFeatured: true },
-      orderBy: { sortOrder: "asc" },
-      take: 6,
-    }),
-    getBrowseCars().catch(() => []),
-    getActiveExtras(),
-    getBookedExtras().catch(() => []),
+  const [cars, locations] = await Promise.all([
+    getBrowseCars().catch(() => [] as CarListItem[]),
+    getActiveLocations().catch(() => []),
   ]);
 
-  const { seasonalPricing } = await getCompany();
-  const cars = featured.map((c) => toCarListItem(c, seasonalPricing));
-
-  const prices = allCars
-    .map((c) => c.pricePerDay)
-    .filter((p): p is number => p != null && p > 0);
-  const fromBam = prices.length ? Math.min(...prices) : null;
+  const items: ShowcaseItem[] = cars.map((c) => ({
+    slug: c.slug,
+    title: c.title,
+    brand: c.brand,
+    image: c.images?.[0] ?? null,
+    price: c.pricePerDay,
+    passengers: c.passengers,
+    luggage: c.luggage,
+    carClass: c.carClass,
+    categories: c.categories,
+  }));
 
   return (
     <>
-      <Hero fromBam={fromBam} />
+      <Hero cars={pickShowcase(cars)} fleetCount={cars.length} />
 
       <section
         id="rezervacija"
-        className="container relative z-10 mt-6 scroll-mt-24 sm:mt-8"
+        className="container relative z-10 -mt-14 scroll-mt-28"
       >
         <ReservationSearchForm locations={locations} />
       </section>
 
-      <Perks />
+      <BrandMarquee />
 
-      {cars.length > 0 && (
-        <section className="container pb-20 sm:pb-28">
-          <div className="mb-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-            <div className="max-w-2xl">
-              <p className="mb-3 flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-brand-strong">
-                <span className="h-px w-7 bg-brand" />
-                {t("title")}
-              </p>
-              <h2 className="font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-                {t("featuredTitle")}
-              </h2>
-            </div>
-            <Link
-              href="/vozila"
-              className="group inline-flex w-fit items-center gap-2 rounded-full border border-border bg-surface px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-brand hover:text-brand-strong"
-            >
-              {t("viewAll")}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          </div>
-          <FleetGrid
-            cars={cars}
-            showFilters={false}
-            locations={locations.map((l) => ({ id: l.id, name: l.name }))}
-            imageSizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 30vw"
-            extras={extras}
-            bookedExtras={bookedExtras}
-          />
-        </section>
-      )}
+      <FleetShowcase cars={items} />
 
       <Services />
 
-      <WhyChoose />
+      <Bento />
 
       <HowItWorks />
 
-      <Reviews />
+      <Visit address={SITE.address} />
 
       <Faq />
-
-      <FinalCta />
     </>
   );
 }

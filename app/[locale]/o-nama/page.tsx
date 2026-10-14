@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { buildPageMetadata } from "@/lib/seo";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
@@ -61,25 +62,12 @@ export default async function AboutPage({
   ];
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-      {/* Hero */}
-      <header className="max-w-3xl">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-strong">
-          {t("eyebrow")}
-        </p>
-        <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-          {t("title")}
-        </h1>
-        <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-          {t("lead")}
-        </p>
-        <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-          {t("intro2")}
-        </p>
-      </header>
-
-      {/* Stats */}
-      <div className="mt-12">
+    <>
+    <PageHeader eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")}>
+      <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/60 sm:text-lg">{t("intro2")}</p>
+    </PageHeader>
+    <div className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
+      <div className="relative z-10 -mt-12">
         <AboutStats items={stats} locale={locale} />
       </div>
 
@@ -179,5 +167,6 @@ export default async function AboutPage({
         </div>
       </section>
     </div>
+    </>
   );
 }

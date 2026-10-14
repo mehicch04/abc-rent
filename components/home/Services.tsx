@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCompany } from "@/components/company/CompanyProvider";
+import { Heading } from "./Heading";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -30,31 +31,15 @@ export function Services() {
   return (
     <section
       id="usluge"
-      className="relative scroll-mt-24 overflow-hidden bg-ink-gradient py-20 text-white sm:py-28"
+      className="relative mx-3 scroll-mt-24 overflow-hidden rounded-[2.5rem] bg-ink-gradient py-20 text-white sm:mx-4 sm:py-28"
     >
       <div
         aria-hidden
         className="pointer-events-none absolute -left-24 top-10 h-80 w-80 rounded-full bg-brand-500/20 blur-3xl"
       />
+      <div aria-hidden className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_top_right,black,transparent_65%)]" />
       <div className="container relative">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, ease }}
-          className="max-w-2xl"
-        >
-          <p className="mb-3 flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-brand-300">
-            <span className="h-px w-7 bg-brand-400" />
-            {t("eyebrow")}
-          </p>
-          <h2 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
-            {t("title")}
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-white/70">
-            {t("subtitle")}
-          </p>
-        </motion.div>
+        <Heading eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} tone="dark" />
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {KEYS.map(({ key, image }, i) => {
@@ -102,7 +87,7 @@ export function Services() {
                     href={wa}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-brand-100"
+                    className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-brand hover:text-white"
                   >
                     {s.cta}
                     <ArrowUpRight className="h-4 w-4" />

@@ -7,43 +7,41 @@
     "contact": "Contact",
     "menu": "Menu",
     "theme": "Change theme",
-    "language": "Language"
+    "language": "Language",
+    "book": "Book now",
+    "call": "Call"
   },
   "Hero": {
-    "eyebrow": "Rent a Car Sarajevo",
+    "ratingChip": "{count} reviews on Google",
     "titleA": "Land in Sarajevo.",
-    "titleB": "Your car is already waiting.",
+    "titleB": "Your car is waiting",
+    "rotating": [
+      "at the airport.",
+      "outside your hotel.",
+      "at your address."
+    ],
     "subtitle": "We deliver your car to Sarajevo Airport or your address for free. A 200 € deposit, unlimited mileage and full insurance with every rental.",
     "ctaSearch": "Book a car",
-    "ctaFleet": "View the fleet",
-    "reviews": "Google rating",
-    "open247": "Open 24/7",
+    "ctaFleet": "Our fleet",
+    "available": "Available now",
     "fromLabel": "from",
     "perDay": "/ day",
+    "seats": "{n} seats",
+    "bags": "{n} bags",
+    "auto": "Automatic",
+    "details": "Details",
+    "groups": {
+      "city": "City",
+      "suv": "SUV",
+      "premium": "Premium",
+      "van": "Van"
+    },
     "deliveryTitle": "Airport delivery",
     "deliveryValue": "Free",
-    "imageAlt": "ABC Rent a Car vehicles in Sarajevo",
-    "scroll": "Go to booking"
-  },
-  "Perks": {
-    "items": [
-      {
-        "title": "Free delivery",
-        "body": "Sarajevo Airport (SJJ) and any address in Sarajevo."
-      },
-      {
-        "title": "200 € deposit",
-        "body": "The same for every car. 300 € for the Audi Q7 and Mercedes E-Class."
-      },
-      {
-        "title": "Unlimited mileage",
-        "body": "Drive as much as you like, no per-kilometre fees."
-      },
-      {
-        "title": "Full insurance",
-        "body": "Every vehicle is fully insured for a worry-free trip."
-      }
-    ]
+    "statRating": "Google rating, {count} reviews",
+    "statDelivery": "Airport and address delivery",
+    "statDeposit": "Deposit for every car",
+    "statFleet": "Vehicles in the fleet"
   },
   "Search": {
     "title": "Find your vehicle",
@@ -143,7 +141,11 @@
     "follow": "Follow us",
     "tagline": "Car rental in Sarajevo. Free airport and address delivery, chauffeur service and transfers.",
     "rights": "All rights reserved.",
-    "hours": "Opening hours"
+    "hours": "Opening hours",
+    "ctaA": "Your car in Sarajevo",
+    "ctaB": "is ready.",
+    "book": "Book a car",
+    "navTitle": "Pages"
   },
   "About": {
     "eyebrow": "About us",
@@ -232,37 +234,6 @@
       "imageAlt": "Transfer car in front of the airport"
     }
   },
-  "WhyChoose": {
-    "eyebrow": "Why ABC",
-    "title": "Everything you expect from a good car rental",
-    "subtitle": "No fine print and no surprises at the end of your rental.",
-    "items": [
-      {
-        "title": "Fully insured vehicles",
-        "body": "Every car is fully insured for a worry-free drive."
-      },
-      {
-        "title": "Available 24/7",
-        "body": "Our team is here whenever you need a vehicle."
-      },
-      {
-        "title": "Free delivery",
-        "body": "We bring the car to your location in Sarajevo at no extra cost."
-      },
-      {
-        "title": "Quality vehicles",
-        "body": "Only well-maintained, regularly serviced cars."
-      },
-      {
-        "title": "Roadside support",
-        "body": "If anything happens on the road, our team is there for you."
-      },
-      {
-        "title": "Clear prices",
-        "body": "No hidden fees. The price you see is the price you pay."
-      }
-    ]
-  },
   "HowItWorks": {
     "eyebrow": "How it works",
     "title": "Your car in three steps",
@@ -281,13 +252,6 @@
         "body": "We deliver to the airport or your address, or meet you at our office."
       }
     ]
-  },
-  "Reviews": {
-    "eyebrow": "Client experience",
-    "title": "Rated {score} on Google",
-    "subtitle": "The average rating from happy clients who drove with us.",
-    "subtitleCount": "Average rating based on {count} reviews from happy clients.",
-    "cta": "Read the reviews"
   },
   "Faq": {
     "eyebrow": "FAQ",
@@ -317,13 +281,11 @@
         "q": "What if I have an accident?",
         "a": "Call the police and us immediately. Don't move the car until the police arrive, and we'll guide you through the next steps."
       }
-    ]
-  },
-  "FinalCta": {
-    "title": "Ready to go?",
-    "subtitle": "Book a car in a few clicks. We confirm availability as soon as possible.",
-    "ctaPrimary": "Book a car",
-    "ctaSecondary": "Call us"
+    ],
+    "lead": "The most common questions before renting. If you can't find an answer, get in touch.",
+    "helpTitle": "Have another question?",
+    "helpText": "We reply quickly, every day and at any hour.",
+    "call": "Call us"
   },
   "Form": {
     "firstName": "First name",
@@ -387,5 +349,75 @@
     "estimateNote": "Approximate amount. We confirm the final price with your booking.",
     "freeLeft": "{count} left",
     "unavailable": "Not available for these dates"
+  },
+  "Showcase": {
+    "eyebrow": "Our fleet",
+    "title": "Find the right car for your trip",
+    "subtitle": "From city cars to the Mercedes E-Class and 9-seat vans. All with automatic transmission.",
+    "all": "All vehicles",
+    "prev": "Previous vehicles",
+    "next": "Next vehicles",
+    "auto": "Automatic",
+    "from": "from",
+    "perDay": "/ day",
+    "viewAll": "View all {count} vehicles"
+  },
+  "Bento": {
+    "eyebrow": "Why ABC",
+    "title": "Everything included, no fine print",
+    "subtitle": "What others charge extra for is part of our price.",
+    "delivery": {
+      "badge": "0 € delivery",
+      "title": "Your car waits at Sarajevo Airport",
+      "body": "We deliver to the airport or any address in Sarajevo Canton, at no extra cost and at any hour."
+    },
+    "deposit": {
+      "value": "200 €",
+      "title": "Low deposit",
+      "body": "The same for every car. 300 € for the Audi Q7 and Mercedes E-Class."
+    },
+    "mileage": {
+      "title": "Unlimited mileage",
+      "body": "Drive as much as you like, no per-kilometre fees."
+    },
+    "support": {
+      "value": "24/7",
+      "title": "Always available",
+      "body": "For bookings and help on the road, day and night."
+    },
+    "quality": {
+      "title": "Well kept cars",
+      "body": "Regularly serviced, clean and ready to go."
+    },
+    "insurance": {
+      "title": "Full insurance included",
+      "body": "Every car is fully insured, so you can drive without worries.",
+      "chips": [
+        "Full insurance",
+        "Unlimited mileage",
+        "Delivery in Sarajevo",
+        "24/7 roadside assistance"
+      ]
+    },
+    "prices": {
+      "title": "Clear prices",
+      "body": "The price you see is the price you pay."
+    },
+    "roadside": {
+      "title": "Roadside assistance",
+      "body": "If anything happens on the road, our team is right there."
+    }
+  },
+  "Visit": {
+    "eyebrow": "Find us",
+    "title": "Easy to find",
+    "subtitle": "Our office is in Sarajevo, and we can also bring the car to the airport or your address.",
+    "directions": "Get directions",
+    "openMap": "Open in Google Maps",
+    "ratingLabel": "Google rating",
+    "reviews": "{count} reviews",
+    "readReviews": "Read the reviews",
+    "hours": "Opening hours",
+    "whatsapp": "Message us on WhatsApp"
   }
 }

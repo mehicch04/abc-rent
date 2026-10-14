@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { buildPageMetadata } from "@/lib/seo";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ChevronDown } from "lucide-react";
@@ -67,17 +68,12 @@ export default async function TermsPage({
   const c = RENTAL_TERMS[locale === "en" ? "en" : "bs"];
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-      <header className="max-w-3xl">
-        <h1 className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-          {c.heading}
-        </h1>
-        <p className="mt-4 text-lg text-muted-foreground">{c.intro}</p>
-      </header>
-
+    <>
+    <PageHeader title={c.heading} lead={c.intro} />
+    <div className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
       <div className="mt-12 grid gap-10 lg:grid-cols-[16rem_1fr] lg:gap-12">
         {/* Table of contents */}
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+        <aside className="lg:sticky lg:top-28 lg:self-start">
           {/* Mobile: collapsible */}
           <details className="group rounded-2xl border border-border bg-surface p-2 lg:hidden">
             <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold text-foreground">
@@ -154,5 +150,6 @@ export default async function TermsPage({
         </div>
       </div>
     </div>
+    </>
   );
 }
