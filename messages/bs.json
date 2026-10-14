@@ -82,7 +82,12 @@
       "Neograničena kilometraža",
       "Dostava u Sarajevu",
       "Pomoć na cesti 24/7"
-    ]
+    ],
+    "book": "Rezerviši",
+    "perDayLabel": "po danu",
+    "cardSeats": "sjedišta",
+    "cardBags": "kofera",
+    "cardGearbox": "mjenjač"
   },
   "Inquiry": {
     "title": "Upit za rezervaciju",

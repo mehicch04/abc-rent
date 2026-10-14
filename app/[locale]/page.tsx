@@ -8,7 +8,9 @@ import type { CarListItem } from "@/lib/types";
 import { Hero } from "@/components/home/Hero";
 import { Features } from "@/components/home/Features";
 import { HomeAbout } from "@/components/home/HomeAbout";
-import { FeaturedFleet, type FleetCard } from "@/components/home/FeaturedFleet";
+import { FeaturedFleet } from "@/components/home/FeaturedFleet";
+import { getActiveExtras } from "@/lib/extras";
+import { getBookedExtras } from "@/lib/extras-availability";
 import { Services } from "@/components/home/Services";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { Visit } from "@/components/home/Visit";
@@ -39,23 +41,14 @@ export default async function HomePage({
 }) {
   setRequestLocale(locale);
 
-  const [cars, locations] = await Promise.all([
+  const [cars, locations, extras, bookedExtras] = await Promise.all([
     getBrowseCars().catch(() => [] as CarListItem[]),
     getActiveLocations().catch(() => []),
+    getActiveExtras().catch(() => []),
+    getBookedExtras().catch(() => []),
   ]);
 
-  const featured = [...cars.filter((c) => c.isFeatured), ...cars.filter((c) => !c.isFeatured)]
-    .slice(0, 6)
-    .map<FleetCard>((c) => ({
-      slug: c.slug,
-      title: c.title,
-      image: c.images?.[0] ?? null,
-      price: c.pricePerDay,
-      passengers: c.passengers,
-      fuelType: c.fuelType,
-      carClass: c.carClass,
-      categories: c.categories,
-    }));
+  const featured = [...cars.filter((c) => c.isFeatured), ...cars.filter((c) => !c.isFeatured)].slice(0, 6);
 
   return (
     <>
@@ -67,7 +60,12 @@ export default async function HomePage({
 
       <Features />
       <HomeAbout />
-      <FeaturedFleet cars={featured} />
+      <FeaturedFleet
+        cars={featured}
+        locations={locations.map((l) => ({ id: l.id, name: l.name }))}
+        extras={extras}
+        bookedExtras={bookedExtras}
+      />
       <Services />
       <HowItWorks />
       <Visit address={SITE.address} />

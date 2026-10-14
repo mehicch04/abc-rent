@@ -82,7 +82,12 @@
       "Unlimited mileage",
       "Delivery in Sarajevo",
       "24/7 roadside help"
-    ]
+    ],
+    "book": "Book now",
+    "perDayLabel": "per day",
+    "cardSeats": "seats",
+    "cardBags": "bags",
+    "cardGearbox": "gearbox"
   },
   "Inquiry": {
     "title": "Reservation inquiry",
