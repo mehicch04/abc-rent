@@ -1,225 +1,166 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, ChevronDown, Star } from "lucide-react";
-import { useTranslations, useLocale } from "next-intl";
+import { ArrowRight, Clock3, Plane, Star } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { intlLocale } from "@/i18n/routing";
 import { useCompany } from "@/components/company/CompanyProvider";
+import { Price } from "@/components/currency/Price";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-// Agency opening window in minutes from midnight (07:30 – 20:30, local).
-const OPEN_MIN = 7 * 60 + 30;
-const CLOSE_MIN = 20 * 60 + 30;
-const TZ = "Europe/Sarajevo";
-
-function OpenStatus({
-  openLabel,
-  closedLabel,
-  localLabel,
-}: {
-  openLabel: string;
-  closedLabel: string;
-  localLabel: string;
-}) {
-  const [state, setState] = useState<{ time: string; open: boolean } | null>(
-    null,
-  );
-
-  useEffect(() => {
-    const compute = () => {
-      const parts = new Intl.DateTimeFormat("en-GB", {
-        timeZone: TZ,
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      }).formatToParts(new Date());
-      const h = Number(parts.find((p) => p.type === "hour")?.value ?? "0");
-      const m = Number(parts.find((p) => p.type === "minute")?.value ?? "0");
-      const mins = h * 60 + m;
-      setState({
-        time: `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`,
-        open: mins >= OPEN_MIN && mins < CLOSE_MIN,
-      });
-    };
-    compute();
-    const id = setInterval(compute, 30_000);
-    return () => clearInterval(id);
-  }, []);
-
-  // Render nothing until mounted to avoid a server/client clock mismatch.
-  if (!state) return null;
-
-  return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/50 px-3.5 py-2 shadow-lg shadow-black/30 backdrop-blur-md">
-      <span
-        className={`h-2 w-2 rounded-full ${
-          state.open ? "bg-emerald-400 animate-pulse" : "bg-red-400"
-        }`}
-      />
-      <span className="font-medium text-white">
-        {state.open ? openLabel : closedLabel}
-      </span>
-      <span className="text-white/80">
-        · {state.time} {localLabel}
-      </span>
-    </span>
-  );
-}
-
-export function Hero() {
+export function Hero({ fromBam }: { fromBam: number | null }) {
   const t = useTranslations("Hero");
   const company = useCompany();
   const locale = useLocale();
-
-  const [videoSrc, setVideoSrc] = useState<string | null>(null);
-
-  useEffect(() => {
-    const wide = window.matchMedia("(min-width: 768px)");
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => {
-      if (reduce.matches) {
-        setVideoSrc(null); // respect the visitor's motion preference
-        return;
-      }
-      setVideoSrc(wide.matches ? "/hero.mp4" : "/hero-mobile.mp4");
-    };
-    update();
-    wide.addEventListener("change", update);
-    reduce.addEventListener("change", update);
-    return () => {
-      wide.removeEventListener("change", update);
-      reduce.removeEventListener("change", update);
-    };
-  }, []);
+  const score = company.rating.score ?? 5;
 
   return (
-    <section className="relative flex min-h-[92vh] items-center overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-black">
-        <img
-          src="/hero-poster.webp"
-          alt=""
-          aria-hidden
-          fetchPriority="high"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        {videoSrc && (
-          <video
-            key={videoSrc}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster="/hero-poster.webp"
-            disablePictureInPicture
-            aria-hidden
-            tabIndex={-1}
-            onCanPlay={(e) => e.currentTarget.classList.add("opacity-100")}
-            className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-700"
+    <section className="relative overflow-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-brand-500/15 blur-3xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-32 top-1/2 h-72 w-72 rounded-full bg-brand-300/20 blur-3xl dark:bg-brand-700/20"
+      />
+
+      <div className="container relative grid items-center gap-12 pb-12 pt-8 sm:pt-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:pb-20 lg:pt-14">
+        <div>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease }}
+            className="inline-flex items-center gap-2 rounded-full border border-brand/25 bg-brand/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-brand-strong"
           >
-            <source src={videoSrc} type="video/mp4" />
-          </video>
-        )}
-      </div>
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-500 opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500" />
+            </span>
+            {t("eyebrow")}
+          </motion.p>
 
-      {/* Overlays: darken for legibility + fade into the page background */}
-      <div className="absolute inset-0 -z-10 bg-black/55" />
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-gradient-to-t from-background to-transparent" />
+          <motion.h1
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.05, ease }}
+            className="mt-6 font-display text-[2.6rem] font-extrabold leading-[1.04] tracking-tight text-foreground sm:text-6xl xl:text-7xl"
+          >
+            {t("titleA")}
+            <span className="mt-1 block bg-gradient-to-r from-brand-500 to-brand-700 bg-clip-text text-transparent dark:from-brand-300 dark:to-brand-500">
+              {t("titleB")}
+            </span>
+          </motion.h1>
 
-      <div className="container relative">
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease }}
-          className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-white/90 backdrop-blur"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-          {t("eyebrow")}
-        </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.12, ease }}
+            className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+          >
+            {t("subtitle")}
+          </motion.p>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.05, ease }}
-          className="max-w-3xl font-display text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl"
-        >
-          {t("title")}
-        </motion.h1>
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.18, ease }}
+            className="mt-8 flex flex-col gap-3 sm:flex-row"
+          >
+            <a
+              href="#rezervacija"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-4 text-sm font-semibold text-brand-foreground shadow-brand transition-colors hover:bg-brand-700"
+            >
+              {t("ctaSearch")}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
+            <Link
+              href="/vozila"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-surface px-7 py-4 text-sm font-semibold text-foreground transition-colors hover:border-brand hover:text-brand-strong"
+            >
+              {t("ctaFleet")}
+            </Link>
+          </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.12, ease }}
-          className="mt-6 max-w-xl text-base text-white/80 sm:text-lg"
-        >
-          {t("subtitle")}
-        </motion.p>
+          <motion.ul
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.26, ease }}
+            className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm"
+          >
+            <li>
+              <a
+                href={company.map.link ?? "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"
+              >
+                <span className="flex items-center gap-0.5 text-amber-400">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-current" />
+                  ))}
+                </span>
+                <span className="font-semibold text-foreground">
+                  {score.toLocaleString(intlLocale(locale), { minimumFractionDigits: 1 })}
+                </span>
+                {t("reviews")}
+              </a>
+            </li>
+            <li className="inline-flex items-center gap-2 text-foreground/80">
+              <Clock3 className="h-4 w-4 text-brand" />
+              {t("open247")}
+            </li>
+          </motion.ul>
+        </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease }}
-          className="mt-9 flex flex-wrap items-center gap-3"
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.1, ease }}
+          className="relative"
         >
-          <a
-            href="#rezervacija"
-            className="group inline-flex items-center gap-2 rounded-xl bg-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-brand transition-colors hover:bg-brand-700"
-          >
-            {t("ctaSearch")}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-          </a>
-          <Link
-            href="/vozila"
-            className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/10"
-          >
-            {t("ctaFleet")}
-          </Link>
-        </motion.div>
+          <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-ink shadow-glow ring-1 ring-black/5 sm:aspect-[16/11] lg:aspect-[5/6] xl:aspect-[1/1]">
+            <Image
+              src="/img/hero-sarajevo.webp"
+              alt={t("imageAlt")}
+              fill
+              priority
+              sizes="(max-width: 1023px) 100vw, 46vw"
+              className="object-cover object-[35%_center]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
+          </div>
 
-        {/* Trust row: Google rating + live open/closed status */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.28, ease }}
-          className="mt-7 flex flex-wrap items-center gap-3 text-sm"
-        >
-          <a
-            href={(company.map.link ?? "#")}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${(company.rating.score ?? 0)} / 5 — ${(company.rating.count ?? 0)} ${t("reviews")}`}
-            className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/50 px-3.5 py-2 shadow-lg shadow-black/30 backdrop-blur-md transition-colors hover:bg-black/60"
-          >
-            <span className="flex items-center gap-0.5 text-amber-400">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="h-3.5 w-3.5 fill-current" />
-              ))}
-            </span>
-            <span className="font-semibold text-white">
-              {(company.rating.score ?? 0).toLocaleString(locale)}
-            </span>
-            <span className="text-white/85">
-              · {(company.rating.count ?? 0)} {t("reviews")}
-            </span>
-          </a>
+          {fromBam != null && (
+            <div className="absolute -top-4 right-4 animate-float rounded-2xl bg-brand px-5 py-3 text-brand-foreground shadow-brand sm:right-6">
+              <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-white/80">
+                {t("fromLabel")}
+              </span>
+              <span className="font-display text-2xl font-extrabold">
+                <Price bam={fromBam} />
+              </span>
+              <span className="ml-1 text-sm text-white/80">{t("perDay")}</span>
+            </div>
+          )}
 
-          <OpenStatus
-            openLabel={t("open")}
-            closedLabel={t("closed")}
-            localLabel={t("localTime")}
-          />
+          <div className="absolute -bottom-5 left-4 flex items-center gap-3 rounded-2xl border border-border bg-surface/95 px-4 py-3 shadow-card-hover backdrop-blur sm:left-6">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand/10 text-brand">
+              <Plane className="h-5 w-5" />
+            </span>
+            <span>
+              <span className="block text-xs text-muted-foreground">
+                {t("deliveryTitle")}
+              </span>
+              <span className="font-display text-base font-bold text-foreground">
+                {t("deliveryValue")}
+              </span>
+            </span>
+          </div>
         </motion.div>
       </div>
-
-      <a
-        href="#rezervacija"
-        aria-label={t("scroll")}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 transition-colors hover:text-white"
-      >
-        <ChevronDown className="h-6 w-6 animate-bounce" />
-      </a>
     </section>
   );
 }

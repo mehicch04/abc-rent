@@ -33,7 +33,7 @@ export const COMPANY_FALLBACK: Company = {
   phones: SITE.phones.map((p) => ({ ...p })),
   whatsapp: SITE.whatsapp,
   hours: SITE.hours,
-  address: null,
+  address: SITE.address,
   taxId: null,
   map: { lat: SITE.map.lat, lng: SITE.map.lng, link: SITE.map.link },
   rating: { score: SITE.rating.score, count: SITE.rating.count },

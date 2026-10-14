@@ -156,7 +156,7 @@ npx prisma generate{"\n"}npx prisma db push
             <input
               name="taxId"
               defaultValue={company.taxId ?? ""}
-              placeholder="4227…"
+              placeholder="4200…"
               className={field}
             />
           </div>
@@ -282,7 +282,7 @@ npx prisma generate{"\n"}npx prisma db push
           <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
               <label className={lbl}>Naziv *</label>
-              <input name="name" required defaultValue={editing?.name ?? ""} placeholder="Mostar – Zračna luka" className={field} />
+              <input name="name" required defaultValue={editing?.name ?? ""} placeholder="Aerodrom Sarajevo (SJJ)" className={field} />
             </div>
             <div>
               <label className={lbl}>Tip</label>
@@ -298,7 +298,7 @@ npx prisma generate{"\n"}npx prisma db push
             </div>
             <div>
               <label className={lbl}>Grad</label>
-              <input name="city" defaultValue={editing?.city ?? ""} placeholder="88000 Mostar" className={field} />
+              <input name="city" defaultValue={editing?.city ?? ""} placeholder="71210 Sarajevo" className={field} />
             </div>
             <div>
               <label className={lbl}>Poštanski broj</label>

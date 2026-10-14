@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE } from "@/lib/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Clock, Phone, Mail, MapPin, ExternalLink } from "lucide-react";
@@ -139,7 +140,7 @@ export default async function ContactPage({
         <div className="relative aspect-[16/11] w-full overflow-hidden rounded-2xl border border-border shadow-card sm:aspect-[21/9] dark:[filter:brightness(0.92)_contrast(1.05)]">
           <iframe
             src={mapSrc}
-            title="Maximum Rent a Car — lokacija"
+            title={`${SITE.name}, lokacija`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen

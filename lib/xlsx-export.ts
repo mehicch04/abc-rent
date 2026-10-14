@@ -16,7 +16,7 @@ export async function buildWorkbook(
   rows: unknown[][],
 ): Promise<Buffer> {
   const wb = new ExcelJS.Workbook();
-  wb.creator = "Maximum Rent a Car";
+  wb.creator = "ABC Rent a Car";
   wb.created = new Date();
 
   const ws = wb.addWorksheet(sheetName, {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -18,15 +19,20 @@ import { PageBackground } from "@/components/layout/PageBackground";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { JsonLd } from "@/components/seo/JsonLd";
 
-// latin-ext is REQUIRED for Croatian/Bosnian glyphs (č ć đ š ž).
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
   variable: "--font-inter",
   display: "swap",
 });
 
+const montserrat = Montserrat({
+  subsets: ["latin", "latin-ext"],
+  weight: ["600", "700", "800"],
+  variable: "--font-display",
+  display: "swap",
+});
+
 const CLIENT_NAMESPACES = [
-  "BusinessTeaser",
   "Common",
   "Extras",
   "Faq",
@@ -36,11 +42,11 @@ const CLIENT_NAMESPACES = [
   "Hero",
   "HowItWorks",
   "Inquiry",
-  "Locations",
   "Nav",
+  "Perks",
   "Reviews",
   "Search",
-  "WeddingCars",
+  "Services",
   "WhyChoose",
 ] as const;
 
@@ -53,7 +59,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE.name}`,
   },
   description:
-    "Premium najam vozila u Hercegovini — preuzimanje na 6 lokacija, od gradskih automobila do luksuznih limuzina.",
+    "Rent a car Sarajevo. Besplatna dostava na Aerodrom Sarajevo i na vašu adresu, depozit od 200 €, neograničena kilometraža i puno osiguranje.",
   applicationName: SITE.name,
   authors: [{ name: "mehiccdev", url: "https://mehiccdev.com" }],
   creator: "mehiccdev",
@@ -66,23 +72,23 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: SITE.name,
-    title: `${SITE.name} — Rent a Car Hercegovina`,
+    title: `${SITE.name} | Rent a Car Sarajevo`,
     description:
-      "Premium najam vozila u Hercegovini — preuzimanje na 6 lokacija.",
+      "Rent a car Sarajevo s besplatnom dostavom na aerodrom i adresu.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: `${SITE.name} — Rent a Car Hercegovina`,
+        alt: `${SITE.name} | Rent a Car Sarajevo`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — Rent a Car Hercegovina`,
+    title: `${SITE.name} | Rent a Car Sarajevo`,
     description:
-      "Premium najam vozila u Hercegovini — preuzimanje na 6 lokacija.",
+      "Rent a car Sarajevo s besplatnom dostavom na aerodrom i adresu.",
     images: ["/og-image.jpg"],
   },
 };
@@ -115,13 +121,32 @@ export default async function LocaleLayout({
   );
 
   return (
-    <html lang={locale} suppressHydrationWarning className={inter.variable}>
+    <html
+      lang={locale}
+      suppressHydrationWarning
+      className={`${inter.variable} ${montserrat.variable}`}
+    >
       <body className="min-h-dvh bg-background font-sans text-foreground antialiased">
+        {SITE.gtmId && process.env.NODE_ENV === "production" && (
+          <>
+            <Script id="gtm" strategy="afterInteractive">
+              {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${SITE.gtmId}');`}
+            </Script>
+            <noscript>
+              <iframe
+                src={`https://www.googletagmanager.com/ns.html?id=${SITE.gtmId}`}
+                height="0"
+                width="0"
+                style={{ display: "none", visibility: "hidden" }}
+              />
+            </noscript>
+          </>
+        )}
         <JsonLd locale={locale} />
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
             <CompanyProvider value={company}>
-            <CurrencyProvider defaultCurrency="BAM">
+            <CurrencyProvider defaultCurrency="EUR">
               <PageBackground />
               <div className="flex min-h-dvh flex-col">
                 <Navbar />

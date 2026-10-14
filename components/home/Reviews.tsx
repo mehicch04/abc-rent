@@ -2,17 +2,19 @@
 
 import { motion } from "framer-motion";
 import { Star, ExternalLink } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useCompany } from "@/components/company/CompanyProvider";
+import { intlLocale } from "@/i18n/routing";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 
 export function Reviews() {
   const t = useTranslations("Reviews");
+  const locale = useLocale();
   // Rating and the Maps link are edited by the owner in the admin panel.
   const company = useCompany();
-  const RATING = company.rating.score ?? 0;
+  const RATING = company.rating.score ?? 5;
   const COUNT = company.rating.count ?? 0;
   const GOOGLE_URL = company.map.link ?? "#";
   const fillPct = (RATING / 5) * 100;
@@ -35,7 +37,7 @@ export function Reviews() {
         <div className="flex flex-col items-center justify-center gap-6 sm:flex-row sm:gap-10">
           <div className="flex flex-col items-center">
             <span className="font-display text-6xl font-bold leading-none text-foreground sm:text-7xl">
-              {RATING.toLocaleString("hr-HR")}
+              {RATING.toLocaleString(intlLocale(locale), { minimumFractionDigits: 1 })}
             </span>
             {/* star bar with accurate partial fill */}
             <div className="relative mt-3 inline-block">
@@ -59,10 +61,12 @@ export function Reviews() {
 
           <div className="max-w-sm sm:text-left">
             <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-              {t("title")}
+              {t("title", {
+                score: RATING.toLocaleString(intlLocale(locale), { minimumFractionDigits: 1 }),
+              })}
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              {t("subtitle", { count: COUNT })}
+              {COUNT > 0 ? t("subtitleCount", { count: COUNT }) : t("subtitle")}
             </p>
             <a
               href={GOOGLE_URL}

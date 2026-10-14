@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { NAV_LINKS } from "@/lib/site-config";
+import { NAV_LINKS, SITE } from "@/lib/site-config";
 import { ThemeToggle } from "./ThemeToggle";
 import { CurrencySwitch } from "@/components/currency/CurrencySwitch";
 import { LanguageToggle } from "./LanguageToggle";
@@ -37,14 +37,22 @@ export function Navbar() {
       }`}
     >
       <nav className="container flex h-16 items-center justify-between gap-4 lg:h-20">
-        <Link href="/" className="relative flex items-center" aria-label="Maximum Rent a Car">
+        <Link href="/" className="relative flex items-center" aria-label={SITE.name}>
           <Image
             src="/logo.png"
-            alt="Maximum Rent a Car"
-            width={800}
-            height={239}
+            alt={SITE.name}
+            width={343}
+            height={160}
             priority
-            className="h-9 w-auto lg:h-10"
+            className="h-11 w-auto dark:hidden lg:h-14"
+          />
+          <Image
+            src="/logo-dark.png"
+            alt={SITE.name}
+            width={343}
+            height={160}
+            priority
+            className="hidden h-11 w-auto dark:block lg:h-14"
           />
         </Link>
 

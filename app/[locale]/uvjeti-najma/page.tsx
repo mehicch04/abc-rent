@@ -64,7 +64,7 @@ export default async function TermsPage({
   params: { locale: string };
 }) {
   setRequestLocale(locale);
-  const c = RENTAL_TERMS[locale === "en" ? "en" : "hr"];
+  const c = RENTAL_TERMS[locale === "en" ? "en" : "bs"];
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-24">

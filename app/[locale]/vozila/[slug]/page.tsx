@@ -9,6 +9,7 @@ import { getActiveLocations } from "@/lib/fleet-data";
 import { getActiveExtras } from "@/lib/extras";
 import { getBookedExtras } from "@/lib/extras-availability";
 import { SITE_URL } from "@/lib/seo";
+import { SITE } from "@/lib/site-config";
 import { CarDetail } from "@/components/fleet/CarDetail";
 
 export const revalidate = 300;
@@ -17,14 +18,14 @@ type Props = { params: { locale: string; slug: string } };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const car = await getCarBySlug(params.slug);
-  if (!car) return { title: { absolute: "Maximum Rent a Car" } };
+  if (!car) return { title: { absolute: SITE.name } };
 
   const en = params.locale === "en";
   const description =
     (en ? car.descriptionEn : car.descriptionHr) ??
     (en
-      ? `Rent a ${car.title} in Mostar and Međugorje. ${car.passengers} seats, ${car.transmission.toLowerCase()}.`
-      : `Iznajmite ${car.title} u Mostaru i Međugorju. ${car.passengers} sjedišta, ${car.transmission.toLowerCase()}.`);
+      ? `Rent a ${car.title} in Sarajevo with free airport delivery. ${car.passengers} seats, ${car.transmission.toLowerCase()}.`
+      : `Iznajmite ${car.title} u Sarajevu uz besplatnu dostavu na aerodrom. ${car.passengers} sjedišta, ${car.transmission.toLowerCase()}.`);
 
   const url = `${SITE_URL}/${params.locale}/vozila/${car.slug}`;
 
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: url,
       languages: {
-        hr: `${SITE_URL}/hr/vozila/${car.slug}`,
+        bs: `${SITE_URL}/bs/vozila/${car.slug}`,
         en: `${SITE_URL}/en/vozila/${car.slug}`,
       },
     },

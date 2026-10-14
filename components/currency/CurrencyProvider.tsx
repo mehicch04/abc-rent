@@ -12,7 +12,7 @@ import type { Currency } from "@/lib/currency";
 type Ctx = { currency: Currency; setCurrency: (c: Currency) => void };
 
 const CurrencyContext = createContext<Ctx | null>(null);
-const STORAGE_KEY = "mr-currency";
+const STORAGE_KEY = "abc-currency";
 
 export function CurrencyProvider({
   defaultCurrency = "BAM",

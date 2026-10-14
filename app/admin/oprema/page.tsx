@@ -105,7 +105,7 @@ npx prisma generate{"\n"}npx prisma db push
         </h1>
         <p className="mt-1.5 text-sm text-muted-foreground">
           Oprema i usluge koje gost može zatražiti uz rezervaciju. Prikazuje se u
-          obrascu za upit, na hrvatskom i engleskom.
+          obrascu za upit, na bosanskom i engleskom.
         </p>
       </div>
 
@@ -136,7 +136,7 @@ npx prisma generate{"\n"}npx prisma db push
 
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label className={lbl}>Naziv (HR) *</label>
+            <label className={lbl}>Naziv (BS) *</label>
             <input
               name="nameHr"
               required
@@ -157,7 +157,7 @@ npx prisma generate{"\n"}npx prisma db push
           </div>
 
           <div>
-            <label className={lbl}>Napomena (HR)</label>
+            <label className={lbl}>Napomena (BS)</label>
             <input
               name="noteHr"
               defaultValue={editing?.noteHr ?? ""}

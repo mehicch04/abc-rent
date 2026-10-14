@@ -5,7 +5,7 @@ import { routing } from "@/i18n/routing";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? `https://${SITE.domain}`;
 
-const OG_LOCALE: Record<string, string> = { hr: "hr_HR", en: "en_US" };
+const OG_LOCALE: Record<string, string> = { bs: "bs_BA", en: "en_US" };
 
 export function buildAlternates(locale: string, path: string) {
   const clean = path === "/" ? "" : path;
@@ -40,7 +40,7 @@ export function buildPageMetadata({
       siteName: SITE.name,
       title,
       description,
-      locale: OG_LOCALE[locale] ?? "hr_HR",
+      locale: OG_LOCALE[locale] ?? "bs_BA",
     },
     twitter: {
       card: "summary_large_image",

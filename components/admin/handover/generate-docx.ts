@@ -153,7 +153,7 @@ export async function generateContractDocx(data: ContractData): Promise<void> {
   );
 
   const doc = new Document({
-    creator: "Maximum Rent a Car",
+    creator: "ABC Rent a Car",
     title: `Ugovor ${data.reference}`,
     sections: [{ properties: {}, children: body }],
   });

@@ -15,6 +15,7 @@ const DAYS = [
 function realSocials(): string[] {
   const out: string[] = [];
   for (const url of Object.values(SITE.socials)) {
+    if (!url) continue;
     try {
       const u = new URL(url);
       // skip bare "facebook.com" / "instagram.com" placeholders (no path)
@@ -43,15 +44,15 @@ export function JsonLd({ locale }: { locale: string }) {
     url: `${SITE_URL}/${locale}`,
     image: `${SITE_URL}/og-image.jpg`,
     logo: `${SITE_URL}/logo.png`,
-    telephone: "+38763660444",
+    telephone: SITE.phones[0].href.replace("tel:", ""),
     email: SITE.email,
     priceRange: "€€",
     currenciesAccepted: "BAM, EUR",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Potpolje b.b.",
-      addressLocality: "Čitluk",
-      postalCode: "88260",
+      streetAddress: "Munira Gavrankapetanovića 108",
+      addressLocality: "Sarajevo",
+      postalCode: "71210",
       addressCountry: "BA",
     },
     geo: {
@@ -61,27 +62,29 @@ export function JsonLd({ locale }: { locale: string }) {
     },
     hasMap: SITE.map.link,
     areaServed: [
-      "Mostar",
-      "Međugorje",
-      "Čitluk",
-      "Čapljina",
-      "Ljubuški",
-      "Herzegovina",
+      "Sarajevo",
+      "Ilidža",
+      "Vogošća",
+      "Bosnia and Herzegovina",
     ].map((name) => ({ "@type": "City", name })),
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: DAYS,
-        opens: "07:30",
-        closes: "20:30",
+        opens: "00:00",
+        closes: "23:59",
       },
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: SITE.rating.score.toString(),
-      reviewCount: SITE.rating.count.toString(),
-      bestRating: "5",
-    },
+    ...(SITE.rating.count > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: SITE.rating.score.toString(),
+            reviewCount: SITE.rating.count.toString(),
+            bestRating: "5",
+          },
+        }
+      : {}),
     ...(sameAs.length ? { sameAs } : {}),
   };
 

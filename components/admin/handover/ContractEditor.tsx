@@ -190,7 +190,7 @@ export function ContractEditor({
           <div className="min-w-0">
             <label className={lbl}>Preuzimanje</label>
             <div className="flex gap-2">
-              <DateField value={pickupDate} locale="hr" placeholder="Odaberite…"
+              <DateField value={pickupDate} locale="bs" placeholder="Odaberite…"
                 onChange={setPickupDate} className={`${input} flex-1`} />
               <div className="w-28 shrink-0">
                 <TimeField value={pickupTime} onChange={setPickupTime}
@@ -201,7 +201,7 @@ export function ContractEditor({
           <div className="min-w-0">
             <label className={lbl}>Vraćanje</label>
             <div className="flex gap-2">
-              <DateField value={returnDate} min={pickupDate || undefined} locale="hr"
+              <DateField value={returnDate} min={pickupDate || undefined} locale="bs"
                 placeholder="Odaberite…" onChange={setReturnDate} className={`${input} flex-1`} />
               <div className="w-28 shrink-0">
                 <TimeField value={returnTime} onChange={setReturnTime}

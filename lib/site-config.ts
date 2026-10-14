@@ -1,42 +1,43 @@
-// Static brand + contact data, extracted verbatim from the old site (footer).
 export const SITE = {
-  name: "Maximum Rent a Car",
-  domain: "maximum-rent.com",
-  email: "info@maximum-rent.com",
+  name: "ABC Rent a Car",
+  shortName: "ABC Rent",
+  domain: "abcrentacar.ba",
+  email: "info@abcrentacar.ba",
   phones: [
-    { label: "Tel", value: "+387 (0) 63 660 444", href: "tel:+38763660444" },
-    { label: "Mob", value: "+387 (0) 63 660 555", href: "tel:+38763660555" },
-    { label: "Fax", value: "+387 (0) 36 644 158", href: "tel:+38736644158" },
+    { label: "Tel", value: "+387 62 652 954", href: "tel:+38762652954" },
+    { label: "Mob", value: "+387 62 160 942", href: "tel:+38762160942" },
   ],
-  whatsapp: "38763660444", // E.164 digits only
-  hours: "07:30 – 20:30h",
+  whatsapp: "38762652954",
+  hours: "Non-stop, 0 do 24h",
+  open24: true,
+  address: "Munira Gavrankapetanovića 108, 71210 Sarajevo",
+  city: "Sarajevo",
+  region: "Kanton Sarajevo",
   map: {
-    lat: 43.2114694,
-    lng: 17.677979,
-    link: "https://maps.app.goo.gl/4Ae8FABt9T1dLbes6",
+    lat: 43.8293,
+    lng: 18.3086,
+    link: "https://maps.google.com/?cid=7151839974306582764",
   },
-  rating: { score: 4.8, count: 108 },
+  rating: { score: 5.0, count: 0 },
   socials: {
-    facebook: "https://www.facebook.com/maximumrentacarmedugorije",
-    instagram: "https://www.instagram.com/rentacarmaximum/",
+    facebook: null as string | null,
+    instagram: null as string | null,
   },
+  deposit: { standard: 200, premium: 300 },
+  gtmId: "GTM-WKG2ZLLP",
+  brandColor: "#0A94DC",
 } as const;
 
 export const NAV_LINKS = [
   { href: "/", key: "home" },
-  { href: "/poslovna-ponuda", key: "business" },
-  { href: "/o-nama", key: "about" },
   { href: "/vozila", key: "vehicles" },
+  { href: "/o-nama", key: "about" },
   { href: "/uvjeti-najma", key: "terms" },
   { href: "/kontakt", key: "contact" },
 ] as const;
 
-// The six branches (footer). Mirrors prisma/seed.ts; used for the footer + contact page.
 export const LOCATIONS = [
-  { name: "Glavni ured – Čitluk", street: "Potpolje b.b.", city: "88260 Čitluk" },
-  { name: "Međugorje – Autobusni kolodvor", street: "Lišnjačine", city: "88266 Međugorje" },
-  { name: "Mostar – Zračna luka", street: "Gnojnice", city: "88000 Mostar" },
-  { name: "Mostar – Vukovarska", street: "Vukovarska", city: "88000 Mostar" },
-  { name: "Čapljina – Autobusni kolodvor", street: "Silvija Strahimira Kranjčevića", city: "88300 Čapljina" },
-  { name: "Ljubuški", street: "Jadranska cesta 38", city: "88320 Ljubuški" },
+  { name: "Poslovnica Sarajevo", street: "Munira Gavrankapetanovića 108", city: "71210 Sarajevo" },
+  { name: "Aerodrom Sarajevo (SJJ)", street: "Kurta Schorka 36", city: "71210 Sarajevo" },
+  { name: "Dostava na adresu", street: "Bilo koja adresa u Kantonu Sarajevo", city: "Sarajevo" },
 ] as const;

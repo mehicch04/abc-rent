@@ -7,7 +7,6 @@ const PATHS = [
   "",
   "/vozila",
   "/o-nama",
-  "/poslovna-ponuda",
   "/uvjeti-najma",
   "/kontakt",
 ] as const;

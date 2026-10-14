@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { getCompany } from "@/lib/company";
-import { getActiveLocations } from "@/lib/fleet-data";
+import { getActiveLocations, getBrowseCars } from "@/lib/fleet-data";
+import { SITE } from "@/lib/site-config";
 import { AboutStats } from "@/components/about/AboutStats";
 
 export async function generateMetadata({
@@ -36,18 +37,20 @@ export default async function AboutPage({
   params: { locale: string };
 }) {
   const company = await getCompany();
-  const locations = await getActiveLocations();
+  const [locations, cars] = await Promise.all([
+    getActiveLocations(),
+    getBrowseCars().catch(() => []),
+  ]);
   setRequestLocale(locale);
   const t = await getTranslations("About");
 
-  const years = new Date().getFullYear() - 2009;
   const mapSrc = `https://maps.google.com/maps?q=${company.map.lat},${company.map.lng}&z=15&hl=${locale}&output=embed`;
 
   const stats = [
-    { value: 4532, suffix: "+", label: t("stats.clientsLabel") },
-    { value: years, label: t("stats.yearsLabel") },
-    { value: 35, label: t("stats.carsLabel") },
-    { value: 6, label: t("stats.branchesLabel") },
+    { value: 500, suffix: "+", label: t("stats.clientsLabel") },
+    { value: cars.length || 19, label: t("stats.carsLabel") },
+    { value: 24, suffix: "/7", label: t("stats.supportLabel") },
+    { value: SITE.deposit.standard, suffix: " €", label: t("stats.depositLabel") },
   ];
 
   const features = [
@@ -130,7 +133,7 @@ export default async function AboutPage({
         <div className="relative aspect-[16/11] w-full overflow-hidden rounded-2xl border border-border shadow-card sm:aspect-[21/9] dark:[filter:brightness(0.92)_contrast(1.05)]">
           <iframe
             src={mapSrc}
-            title="Maximum Rent a Car — lokacija"
+            title={`${SITE.name}, lokacija`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen

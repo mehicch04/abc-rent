@@ -87,7 +87,7 @@ export function RangeFilter({
             </label>
             <DateField
               value={start}
-              locale="hr"
+              locale="bs"
               placeholder="Odaberite…"
               onChange={(v) => {
                 setStart(v);
@@ -104,7 +104,7 @@ export function RangeFilter({
             <DateField
               value={end}
               min={start || undefined}
-              locale="hr"
+              locale="bs"
               placeholder="Odaberite…"
               onChange={setEnd}
               className="h-11 w-full rounded-xl border border-border bg-surface px-3 text-sm outline-none transition-colors focus:border-brand focus:ring-2 focus:ring-ring/30"

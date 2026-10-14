@@ -114,7 +114,7 @@ export function ExportForm() {
               </label>
               <DateField
                 value={from}
-                locale="hr"
+                locale="bs"
                 placeholder="Odaberite…"
                 onChange={(v) => {
                   setFrom(v);
@@ -130,7 +130,7 @@ export function ExportForm() {
               <DateField
                 value={to}
                 min={from || undefined}
-                locale="hr"
+                locale="bs"
                 placeholder="Odaberite…"
                 onChange={setTo}
                 className={field}

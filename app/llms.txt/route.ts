@@ -6,29 +6,28 @@ export function GET() {
 
   const body = `# ${SITE.name}
 
-> Premium najam vozila (rent a car) u Hercegovini, Bosna i Hercegovina. Preuzimanje na 6 lokacija — od gradskih automobila do luksuznih limuzina i svadbenih vozila. Dvojezično (HR/EN). Rezervacija na upit: gost šalje zahtjev, agencija potvrđuje (bez online plaćanja).
+> Rent a car u Sarajevu, Bosna i Hercegovina. Besplatna dostava vozila na Aerodrom Sarajevo (SJJ) i na adresu u Sarajevu, depozit 200 €, neograničena kilometraža i puno osiguranje. Usluge vozača i transferi s aerodroma. Dvojezično (BS/EN). Rezervacija na upit: gost šalje zahtjev, agencija potvrđuje (bez online plaćanja).
 
 ## Osnovno
-- Lokacije: Čitluk (glavni ured), Međugorje, Mostar (zračna luka), Mostar (Vukovarska), Čapljina, Ljubuški
+- Lokacija: ${SITE.address}
+- Preuzimanje: poslovnica, Aerodrom Sarajevo ili dostava na adresu u Kantonu Sarajevo
 - Radno vrijeme: ${SITE.hours}
 - Kontakt: ${SITE.email}, ${SITE.phones[0]?.value ?? ""}
-- Model rezervacije: upit → potvrda agencije (bez online naplate)
+- Model rezervacije: upit, pa potvrda agencije (bez online naplate)
 
-## Stranice (hrvatski)
-- [Početna](${u("/hr")}): ponuda vozila, provjera dostupnosti i status radnog vremena
-- [Vozila](${u("/hr/vozila")}): vozni park s filterima, galerijom i cijenama po danu
-- [O nama](${u("/hr/o-nama")}): o agenciji Maximum Rent a Car
-- [Poslovna ponuda](${u("/hr/poslovna-ponuda")}): najam za firme i duži period
-- [Uvjeti najma](${u("/hr/uvjeti-najma")}): uvjeti, dokumenti i pravila najma
-- [Kontakt](${u("/hr/kontakt")}): lokacije, telefoni i upit
+## Stranice (bosanski)
+- [Početna](${u("/bs")}): ponuda vozila, provjera dostupnosti, usluge vozača i transferi
+- [Vozila](${u("/bs/vozila")}): vozni park s filterima, galerijom i cijenama po danu
+- [O nama](${u("/bs/o-nama")}): o agenciji ${SITE.name}
+- [Uslovi najma](${u("/bs/uvjeti-najma")}): uslovi, dokumenti i pravila najma
+- [Kontakt](${u("/bs/kontakt")}): adresa, telefoni i upit
 
 ## Pages (English)
-- [Home](${u("/en")}): fleet, availability search and opening status
+- [Home](${u("/en")}): fleet, availability search, chauffeur and airport transfers
 - [Vehicles](${u("/en/vozila")}): fleet with filters, gallery and daily prices
-- [About](${u("/en/o-nama")}): about Maximum Rent a Car
-- [Business offer](${u("/en/poslovna-ponuda")}): corporate and long-term rental
+- [About](${u("/en/o-nama")}): about ${SITE.name}
 - [Rental terms](${u("/en/uvjeti-najma")}): terms, documents and rental rules
-- [Contact](${u("/en/kontakt")}): locations, phones and inquiry
+- [Contact](${u("/en/kontakt")}): address, phones and inquiry
 
 ## Napomene
 - Sitemap: ${u("/sitemap.xml")}

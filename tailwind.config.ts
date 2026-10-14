@@ -28,21 +28,27 @@ const config: Config = {
           foreground: "hsl(var(--muted-foreground) / <alpha-value>)",
         },
         brand: {
-          50: "#FFF1F1",
-          100: "#FFE0E1",
-          200: "#FFC7C9",
-          300: "#FF9DA1",
-          400: "#FB5860",
-          500: "#ED1822",
-          600: "#E30613",
-          700: "#BE040F",
-          800: "#9D0710",
-          900: "#820A11",
-          950: "#470206",
-          DEFAULT: "#E30613",
+          50: "#EEF8FE",
+          100: "#D8EFFC",
+          200: "#B6E2FA",
+          300: "#82CEF6",
+          400: "#45B4EF",
+          500: "#1EA4E9",
+          600: "#0A94DC",
+          700: "#0767A0",
+          800: "#0C5A86",
+          900: "#104B6E",
+          950: "#0B3049",
+          DEFAULT: "#0879B8",
           foreground: "#FFFFFF",
         },
-        // Theme-aware red for small brand-colored TEXT (AA-safe on dark).
+        ink: {
+          DEFAULT: "#0B1220",
+          800: "#111A2C",
+          700: "#1A2438",
+          600: "#26324A",
+        },
+        // Theme-aware blue for small brand-colored TEXT (AA-safe on both themes).
         "brand-strong": "var(--brand-strong)",
       },
       fontFamily: {
@@ -54,14 +60,20 @@ const config: Config = {
         card: "0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -12px rgb(0 0 0 / 0.18)",
         "card-hover":
           "0 2px 4px rgb(0 0 0 / 0.06), 0 24px 48px -16px rgb(0 0 0 / 0.32)",
-        brand: "0 4px 12px -4px rgb(227 6 19 / 0.20)",
+        brand: "0 8px 24px -8px rgb(8 121 184 / 0.45)",
+        glow: "0 30px 80px -20px rgb(10 148 220 / 0.55)",
       },
       backgroundImage: {
-        "brand-gradient": "linear-gradient(135deg, #ED1822 0%, #A40007 100%)",
+        "brand-gradient": "linear-gradient(135deg, #1EA4E9 0%, #0767A0 100%)",
+        "ink-gradient": "linear-gradient(160deg, #111A2C 0%, #0B1220 60%, #0B3049 100%)",
         "hero-fade":
           "linear-gradient(to top, hsl(var(--background)) 4%, transparent 60%)",
       },
       keyframes: {
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
         "fade-up": {
           "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
@@ -69,6 +81,7 @@ const config: Config = {
       },
       animation: {
         "fade-up": "fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both",
+        float: "float 6s ease-in-out infinite",
       },
     },
   },

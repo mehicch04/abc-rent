@@ -4,7 +4,6 @@ import { usePathname } from "@/i18n/navigation";
 
 const VARIANTS: { match: string; cls: string }[] = [
   { match: "/o-nama", cls: "page-bg--tl" },
-  { match: "/poslovna-ponuda", cls: "page-bg--tr" },
   { match: "/vozila", cls: "page-bg--top" },
   { match: "/uvjeti-najma", cls: "page-bg--bottom" },
   { match: "/kontakt", cls: "page-bg--center" },

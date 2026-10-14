@@ -74,7 +74,7 @@ export function CarGallery({
 
   return (
     <div
-      className="group/gallery relative aspect-[16/10] w-full overflow-hidden bg-surface-muted"
+      className="group/gallery relative aspect-[16/10] w-full overflow-hidden bg-white"
       onPointerEnter={warmAll}
       onFocus={warmAll}
       onTouchStart={(e) => {

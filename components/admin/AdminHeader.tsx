@@ -27,7 +27,7 @@ export function AdminHeader() {
         <div className="flex items-center gap-2 font-semibold">
           <ShieldCheck className="h-5 w-5 text-brand" />
           <span>
-            Maximum <span className="text-brand">Admin</span>
+            ABC <span className="text-brand">Admin</span>
           </span>
         </div>
 

@@ -131,7 +131,7 @@ export function NewReservationForm({
                 name="pickupDate"
                 value={pickupDate}
                 min={today}
-                locale="hr"
+                locale="bs"
                 placeholder="Odaberite…"
                 onChange={(v) => {
                   setPickupDate(v);
@@ -157,7 +157,7 @@ export function NewReservationForm({
                 name="returnDate"
                 value={returnDate}
                 min={pickupDate || today}
-                locale="hr"
+                locale="bs"
                 placeholder="Odaberite…"
                 onChange={setReturnDate}
                 className={`${input} flex-1`}

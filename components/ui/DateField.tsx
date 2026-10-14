@@ -8,7 +8,7 @@ type Props = {
   value: string; // "YYYY-MM-DD"
   onChange: (value: string) => void;
   min?: string; // "YYYY-MM-DD"
-  locale?: string; // "hr" | "en"
+  locale?: string; // "bs" | "en"
   placeholder?: string;
   /** When set, also renders a hidden input so native <form> submits the value. */
   name?: string;
@@ -16,6 +16,10 @@ type Props = {
 };
 
 const pad = (n: number) => String(n).padStart(2, "0");
+
+const BS_MONTHS = ["januar", "februar", "mart", "april", "maj", "juni", "juli", "august", "septembar", "oktobar", "novembar", "decembar"];
+const BS_MONTHS_SHORT = ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+const BS_WEEKDAYS = ["pon", "uto", "sri", "čet", "pet", "sub", "ned"];
 const toISO = (d: Date) =>
   `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 const fromISO = (s?: string) => (s ? new Date(`${s}T12:00:00`) : null);
@@ -31,7 +35,7 @@ export function DateField({
   value,
   onChange,
   min,
-  locale = "hr",
+  locale = "bs",
   placeholder = "—",
   name,
   className = "",
@@ -114,24 +118,31 @@ export function DateField({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
+  const isBs = locale.startsWith("bs");
+
   const label = selected
-    ? new Intl.DateTimeFormat(locale, {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      }).format(selected)
+    ? isBs
+      ? `${selected.getDate()}. ${BS_MONTHS_SHORT[selected.getMonth()]} ${selected.getFullYear()}.`
+      : new Intl.DateTimeFormat(locale, {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        }).format(selected)
     : placeholder;
 
-  // Monday-first weekday headers (Jan 1 2024 was a Monday).
-  const weekdays = Array.from({ length: 7 }, (_, i) =>
-    new Intl.DateTimeFormat(locale, { weekday: "short" }).format(
-      new Date(2024, 0, 1 + i),
-    ),
-  );
-  const monthLabel = new Intl.DateTimeFormat(locale, {
-    month: "long",
-    year: "numeric",
-  }).format(view);
+  const weekdays = isBs
+    ? BS_WEEKDAYS
+    : Array.from({ length: 7 }, (_, i) =>
+        new Intl.DateTimeFormat(locale, { weekday: "short" }).format(
+          new Date(2024, 0, 1 + i),
+        ),
+      );
+  const monthLabel = isBs
+    ? `${BS_MONTHS[view.getMonth()]} ${view.getFullYear()}.`
+    : new Intl.DateTimeFormat(locale, {
+        month: "long",
+        year: "numeric",
+      }).format(view);
 
   const y = view.getFullYear();
   const m = view.getMonth();

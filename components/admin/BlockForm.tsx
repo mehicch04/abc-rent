@@ -70,7 +70,7 @@ export function BlockForm({
             name="from"
             value={from}
             min={today}
-            locale="hr"
+            locale="bs"
             placeholder="Odaberite…"
             onChange={(v) => {
               setFrom(v);
@@ -86,7 +86,7 @@ export function BlockForm({
             name="to"
             value={to}
             min={from || today}
-            locale="hr"
+            locale="bs"
             placeholder="Odaberite…"
             onChange={setTo}
             className={input}

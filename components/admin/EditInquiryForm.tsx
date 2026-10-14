@@ -632,7 +632,7 @@ export function EditInquiryForm({
             <DateField
               name="pickupDate"
               value={pickupDate}
-              locale="hr"
+              locale="bs"
               placeholder="Odaberite…"
               onChange={(v) => {
                 setPickupDate(v);
@@ -659,7 +659,7 @@ export function EditInquiryForm({
               name="returnDate"
               value={returnDate}
               min={pickupDate || undefined}
-              locale="hr"
+              locale="bs"
               placeholder="Odaberite…"
               onChange={setReturnDate}
               className={`${input} flex-1`}

@@ -17,7 +17,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Admin · Maximum Rent a Car",
+  title: "Admin · ABC Rent a Car",
   robots: { index: false, follow: false },
 };
 
@@ -46,7 +46,7 @@ export default async function AdminLayout({
   const counts = await pendingCounts();
 
   return (
-    <html lang="hr" suppressHydrationWarning className={inter.variable}>
+    <html lang="bs" suppressHydrationWarning className={inter.variable}>
       <body className="min-h-dvh bg-background font-sans text-foreground antialiased">
         <ThemeProvider>
           <div className="flex min-h-dvh flex-col">

@@ -269,7 +269,7 @@ export function FleetGrid({
       const b = c.brand?.trim();
       if (b) m.set(b, (m.get(b) ?? 0) + 1);
     }
-    return [...m.entries()].sort((a, b) => a[0].localeCompare(b[0], "hr"));
+    return [...m.entries()].sort((a, b) => a[0].localeCompare(b[0], "bs"));
   }, [cars, carCats, active]);
 
   const totalForBrands = useMemo(
@@ -315,9 +315,9 @@ export function FleetGrid({
       case "YEAR_DESC":
         return filtered.sort((a, b) => b.year - a.year);
       case "NAME_ASC":
-        return filtered.sort((a, b) => a.title.localeCompare(b.title, "hr"));
+        return filtered.sort((a, b) => a.title.localeCompare(b.title, "bs"));
       case "NAME_DESC":
-        return filtered.sort((a, b) => b.title.localeCompare(a.title, "hr"));
+        return filtered.sort((a, b) => b.title.localeCompare(a.title, "bs"));
       case "RECOMMENDED":
       default:
         return filtered; // owner's order from the admin (sortOrder)

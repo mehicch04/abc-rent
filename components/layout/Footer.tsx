@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Clock, Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { NAV_LINKS } from "@/lib/site-config";
+import { NAV_LINKS, SITE } from "@/lib/site-config";
 import type { Company } from "@/lib/company";
 
 type Props = {
@@ -17,15 +17,22 @@ export function Footer({ company, locations }: Props) {
 
   return (
     <footer className="mt-24 border-t border-border bg-surface-muted">
-      <div className="container grid gap-10 py-14 md:grid-cols-[1.2fr_1fr_1.4fr_0.8fr]">
+      <div className="container grid gap-10 py-14 md:grid-cols-[1.2fr_1fr_1.4fr_0.8fr] [&:not(:has(>:nth-child(4)))]:md:grid-cols-[1.2fr_1fr_1.4fr]">
         {/* Brand + nav */}
         <div className="space-y-4">
           <Image
             src="/logo.png"
-            alt="Maximum Rent a Car"
-            width={800}
-            height={239}
-            className="h-11 w-auto"
+            alt={SITE.name}
+            width={343}
+            height={160}
+            className="h-14 w-auto dark:hidden"
+          />
+          <Image
+            src="/logo-dark.png"
+            alt={SITE.name}
+            width={343}
+            height={160}
+            className="hidden h-14 w-auto dark:block"
           />
           <p className="max-w-xs text-sm text-muted-foreground">{t("tagline")}</p>
           <ul className="flex flex-col gap-1.5 pt-2">
@@ -95,7 +102,7 @@ export function Footer({ company, locations }: Props) {
           </ul>
         </div>
 
-        {/* Social */}
+        {(company.socials.facebook || company.socials.instagram) && (
         <div className="space-y-4">
           <h3 className="text-sm font-semibold uppercase tracking-wide">{t("follow")}</h3>
           <div className="flex gap-3">
@@ -123,6 +130,7 @@ export function Footer({ company, locations }: Props) {
             )}
           </div>
         </div>
+        )}
       </div>
 
       <div className="border-t border-border">

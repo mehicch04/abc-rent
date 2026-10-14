@@ -393,7 +393,7 @@ export function VehicleFormModal({
           {/* descriptions */}
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
-              <label className={lbl}>Opis (HR)</label>
+              <label className={lbl}>Opis (BS)</label>
               <textarea
                 value={descriptionHr}
                 onChange={(e) => setDescriptionHr(e.target.value)}

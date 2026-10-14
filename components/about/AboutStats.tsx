@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
+import { intlLocale } from "@/i18n/routing";
 
 type Stat = { value: number; label: string; suffix?: string };
 
@@ -35,7 +36,7 @@ function Counter({
 
   return (
     <span ref={ref}>
-      {n.toLocaleString(locale)}
+      {n.toLocaleString(intlLocale(locale))}
       {suffix}
     </span>
   );

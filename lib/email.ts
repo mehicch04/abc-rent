@@ -52,9 +52,9 @@ export async function sendInquiryEmail(
   data: InquiryEmailData,
 ): Promise<{ sent: boolean; error?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.INQUIRY_TO_EMAIL ?? "info@maximum-rent.com";
+  const to = process.env.INQUIRY_TO_EMAIL ?? SITE.email;
   const from =
-    process.env.INQUIRY_FROM_EMAIL ?? "Maximum Rent <onboarding@resend.dev>";
+    process.env.INQUIRY_FROM_EMAIL ?? "ABC Rent a Car <onboarding@resend.dev>";
 
   if (!apiKey) {
     console.warn(
@@ -109,7 +109,7 @@ export async function sendGuestConfirmationEmail(
 ): Promise<{ sent: boolean; error?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const from =
-    process.env.INQUIRY_FROM_EMAIL ?? "Maximum Rent <onboarding@resend.dev>";
+    process.env.INQUIRY_FROM_EMAIL ?? "ABC Rent a Car <onboarding@resend.dev>";
 
   if (!apiKey) {
     console.warn(
@@ -177,7 +177,7 @@ export type ContactEmailData = {
   phone: string;
   company?: string | null;
   message?: string | null;
-  locale?: "hr" | "en" | string;
+  locale?: "bs" | "en" | string;
 };
 
 export async function sendContactEmail(
@@ -186,7 +186,7 @@ export async function sendContactEmail(
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.INQUIRY_TO_EMAIL ?? SITE.email;
   const from =
-    process.env.INQUIRY_FROM_EMAIL ?? "Maximum Rent <onboarding@resend.dev>";
+    process.env.INQUIRY_FROM_EMAIL ?? "ABC Rent a Car <onboarding@resend.dev>";
 
   if (!apiKey) {
     console.warn("[email] RESEND_API_KEY missing — contact email skipped.");
@@ -261,19 +261,19 @@ const DECISION_COPY = {
     confirmedTitle: "Vaša rezervacija je potvrđena!",
     cancelledTitle: "Vaša rezervacija nažalost nije potvrđena",
     confirmedIntro:
-      "s zadovoljstvom potvrđujemo vašu rezervaciju. Detalji su ispod — vidimo se!",
+      "s zadovoljstvom potvrđujemo vašu rezervaciju. Detalji su ispod. Vidimo se!",
     cancelledIntro:
       "nažalost nismo u mogućnosti potvrditi vašu rezervaciju za traženi period.",
     car: "Vozilo",
     period: "Period",
     reference: "Referenca",
     contact: "Kontakt",
-    footer: "Maximum Rent a Car · Hercegovina",
+    footer: "ABC Rent a Car · Sarajevo",
     greeting: (name: string) => `Poštovani ${name}`,
     confirmedNotice:
-      '<strong style="color:#111111;">Vozilo je rezervisano</strong> za navedeni period. Molimo ponesite važeću vozačku dozvolu i osobni dokument pri preuzimanju.',
+      '<strong style="color:#111111;">Vozilo je rezervisano</strong> za navedeni period. Molimo ponesite važeću vozačku dozvolu i ličnu kartu ili pasoš pri preuzimanju.',
     cancelledNotice:
-      '<strong style="color:#111111;">Rezervacija nije potvrđena.</strong> Slobodno nas kontaktirajte — rado ćemo pronaći alternativni termin ili vozilo.',
+      '<strong style="color:#111111;">Rezervacija nije potvrđena.</strong> Slobodno nas kontaktirajte, rado ćemo pronaći alternativni termin ili vozilo.',
     confirmedPre: (ref: string) => `Rezervacija ${ref} je potvrđena.`,
     cancelledPre: (ref: string) => `Rezervacija ${ref} nije potvrđena.`,
   },
@@ -283,19 +283,19 @@ const DECISION_COPY = {
     confirmedTitle: "Your reservation is confirmed!",
     cancelledTitle: "Unfortunately, your reservation was not confirmed",
     confirmedIntro:
-      "we're happy to confirm your reservation. Details below — see you soon!",
+      "we're happy to confirm your reservation. Details below. See you soon!",
     cancelledIntro:
       "unfortunately we are unable to confirm your reservation for the requested period.",
     car: "Vehicle",
     period: "Period",
     reference: "Reference",
     contact: "Contact",
-    footer: "Maximum Rent a Car · Herzegovina",
+    footer: "ABC Rent a Car · Sarajevo",
     greeting: (name: string) => `Dear ${name}`,
     confirmedNotice:
       '<strong style="color:#111111;">Your vehicle is reserved</strong> for the selected period. Please bring a valid driving licence and ID at pick-up.',
     cancelledNotice:
-      '<strong style="color:#111111;">The reservation was not confirmed.</strong> Feel free to contact us — we will gladly find an alternative date or vehicle.',
+      '<strong style="color:#111111;">The reservation was not confirmed.</strong> Feel free to contact us, we will gladly find an alternative date or vehicle.',
     confirmedPre: (ref: string) => `Reservation ${ref} is confirmed.`,
     cancelledPre: (ref: string) => `Reservation ${ref} was not confirmed.`,
   },
@@ -310,7 +310,7 @@ export async function sendReservationDecisionEmail({
 }): Promise<{ sent: boolean; error?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const from =
-    process.env.INQUIRY_FROM_EMAIL ?? "Maximum Rent <onboarding@resend.dev>";
+    process.env.INQUIRY_FROM_EMAIL ?? "ABC Rent a Car <onboarding@resend.dev>";
 
   if (!apiKey) {
     console.warn("[email] RESEND_API_KEY missing — decision email skipped.");
@@ -339,7 +339,7 @@ export async function sendReservationDecisionEmail({
         ? c.confirmedPre(esc(inquiry.reference))
         : c.cancelledPre(esc(inquiry.reference)),
       // Green reads as "done" for a confirmation; brand red for the rest.
-      accent: confirmed ? "#16a34a" : "#E30613",
+      accent: confirmed ? "#16a34a" : "#0879B8",
     },
     locale,
   );
