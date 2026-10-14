@@ -114,7 +114,7 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
         e.preventDefault();
         handleSubmit();
       }}
-      className="w-full rounded-2xl border border-border bg-surface/95 p-5 shadow-card backdrop-blur-md sm:p-6"
+      className="w-full rounded-2xl border border-border bg-surface p-5 shadow-[0_24px_60px_-40px_rgba(11,18,32,0.45)] sm:p-6"
     >
       <div className="grid gap-4">
         {/* Locations row */}
@@ -250,7 +250,7 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
 
           <button
             type="submit"
-            className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand px-6 text-sm font-semibold text-brand-foreground shadow-brand transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
+            className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand px-6 text-sm font-medium text-brand-foreground transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
           >
             {t("search")}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />

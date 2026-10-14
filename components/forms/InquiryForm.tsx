@@ -62,7 +62,7 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
 
   if (status === "success") {
     return (
-      <div className="flex flex-col items-center rounded-2xl border border-border bg-surface p-8 text-center shadow-card">
+      <div className="flex flex-col items-center rounded-2xl bg-surface-muted p-8 text-center">
         <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-brand/10 text-brand">
           <CheckCircle2 className="h-7 w-7" />
         </span>
@@ -101,7 +101,7 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-2xl border border-border bg-surface p-6 shadow-card sm:p-8"
+      className="rounded-2xl bg-surface-muted p-6 sm:p-8"
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -199,7 +199,7 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-brand transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-medium text-brand-foreground transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-70"
         >
           {status === "submitting" ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -212,7 +212,7 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:border-brand hover:text-brand"
+          className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-surface px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:border-brand hover:text-brand"
         >
           <MessageCircle className="h-4 w-4" />
           {t("whatsapp")}

@@ -165,7 +165,7 @@ export function ExportForm() {
       <a
         href={href()}
         download
-        className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand px-6 text-sm font-semibold text-brand-foreground shadow-brand transition-colors hover:bg-brand-700 sm:w-auto"
+        className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand px-6 text-sm font-semibold text-brand-foreground transition-colors hover:bg-brand-700 sm:w-auto"
       >
         <Download className="h-4 w-4" />
         Preuzmi tabelu

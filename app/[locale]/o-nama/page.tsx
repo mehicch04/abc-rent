@@ -1,20 +1,14 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { buildPageMetadata } from "@/lib/seo";
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import {
-  CalendarCheck,
-  MapPin,
-  ShieldCheck,
-  Heart,
-  ArrowRight,
-  ExternalLink,
-} from "lucide-react";
-import { Link } from "@/i18n/navigation";
-import { getCompany } from "@/lib/company";
-import { getActiveLocations, getBrowseCars } from "@/lib/fleet-data";
+import { CalendarCheck, Heart, MapPin, ShieldCheck } from "lucide-react";
+import { buildPageMetadata } from "@/lib/seo";
+import { getBrowseCars } from "@/lib/fleet-data";
 import { SITE } from "@/lib/site-config";
-import { AboutStats } from "@/components/about/AboutStats";
+import { PageHeader } from "@/components/layout/PageHeader";
+import { Heading } from "@/components/home/Heading";
+import { Visit } from "@/components/home/Visit";
+import { CtaBand } from "@/components/home/CtaBand";
 
 export async function generateMetadata({
   params: { locale },
@@ -37,21 +31,15 @@ export default async function AboutPage({
 }: {
   params: { locale: string };
 }) {
-  const company = await getCompany();
-  const [locations, cars] = await Promise.all([
-    getActiveLocations(),
-    getBrowseCars().catch(() => []),
-  ]);
   setRequestLocale(locale);
   const t = await getTranslations("About");
-
-  const mapSrc = `https://maps.google.com/maps?q=${company.map.lat},${company.map.lng}&z=15&hl=${locale}&output=embed`;
+  const cars = await getBrowseCars().catch(() => []);
 
   const stats = [
-    { value: 500, suffix: "+", label: t("stats.clientsLabel") },
-    { value: cars.length || 19, label: t("stats.carsLabel") },
-    { value: 24, suffix: "/7", label: t("stats.supportLabel") },
-    { value: SITE.deposit.standard, suffix: " €", label: t("stats.depositLabel") },
+    { value: "500+", label: t("stats.clientsLabel") },
+    { value: String(cars.length || 19), label: t("stats.carsLabel") },
+    { value: "24/7", label: t("stats.supportLabel") },
+    { value: `${SITE.deposit.standard} €`, label: t("stats.depositLabel") },
   ];
 
   const features = [
@@ -63,110 +51,54 @@ export default async function AboutPage({
 
   return (
     <>
-    <PageHeader eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")}>
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/60 sm:text-lg">{t("intro2")}</p>
-    </PageHeader>
-    <div className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
-      <div className="relative z-10 -mt-12">
-        <AboutStats items={stats} locale={locale} />
-      </div>
+      <PageHeader eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
 
-      {/* Story + features */}
-      <section className="mt-16">
-        <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-          {t("storyTitle")}
-        </h2>
-        <div className="mt-4 max-w-3xl space-y-4 text-base leading-relaxed text-foreground/90">
-          <p>{t("storyP1")}</p>
-          <p>{t("storyP2")}</p>
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
+          <Heading eyebrow={t("storyTitle")} title={t("storyHeadline")} accent={t("storyAccent")} accentTone="muted" />
+          <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
+            <p className="text-foreground">{t("intro2")}</p>
+            <p>{t("storyP1")}</p>
+            <p>{t("storyP2")}</p>
+          </div>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map(({ icon: Icon, title, text }) => (
-            <div
-              key={title}
-              className="rounded-2xl border border-border bg-surface p-6 shadow-card transition-shadow duration-300 hover:shadow-card-hover"
-            >
-              <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand/10 text-brand">
-                <Icon className="h-5 w-5" />
-              </span>
-              <h3 className="mt-4 font-semibold text-foreground">{title}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                {text}
-              </p>
+        <div className="mt-16 grid grid-cols-2 gap-px border-y border-border bg-border lg:grid-cols-4">
+          {stats.map((s) => (
+            <div key={s.label} className="bg-background py-8 pl-6 odd:pl-0 lg:pl-8 lg:odd:pl-8 lg:first:pl-0">
+              <p className="font-display text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">{s.value}</p>
+              <p className="mt-2 text-sm text-muted-foreground">{s.label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Map + locations */}
-      <section className="mt-16">
-        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-          <h2 className="flex items-center gap-2 font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            <MapPin className="h-6 w-6 text-brand" />
-            {t("mapTitle")}
-          </h2>
-          <a
-            href={company.map.link ?? "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-brand transition-colors hover:text-brand-700"
-          >
-            {t("openMap")}
-            <ExternalLink className="h-4 w-4" />
-          </a>
-        </div>
-        <p className="mb-5 max-w-3xl text-muted-foreground">{t("mapText")}</p>
-
-        <div className="relative aspect-[16/11] w-full overflow-hidden rounded-2xl border border-border shadow-card sm:aspect-[21/9] dark:[filter:brightness(0.92)_contrast(1.05)]">
-          <iframe
-            src={mapSrc}
-            title={`${SITE.name}, lokacija`}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-            className="absolute inset-0 h-full w-full"
-          />
-        </div>
-
-        <div className="mt-5 flex flex-wrap gap-2">
-          {locations.map((loc) => (
-            <span
-              key={loc.name}
-              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-foreground/80"
-            >
-              <MapPin className="h-3.5 w-3.5 text-brand" />
-              {loc.name}
-            </span>
-          ))}
+      <section className="bg-surface-muted py-20 sm:py-24">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[4/5]">
+            <Image src="/img/chauffeur.webp" alt={t("imageAlt")} fill sizes="(max-width: 1023px) 100vw, 50vw" className="object-cover" />
+          </div>
+          <div>
+            <Heading eyebrow={t("featuresEyebrow")} title={t("featuresTitle")} accent={t("featuresAccent")} />
+            <ul className="mt-8 border-t border-border">
+              {features.map(({ icon: Icon, title, text }) => (
+                <li key={title} className="flex gap-4 border-b border-border py-5">
+                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface text-brand-strong">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <h3 className="font-display text-base font-semibold text-foreground">{title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{text}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="mt-16 rounded-3xl border border-border bg-surface-muted p-8 text-center shadow-card sm:p-12">
-        <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-          {t("ctaTitle")}
-        </h2>
-        <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-          {t("ctaText")}
-        </p>
-        <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-          <Link
-            href="/vozila"
-            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-brand transition-colors hover:bg-brand-700"
-          >
-            {t("ctaFleet")}
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link
-            href="/kontakt"
-            className="inline-flex items-center justify-center gap-2 rounded-2xl border border-border bg-surface px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:border-brand hover:text-brand"
-          >
-            {t("ctaContact")}
-          </Link>
-        </div>
-      </section>
-    </div>
+      <Visit address={SITE.address} />
+      <CtaBand />
     </>
   );
 }

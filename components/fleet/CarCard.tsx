@@ -3,15 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  Calendar,
   Car as CarIcon,
-  ChevronRight,
   Cog,
-  Fuel,
   Users,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import type { AppLocale } from "@/i18n/routing";
+import { carCategories } from "@/lib/car-categories";
 import {
   CLASS_LABELS,
   FUEL_LABELS,
@@ -21,7 +19,6 @@ import {
 import { buildWhatsAppUrl, type InquiryContext } from "@/lib/whatsapp";
 import type { CarListItem, SearchContext } from "@/lib/types";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { CarDoorIcon } from "@/components/ui/CarDoorIcon";
 import { Price } from "@/components/currency/Price";
 import { CarGallery } from "./CarGallery";
 import { ImageLightbox } from "./ImageLightbox";
@@ -59,31 +56,22 @@ export function CarCard({
   };
   const whatsappUrl = buildWhatsAppUrl(inquiry);
 
+  const cats = carCategories(car);
   const specs = [
-    { icon: CarIcon, value: label(CLASS_LABELS[car.carClass], locale) },
-    { icon: Calendar, value: String(car.year) },
-    { icon: Cog, value: label(TRANSMISSION_LABELS[car.transmission], locale) },
-    { icon: Users, value: String(car.passengers) },
+    { icon: Users, value: `${car.passengers} ${locale === "en" ? "seats" : "sjedišta"}` },
     {
-      icon: Fuel,
-      value: [label(FUEL_LABELS[car.fuelType], locale), car.emissionClass]
-        .filter(Boolean)
-        .join(" · "),
+      icon: CarIcon,
+      value: [cats[1] ? t(`categories.${cats[1]}`) : label(CLASS_LABELS[car.carClass], locale), label(FUEL_LABELS[car.fuelType], locale)].join(" · "),
     },
-    { icon: CarDoorIcon, value: String(car.doors) },
+    { icon: Cog, value: `${label(TRANSMISSION_LABELS[car.transmission], locale)} · ${car.year}` },
   ];
 
   return (
     <article
       data-frozen={lightbox !== null || undefined}
-      className="group relative flex cursor-pointer flex-col overflow-hidden rounded-[1.75rem] border border-border bg-surface p-2 shadow-card transition-[transform,box-shadow,border-color] duration-300 [@media(hover:hover)]:hover:-translate-y-1 hover:border-brand/50 hover:shadow-card-hover [@media(hover:hover)]:data-[frozen]:-translate-y-1 [@media(hover:hover)]:data-[frozen]:border-brand/50 [@media(hover:hover)]:data-[frozen]:shadow-card-hover"
+      className="group relative flex cursor-pointer flex-col rounded-2xl border border-border bg-surface p-3 transition-colors duration-300 hover:border-foreground/20"
     >
-      <span className="absolute left-5 top-5 z-20 rounded-full bg-white/85 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-ink backdrop-blur">
-        {label(CLASS_LABELS[car.carClass], locale)}
-      </span>
-
-      {/* Above the stretched link so zooming a photo still works. */}
-      <div className="relative z-10 overflow-hidden rounded-[1.35rem]">
+      <div className="relative z-10 overflow-hidden rounded-xl">
         <CarGallery
           images={images}
           title={car.title}
@@ -102,62 +90,59 @@ export function CarCard({
         thumbSizes={imageSizes}
       />
 
-      <div className="flex flex-1 flex-col gap-4 px-3 pb-3 pt-4">
-        <div>
-          <h3 className="font-display text-lg font-bold leading-tight tracking-tight">
+      <div className="flex flex-1 flex-col px-2 pb-2 pt-5">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="font-display text-lg font-semibold leading-tight tracking-tight text-foreground">
             <Link
               href={`/${locale}/vozila/${car.slug}`}
-              className="transition-colors before:absolute before:inset-0 before:z-0 before:content-[''] hover:text-brand-strong"
+              className="before:absolute before:inset-0 before:z-0 before:content-['']"
             >
               {car.title}
             </Link>
           </h3>
-          <p className="mt-0.5 text-sm text-muted-foreground">
-            {car.brand} {car.model}
-          </p>
+          {cats[0] && (
+            <span className="shrink-0 rounded-full border border-brand/30 px-2.5 py-0.5 text-[11px] font-medium text-brand-strong">
+              {t(`categories.${cats[0]}`)}
+            </span>
+          )}
         </div>
 
-        <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5">
+        <ul className="mb-5 mt-3 space-y-1.5 text-sm text-muted-foreground">
           {specs.map((spec, i) => (
-            <li key={i} className="flex items-center gap-2.5">
-              <spec.icon className="h-4 w-4 shrink-0 text-brand" />
-              <span className="truncate text-sm font-medium text-foreground">
-                {spec.value}
-              </span>
+            <li key={i} className="flex items-center gap-2">
+              <spec.icon className="h-4 w-4 shrink-0" />
+              <span className="truncate">{spec.value}</span>
             </li>
           ))}
         </ul>
 
-        {car.pricePerDay != null && (
-          <p className="text-sm text-muted-foreground">
-            {common("from")}{" "}
-            <Price
-              bam={car.pricePerDay}
-              className="font-display text-2xl font-extrabold text-foreground"
-            />{" "}
-            / {common("perDay")}
-          </p>
-        )}
-
-        <div className="relative z-10 mt-auto flex items-center gap-2 pt-2">
-          <button
-            type="button"
-            onClick={() => onSelect?.(car)}
-            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-ink px-4 py-3 dark:bg-white dark:text-ink hover:!bg-brand hover:!text-white text-sm font-semibold text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          >
-            {t("select")}
-            <ChevronRight className="h-4 w-4" />
-          </button>
-
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="WhatsApp"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface-muted text-foreground transition-colors hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            <WhatsAppIcon className="h-5 w-5" />
-          </a>
+        <div className="relative z-10 mt-auto flex items-center justify-between gap-2 border-t border-border pt-4">
+          {car.pricePerDay != null ? (
+            <p>
+              <Price bam={car.pricePerDay} className="font-display text-2xl font-semibold text-foreground" />
+              <span className="text-sm text-muted-foreground"> / {common("perDay")}</span>
+            </p>
+          ) : (
+            <span />
+          )}
+          <div className="flex items-center gap-1.5">
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-[#25D366] hover:text-[#25D366]"
+            >
+              <WhatsAppIcon className="h-4 w-4" />
+            </a>
+            <button
+              type="button"
+              onClick={() => onSelect?.(car)}
+              className="inline-flex h-9 items-center rounded-full bg-brand px-4 text-xs font-medium text-white transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              {t("select")}
+            </button>
+          </div>
         </div>
       </div>
     </article>

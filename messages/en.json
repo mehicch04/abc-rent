@@ -76,7 +76,13 @@
     "similar": "Similar vehicles",
     "notOffered": "This vehicle is not currently offered.",
     "bookNow": "Book this vehicle",
-    "featuredTitle": "Featured vehicles from our fleet"
+    "featuredTitle": "Featured vehicles from our fleet",
+    "included": [
+      "Full insurance",
+      "Unlimited mileage",
+      "Delivery in Sarajevo",
+      "24/7 roadside help"
+    ]
   },
   "Inquiry": {
     "title": "Reservation inquiry",
@@ -142,12 +148,18 @@
     "ctaTitle": "Ready to go?",
     "ctaText": "Browse our vehicles or get in touch. We'll gladly help you pick the right car.",
     "ctaFleet": "View vehicles",
-    "ctaContact": "Contact us"
+    "ctaContact": "Contact us",
+    "storyHeadline": "A small Sarajevo team",
+    "storyAccent": "that answers every call.",
+    "imageAlt": "ABC Rent a Car driver opening the door for a passenger",
+    "featuresEyebrow": "Why us",
+    "featuresTitle": "What you can",
+    "featuresAccent": "count on."
   },
   "Contact": {
     "title": "Contact",
-    "lead": "We're here for all your questions and bookings, every day, 24/7.",
-    "ourOffices": "Vehicle pickup",
+    "lead": "Questions, bookings or help on the road. We answer every day, around the clock.",
+    "ourOffices": "Where you pick up the car",
     "hoursLabel": "Opening hours",
     "phonesLabel": "Phones",
     "emailLabel": "Email",
@@ -155,7 +167,11 @@
     "mapHeading": "Where to find us",
     "openMap": "Open in Google Maps",
     "formHeading": "Send us an inquiry",
-    "formLead": "Leave your details and we'll get back to you. If it's quicker, message us on WhatsApp."
+    "formLead": "Leave your details and we'll get back to you. If it's quicker, message us on WhatsApp.",
+    "infoEyebrow": "Contact details",
+    "infoTitle": "The fastest way to reach us",
+    "infoAccent": "is WhatsApp.",
+    "whatsapp": "Message on WhatsApp"
   },
   "Common": {
     "from": "from",

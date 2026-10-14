@@ -76,7 +76,13 @@
     "similar": "Slična vozila",
     "notOffered": "Ovo vozilo trenutno nije u ponudi.",
     "bookNow": "Rezerviši ovo vozilo",
-    "featuredTitle": "Izdvojena vozila iz naše ponude"
+    "featuredTitle": "Izdvojena vozila iz naše ponude",
+    "included": [
+      "Puno osiguranje",
+      "Neograničena kilometraža",
+      "Dostava u Sarajevu",
+      "Pomoć na cesti 24/7"
+    ]
   },
   "Inquiry": {
     "title": "Upit za rezervaciju",
@@ -142,12 +148,18 @@
     "ctaTitle": "Spremni za put?",
     "ctaText": "Pogledajte ponudu vozila ili nam se javite. Rado ćemo vam pomoći da odaberete pravo vozilo.",
     "ctaFleet": "Pogledaj vozila",
-    "ctaContact": "Kontaktiraj nas"
+    "ctaContact": "Kontaktiraj nas",
+    "storyHeadline": "Mala sarajevska ekipa",
+    "storyAccent": "koja se javi na svaki poziv.",
+    "imageAlt": "Vozač ABC Rent a Car otvara vrata putniku",
+    "featuresEyebrow": "Zašto mi",
+    "featuresTitle": "Ono na šta",
+    "featuresAccent": "možete računati."
   },
   "Contact": {
     "title": "Kontakt",
-    "lead": "Tu smo za sva pitanja i rezervacije, svaki dan 0 do 24h.",
-    "ourOffices": "Preuzimanje vozila",
+    "lead": "Pitanja, rezervacije ili hitna pomoć na putu. Javljamo se svaki dan, 0 do 24h.",
+    "ourOffices": "Gdje preuzimate vozilo",
     "hoursLabel": "Radno vrijeme",
     "phonesLabel": "Telefoni",
     "emailLabel": "Email",
@@ -155,7 +167,11 @@
     "mapHeading": "Gdje se nalazimo",
     "openMap": "Otvori u Google Maps",
     "formHeading": "Pošaljite nam upit",
-    "formLead": "Unesite svoje podatke i javit ćemo vam se. Ako vam je brže, pišite nam na WhatsApp."
+    "formLead": "Unesite svoje podatke i javit ćemo vam se. Ako vam je brže, pišite nam na WhatsApp.",
+    "infoEyebrow": "Kontakt podaci",
+    "infoTitle": "Najbrže nas dobijete",
+    "infoAccent": "na WhatsApp.",
+    "whatsapp": "Pišite na WhatsApp"
   },
   "Common": {
     "from": "od",

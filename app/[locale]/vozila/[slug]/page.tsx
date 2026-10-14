@@ -83,7 +83,7 @@ export default async function CarPage({ params }: Props) {
   };
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+    <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
       <script
         type="application/ld+json"
         // Escaped so a stray closing tag in a description cannot break out.
@@ -92,13 +92,14 @@ export default async function CarPage({ params }: Props) {
         }}
       />
 
-      <Link
-        href={`/${params.locale}/vozila`}
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-brand-strong"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        {t("backToFleet")}
-      </Link>
+      <nav aria-label="breadcrumb" className="flex items-center gap-2 text-sm text-muted-foreground">
+        <Link href={`/${params.locale}/vozila`} className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground">
+          <ArrowLeft className="h-4 w-4" />
+          {t("backToFleet")}
+        </Link>
+        <span aria-hidden>/</span>
+        <span className="truncate text-foreground">{car.title}</span>
+      </nav>
 
       <CarDetail
         car={car}
@@ -108,6 +109,6 @@ export default async function CarPage({ params }: Props) {
         bookedExtras={booked}
         locale={params.locale}
       />
-    </main>
+    </div>
   );
 }

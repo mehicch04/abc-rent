@@ -27,7 +27,7 @@ export function NewReservationButton({ children }: { children: React.ReactNode }
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="inline-flex h-11 items-center justify-center gap-1.5 rounded-xl bg-brand px-5 text-sm font-semibold text-brand-foreground shadow-brand transition-colors hover:bg-brand-700"
+        className="inline-flex h-11 items-center justify-center gap-1.5 rounded-xl bg-brand px-5 text-sm font-semibold text-brand-foreground transition-colors hover:bg-brand-700"
       >
         <Plus className="h-4 w-4" />
         Nova rezervacija

@@ -71,11 +71,11 @@ export default async function TermsPage({
     <>
     <PageHeader title={c.heading} lead={c.intro} />
     <div className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
-      <div className="mt-12 grid gap-10 lg:grid-cols-[16rem_1fr] lg:gap-12">
+      <div className="mt-16 grid gap-10 lg:grid-cols-[15rem_1fr] lg:gap-16">
         {/* Table of contents */}
         <aside className="lg:sticky lg:top-28 lg:self-start">
           {/* Mobile: collapsible */}
-          <details className="group rounded-2xl border border-border bg-surface p-2 lg:hidden">
+          <details className="group rounded-2xl bg-surface-muted p-2 lg:hidden">
             <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold text-foreground">
               {c.indexLabel}
               <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-180" />
@@ -88,7 +88,7 @@ export default async function TermsPage({
                       href={`#clanak-${a.n}`}
                       className="flex gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-surface-muted hover:text-brand"
                     >
-                      <span className="font-semibold text-brand">{a.n}.</span>
+                      <span className="font-medium text-brand-strong">{String(a.n).padStart(2, "0")}</span>
                       {a.topic}
                     </a>
                   </li>
@@ -99,7 +99,7 @@ export default async function TermsPage({
 
           {/* Desktop: sticky list */}
           <nav className="hidden lg:block">
-            <p className="px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <p className="px-3 text-sm font-semibold text-foreground">
               {c.indexLabel}
             </p>
             <ol className="mt-3 space-y-0.5">
@@ -109,7 +109,7 @@ export default async function TermsPage({
                     href={`#clanak-${a.n}`}
                     className="flex gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-surface-muted hover:text-brand"
                   >
-                    <span className="font-semibold text-brand">{a.n}.</span>
+                    <span className="font-medium text-brand-strong">{String(a.n).padStart(2, "0")}</span>
                     {a.topic}
                   </a>
                 </li>
@@ -119,28 +119,23 @@ export default async function TermsPage({
         </aside>
 
         {/* Articles */}
-        <div className="space-y-6">
+        <div>
           {c.articles.map((a) => (
             <section
               key={a.n}
               id={`clanak-${a.n}`}
-              className="scroll-mt-24 rounded-2xl border border-border bg-surface p-6 shadow-card sm:p-8"
+              className="scroll-mt-28 border-t border-border py-8 first:border-t-0 first:pt-0"
             >
-              <div className="flex items-start gap-4">
-                <span className="inline-flex h-10 w-10 flex-none items-center justify-center rounded-full bg-brand text-sm font-bold text-brand-foreground">
-                  {a.n}
+              <div className="flex items-baseline gap-4">
+                <span className="font-display text-sm font-semibold text-brand-strong">
+                  {String(a.n).padStart(2, "0")}
                 </span>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand">
-                    {c.articleLabel} {a.n}
-                  </p>
-                  <h2 className="mt-1 font-display text-xl font-bold tracking-tight text-foreground">
-                    {a.topic}
-                  </h2>
-                </div>
+                <h2 className="font-display text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+                  {a.topic}
+                </h2>
               </div>
 
-              <div className="mt-5 space-y-4">
+              <div className="mt-4 space-y-4 pl-9">
                 {a.blocks.map((block, i) => (
                   <Block key={i} block={block} />
                 ))}

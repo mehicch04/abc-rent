@@ -100,7 +100,7 @@ export function SimilarCars({
               href={`/${locale}/vozila/${c.slug}`}
               className="group block overflow-hidden rounded-2xl border border-border bg-surface transition-colors hover:border-brand"
             >
-              <div className="relative aspect-[16/10] w-full bg-gradient-to-br from-[#F8FBFD] to-[#E3EEF7]">
+              <div className="relative aspect-[16/10] w-full bg-[#EEF2F6]">
                 {c.images?.[0] ? (
                   <Image
                     src={c.images[0]}

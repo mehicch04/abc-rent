@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { SITE } from "@/lib/site-config";
-import { buildPageMetadata } from "@/lib/seo";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Clock, Phone, Mail, MapPin, ExternalLink } from "lucide-react";
+import { ExternalLink, MapPin } from "lucide-react";
+import { buildPageMetadata } from "@/lib/seo";
 import { getCompany } from "@/lib/company";
 import { getActiveLocations } from "@/lib/fleet-data";
+import { SITE } from "@/lib/site-config";
+import { PageHeader } from "@/components/layout/PageHeader";
+import { Heading } from "@/components/home/Heading";
 import { InquiryForm } from "@/components/forms/InquiryForm";
+import { PillLink } from "@/components/ui/PillLink";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 
 export async function generateMetadata({
   params: { locale },
@@ -29,141 +32,103 @@ export default async function ContactPage({
 }: {
   params: { locale: string };
 }) {
-  const company = await getCompany();
-  const locations = await getActiveLocations();
   setRequestLocale(locale);
+  const company = await getCompany();
+  const locations = await getActiveLocations().catch(() => []);
   const t = await getTranslations("Contact");
+  const mapSrc = `https://maps.google.com/maps?q=${company.map.lat},${company.map.lng}&z=16&hl=${locale}&output=embed`;
 
-  const head = locations[0]; // Glavni ured – Čitluk
-  const mapSrc = `https://maps.google.com/maps?q=${company.map.lat},${company.map.lng}&z=15&hl=${locale}&output=embed`;
+  const rows = [
+    {
+      label: t("phonesLabel"),
+      content: company.phones.map((p) => (
+        <a key={p.value} href={p.href} className="block transition-colors hover:text-brand-strong">
+          {p.value}
+        </a>
+      )),
+    },
+    {
+      label: t("emailLabel"),
+      content: (
+        <a href={`mailto:${company.email}`} className="break-all transition-colors hover:text-brand-strong">
+          {company.email}
+        </a>
+      ),
+    },
+    { label: t("locationLabel"), content: company.address ?? SITE.address },
+    { label: t("hoursLabel"), content: company.hours },
+  ];
 
   return (
     <>
-    <PageHeader eyebrow={company.name} title={t("title")} lead={t("lead")} />
-    <div className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
-      <div className="relative z-10 -mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {/* Working hours */}
-        <div className="flex flex-col items-center rounded-2xl border border-border bg-surface p-6 text-center shadow-card transition-shadow duration-300 hover:shadow-card-hover">
-          <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand/10 text-brand">
-            <Clock className="h-6 w-6" />
-          </span>
-          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.12em] text-brand">
-            {t("hoursLabel")}
-          </p>
-          <p className="mt-2 text-sm font-medium text-foreground">{company.hours}</p>
-        </div>
+      <PageHeader eyebrow={company.name} title={t("title")} lead={t("lead")} />
 
-        {/* Phones */}
-        <div className="flex flex-col items-center rounded-2xl border border-border bg-surface p-6 text-center shadow-card transition-shadow duration-300 hover:shadow-card-hover">
-          <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand/10 text-brand">
-            <Phone className="h-6 w-6" />
-          </span>
-          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.12em] text-brand">
-            {t("phonesLabel")}
-          </p>
-          <div className="mt-2 space-y-1">
-            {company.phones.map((p) => (
-              <a
-                key={p.value}
-                href={p.href}
-                className="block text-sm text-muted-foreground transition-colors hover:text-brand"
-              >
-                {p.value}
-              </a>
-            ))}
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
+        <div className="grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+          <div>
+            <Heading eyebrow={t("infoEyebrow")} title={t("infoTitle")} accent={t("infoAccent")} />
+            <dl className="mt-10 border-t border-border">
+              {rows.map((r) => (
+                <div key={r.label} className="grid gap-1 border-b border-border py-5 sm:grid-cols-[9rem_1fr] sm:gap-6">
+                  <dt className="text-sm text-muted-foreground">{r.label}</dt>
+                  <dd className="font-display text-lg font-medium text-foreground">{r.content}</dd>
+                </div>
+              ))}
+            </dl>
+            <PillLink
+              href={`https://wa.me/${company.whatsapp}`}
+              variant="dark"
+              className="mt-8"
+              icon={<WhatsAppIcon className="h-4 w-4" />}
+            >
+              {t("whatsapp")}
+            </PillLink>
+          </div>
+
+          <div>
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">{t("formHeading")}</h2>
+            <p className="mb-6 mt-2 text-muted-foreground">{t("formLead")}</p>
+            <InquiryForm type="contact" />
           </div>
         </div>
-
-        {/* Email */}
-        <div className="flex flex-col items-center rounded-2xl border border-border bg-surface p-6 text-center shadow-card transition-shadow duration-300 hover:shadow-card-hover">
-          <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand/10 text-brand">
-            <Mail className="h-6 w-6" />
-          </span>
-          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.12em] text-brand">
-            {t("emailLabel")}
-          </p>
-          <a
-            href={`mailto:${company.email}`}
-            className="mt-2 block break-all text-sm text-muted-foreground transition-colors hover:text-brand"
-          >
-            {company.email}
-          </a>
-        </div>
-
-        {/* Location */}
-        <div className="flex flex-col items-center rounded-2xl border border-border bg-surface p-6 text-center shadow-card transition-shadow duration-300 hover:shadow-card-hover">
-          <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand/10 text-brand">
-            <MapPin className="h-6 w-6" />
-          </span>
-          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.12em] text-brand">
-            {t("locationLabel")}
-          </p>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {head.street}
-            <br />
-            {head.city}
-          </p>
-        </div>
-      </div>
-
-      {/* Inquiry form */}
-      <section className="mt-12">
-        <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">
-          {t("formHeading")}
-        </h2>
-        <p className="mt-2 mb-6 max-w-2xl text-muted-foreground">{t("formLead")}</p>
-        <InquiryForm type="contact" />
       </section>
 
-      {/* Interactive map */}
-      <div className="mt-14">
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <h2 className="flex items-center gap-2 font-display text-2xl font-bold text-foreground">
-            <MapPin className="h-6 w-6 text-brand" />
-            {t("mapHeading")}
-          </h2>
+      <section className="px-3 sm:px-4">
+        <div className="relative h-[420px] overflow-hidden rounded-[28px] bg-surface-muted sm:h-[480px]">
+          <iframe
+            src={mapSrc}
+            title={`${SITE.name}, ${SITE.address}`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+            className="absolute inset-0 h-full w-full grayscale-[20%] dark:invert-[0.9] dark:hue-rotate-180"
+          />
           <a
             href={company.map.link ?? "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-brand transition-colors hover:text-brand-700"
+            className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink"
           >
             {t("openMap")}
             <ExternalLink className="h-4 w-4" />
           </a>
         </div>
-        <div className="relative aspect-[16/11] w-full overflow-hidden rounded-2xl border border-border shadow-card sm:aspect-[21/9] dark:[filter:brightness(0.92)_contrast(1.05)]">
-          <iframe
-            src={mapSrc}
-            title={`${SITE.name}, lokacija`}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-            className="absolute inset-0 h-full w-full"
-          />
-        </div>
-      </div>
+      </section>
 
-      {/* All offices */}
-      <div className="mt-14">
-        <h2 className="flex items-center gap-2 font-display text-2xl font-bold text-foreground">
-          <MapPin className="h-6 w-6 text-brand" />
-          {t("ourOffices")}
-        </h2>
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="mx-auto max-w-6xl px-4 pt-16 sm:px-6">
+        <h2 className="font-display text-xl font-semibold text-foreground">{t("ourOffices")}</h2>
+        <ul className="mt-6 grid gap-x-8 sm:grid-cols-3">
           {locations.map((loc) => (
-            <div
-              key={loc.name}
-              className="rounded-2xl border border-border bg-surface p-5 shadow-card"
-            >
-              <h3 className="font-medium text-foreground">{loc.name}</h3>
-              <p className="mt-1.5 text-sm text-muted-foreground">{loc.street}</p>
-              <p className="text-sm text-muted-foreground">{loc.city}</p>
-            </div>
+            <li key={loc.name} className="flex gap-3 border-t border-border py-5">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-strong" />
+              <div>
+                <p className="font-medium text-foreground">{loc.name}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{loc.street}</p>
+              </div>
+            </li>
           ))}
-        </div>
-      </div>
-    </div>
+        </ul>
+      </section>
     </>
   );
 }

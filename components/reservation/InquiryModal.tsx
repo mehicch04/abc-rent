@@ -207,7 +207,7 @@ export function InquiryModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="mt-6 rounded-xl bg-brand px-6 py-2.5 text-sm font-semibold text-brand-foreground hover:bg-brand-700"
+                className="mt-6 rounded-full bg-brand px-6 py-2.5 text-sm font-medium text-brand-foreground hover:bg-brand-700"
               >
                 {t("close")}
               </button>
@@ -426,7 +426,7 @@ export function InquiryModal({
                   <button
                     type="submit"
                     disabled={status === "sending"}
-                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-brand-foreground shadow-brand transition-colors hover:bg-brand-700 disabled:opacity-70"
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-brand px-5 py-3 text-sm font-medium text-brand-foreground transition-colors hover:bg-brand-700 disabled:opacity-70"
                   >
                     {status === "sending" ? (
                       <>

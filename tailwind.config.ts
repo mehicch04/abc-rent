@@ -60,8 +60,8 @@ const config: Config = {
         card: "0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -12px rgb(0 0 0 / 0.18)",
         "card-hover":
           "0 2px 4px rgb(0 0 0 / 0.06), 0 24px 48px -16px rgb(0 0 0 / 0.32)",
-        brand: "0 8px 24px -8px rgb(8 121 184 / 0.45)",
-        glow: "0 30px 80px -20px rgb(10 148 220 / 0.55)",
+        brand: "none",
+        glow: "none",
       },
       backgroundImage: {
         "brand-gradient": "linear-gradient(135deg, #1EA4E9 0%, #0767A0 100%)",
