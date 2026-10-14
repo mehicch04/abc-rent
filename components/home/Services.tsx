@@ -1,102 +1,82 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowRight, Crown, MapPinHouse, Plane, UserRound, Users, UsersRound } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { useCompany } from "@/components/company/CompanyProvider";
+import { PillLink } from "@/components/ui/PillLink";
 import { Heading } from "./Heading";
 
-const ease = [0.22, 1, 0.36, 1] as const;
+type Item = { title: string; body: string; wa?: string };
 
-type Service = {
-  tag: string;
-  title: string;
-  body: string;
-  points: string[];
-  cta: string;
-  waText: string;
-  imageAlt: string;
-};
-
-const KEYS = [
-  { key: "chauffeur", image: "/img/chauffeur.webp" },
-  { key: "transfer", image: "/img/airport-transfer.webp" },
-] as const;
+const ICONS = [UserRound, Plane, MapPinHouse, Users, Crown, UsersRound];
+const LINKS = ["wa", "wa", "/kontakt", "/vozila", "/vozila", "/vozila"] as const;
 
 export function Services() {
   const t = useTranslations("Services");
   const company = useCompany();
+  const items = t.raw("items") as Item[];
+  const wa = (text?: string) =>
+    `https://wa.me/${company.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
   return (
-    <section
-      id="usluge"
-      className="relative mx-3 scroll-mt-24 overflow-hidden rounded-[2.5rem] bg-ink-gradient py-20 text-white sm:mx-4 sm:py-28"
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-24 top-10 h-80 w-80 rounded-full bg-brand-500/20 blur-3xl"
-      />
-      <div aria-hidden className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_top_right,black,transparent_65%)]" />
-      <div className="container relative">
-        <Heading eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} tone="dark" />
+    <section id="usluge" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-20 sm:px-6 sm:py-28">
+      <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+        <Heading eyebrow={t("eyebrow")} title={t("title")} accent={t("accent")} accentTone="muted" />
+        <PillLink href={wa()} variant="dark" className="self-start sm:self-auto">
+          {t("cta")}
+        </PillLink>
+      </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {KEYS.map(({ key, image }, i) => {
-            const s = t.raw(key) as Service;
-            const wa = `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(s.waText)}`;
-            return (
-              <motion.article
-                key={key}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.6, delay: i * 0.1, ease }}
-                className="group flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-sm"
+      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((item, i) => {
+          const Icon = ICONS[i] ?? Users;
+          const featured = i === 0;
+          const target = LINKS[i] ?? "/vozila";
+          const linkCls = `mt-6 inline-flex items-center gap-1.5 text-sm font-medium ${
+            featured ? "text-white" : "text-brand-strong"
+          }`;
+          const more = (
+            <>
+              {t("more")}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </>
+          );
+          return (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: (i % 3) * 0.06 }}
+              className={`group flex flex-col rounded-2xl p-7 ${
+                featured ? "bg-brand text-white" : "bg-surface-muted text-foreground"
+              }`}
+            >
+              <span
+                className={`inline-flex h-12 w-12 items-center justify-center rounded-full ${
+                  featured ? "bg-white/15 text-white" : "bg-surface text-brand-strong"
+                }`}
               >
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={image}
-                    alt={s.imageAlt}
-                    fill
-                    sizes="(max-width: 1023px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent" />
-                  <span className="absolute left-5 top-5 rounded-full bg-brand px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-foreground">
-                    {s.tag}
-                  </span>
-                </div>
-
-                <div className="flex flex-1 flex-col p-6 sm:p-8">
-                  <h3 className="font-display text-2xl font-bold">{s.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/70 sm:text-base">
-                    {s.body}
-                  </p>
-                  <ul className="mt-5 space-y-2.5">
-                    {s.points.map((p) => (
-                      <li key={p} className="flex items-center gap-3 text-sm text-white/85">
-                        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-500/20 text-brand-300">
-                          <Check className="h-3.5 w-3.5" />
-                        </span>
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href={wa}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-brand hover:text-white"
-                  >
-                    {s.cta}
-                    <ArrowUpRight className="h-4 w-4" />
-                  </a>
-                </div>
-              </motion.article>
-            );
-          })}
-        </div>
+                <Icon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-8 font-display text-lg font-semibold">{item.title}</h3>
+              <p className={`mt-2 text-sm leading-relaxed ${featured ? "text-white/80" : "text-muted-foreground"}`}>
+                {item.body}
+              </p>
+              {target === "wa" ? (
+                <a href={wa(item.wa)} target="_blank" rel="noopener noreferrer" className={linkCls}>
+                  {more}
+                </a>
+              ) : (
+                <Link href={target} className={linkCls}>
+                  {more}
+                </Link>
+              )}
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );

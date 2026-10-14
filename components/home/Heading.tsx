@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 type Props = {
   eyebrow: string;
   title: string;
+  accent?: string;
+  accentTone?: "brand" | "muted";
   subtitle?: string;
   align?: "left" | "center";
   tone?: "light" | "dark";
@@ -14,44 +16,54 @@ type Props = {
 export function Heading({
   eyebrow,
   title,
+  accent,
+  accentTone = "brand",
   subtitle,
   align = "left",
   tone = "light",
   className = "",
 }: Props) {
-  const center = align === "center";
   const dark = tone === "dark";
+  const accentCls =
+    accentTone === "muted"
+      ? dark
+        ? "text-white/45"
+        : "text-muted-foreground"
+      : dark
+        ? "text-brand-300"
+        : "text-brand-strong";
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 18 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      className={`${center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"} ${className}`}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className={`${align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"} ${className}`}
     >
       <span
-        className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${
-          dark
-            ? "border-white/15 bg-white/5 text-brand-300"
-            : "border-brand/20 bg-brand/5 text-brand-strong"
+        className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${
+          dark ? "bg-white/10 text-white/75" : "bg-surface-muted text-foreground/70"
         }`}
       >
         <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
         {eyebrow}
       </span>
       <h2
-        className={`mt-5 font-display text-3xl font-extrabold leading-[1.08] tracking-[-0.02em] sm:text-[2.75rem] ${
+        className={`mt-4 font-display text-[1.9rem] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-[2.6rem] ${
           dark ? "text-white" : "text-foreground"
         }`}
       >
         {title}
+        {accent && (
+          <>
+            {" "}
+            <em className={`font-semibold italic ${accentCls}`}>{accent}</em>
+          </>
+        )}
       </h2>
       {subtitle && (
-        <p
-          className={`mt-4 text-base leading-relaxed sm:text-lg ${
-            dark ? "text-white/65" : "text-muted-foreground"
-          }`}
-        >
+        <p className={`mt-4 text-base leading-relaxed ${dark ? "text-white/65" : "text-muted-foreground"}`}>
           {subtitle}
         </p>
       )}

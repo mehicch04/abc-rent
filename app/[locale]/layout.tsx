@@ -26,25 +26,28 @@ const inter = Inter({
 
 const montserrat = Montserrat({
   subsets: ["latin", "latin-ext"],
-  weight: ["600", "700", "800"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
 
 const CLIENT_NAMESPACES = [
-  "Bento",
   "Common",
+  "Cta",
   "Extras",
   "Faq",
+  "Features",
   "Fleet",
   "Form",
   "Hero",
+  "HomeAbout",
+  "HomeFleet",
   "HowItWorks",
   "Inquiry",
   "Nav",
   "Search",
   "Services",
-  "Showcase",
   "Visit",
 ] as const;
 
