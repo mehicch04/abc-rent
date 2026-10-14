@@ -1,0 +1,330 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // pooled (app)
+  directUrl = env("DIRECT_URL") // direct (migrations)
+}
+
+enum CarClass {
+  CITY_CAR
+  ECONOMY
+  COMPACT
+  MIDSIZE
+  FULLSIZE
+  LUXURY
+  SUV
+  VAN
+  MINIBUS
+}
+
+enum CarCategory {
+  LIMUZINA
+  LUXURY
+  SUV
+  COUPE
+  COMPACT
+  KARAVAN
+  CABRIO
+  TRANSPORT
+  MINIBUS
+}
+
+enum Transmission {
+  MANUAL
+  AUTOMATIC
+}
+
+enum FuelType {
+  PETROL
+  DIESEL
+  HYBRID
+  PLUG_IN_HYBRID
+  ELECTRIC
+}
+
+enum LocationType {
+  HEAD_OFFICE
+  AIRPORT
+  BUS_STATION
+  CITY_OFFICE
+}
+
+enum InquiryChannel {
+  EMAIL
+  WHATSAPP
+  MANUAL
+}
+
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  CONFIRMED
+  IN_PROGRESS
+  CANCELLED
+  COMPLETED
+}
+
+enum Locale {
+  HR
+  EN
+}
+
+model Location {
+  id         String       @id @default(cuid())
+  slug       String       @unique
+  name       String
+  type       LocationType @default(CITY_OFFICE)
+  street     String
+  city       String
+  postalCode String
+  latitude   Float?
+  longitude  Float?
+  isActive   Boolean      @default(true)
+  sortOrder  Int          @default(0)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  pickupInquiries Inquiry[] @relation("PickupLocation")
+  returnInquiries Inquiry[] @relation("ReturnLocation")
+
+  @@index([isActive, sortOrder])
+}
+
+model Car {
+  id            String       @id @default(cuid())
+  slug          String       @unique
+  brand         String
+  model         String
+  title         String
+  year          Int
+  plate         String?
+  carClass      CarClass
+  categories    CarCategory[] @default([])
+  transmission  Transmission
+  passengers    Int
+  doors         Int          @default(4)
+  fuelType      FuelType
+  emissionClass String?
+  luggage       Int?
+  airCondition  Boolean      @default(true)
+  pricePerDay   Decimal?     @db.Decimal(10, 2)
+  seasonalPrice Decimal?     @db.Decimal(10, 2)
+  currency      String       @default("BAM")
+  deposit       Decimal?     @db.Decimal(10, 2)
+  images        String[]
+  descriptionHr String?
+  descriptionEn String?
+  isAvailable   Boolean      @default(true)
+  isFeatured    Boolean      @default(false)
+  sortOrder     Int          @default(0)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  inquiries Inquiry[]
+  blocks    CarBlock[]
+
+  @@index([carClass, isAvailable])
+  @@index([isFeatured, sortOrder])
+}
+
+model Inquiry {
+  id        String @id @default(cuid())
+  reference String @unique @default(cuid())
+
+  car              Car?    @relation(fields: [carId], references: [id], onDelete: SetNull)
+  carId            String?
+  carTitleSnapshot String?
+
+  pickupLocation   Location? @relation("PickupLocation", fields: [pickupLocationId], references: [id], onDelete: SetNull)
+  pickupLocationId String?
+  returnLocation   Location? @relation("ReturnLocation", fields: [returnLocationId], references: [id], onDelete: SetNull)
+  returnLocationId String?
+
+  pickupAt DateTime
+  returnAt DateTime
+
+  firstName    String
+  lastName     String
+  email        String
+  phone        String
+  flightNumber String?
+  message      String?
+
+  channel InquiryChannel @default(EMAIL)
+  status  InquiryStatus  @default(NEW)
+  locale  Locale         @default(HR)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, createdAt])
+  @@index([carId])
+  // Fast overlap lookups for availability (CONFIRMED reservations only).
+  @@index([carId, status, pickupAt, returnAt])
+  totalPrice Decimal?      @db.Decimal(10, 2)
+  expiredAt          DateTime?
+  statusNote         String?
+  continuesFromId    String?
+  continuesFrom      Inquiry?          @relation("RentalContinuation", fields: [continuesFromId], references: [id], onDelete: SetNull)
+  continuedBy        Inquiry[]         @relation("RentalContinuation")
+
+  actualPickUpTime   DateTime?
+  actualDropOffTime  DateTime?
+  returnFuel         String?
+  depositStatus      String?
+  extraCharge        Decimal?          @db.Decimal(10, 2)
+  extraChargeNote    String?
+  /// Rental length in whole days, kept alongside the price for reporting.
+  rentalDays Int?
+
+  extras     InquiryExtra[]
+
+}
+
+model CarBlock {
+  id        String   @id @default(cuid())
+  car       Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
+  carId     String
+  startAt   DateTime
+  endAt     DateTime
+  kind      BlockKind @default(MAINTENANCE)
+  reason    String?
+  totalPrice Decimal? @db.Decimal(10, 2)
+  clientName String?
+  extras     BlockExtra[]
+  createdAt DateTime @default(now())
+
+  @@index([carId, startAt, endAt])
+}
+
+model ContactRequest {
+  id        String   @id @default(cuid())
+  reference String   @unique @default(cuid())
+  type      String   @default("CONTACT") // CONTACT | BUSINESS
+  firstName String
+  lastName  String
+  email     String
+  phone     String
+  company   String?
+  message   String?
+  status    String   @default("NEW")
+  locale    Locale   @default(HR)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model AdminLoginAttempt {
+  ip          String    @id
+  failedCount Int       @default(0)
+  windowStart DateTime  @default(now())
+  lockedUntil DateTime?
+  updatedAt   DateTime  @updatedAt
+
+  @@index([lockedUntil])
+}
+
+// Simple key/value store for site-wide settings (e.g. primary currency).
+model Setting {
+  key   String @id
+  value String
+}
+
+enum ExtraPricing {
+  PER_DAY
+  PER_RENTAL
+  INCLUDED
+}
+
+model Extra {
+  id         String       @id @default(cuid())
+  nameHr     String
+  nameEn     String
+  noteHr     String?
+  noteEn     String?
+  pricing    ExtraPricing @default(PER_DAY)
+  price      Decimal      @default(0) @db.Decimal(10, 2)
+  /// 1 = simple yes/no. Above 1 the guest picks a quantity (e.g. 3 child seats).
+  maxQty     Int          @default(1)
+  totalStock Int          @default(1)
+  isActive   Boolean      @default(true)
+  sortOrder  Int          @default(0)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  inquiries  InquiryExtra[]
+  blocks     BlockExtra[]
+
+  @@index([isActive, sortOrder])
+}
+
+model InquiryExtra {
+  id        String       @id @default(cuid())
+  inquiry   Inquiry      @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  inquiryId String
+  extra     Extra?       @relation(fields: [extraId], references: [id], onDelete: SetNull)
+  extraId   String?
+  nameHr    String
+  nameEn    String
+  pricing   ExtraPricing
+  unitPrice Decimal      @default(0) @db.Decimal(10, 2)
+  qty       Int          @default(1)
+
+  @@index([inquiryId])
+}
+
+model CompanyInfo {
+  id           String   @id @default("main")
+  name         String
+  email        String
+  phone1       String
+  phone1Label  String   @default("Tel")
+  phone2       String?
+  phone2Label  String   @default("Mob")
+  phone3       String?
+  phone3Label  String   @default("Fax")
+  /// Digits only, E.164 without the plus (used to build wa.me links).
+  whatsapp     String
+  hours        String
+  address      String?
+  taxId        String?
+  mapLat       Float?
+  mapLng       Float?
+  mapLink      String?
+  ratingScore  Float?
+  ratingCount  Int?
+  facebook     String?
+  instagram    String?
+  /// While true, cars that have a seasonal rate are offered at that rate.
+  seasonalPricing Boolean @default(false)
+  updatedAt    DateTime @updatedAt
+}
+
+enum BlockKind {
+  /// Servis ili redovno održavanje.
+  MAINTENANCE
+  /// Rezervacija dogovorena telefonom ili uživo.
+  MANUAL_BOOKING
+  /// Oštećenje ili sudar; opis stoji u `reason`.
+  DAMAGE
+  /// Privatna upotreba vlasnika.
+  PRIVATE
+}
+
+model BlockExtra {
+  id      String   @id @default(cuid())
+  blockId String
+  extraId String?
+  qty     Int      @default(1)
+  /// Name copied at booking time, so past records survive renaming.
+  nameHr  String
+
+  block   CarBlock @relation(fields: [blockId], references: [id], onDelete: Cascade)
+  extra   Extra?   @relation(fields: [extraId], references: [id], onDelete: SetNull)
+
+  @@index([extraId])
+}
