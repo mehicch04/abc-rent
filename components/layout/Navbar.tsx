@@ -39,8 +39,8 @@ export function Navbar() {
           : "border-transparent bg-background"
       }`}
     >
-      <nav className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex shrink-0 items-center" aria-label={SITE.name}>
+      <nav className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-3 px-4 sm:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr]">
+        <Link href="/" className="flex shrink-0 items-center justify-self-start" aria-label={SITE.name}>
           <Image src="/logo.png" alt={SITE.name} width={86} height={40} loading="eager" className="h-10 w-auto dark:hidden" />
           <Image src="/logo-dark.png" alt={SITE.name} width={86} height={40} className="hidden h-10 w-auto dark:block" />
         </Link>
@@ -63,10 +63,8 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-2">
-          <div className="hidden sm:block">
-            <LanguageToggle />
-          </div>
+        <div className="flex items-center gap-1.5 justify-self-end sm:gap-2">
+          <LanguageToggle />
           <CurrencySwitch />
           <div className="hidden sm:block">
             <ThemeToggle />
@@ -105,8 +103,7 @@ export function Navbar() {
                   </Link>
                 </li>
               ))}
-              <li className="flex items-center justify-between py-4">
-                <LanguageToggle />
+              <li className="flex items-center justify-end py-4 sm:hidden">
                 <ThemeToggle />
               </li>
               <li className="grid grid-cols-2 gap-2 pb-2">
