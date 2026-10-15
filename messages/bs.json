@@ -295,7 +295,7 @@
     "whatsapp": "WhatsApp"
   },
   "HomeFleet": {
-    "eyebrow": "Vozni park",
+    "eyebrow": "Najtraženija vozila",
     "title": "Odaberite auto",
     "accent": "za svoj put",
     "viewAll": "Sva vozila",
@@ -303,9 +303,10 @@
     "perDay": "dan",
     "seats": "{n} sjedišta",
     "auto": "Automatik",
-    "lead": "Od gradskih auta do kombija za devet putnika. Cijene su po danu, a osiguranje i neograničena kilometraža su već uključeni.",
+    "lead": "Vozila koja gosti najčešće biraju. Cijene su po danu, a osiguranje i neograničena kilometraža su već uključeni.",
     "prev": "Prethodno vozilo",
-    "next": "Sljedeće vozilo"
+    "next": "Sljedeće vozilo",
+    "viewAllCount": "Svih {count} vozila"
   },
   "Services": {
     "eyebrow": "Usluge",

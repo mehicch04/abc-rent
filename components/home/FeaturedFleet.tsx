@@ -7,7 +7,6 @@ import { useTranslations } from "next-intl";
 import type { CarListItem } from "@/lib/types";
 import type { ExtraItem } from "@/lib/extras";
 import type { Booked } from "@/lib/extras-availability";
-import { CAR_CATEGORIES, carCategories, type CarCategory } from "@/lib/car-categories";
 import { CarCard } from "@/components/fleet/CarCard";
 import { PillLink } from "@/components/ui/PillLink";
 import { Heading } from "./Heading";
@@ -40,17 +39,20 @@ type Engine = {
 
 export function FeaturedFleet({
   cars,
+  total,
+  brands,
   locations,
   extras,
   bookedExtras,
 }: {
   cars: CarListItem[];
+  total: number;
+  brands: string[];
   locations: { id: string; name: string }[];
   extras: ExtraItem[];
   bookedExtras: Booked[];
 }) {
   const t = useTranslations("HomeFleet");
-  const tf = useTranslations("Fleet");
   const head = useRef<HTMLDivElement>(null);
   const wrap = useRef<HTMLDivElement>(null);
   const rail = useRef<HTMLDivElement>(null);
@@ -71,38 +73,11 @@ export function FeaturedFleet({
     resumeAt: 0,
     tween: null,
   });
-  const [active, setActive] = useState<CarCategory | "ALL">("ALL");
   const [reps, setReps] = useState(1);
   const [selected, setSelected] = useState<CarListItem | null>(null);
   const [modalReady, setModalReady] = useState(false);
 
-  const counts = useMemo(() => {
-    const m = new Map<CarCategory, number>();
-    for (const c of cars) for (const cat of carCategories(c)) m.set(cat, (m.get(cat) ?? 0) + 1);
-    return m;
-  }, [cars]);
-
-  const chips = useMemo(
-    () => [
-      { id: "ALL" as const, label: tf("allTypes"), count: cars.length },
-      ...CAR_CATEGORIES.filter((c) => (counts.get(c) ?? 0) > 0).map((c) => ({
-        id: c,
-        label: tf(`categories.${c}`),
-        count: counts.get(c) ?? 0,
-      })),
-    ],
-    [cars.length, counts, tf],
-  );
-
-  const items = useMemo(
-    () => (active === "ALL" ? cars : cars.filter((c) => carCategories(c).includes(active))),
-    [cars, active],
-  );
-
-  const brands = useMemo(
-    () => Array.from(new Set(cars.map((c) => c.brand).filter(Boolean))),
-    [cars],
-  );
+  const items = cars;
 
   const slides = useMemo(
     () => Array.from({ length: reps }, (_, r) => items.map((car) => ({ car, clone: r > 0 }))).flat(),
@@ -155,7 +130,7 @@ export function FeaturedFleet({
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, [layout, paint, active]);
+  }, [layout, paint]);
 
   useEffect(() => {
     const e = engine.current;
@@ -298,32 +273,11 @@ export function FeaturedFleet({
               <ArrowRight className="h-4 w-4" />
             </button>
             <PillLink href="/vozila" variant="dark" className="ml-2">
-              {t("viewAll")}
+              {t("viewAllCount", { count: total })}
             </PillLink>
           </div>
         </div>
 
-        <div className="no-scrollbar -mx-4 mt-10 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">
-          {chips.map((c) => {
-            const on = active === c.id;
-            return (
-              <button
-                key={c.id}
-                type="button"
-                aria-pressed={on}
-                onClick={() => setActive(c.id)}
-                className={`inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full px-4 text-sm font-medium transition-colors ${
-                  on
-                    ? "bg-ink text-white dark:bg-white dark:text-ink"
-                    : "bg-surface text-foreground/70 ring-1 ring-border hover:text-foreground hover:ring-foreground/25"
-                }`}
-              >
-                {c.label}
-                <sup className={`text-[10px] tabular-nums ${on ? "opacity-70" : "text-muted-foreground"}`}>{c.count}</sup>
-              </button>
-            );
-          })}
-        </div>
       </div>
 
       <div
@@ -347,11 +301,10 @@ export function FeaturedFleet({
         onDragStart={(ev) => ev.preventDefault()}
         onFocus={onFocus}
         onBlur={() => (engine.current.focus = !!selected)}
-        className="relative mt-10 cursor-grab touch-pan-y select-none overflow-hidden py-2 active:cursor-grabbing [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] [&_img]:pointer-events-none"
+        className="relative mt-12 cursor-grab touch-pan-y select-none overflow-hidden py-2 active:cursor-grabbing [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] [&_img]:pointer-events-none"
       >
         <div
           ref={rail}
-          key={active}
           className="grid motion-safe:animate-fade-up [--pad:1rem] [--w:300px] sm:[--pad:1.5rem] sm:[--w:340px] lg:[--pad:max(1.5rem,calc((100vw-72rem)/2+1.5rem))] lg:[--w:360px]"
         >
           {slides.map(({ car, clone }, i) => (

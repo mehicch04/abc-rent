@@ -295,7 +295,7 @@
     "whatsapp": "WhatsApp"
   },
   "HomeFleet": {
-    "eyebrow": "Our fleet",
+    "eyebrow": "Most booked",
     "title": "Pick a car",
     "accent": "for your trip",
     "viewAll": "All cars",
@@ -303,9 +303,10 @@
     "perDay": "day",
     "seats": "{n} seats",
     "auto": "Automatic",
-    "lead": "From city cars to vans for nine passengers. Prices are per day, with insurance and unlimited mileage already included.",
+    "lead": "The cars our guests pick most often. Prices are per day, with insurance and unlimited mileage already included.",
     "prev": "Previous car",
-    "next": "Next car"
+    "next": "Next car",
+    "viewAllCount": "All {count} cars"
   },
   "Services": {
     "eyebrow": "Services",
