@@ -93,7 +93,8 @@
     "popular": "Most booked",
     "perDayShort": "/ day",
     "depositLabel": "Deposit",
-    "includedShort": "Insurance and unlimited mileage included"
+    "includedShort": "Insurance and unlimited mileage included",
+    "includedTiny": "Insurance and mileage included"
   },
   "Inquiry": {
     "title": "Reservation inquiry",
@@ -311,11 +312,7 @@
     "prev": "Previous car",
     "next": "Next car",
     "viewAllCount": "All {count} cars",
-    "typesTitle": "Or browse by car type",
-    "typesLead": "Starting prices, per day.",
     "from": "from",
-    "carsCount": "{count, plural, one {# car} other {# cars}}",
-    "allTile": "The whole fleet",
     "included": [
       {
         "title": "Full insurance",
@@ -333,7 +330,14 @@
         "title": "All automatic",
         "body": "Every car in our fleet has an automatic gearbox."
       }
-    ]
+    ],
+    "ctaEyebrow": "The whole fleet",
+    "ctaTitle": "{count} more cars",
+    "ctaAccent": "are waiting.",
+    "ctaBody": "City cars, SUVs, premium sedans and vans for nine passengers. Browse by type, brand or price.",
+    "ctaCars": "{count} cars",
+    "ctaTypes": "{count, plural, one {# car type} other {# car types}}",
+    "ctaButton": "See all cars"
   },
   "Services": {
     "eyebrow": "Services",

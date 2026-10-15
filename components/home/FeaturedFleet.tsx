@@ -45,6 +45,9 @@ export function FeaturedFleet({
   const [modalReady, setModalReady] = useState(false);
   const perks = t.raw("included") as { title: string; body: string }[];
   const [lead, ...rest] = cars;
+  const avatars = Array.from(new Set(types.map((x) => x.image).filter((x): x is string => !!x))).slice(0, 5);
+  const prices = types.map((x) => x.from).filter((x): x is number => x != null);
+  const minPrice = prices.length ? Math.min(...prices) : null;
 
   useEffect(() => {
     if (selected) setModalReady(true);
@@ -105,69 +108,66 @@ export function FeaturedFleet({
           })}
         </ul>
 
-        {types.length > 0 && (
-          <div className="mt-16">
-            <div className="flex flex-wrap items-end justify-between gap-2">
-              <h3 className="font-display text-xl font-semibold tracking-tight text-foreground sm:text-2xl">{t("typesTitle")}</h3>
-              <p className="text-sm text-muted-foreground">{t("typesLead")}</p>
+        <Link
+          href="/vozila"
+          className="group relative mt-5 block overflow-hidden rounded-[28px] bg-ink p-7 text-white ring-1 ring-white/10 sm:p-10 lg:p-12"
+        >
+          <span
+            aria-hidden
+            className="text-outline pointer-events-none absolute -bottom-16 -right-6 select-none font-display text-[16rem] font-semibold leading-none tracking-tighter text-white/[0.07] sm:text-[20rem]"
+          >
+            {total}
+          </span>
+          <div className="relative grid items-center gap-10 lg:grid-cols-[1.25fr_1fr]">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/75">
+                <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
+                {t("ctaEyebrow")}
+              </span>
+              <h3 className="mt-5 text-balance font-display text-3xl font-semibold leading-[1.1] tracking-[-0.02em] sm:text-[2.6rem]">
+                {t("ctaTitle", { count: Math.max(total - cars.length, 0) })}{" "}
+                <em className="font-semibold italic text-brand-300">{t("ctaAccent")}</em>
+              </h3>
+              <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-white/65">{t("ctaBody")}</p>
+              <ul className="mt-6 flex flex-wrap gap-2 text-xs font-medium text-white/80">
+                <li className="rounded-full bg-white/[0.08] px-3 py-1.5 ring-1 ring-white/10">{t("ctaCars", { count: total })}</li>
+                <li className="rounded-full bg-white/[0.08] px-3 py-1.5 ring-1 ring-white/10">{t("ctaTypes", { count: types.length })}</li>
+                {minPrice != null && (
+                  <li className="rounded-full bg-white/[0.08] px-3 py-1.5 ring-1 ring-white/10">
+                    {t("from")} <Price bam={minPrice} /> {tf("perDayShort")}
+                  </li>
+                )}
+              </ul>
             </div>
-            <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-              {types.map((ty) => (
-                <li key={ty.id}>
-                  <Link
-                    href={{ pathname: "/vozila", query: { tip: ty.id } }}
-                    className="group flex h-full flex-col rounded-[20px] bg-surface p-2 ring-1 ring-border transition-[box-shadow] duration-300 hover:shadow-[0_20px_40px_-28px_rgba(11,18,32,0.35)] hover:ring-foreground/15"
+
+            <div className="flex flex-col items-start gap-8 lg:items-end">
+              <div className="flex items-center">
+                {avatars.map((src, i) => (
+                  <span
+                    key={src}
+                    style={{ zIndex: avatars.length - i }}
+                    className={`relative grid h-16 w-16 place-items-center overflow-hidden rounded-full bg-[#EDF1F5] ring-4 ring-ink transition-[margin] duration-500 ease-out sm:h-20 sm:w-20 ${
+                      i ? "-ml-5 group-hover:-ml-2" : ""
+                    }`}
                   >
-                    <span className="relative block aspect-[16/10] overflow-hidden rounded-[14px] bg-[#EDF1F5]">
-                      {ty.image && (
-                        <Image
-                          src={ty.image}
-                          alt=""
-                          fill
-                          sizes="(max-width: 639px) 45vw, 260px"
-                          className="object-contain px-4 pb-2 pt-4 mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.06]"
-                        />
-                      )}
-                    </span>
-                    <span className="flex items-end justify-between gap-2 px-2 pb-1.5 pt-3">
-                      <span className="min-w-0">
-                        <span className="block truncate text-sm font-semibold text-foreground">{tf(`categories.${ty.id}`)}</span>
-                        <span className="mt-0.5 block text-xs text-muted-foreground">
-                          {ty.from != null && (
-                            <>
-                              {t("from")} <Price bam={ty.from} className="font-medium text-foreground" /> ·{" "}
-                            </>
-                          )}
-                          {t("carsCount", { count: ty.count })}
-                        </span>
-                      </span>
-                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-surface-muted text-foreground transition-colors group-hover:bg-brand group-hover:text-white">
-                        <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:rotate-45" />
-                      </span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link
-                  href="/vozila"
-                  className="group flex h-full min-h-[11rem] flex-col justify-between rounded-[20px] bg-ink p-5 text-white transition-colors hover:bg-ink-700 dark:bg-brand dark:hover:bg-brand-700"
-                >
-                  <span className="text-sm font-medium text-white/70">{t("allTile")}</span>
-                  <span>
-                    <span className="block font-display text-5xl font-semibold leading-none tracking-tight">{total}</span>
-                    <span className="mt-3 flex items-center justify-between gap-2 text-sm text-white/80">
-                      {tf("viewAll")}
-                      <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-ink">
-                        <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:rotate-45" />
-                      </span>
-                    </span>
+                    <Image src={src} alt="" fill sizes="80px" className="scale-[1.35] object-contain mix-blend-multiply" />
                   </span>
-                </Link>
-              </li>
-            </ul>
+                ))}
+                {total > avatars.length && (
+                  <span className="relative -ml-5 grid h-16 w-16 place-items-center rounded-full bg-brand text-sm font-semibold ring-4 ring-ink transition-[margin] duration-500 ease-out group-hover:-ml-2 sm:h-20 sm:w-20 sm:text-base">
+                    +{total - avatars.length}
+                  </span>
+                )}
+              </div>
+              <span className="inline-flex items-center gap-4 rounded-full bg-white py-2 pl-7 pr-2 text-base font-medium text-ink transition-colors group-hover:bg-white/90">
+                {t("ctaButton")}
+                <span className="grid h-11 w-11 place-items-center rounded-full bg-brand text-white">
+                  <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:rotate-45" />
+                </span>
+              </span>
+            </div>
           </div>
-        )}
+        </Link>
       </div>
 
       {(selected || modalReady) && (

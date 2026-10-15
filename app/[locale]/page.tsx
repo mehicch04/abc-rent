@@ -69,8 +69,7 @@ export default async function HomePage({
     };
   })
     .filter((x) => x.count > 0)
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 7);
+    .sort((a, b) => b.count - a.count);
 
   return (
     <>

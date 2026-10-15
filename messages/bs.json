@@ -93,7 +93,8 @@
     "popular": "Najtraženije",
     "perDayShort": "/ dan",
     "depositLabel": "Depozit",
-    "includedShort": "Osiguranje i neograničena km uključeni"
+    "includedShort": "Osiguranje i neograničena km uključeni",
+    "includedTiny": "Osiguranje i kilometraža uključeni"
   },
   "Inquiry": {
     "title": "Upit za rezervaciju",
@@ -311,11 +312,7 @@
     "prev": "Prethodno vozilo",
     "next": "Sljedeće vozilo",
     "viewAllCount": "Svih {count} vozila",
-    "typesTitle": "Ili birajte po tipu vozila",
-    "typesLead": "Cijene su početne, po danu.",
     "from": "od",
-    "carsCount": "{count, plural, one {# vozilo} few {# vozila} other {# vozila}}",
-    "allTile": "Cijeli vozni park",
     "included": [
       {
         "title": "Puno osiguranje",
@@ -333,7 +330,14 @@
         "title": "Svi su automatik",
         "body": "Svako vozilo u ponudi ima automatski mjenjač."
       }
-    ]
+    ],
+    "ctaEyebrow": "Cijeli vozni park",
+    "ctaTitle": "Još {count} vozila",
+    "ctaAccent": "čeka na vas.",
+    "ctaBody": "Gradski auti, SUV, premium limuzine i kombiji za devet putnika. Birajte po tipu, marki ili cijeni.",
+    "ctaCars": "{count} vozila",
+    "ctaTypes": "{count, plural, one {# tip} few {# tipa} other {# tipova}} vozila",
+    "ctaButton": "Pogledaj sva vozila"
   },
   "Services": {
     "eyebrow": "Usluge",

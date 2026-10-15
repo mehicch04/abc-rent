@@ -58,7 +58,7 @@ export function CarCard({ car, search, onSelect, priority = false, imageSizes, v
   return (
     <article
       className={`group relative flex h-full rounded-[24px] bg-surface p-2 ring-1 ring-border transition-[box-shadow] duration-300 hover:shadow-[0_24px_50px_-30px_rgba(11,18,32,0.35)] hover:ring-foreground/15 ${
-        row ? "flex-col sm:grid sm:grid-cols-[46%_1fr]" : "flex-col"
+        row ? "flex-col sm:grid sm:grid-cols-[44%_minmax(0,1fr)]" : "flex-col"
       }`}
     >
       <Link href={href} className={`relative block overflow-hidden rounded-[18px] bg-[#EDF1F5] ${stage}`}>
@@ -100,7 +100,7 @@ export function CarCard({ car, search, onSelect, priority = false, imageSizes, v
         </span>
       </Link>
 
-      <div className={`flex flex-col ${feature ? "px-4 pb-4 pt-5 sm:px-5" : "flex-1 px-3 pb-3 pt-4"} ${row ? "sm:pl-5 sm:pt-3" : ""}`}>
+      <div className={`flex min-w-0 flex-col ${feature ? "px-4 pb-4 pt-5 sm:px-5" : "flex-1 px-3 pb-3 pt-4"} ${row ? "sm:pl-5 sm:pt-3" : ""}`}>
         <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">{car.brand}</p>
         <h3
           className={`mt-1 font-display font-semibold tracking-tight text-foreground ${
@@ -123,7 +123,7 @@ export function CarCard({ car, search, onSelect, priority = false, imageSizes, v
 
         <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
           <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-[#16A34A]" />
-          <span className="truncate">{t("includedShort")}</span>
+          <span className="truncate">{t(row ? "includedTiny" : "includedShort")}</span>
         </p>
 
         <div className="mt-auto pt-4">
