@@ -21,7 +21,7 @@ export function Footer({ company, locations }: Props) {
     <footer className="mt-24 bg-[#06090F] text-white">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:grid-cols-2 sm:px-6 lg:grid-cols-[1.4fr_0.8fr_1fr_1.1fr]">
         <div>
-          <Image src="/logo-dark.png" alt={SITE.name} width={343} height={160} className="h-12 w-auto" />
+          <Image src="/logo-dark.png" alt={SITE.name} width={103} height={48} className="h-12 w-auto" />
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/55">{t("tagline")}</p>
           <div className="mt-6 flex gap-2">
             <a href={`https://wa.me/${company.whatsapp}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className={social}>

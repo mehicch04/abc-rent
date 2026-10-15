@@ -41,8 +41,8 @@ export function Navbar() {
     >
       <nav className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link href="/" className="flex shrink-0 items-center" aria-label={SITE.name}>
-          <Image src="/logo.png" alt={SITE.name} width={343} height={160} priority className="h-10 w-auto dark:hidden" />
-          <Image src="/logo-dark.png" alt={SITE.name} width={343} height={160} priority className="hidden h-10 w-auto dark:block" />
+          <Image src="/logo.png" alt={SITE.name} width={86} height={40} loading="eager" className="h-10 w-auto dark:hidden" />
+          <Image src="/logo-dark.png" alt={SITE.name} width={86} height={40} className="hidden h-10 w-auto dark:block" />
         </Link>
 
         <ul className="hidden items-center gap-8 lg:flex">

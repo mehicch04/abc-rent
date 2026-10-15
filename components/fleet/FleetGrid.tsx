@@ -5,7 +5,12 @@ import { m as motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { ChevronDown, X } from "lucide-react";
 import { CarCard } from "./CarCard";
-import { InquiryModal } from "@/components/reservation/InquiryModal";
+import dynamic from "next/dynamic";
+
+const InquiryModal = dynamic(
+  () => import("@/components/reservation/InquiryModal").then((m) => m.InquiryModal),
+  { ssr: false },
+);
 import {
   CAR_CATEGORIES,
   carCategories,
@@ -86,6 +91,10 @@ export function FleetGrid({
 }: Props) {
   const t = useTranslations("Fleet");
   const [selected, setSelected] = useState<CarListItem | null>(null);
+  const [modalReady, setModalReady] = useState(false);
+  useEffect(() => {
+    if (selected) setModalReady(true);
+  }, [selected]);
   const [active, setActive] = useState<CarCategory | "ALL">("ALL");
   const [brand, setBrand] = useState<string>("ALL");
   const [sort, setSort] = useState<SortKey>("RECOMMENDED");
@@ -288,6 +297,7 @@ export function FleetGrid({
         </p>
       )}
 
+      {(selected || modalReady) && (
       <InquiryModal
         car={selected}
         search={search}
@@ -296,6 +306,7 @@ export function FleetGrid({
         bookedExtras={bookedExtras}
         onClose={() => setSelected(null)}
       />
+      )}
     </>
   );
 }

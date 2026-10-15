@@ -21,13 +21,13 @@ import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 const inter = Inter({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
 });
 
 const montserrat = Montserrat({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
@@ -134,8 +134,8 @@ export default async function LocaleLayout({
       <body className="min-h-dvh bg-background font-sans text-foreground antialiased">
         {SITE.gtmId && process.env.NODE_ENV === "production" && (
           <>
-            <Script id="gtm" strategy="lazyOnload">
-              {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${SITE.gtmId}');`}
+            <Script id="gtm" strategy="afterInteractive">
+              {`(function(w,d,i){var ev=['scroll','pointerdown','keydown','touchstart','mousemove'],done=false;function load(){if(done)return;done=true;ev.forEach(function(e){w.removeEventListener(e,load)});w.dataLayer=w.dataLayer||[];w.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;d.head.appendChild(j)}ev.forEach(function(e){w.addEventListener(e,load,{passive:true})})})(window,document,'${SITE.gtmId}');`}
             </Script>
             <noscript>
               <iframe

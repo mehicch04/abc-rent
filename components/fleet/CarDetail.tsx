@@ -23,7 +23,12 @@ import { formatPrice } from "@/lib/currency";
 import { useCurrency } from "@/components/currency/CurrencyProvider";
 import { CarGallery } from "@/components/fleet/CarGallery";
 import { ImageLightbox } from "@/components/fleet/ImageLightbox";
-import { InquiryModal } from "@/components/reservation/InquiryModal";
+import dynamic from "next/dynamic";
+
+const InquiryModal = dynamic(
+  () => import("@/components/reservation/InquiryModal").then((m) => m.InquiryModal),
+  { ssr: false },
+);
 import { SimilarCars } from "@/components/fleet/SimilarCars";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { CLASS_LABELS, FUEL_LABELS, TRANSMISSION_LABELS } from "@/lib/car-labels";

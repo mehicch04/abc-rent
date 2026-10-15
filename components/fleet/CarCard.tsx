@@ -46,7 +46,6 @@ export function CarCard({ car, search, onSelect, priority = false, imageSizes }:
     <article className="group relative flex flex-col rounded-[22px] bg-surface p-2 ring-1 ring-border transition-[box-shadow] duration-300 hover:ring-foreground/20">
       <Link
         href={href}
-        aria-label={car.title}
         className="relative block aspect-[4/3] overflow-hidden rounded-[16px] bg-[#EDF1F5]"
       >
         <span
