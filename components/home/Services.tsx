@@ -30,7 +30,7 @@ type Premium = {
 type Item = { title: string; body: string };
 
 const PREMIUM_IMAGES = ["/img/service-chauffeur.webp", "/img/service-airport.webp"];
-const PREMIUM_POS = ["object-[35%_60%]", "object-[62%_70%]"];
+const PREMIUM_POS = ["object-[35%_60%]", "object-[65%_55%]"];
 const ICONS = [MapPinHouse, Users, Crown, UsersRound];
 const LINKS = ["/kontakt", "/vozila", "/vozila", "/vozila"] as const;
 const ease = [0.22, 1, 0.36, 1] as const;
