@@ -42,7 +42,7 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
         <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 hidden h-2/5 bg-gradient-to-t from-ink/80 to-transparent lg:block" />
 
         <div className="mx-auto flex min-h-[620px] max-w-6xl flex-col justify-between px-5 pb-28 pt-14 sm:px-6 lg:min-h-[700px] lg:pt-20">
-          <div className="max-w-2xl text-white">
+          <div className="max-w-2xl text-white max-sm:mx-auto max-sm:text-center">
             <a
               href={company.map.link ?? "#"}
               target="_blank"
@@ -62,14 +62,14 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
 
             <p
               style={{ animationDelay: "80ms" }}
-              className="motion-safe:animate-rise mt-6 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg"
+              className="motion-safe:animate-rise mt-6 max-w-lg text-base max-sm:mx-auto leading-relaxed text-white/85 sm:text-lg"
             >
               {t("subtitle")}
             </p>
 
             <div
               style={{ animationDelay: "160ms" }}
-              className="motion-safe:animate-rise mt-9 flex flex-wrap items-center gap-3"
+              className="motion-safe:animate-rise mt-9 flex flex-wrap items-center gap-3 max-sm:justify-center"
             >
               <PillLink href="/vozila">{t("ctaPrimary")}</PillLink>
               <PillLink
@@ -84,14 +84,14 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
 
           <div
             style={{ animationDelay: "260ms" }}
-            className="motion-safe:animate-rise mt-14 flex flex-wrap gap-x-10 gap-y-6 text-white sm:gap-x-14"
+            className="motion-safe:animate-rise mt-14 flex flex-wrap gap-x-10 gap-y-6 text-white max-sm:grid max-sm:grid-cols-3 max-sm:gap-x-3 max-sm:text-center sm:gap-x-14"
           >
             {stats.map((s, i) => (
-              <div key={s.label} className="flex items-center gap-10 sm:gap-14">
+              <div key={s.label} className="flex items-center gap-10 max-sm:items-start max-sm:justify-center sm:gap-14">
                 {i > 0 && <span aria-hidden className="hidden h-10 w-px bg-white/20 sm:block" />}
                 <div>
-                  <p className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{s.value}</p>
-                  <p className="mt-1 text-sm text-white/60">{s.label}</p>
+                  <p className="font-display text-[1.7rem] font-semibold tracking-tight sm:text-4xl">{s.value}</p>
+                  <p className="mt-1 text-xs text-white/60 sm:text-sm">{s.label}</p>
                 </div>
               </div>
             ))}
