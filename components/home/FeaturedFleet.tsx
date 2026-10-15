@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Cog, Infinity as InfinityIcon, Plane, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -45,7 +44,6 @@ export function FeaturedFleet({
   const [modalReady, setModalReady] = useState(false);
   const perks = t.raw("included") as { title: string; body: string }[];
   const [lead, ...rest] = cars;
-  const avatars = Array.from(new Set(types.map((x) => x.image).filter((x): x is string => !!x))).slice(0, 5);
   const prices = types.map((x) => x.from).filter((x): x is number => x != null);
   const minPrice = prices.length ? Math.min(...prices) : null;
 
@@ -140,26 +138,8 @@ export function FeaturedFleet({
               </ul>
             </div>
 
-            <div className="flex flex-col items-start gap-8 lg:items-end">
-              <div className="flex items-center">
-                {avatars.map((src, i) => (
-                  <span
-                    key={src}
-                    style={{ zIndex: avatars.length - i }}
-                    className={`relative grid h-16 w-16 place-items-center overflow-hidden rounded-full bg-[#EDF1F5] ring-4 ring-ink transition-[margin] duration-500 ease-out sm:h-20 sm:w-20 ${
-                      i ? "-ml-5 group-hover:-ml-2" : ""
-                    }`}
-                  >
-                    <Image src={src} alt="" fill sizes="80px" className="scale-[1.35] object-contain mix-blend-multiply" />
-                  </span>
-                ))}
-                {total > avatars.length && (
-                  <span className="relative -ml-5 grid h-16 w-16 place-items-center rounded-full bg-brand text-sm font-semibold ring-4 ring-ink transition-[margin] duration-500 ease-out group-hover:-ml-2 sm:h-20 sm:w-20 sm:text-base">
-                    +{total - avatars.length}
-                  </span>
-                )}
-              </div>
-              <span className="inline-flex items-center gap-4 rounded-full bg-white py-2 pl-7 pr-2 text-base font-medium text-ink transition-colors group-hover:bg-white/90">
+            <div className="flex lg:justify-end">
+              <span className="inline-flex items-center gap-4 rounded-full bg-white py-2 pl-7 pr-2 text-base font-medium text-ink transition-transform duration-300 group-hover:-translate-y-0.5 sm:py-2.5 sm:pl-8 sm:text-lg">
                 {t("ctaButton")}
                 <span className="grid h-11 w-11 place-items-center rounded-full bg-brand text-white">
                   <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:rotate-45" />
