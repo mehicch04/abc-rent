@@ -29,7 +29,8 @@ type Premium = {
 };
 type Item = { title: string; body: string };
 
-const PREMIUM_IMAGES = ["/img/chauffeur.webp", "/img/airport-transfer.webp"];
+const PREMIUM_IMAGES = ["/img/service-chauffeur.webp", "/img/service-airport.webp"];
+const PREMIUM_POS = ["object-[35%_60%]", "object-[62%_70%]"];
 const ICONS = [MapPinHouse, Users, Crown, UsersRound];
 const LINKS = ["/kontakt", "/vozila", "/vozila", "/vozila"] as const;
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -77,7 +78,7 @@ export function Services() {
                     alt={p.imageAlt}
                     fill
                     sizes="(max-width: 1023px) 94vw, 560px"
-                    className="object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
+                    className={`object-cover transition-transform duration-700 ease-out hover:scale-[1.03] ${PREMIUM_POS[i] ?? ""}`}
                   />
                   <div
                     aria-hidden
