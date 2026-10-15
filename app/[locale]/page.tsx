@@ -53,8 +53,8 @@ export default async function HomePage({
     getReviews(locale),
   ]);
 
-  const picked = cars.filter((c) => c.isFeatured).slice(0, 6);
-  const featured = picked.length ? picked : cars.slice(0, 4);
+  const picked = cars.filter((c) => c.isFeatured).slice(0, 3);
+  const featured = picked.length ? picked : cars.slice(0, 3);
 
   return (
     <>
@@ -69,7 +69,6 @@ export default async function HomePage({
       <FeaturedFleet
         cars={featured}
         total={cars.length}
-        brands={Array.from(new Set(cars.map((c) => c.brand).filter(Boolean)))}
         locations={locations.map((l) => ({ id: l.id, name: l.name }))}
         extras={extras}
         bookedExtras={bookedExtras}
