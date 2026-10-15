@@ -12,6 +12,7 @@ import { getBookedExtras } from "@/lib/extras-availability";
 import { ReservationSearchForm } from "@/components/reservation/ReservationSearchForm";
 import { ReservationSummary } from "@/components/reservation/ReservationSummary";
 import { FleetGrid } from "@/components/fleet/FleetGrid";
+import { CAR_CATEGORIES, type CarCategory } from "@/lib/car-categories";
 
 type RawSearchParams = Record<string, string | string[] | undefined>;
 
@@ -53,6 +54,10 @@ export default async function VehiclesPage({
   const returnLocationId = one(searchParams.returnLocationId);
   const pickupAtRaw = one(searchParams.pickupAt);
   const returnAtRaw = one(searchParams.returnAt);
+  const tipRaw = one(searchParams.tip);
+  const initialType = (CAR_CATEGORIES as readonly string[]).includes(tipRaw ?? "")
+    ? (tipRaw as CarCategory)
+    : undefined;
 
   const hasDates = isValidISO(pickupAtRaw) && isValidISO(returnAtRaw);
   const pickupDate = hasDates ? new Date(pickupAtRaw) : null;
@@ -119,6 +124,7 @@ export default async function VehiclesPage({
           search={search}
           locations={locations.map((l) => ({ id: l.id, name: l.name }))}
           eagerFirstImages
+          initialType={initialType}
           imageSizes="(max-width: 639px) 92vw, (max-width: 1023px) 46vw, 31vw"
           extras={extras}
           bookedExtras={bookedExtras}

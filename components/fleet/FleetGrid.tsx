@@ -30,6 +30,7 @@ type Props = {
   eagerFirstImages?: boolean;
   /** Override the image `sizes` (e.g. smaller on the homepage teaser grid). */
   imageSizes?: string;
+  initialType?: CarCategory;
   /** Optional equipment offered in the inquiry modal. */
   extras?: ExtraItem[];
   bookedExtras?: Booked[];
@@ -87,6 +88,7 @@ export function FleetGrid({
   imageSizes,
   extras,
   bookedExtras,
+  initialType,
 }: Props) {
   const t = useTranslations("Fleet");
   const [selected, setSelected] = useState<CarListItem | null>(null);
@@ -94,7 +96,7 @@ export function FleetGrid({
   useEffect(() => {
     if (selected) setModalReady(true);
   }, [selected]);
-  const [active, setActive] = useState<CarCategory | "ALL">("ALL");
+  const [active, setActive] = useState<CarCategory | "ALL">(initialType ?? "ALL");
   const [brand, setBrand] = useState<string>("ALL");
   const [sort, setSort] = useState<SortKey>("RECOMMENDED");
 

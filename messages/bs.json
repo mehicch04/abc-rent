@@ -89,7 +89,11 @@
     "perDayLabel": "po danu",
     "cardSeats": "sjedišta",
     "cardBags": "kofera",
-    "cardGearbox": "mjenjač"
+    "cardGearbox": "mjenjač",
+    "popular": "Najtraženije",
+    "perDayShort": "/ dan",
+    "depositLabel": "Depozit",
+    "includedShort": "Osiguranje i neograničena km uključeni"
   },
   "Inquiry": {
     "title": "Upit za rezervaciju",
@@ -306,7 +310,30 @@
     "lead": "Vozila koja gosti najčešće biraju. Cijene su po danu, a osiguranje i neograničena kilometraža su već uključeni.",
     "prev": "Prethodno vozilo",
     "next": "Sljedeće vozilo",
-    "viewAllCount": "Svih {count} vozila"
+    "viewAllCount": "Svih {count} vozila",
+    "typesTitle": "Ili birajte po tipu vozila",
+    "typesLead": "Cijene su početne, po danu.",
+    "from": "od",
+    "carsCount": "{count, plural, one {# vozilo} few {# vozila} other {# vozila}}",
+    "allTile": "Cijeli vozni park",
+    "included": [
+      {
+        "title": "Puno osiguranje",
+        "body": "Uključeno u cijenu svakog vozila."
+      },
+      {
+        "title": "Neograničena kilometraža",
+        "body": "Vozite koliko treba, bez doplate po kilometru."
+      },
+      {
+        "title": "Dostava na aerodrom",
+        "body": "Besplatno do aerodroma i adrese u Kantonu Sarajevo."
+      },
+      {
+        "title": "Svi su automatik",
+        "body": "Svako vozilo u ponudi ima automatski mjenjač."
+      }
+    ]
   },
   "Services": {
     "eyebrow": "Usluge",

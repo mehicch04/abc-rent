@@ -89,7 +89,11 @@
     "perDayLabel": "per day",
     "cardSeats": "seats",
     "cardBags": "bags",
-    "cardGearbox": "gearbox"
+    "cardGearbox": "gearbox",
+    "popular": "Most booked",
+    "perDayShort": "/ day",
+    "depositLabel": "Deposit",
+    "includedShort": "Insurance and unlimited mileage included"
   },
   "Inquiry": {
     "title": "Reservation inquiry",
@@ -306,7 +310,30 @@
     "lead": "The cars our guests pick most often. Prices are per day, with insurance and unlimited mileage already included.",
     "prev": "Previous car",
     "next": "Next car",
-    "viewAllCount": "All {count} cars"
+    "viewAllCount": "All {count} cars",
+    "typesTitle": "Or browse by car type",
+    "typesLead": "Starting prices, per day.",
+    "from": "from",
+    "carsCount": "{count, plural, one {# car} other {# cars}}",
+    "allTile": "The whole fleet",
+    "included": [
+      {
+        "title": "Full insurance",
+        "body": "Included in the price of every car."
+      },
+      {
+        "title": "Unlimited mileage",
+        "body": "Drive as far as you need, no per km charge."
+      },
+      {
+        "title": "Airport delivery",
+        "body": "Free to the airport and any address in Sarajevo Canton."
+      },
+      {
+        "title": "All automatic",
+        "body": "Every car in our fleet has an automatic gearbox."
+      }
+    ]
   },
   "Services": {
     "eyebrow": "Services",
