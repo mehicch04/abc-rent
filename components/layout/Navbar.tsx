@@ -56,7 +56,7 @@ export function Navbar() {
               >
                 {t(link.key)}
                 {isActive(link.href) && (
-                  <motion.span layoutId="nav-line" className="absolute inset-x-0 -bottom-0.5 h-px bg-brand" />
+                  <span className="absolute inset-x-0 -bottom-0.5 h-px bg-brand" />
                 )}
               </Link>
             </li>

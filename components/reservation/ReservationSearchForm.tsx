@@ -23,7 +23,7 @@ function dateOffset(days = 0): string {
 const TIME_SLOTS = Array.from({ length: 48 }, (_, i) => `${pad(Math.floor(i / 2))}:${i % 2 ? "30" : "00"}`);
 
 const CONTROL =
-  "h-12 w-full min-w-0 rounded-xl border border-border bg-background px-3.5 text-base text-foreground outline-none transition-colors focus:border-brand focus:ring-2 focus:ring-ring/30 sm:text-sm";
+  "h-12 w-full min-w-0 rounded-xl border border-border bg-background px-3.5 text-base text-foreground outline-none transition-[border-color,box-shadow] focus:border-brand focus:ring-2 focus:ring-ring/30 sm:text-sm";
 const DATE_CONTROL = `${CONTROL} flex-1`;
 const LBL =
   "mb-1.5 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-muted-foreground";
@@ -125,7 +125,7 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
         handleSubmit();
       }}
       style={{ animationDelay: "200ms" }}
-      className="w-full rounded-2xl border border-border bg-surface p-5 shadow-[0_24px_60px_-40px_rgba(11,18,32,0.45)] motion-safe:animate-fade-up sm:p-6"
+      className="w-full rounded-2xl border border-border bg-surface p-5 shadow-[0_24px_60px_-40px_rgba(11,18,32,0.45)] motion-safe:animate-rise sm:p-6"
     >
       <div className="grid gap-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

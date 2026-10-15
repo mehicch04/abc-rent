@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
-import { m as motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { ChevronDown, X } from "lucide-react";
 import { CarCard } from "./CarCard";
@@ -222,11 +221,7 @@ export function FleetGrid({
                   }`}
                 >
                   {on && (
-                    <motion.span
-                      layoutId="fleet-type"
-                      transition={{ type: "spring", stiffness: 420, damping: 36 }}
-                      className="absolute inset-0 -z-10 rounded-full bg-ink dark:bg-white"
-                    />
+                    <span className="absolute inset-0 -z-10 rounded-full bg-ink dark:bg-white" />
                   )}
                   {o.label}
                   <sup className={`text-[10px] font-medium tabular-nums ${on ? "opacity-70" : "text-muted-foreground"}`}>

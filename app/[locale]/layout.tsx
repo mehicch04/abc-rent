@@ -22,13 +22,16 @@ import { JsonLd } from "@/components/seo/JsonLd";
 
 const inter = Inter({
   subsets: ["latin"],
+  preload: false,
   variable: "--font-inter",
   display: "swap",
 });
 
 const montserrat = Montserrat({
   subsets: ["latin"],
+  weight: ["500", "600"],
   style: ["normal", "italic"],
+  preload: false,
   variable: "--font-display",
   display: "swap",
 });

@@ -33,6 +33,7 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
             priority
             sizes="(max-width: 639px) 62vw, (max-width: 1023px) 100vw, 74vw"
             quality={65}
+            decoding="sync"
             className="object-cover object-[64%_55%] lg:object-[42%_center] lg:[mask-image:linear-gradient(to_right,transparent,black_38%)]"
           />
         </div>
@@ -46,7 +47,7 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
               href={company.map.link ?? "#"}
               target="_blank"
               rel="noopener noreferrer"
-              className="motion-safe:animate-fade-up inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-white/85 backdrop-blur-md transition-colors hover:bg-white/15"
+              className="motion-safe:animate-rise inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-white/85 backdrop-blur-md transition-colors hover:bg-white/15"
             >
               <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
               {t("chip", { score, count })}
@@ -68,7 +69,7 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
 
             <div
               style={{ animationDelay: "160ms" }}
-              className="motion-safe:animate-fade-up mt-9 flex flex-wrap items-center gap-3"
+              className="motion-safe:animate-rise mt-9 flex flex-wrap items-center gap-3"
             >
               <PillLink href="/vozila">{t("ctaPrimary")}</PillLink>
               <PillLink
@@ -83,7 +84,7 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
 
           <div
             style={{ animationDelay: "260ms" }}
-            className="motion-safe:animate-fade-up mt-14 flex flex-wrap gap-x-10 gap-y-6 text-white sm:gap-x-14"
+            className="motion-safe:animate-rise mt-14 flex flex-wrap gap-x-10 gap-y-6 text-white sm:gap-x-14"
           >
             {stats.map((s, i) => (
               <div key={s.label} className="flex items-center gap-10 sm:gap-14">
