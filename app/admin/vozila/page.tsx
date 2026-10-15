@@ -19,6 +19,8 @@ export default async function VehiclesPage({
   const blocked =
     one(searchParams.msg) === "hasbookings" ? one(searchParams.count) : null;
 
+  const occupancyP = getCarOccupancy();
+  occupancyP.catch(() => {});
   const cars = await prisma.car.findMany({
     orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
   });
@@ -26,7 +28,7 @@ export default async function VehiclesPage({
   const live: Record<string, LiveStatus> = {};
   try {
     const now = new Date();
-    const occupancy = await getCarOccupancy();
+    const occupancy = await occupancyP;
     // A one-second window asks a simple question: is it out right now?
     const busy = busyCarsFor(occupancy, now, new Date(now.getTime() + 1000));
     const fmt = new Intl.DateTimeFormat("hr-HR", {

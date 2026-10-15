@@ -49,14 +49,11 @@ export default async function AdminCompanyPage({
   let oldManualBlocks = 0;
   let tableMissing = false;
   try {
-    [locations, seasonalCount] = await Promise.all([
+    [locations, seasonalCount, oldManualBlocks] = await Promise.all([
       prisma.location.findMany({ orderBy: [{ sortOrder: "asc" }, { name: "asc" }] }),
       prisma.car.count({ where: { seasonalPrice: { not: null } } }),
+      prisma.carBlock.count({ where: { kind: "MANUAL_BOOKING" } }).catch(() => 0),
     ]);
-    // Drives the one-off migration card; zero means it has already been done.
-    oldManualBlocks = await prisma.carBlock
-      .count({ where: { kind: "MANUAL_BOOKING" } })
-      .catch(() => 0);
   } catch {
     tableMissing = true;
   }

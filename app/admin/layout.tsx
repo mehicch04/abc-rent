@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 import { cookies } from "next/headers";
 
 import { prisma } from "@/lib/prisma";
@@ -38,20 +39,25 @@ async function pendingCounts() {
   }
 }
 
-export default async function AdminLayout({
+async function NavWithCounts() {
+  const counts = await pendingCounts();
+  return <AdminNav counts={counts} />;
+}
+
+export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const counts = await pendingCounts();
-
   return (
     <html lang="bs" suppressHydrationWarning className={inter.variable}>
       <body className="min-h-dvh bg-background font-sans text-foreground antialiased">
         <ThemeProvider>
           <div className="flex min-h-dvh flex-col">
             <AdminHeader />
-            <AdminNav counts={counts} />
+            <Suspense fallback={<AdminNav />}>
+              <NavWithCounts />
+            </Suspense>
             <main className="flex-1">{children}</main>
           </div>
         </ThemeProvider>

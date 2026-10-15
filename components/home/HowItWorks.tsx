@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { m as motion, useInView } from "framer-motion";
 import { CarFront, KeyRound, MessageCircleMore } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { PillLink } from "@/components/ui/PillLink";
@@ -11,6 +12,8 @@ const ICONS = [CarFront, MessageCircleMore, KeyRound];
 export function HowItWorks() {
   const t = useTranslations("HowItWorks");
   const steps = t.raw("steps") as { title: string; body: string }[];
+  const listRef = useRef<HTMLOListElement>(null);
+  const inView = useInView(listRef, { once: true, margin: "-60px" });
 
   return (
     <section className="px-3 sm:px-4">
@@ -26,7 +29,7 @@ export function HowItWorks() {
             </div>
           </div>
 
-          <ol className="mt-14 grid gap-4 lg:grid-cols-3">
+          <ol ref={listRef} className="mt-14 grid gap-4 lg:grid-cols-3">
             {steps.map((s, i) => {
               const Icon = ICONS[i] ?? CarFront;
               const last = i === steps.length - 1;
@@ -60,12 +63,11 @@ export function HowItWorks() {
                   </div>
 
                   <div className={`mt-12 h-1 overflow-hidden rounded-full ${last ? "bg-white/25" : "bg-white/10"}`}>
-                    <motion.div
-                      initial={{ width: "0%" }}
-                      whileInView={{ width: `${((i + 1) / steps.length) * 100}%` }}
-                      viewport={{ once: true, margin: "-60px" }}
-                      transition={{ duration: 0.9, delay: 0.25 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                      className={`h-full rounded-full ${last ? "bg-white" : "bg-brand-400"}`}
+                    <div
+                      style={{ width: `${((i + 1) / steps.length) * 100}%`, transitionDelay: `${250 + i * 150}ms` }}
+                      className={`h-full origin-left rounded-full transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                        inView ? "scale-x-100" : "scale-x-0"
+                      } ${last ? "bg-white" : "bg-brand-400"}`}
                     />
                   </div>
 

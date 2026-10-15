@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 import { MapPin, CalendarDays, Clock, ArrowRight, AlertCircle, ChevronDown, Repeat2 } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
@@ -119,15 +119,13 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
   }
 
   return (
-    <motion.form
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    <form
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmit();
       }}
-      className="w-full rounded-2xl border border-border bg-surface p-5 shadow-[0_24px_60px_-40px_rgba(11,18,32,0.45)] sm:p-6"
+      style={{ animationDelay: "200ms" }}
+      className="w-full rounded-2xl border border-border bg-surface p-5 shadow-[0_24px_60px_-40px_rgba(11,18,32,0.45)] motion-safe:animate-fade-up sm:p-6"
     >
       <div className="grid gap-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -296,6 +294,6 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
           </button>
         </div>
       </div>
-    </motion.form>
+    </form>
   );
 }

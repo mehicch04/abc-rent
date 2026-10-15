@@ -1,5 +1,3 @@
-"use client";
-
 import { Clock3, Plane, Wallet } from "lucide-react";
 import { useTranslations } from "next-intl";
 

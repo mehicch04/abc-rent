@@ -1,14 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Phone, Star } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { intlLocale } from "@/i18n/routing";
 import { useCompany } from "@/components/company/CompanyProvider";
 import { PillLink } from "@/components/ui/PillLink";
-
-const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero({ fleetCount }: { fleetCount: number }) {
   const t = useTranslations("Hero");
@@ -34,7 +31,8 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
             alt={t("imageAlt")}
             fill
             priority
-            sizes="(max-width: 1023px) 100vw, 74vw"
+            sizes="(max-width: 639px) 62vw, (max-width: 1023px) 100vw, 74vw"
+            quality={65}
             className="object-cover object-[64%_55%] lg:object-[42%_center] lg:[mask-image:linear-gradient(to_right,transparent,black_38%)]"
           />
         </div>
@@ -44,43 +42,33 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
 
         <div className="mx-auto flex min-h-[620px] max-w-6xl flex-col justify-between px-5 pb-28 pt-14 sm:px-6 lg:min-h-[700px] lg:pt-20">
           <div className="max-w-2xl text-white">
-            <motion.a
+            <a
               href={company.map.link ?? "#"}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease }}
-              className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-white/85 backdrop-blur-md transition-colors hover:bg-white/15"
+              className="motion-safe:animate-fade-up inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-white/85 backdrop-blur-md transition-colors hover:bg-white/15"
             >
               <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
               {t("chip", { score, count })}
-            </motion.a>
+            </a>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.05, ease }}
-              className="mt-6 font-display text-[2.6rem] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-6xl lg:text-[4.4rem]"
+            <h1
+              className="motion-safe:animate-rise mt-6 font-display text-[2.6rem] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-6xl lg:text-[4.4rem]"
             >
               {t("titleA")}
               <em className="block font-semibold italic text-brand-400">{t("titleB")}</em>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.12, ease }}
-              className="mt-6 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg"
+            <p
+              style={{ animationDelay: "80ms" }}
+              className="motion-safe:animate-rise mt-6 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg"
             >
               {t("subtitle")}
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.18, ease }}
-              className="mt-9 flex flex-wrap items-center gap-3"
+            <div
+              style={{ animationDelay: "160ms" }}
+              className="motion-safe:animate-fade-up mt-9 flex flex-wrap items-center gap-3"
             >
               <PillLink href="/vozila">{t("ctaPrimary")}</PillLink>
               <PillLink
@@ -90,14 +78,12 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
               >
                 {t("ctaSecondary")}
               </PillLink>
-            </motion.div>
+            </div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-14 flex flex-wrap gap-x-10 gap-y-6 text-white sm:gap-x-14"
+          <div
+            style={{ animationDelay: "260ms" }}
+            className="motion-safe:animate-fade-up mt-14 flex flex-wrap gap-x-10 gap-y-6 text-white sm:gap-x-14"
           >
             {stats.map((s, i) => (
               <div key={s.label} className="flex items-center gap-10 sm:gap-14">
@@ -108,7 +94,7 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
                 </div>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

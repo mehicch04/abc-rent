@@ -61,6 +61,23 @@
     transition-delay: 0s !important;
   }
 
+  .dark .light-island {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 9%;
+    --surface: 210 40% 98%;
+    --surface-muted: 210 33% 95%;
+    --border: 214 28% 89%;
+    --muted: 210 33% 96%;
+    --muted-foreground: 218 14% 38%;
+    --ring: 201 92% 38%;
+    --brand-strong: #0873ae;
+    color-scheme: light;
+  }
+
+  .light-island {
+    color: hsl(var(--foreground));
+  }
+
   .dark input[type="date"],
   .dark input[type="time"] {
     color-scheme: dark;

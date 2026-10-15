@@ -29,6 +29,29 @@ export default async function AdminExtrasPage({
 
   let extras: Awaited<ReturnType<typeof prisma.extra.findMany>> = [];
   let tableMissing = false;
+  const now = new Date();
+  const outP = Promise.all([
+    prisma.inquiryExtra.findMany({
+      where: {
+        extraId: { not: null },
+        inquiry: {
+          // Finished rentals have handed their equipment back.
+          status: { in: ["CONFIRMED", "IN_PROGRESS"] },
+          pickupAt: { lte: now },
+          returnAt: { gte: now },
+        },
+      },
+      select: { extraId: true, qty: true },
+    }),
+    prisma.blockExtra.findMany({
+      where: {
+        extraId: { not: null },
+        block: { kind: "MANUAL_BOOKING", startAt: { lte: now }, endAt: { gte: now } },
+      },
+      select: { extraId: true, qty: true },
+    }),
+  ]);
+  outP.catch(() => {});
   try {
     extras = await prisma.extra.findMany({
       orderBy: [{ sortOrder: "asc" }, { nameHr: "asc" }],
@@ -38,28 +61,7 @@ export default async function AdminExtrasPage({
   }
   const outNow: Record<string, number> = {};
   try {
-    const now = new Date();
-    const [fromInquiries, fromBlocks] = await Promise.all([
-      prisma.inquiryExtra.findMany({
-        where: {
-          extraId: { not: null },
-          inquiry: {
-            // Finished rentals have handed their equipment back.
-            status: { in: ["CONFIRMED", "IN_PROGRESS"] },
-            pickupAt: { lte: now },
-            returnAt: { gte: now },
-          },
-        },
-        select: { extraId: true, qty: true },
-      }),
-      prisma.blockExtra.findMany({
-        where: {
-          extraId: { not: null },
-          block: { kind: "MANUAL_BOOKING", startAt: { lte: now }, endAt: { gte: now } },
-        },
-        select: { extraId: true, qty: true },
-      }),
-    ]);
+    const [fromInquiries, fromBlocks] = await outP;
     for (const r of [...fromInquiries, ...fromBlocks]) {
       if (!r.extraId) continue;
       outNow[r.extraId] = (outNow[r.extraId] ?? 0) + r.qty;

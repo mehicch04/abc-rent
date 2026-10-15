@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { ChevronDown, X } from "lucide-react";
 import { CarCard } from "./CarCard";

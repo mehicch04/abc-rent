@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: "class", // toggled by next-themes
+  darkMode: ["variant", "&:is(.dark *):not(.light-island, .light-island *)"],
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -86,9 +86,14 @@ const config: Config = {
           "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        rise: {
+          "0%": { transform: "translateY(16px)" },
+          "100%": { transform: "translateY(0)" },
+        },
       },
       animation: {
-        "fade-up": "fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "fade-up": "fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
+        rise: "rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both",
         float: "float 6s ease-in-out infinite",
         marquee: "marquee 40s linear infinite",
         progress: "progress 5.2s linear forwards",

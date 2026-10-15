@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Star } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { intlLocale } from "@/i18n/routing";
