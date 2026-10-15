@@ -305,13 +305,7 @@
     "auto": "Automatik",
     "lead": "Od gradskih auta do kombija za devet putnika. Cijene su po danu, a osiguranje i neograničena kilometraža su već uključeni.",
     "prev": "Prethodno vozilo",
-    "next": "Sljedeće vozilo",
-    "pause": "Zaustavi automatsko listanje",
-    "play": "Pokreni automatsko listanje",
-    "allTitle": "Cijeli vozni park",
-    "allBody": "Svako vozilo ima automatski mjenjač. Birajte po tipu i marki ili sortirajte po cijeni.",
-    "allCount": "vozila u ponudi",
-    "allCta": "Pogledaj sva vozila"
+    "next": "Sljedeće vozilo"
   },
   "Services": {
     "eyebrow": "Usluge",
