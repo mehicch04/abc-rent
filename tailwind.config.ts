@@ -86,6 +86,10 @@ const config: Config = {
           "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        ring: {
+          "0%": { strokeDashoffset: "var(--ring-len)" },
+          "100%": { strokeDashoffset: "0" },
+        },
         rise: {
           "0%": { transform: "translateY(16px)" },
           "100%": { transform: "translateY(0)" },
@@ -93,6 +97,7 @@ const config: Config = {
       },
       animation: {
         "fade-up": "fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
+        ring: "ring linear forwards",
         rise: "rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both",
         float: "float 6s ease-in-out infinite",
         marquee: "marquee 40s linear infinite",

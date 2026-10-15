@@ -302,7 +302,16 @@
     "book": "Book",
     "perDay": "day",
     "seats": "{n} seats",
-    "auto": "Automatic"
+    "auto": "Automatic",
+    "lead": "From city cars to vans for nine passengers. Prices are per day, with insurance and unlimited mileage already included.",
+    "prev": "Previous car",
+    "next": "Next car",
+    "pause": "Pause autoplay",
+    "play": "Start autoplay",
+    "allTitle": "The whole fleet",
+    "allBody": "Every car is automatic. Browse by type and brand or sort by price.",
+    "allCount": "cars available",
+    "allCta": "See all cars"
   },
   "Services": {
     "eyebrow": "Services",

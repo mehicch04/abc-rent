@@ -53,7 +53,7 @@ export default async function HomePage({
     getReviews(locale),
   ]);
 
-  const featured = [...cars.filter((c) => c.isFeatured), ...cars.filter((c) => !c.isFeatured)].slice(0, 6);
+  const featured = [...cars.filter((c) => c.isFeatured), ...cars.filter((c) => !c.isFeatured)].slice(0, 8);
 
   return (
     <>
@@ -67,6 +67,7 @@ export default async function HomePage({
       <HomeAbout />
       <FeaturedFleet
         cars={featured}
+        total={cars.length}
         locations={locations.map((l) => ({ id: l.id, name: l.name }))}
         extras={extras}
         bookedExtras={bookedExtras}
