@@ -21,8 +21,8 @@ function Perforation() {
   return (
     <div aria-hidden className="relative">
       <div className="mx-7 border-t-2 border-dashed border-border" />
-      <span className="absolute -left-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-background ring-1 ring-border [clip-path:inset(0_0_0_calc(50%-1.5px))]" />
-      <span className="absolute -right-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-background ring-1 ring-border [clip-path:inset(0_calc(50%-1.5px)_0_0)]" />
+      <span className="absolute -start-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-background ring-1 ring-border [clip-path:inset(0_0_0_calc(50%-1.5px))]" />
+      <span className="absolute -end-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-background ring-1 ring-border [clip-path:inset(0_calc(50%-1.5px)_0_0)]" />
     </div>
   );
 }

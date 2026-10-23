@@ -92,7 +92,7 @@ export function FeaturedFleet({
             return (
               <li
                 key={p.title}
-                className="flex gap-4 border-border p-5 sm:p-6 [&:not(:first-child)]:border-t sm:[&:nth-child(2)]:border-t-0 sm:[&:nth-child(even)]:border-l lg:[&:not(:first-child)]:border-l lg:[&:not(:first-child)]:border-t-0"
+                className="flex gap-4 border-border p-5 sm:p-6 [&:not(:first-child)]:border-t sm:[&:nth-child(2)]:border-t-0 sm:[&:nth-child(even)]:border-s lg:[&:not(:first-child)]:border-s lg:[&:not(:first-child)]:border-t-0"
               >
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand/10 text-brand-strong">
                   <Icon className="h-[18px] w-[18px]" />
@@ -112,7 +112,7 @@ export function FeaturedFleet({
         >
           <span
             aria-hidden
-            className="text-outline pointer-events-none absolute -bottom-16 -right-6 select-none font-display text-[16rem] font-semibold leading-none tracking-tighter text-white/[0.07] sm:text-[20rem]"
+            className="text-outline pointer-events-none absolute -bottom-16 -end-6 select-none font-display text-[16rem] font-semibold leading-none tracking-tighter text-white/[0.07] sm:text-[20rem]"
           >
             {total}
           </span>
@@ -139,10 +139,10 @@ export function FeaturedFleet({
             </div>
 
             <div className="flex lg:justify-end">
-              <span className="inline-flex items-center gap-4 rounded-full bg-white py-2 pl-7 pr-2 text-base font-medium text-ink transition-transform duration-300 group-hover:-translate-y-0.5 sm:py-2.5 sm:pl-8 sm:text-lg">
+              <span className="inline-flex items-center gap-4 rounded-full bg-white py-2 ps-7 pe-2 text-base font-medium text-ink transition-transform duration-300 group-hover:-translate-y-0.5 sm:py-2.5 sm:ps-8 sm:text-lg">
                 {t("ctaButton")}
                 <span className="grid h-11 w-11 place-items-center rounded-full bg-brand text-white">
-                  <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:rotate-45" />
+                  <ArrowUpRight className="rtl:-scale-x-100 h-5 w-5 transition-transform duration-300 group-hover:rotate-45" />
                 </span>
               </span>
             </div>

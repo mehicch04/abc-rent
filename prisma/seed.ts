@@ -1,5 +1,6 @@
 import {
   PrismaClient,
+  ExtraPricing,
   LocationType,
   CarClass,
   CarCategory,
@@ -39,7 +40,7 @@ const locations = [
     slug: "dostava-na-adresu",
     name: "Dostava na adresu (Sarajevo)",
     type: LocationType.CITY_OFFICE,
-    street: "Vaša adresa u Kantonu Sarajevo",
+    street: "Vaša adresa u Sarajevu",
     city: "Sarajevo",
     postalCode: "71000",
     sortOrder: 2,
@@ -87,6 +88,20 @@ const cars: SeedCar[] = [
   { slug: "mercedes-vito-2014", brand: "Mercedes-Benz", model: "Vito", title: "Mercedes Vito (2014)", year: 2014, carClass: CarClass.MINIBUS, categories: [CarCategory.MINIBUS], passengers: 9, doors: 4, luggage: 6, fuelType: FuelType.DIESEL, priceEur: 90, depositEur: 200, image: "/cars/mercedes-vito-2014.webp", sortOrder: 18 },
 ];
 
+const gallery = (main: string) => {
+  const base = main.replace(/\.webp$/, "");
+  return [main, `${base}-2.webp`, `${base}-3.webp`];
+};
+
+const extras = [
+  { id: "abc-no-deposit", nameHr: "Bez depozita", nameEn: "No deposit", noteHr: "Mala dnevna naknada umjesto depozita", noteEn: "A small daily fee instead of a deposit", pricing: ExtraPricing.PER_DAY, eur: 10, maxQty: 1, totalStock: 99, sortOrder: 0 },
+  { id: "abc-child-seat", nameHr: "Dječija sjedalica", nameEn: "Child seat", noteHr: "Za djecu od 1 do 5 godina", noteEn: "For children aged 1 to 5", pricing: ExtraPricing.PER_DAY, eur: 5, maxQty: 2, totalStock: 4, sortOrder: 1 },
+  { id: "abc-booster-seat", nameHr: "Booster sjedište", nameEn: "Booster seat", noteHr: "Za djecu od 5 do 10 godina", noteEn: "For children aged 5 to 10", pricing: ExtraPricing.PER_DAY, eur: 10, maxQty: 2, totalStock: 4, sortOrder: 2 },
+  { id: "abc-cross-border", nameHr: "Prelazak granice", nameEn: "Cross border", noteHr: "Vožnja izvan Bosne i Hercegovine", noteEn: "Driving outside Bosnia and Herzegovina", pricing: ExtraPricing.PER_RENTAL, eur: 15, maxQty: 1, totalStock: 99, sortOrder: 3 },
+  { id: "abc-cleaning", nameHr: "Čišćenje vozila", nameEn: "Cleaning", noteHr: "Vozilo vraćate bez čišćenja", noteEn: "Return the car without cleaning it", pricing: ExtraPricing.PER_RENTAL, eur: 15, maxQty: 1, totalStock: 99, sortOrder: 4 },
+  { id: "abc-private-driver", nameHr: "Privatni vozač", nameEn: "Private driver", noteHr: "Samo vozač, gorivo nije uključeno", noteEn: "Driver only, fuel not included", pricing: ExtraPricing.PER_DAY, eur: 50, maxQty: 1, totalStock: 3, sortOrder: 5 },
+];
+
 async function main() {
   for (const loc of locations) {
     await prisma.location.upsert({ where: { slug: loc.slug }, update: loc, create: loc });
@@ -110,7 +125,7 @@ async function main() {
       pricePerDay: eur(c.priceEur),
       deposit: eur(c.depositEur),
       currency: "BAM",
-      images: [c.image],
+      images: gallery(c.image),
       isAvailable: true,
       isFeatured: c.isFeatured ?? false,
       sortOrder: c.sortOrder,
@@ -118,7 +133,16 @@ async function main() {
     await prisma.car.upsert({ where: { slug: c.slug }, update: data, create: data });
   }
 
-  console.log(`Seeded ${locations.length} locations and ${cars.length} cars`);
+  for (const { eur: price, ...e } of extras) {
+    const data = { ...e, price: eur(price), isActive: true };
+    await prisma.extra.upsert({ where: { id: e.id }, update: data, create: data });
+  }
+  await prisma.extra.updateMany({
+    where: { id: { notIn: extras.map((e) => e.id) } },
+    data: { isActive: false },
+  });
+
+  console.log(`Seeded ${locations.length} locations, ${cars.length} cars and ${extras.length} extras`);
 }
 
 main()

@@ -55,11 +55,11 @@ function StyledSelect({
         disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
         aria-label={ariaLabel}
-        className={`${CONTROL} appearance-none pr-10`}
+        className={`${CONTROL} appearance-none pe-10`}
       >
         {children}
       </select>
-      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+      <ChevronDown className="pointer-events-none absolute end-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
     </div>
   );
 }
@@ -180,7 +180,7 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
                 onClick={pickOtherReturn}
                 tabIndex={sameLocation ? 0 : -1}
                 aria-hidden={!sameLocation}
-                className={`group absolute inset-0 flex items-center gap-2.5 rounded-xl border border-dashed border-border bg-surface-muted px-3.5 text-left text-sm transition-[opacity,transform,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-brand/60 focus-visible:border-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 ${
+                className={`group absolute inset-0 flex items-center gap-2.5 rounded-xl border border-dashed border-border bg-surface-muted px-3.5 text-start text-sm transition-[opacity,transform,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-brand/60 focus-visible:border-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 ${
                   sameLocation ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
                 }`}
               >
@@ -189,7 +189,7 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
                   {t("sameAsPickup")}
                   {pickupName && <span className="text-foreground">{` · ${pickupName}`}</span>}
                 </span>
-                <span className="ml-auto shrink-0 text-xs font-medium text-brand-strong underline-offset-4 group-hover:underline">
+                <span className="ms-auto shrink-0 text-xs font-medium text-brand-strong underline-offset-4 group-hover:underline">
                   {t("change")}
                 </span>
               </button>
@@ -264,7 +264,7 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
           />
           <span
             aria-hidden
-            className="relative h-6 w-11 shrink-0 rounded-full bg-foreground/15 transition-colors duration-300 after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow-sm after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.22,1,0.36,1)] peer-checked:bg-brand peer-checked:after:translate-x-5 peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-surface"
+            className="relative h-6 w-11 shrink-0 rounded-full bg-foreground/15 transition-colors duration-300 after:absolute after:start-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow-sm after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.22,1,0.36,1)] peer-checked:bg-brand peer-checked:after:translate-x-5 rtl:peer-checked:after:-translate-x-5 peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-surface"
           />
           {t("sameLocation")}
         </label>
@@ -290,7 +290,7 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
             className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand px-6 text-sm font-medium text-brand-foreground transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
           >
             {t("search")}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            <ArrowRight className="rtl:-scale-x-100 h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
           </button>
         </div>
       </div>

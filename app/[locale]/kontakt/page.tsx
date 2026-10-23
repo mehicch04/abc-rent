@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ExternalLink, MapPin } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo";
 import { getCompany } from "@/lib/company";
-import { getActiveLocations } from "@/lib/fleet-data";
+import { getLocations } from "@/lib/fleet-data";
 import { SITE } from "@/lib/site-config";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Heading } from "@/components/home/Heading";
@@ -34,7 +34,7 @@ export default async function ContactPage({
 }) {
   setRequestLocale(locale);
   const company = await getCompany();
-  const locations = await getActiveLocations().catch(() => []);
+  const locations = await getLocations(locale).catch(() => []);
   const t = await getTranslations("Contact");
   const mapSrc = `https://maps.google.com/maps?q=${company.map.lat},${company.map.lng}&z=16&hl=${locale}&output=embed`;
 
@@ -43,7 +43,7 @@ export default async function ContactPage({
       label: t("phonesLabel"),
       content: company.phones.map((p) => (
         <a key={p.value} href={p.href} className="block transition-colors hover:text-brand-strong">
-          {p.value}
+          <bdi dir="ltr">{p.value}</bdi>
         </a>
       )),
     },
@@ -51,12 +51,12 @@ export default async function ContactPage({
       label: t("emailLabel"),
       content: (
         <a href={`mailto:${company.email}`} className="break-all transition-colors hover:text-brand-strong">
-          {company.email}
+          <bdi dir="ltr">{company.email}</bdi>
         </a>
       ),
     },
     { label: t("locationLabel"), content: company.address ?? SITE.address },
-    { label: t("hoursLabel"), content: company.hours },
+    { label: t("hoursLabel"), content: locale === "bs" ? company.hours : t("hoursValue") },
   ];
 
   return (
@@ -107,7 +107,7 @@ export default async function ContactPage({
             href={company.map.link ?? "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink"
+            className="absolute start-4 top-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink"
           >
             {t("openMap")}
             <ExternalLink className="h-4 w-4" />

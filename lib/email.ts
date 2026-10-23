@@ -64,7 +64,7 @@ export async function sendInquiryEmail(
   }
 
   const resend = new Resend(apiKey);
-  const guestLocale: "HR" | "EN" = data.locale === "en" ? "EN" : "HR";
+  const guestLocale: "HR" | "EN" = data.locale === "bs" ? "HR" : "EN";
 
   const html = ownerInquiryHtml({
     ref: esc(data.reference),
@@ -118,7 +118,7 @@ export async function sendGuestConfirmationEmail(
     return { sent: false, error: "missing_api_key" };
   }
 
-  const locale: "HR" | "EN" = data.locale === "en" ? "EN" : "HR";
+  const locale: "HR" | "EN" = data.locale === "bs" ? "HR" : "EN";
   const resend = new Resend(apiKey);
 
   const dot = " &middot; ";
@@ -177,7 +177,7 @@ export type ContactEmailData = {
   phone: string;
   company?: string | null;
   message?: string | null;
-  locale?: "bs" | "en" | string;
+  locale?: string;
 };
 
 export async function sendContactEmail(
@@ -194,7 +194,7 @@ export async function sendContactEmail(
   }
 
   const isBusiness = data.type === "BUSINESS";
-  const isEn = data.locale === "en";
+  const isEn = data.locale !== "bs";
   const resend = new Resend(apiKey);
 
   const html = contactRequestHtml({

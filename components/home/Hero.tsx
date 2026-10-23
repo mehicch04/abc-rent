@@ -25,7 +25,7 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
   return (
     <section className="px-3 pt-1 sm:px-4">
       <div className="relative isolate overflow-hidden rounded-[28px] bg-ink">
-        <div className="absolute inset-0 -z-10 lg:left-auto lg:w-[74%]">
+        <div className="absolute inset-0 -z-10 lg:start-auto lg:w-[74%]">
           <Image
             src="/img/hero-fleet.webp"
             alt={t("imageAlt")}
@@ -34,14 +34,14 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
             sizes="(max-width: 639px) 62vw, (max-width: 1023px) 100vw, 74vw"
             quality={65}
             decoding="sync"
-            className="object-cover object-[64%_55%] lg:object-[42%_center] lg:[mask-image:linear-gradient(to_right,transparent,black_38%)]"
+            className="object-cover object-[64%_55%] lg:object-[42%_center] lg:[mask-image:linear-gradient(to_right,transparent,black_38%)] rtl:lg:[mask-image:linear-gradient(to_left,transparent,black_38%)]"
           />
         </div>
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/75 via-ink/50 to-ink/85 lg:hidden" />
-        <div aria-hidden className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-ink via-ink/60 via-40% to-ink/0 to-70% lg:block" />
+        <div aria-hidden className="absolute inset-0 -z-10 hidden bg-gradient-to-r rtl:bg-gradient-to-l from-ink via-ink/60 via-40% to-ink/0 to-70% lg:block" />
         <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 hidden h-2/5 bg-gradient-to-t from-ink/80 to-transparent lg:block" />
 
-        <div className="mx-auto flex min-h-[620px] max-w-6xl flex-col justify-between px-5 pb-28 pt-14 sm:px-6 lg:min-h-[700px] lg:pt-20">
+        <div className="mx-auto flex max-w-6xl flex-col justify-between px-5 pb-20 pt-8 sm:min-h-[620px] sm:px-6 sm:pb-28 sm:pt-14 lg:min-h-[700px] lg:pt-20">
           <div className="max-w-2xl text-white max-sm:mx-auto max-sm:text-center">
             <a
               href={company.map.link ?? "#"}
@@ -54,7 +54,7 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
             </a>
 
             <h1
-              className="motion-safe:animate-rise mt-6 font-display text-[2.6rem] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-6xl lg:text-[4.4rem]"
+              className="motion-safe:animate-rise mt-5 font-display text-[2.15rem] font-semibold leading-[1.06] tracking-[-0.03em] sm:mt-6 sm:text-6xl lg:text-[4.4rem]"
             >
               {t("titleA")}
               <em className="block font-semibold italic text-brand-400">{t("titleB")}</em>
@@ -62,14 +62,14 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
 
             <p
               style={{ animationDelay: "80ms" }}
-              className="motion-safe:animate-rise mt-6 max-w-lg text-base max-sm:mx-auto leading-relaxed text-white/85 sm:text-lg"
+              className="motion-safe:animate-rise mt-4 max-w-lg text-[15px] leading-relaxed text-white/85 max-sm:mx-auto sm:mt-6 sm:text-lg"
             >
               {t("subtitle")}
             </p>
 
             <div
               style={{ animationDelay: "160ms" }}
-              className="motion-safe:animate-rise mt-9 flex flex-wrap items-center gap-3 max-sm:justify-center"
+              className="motion-safe:animate-rise mt-6 flex flex-wrap items-center gap-2.5 max-sm:justify-center sm:mt-9 sm:gap-3"
             >
               <PillLink href="/vozila">{t("ctaPrimary")}</PillLink>
               <PillLink
@@ -84,7 +84,7 @@ export function Hero({ fleetCount }: { fleetCount: number }) {
 
           <div
             style={{ animationDelay: "260ms" }}
-            className="motion-safe:animate-rise mt-14 flex flex-wrap gap-x-10 gap-y-6 text-white max-sm:grid max-sm:grid-cols-3 max-sm:gap-x-3 max-sm:text-center sm:gap-x-14"
+            className="motion-safe:animate-rise mt-14 hidden flex-wrap gap-x-10 gap-y-6 text-white sm:flex sm:gap-x-14"
           >
             {stats.map((s, i) => (
               <div key={s.label} className="flex items-center gap-10 max-sm:items-start max-sm:justify-center sm:gap-14">

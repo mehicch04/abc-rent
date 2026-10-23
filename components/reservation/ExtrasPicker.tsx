@@ -5,6 +5,7 @@ import { Check, Lock, Minus, Plus } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import type { ExtraItem } from "@/lib/extras";
 import { formatPrice } from "@/lib/currency";
+import { extraText } from "@/lib/extras-i18n";
 import { useCurrency } from "@/components/currency/CurrencyProvider";
 import {
   availabilityFor,
@@ -33,7 +34,6 @@ export function ExtrasPicker({
   const locale = useLocale();
   const t = useTranslations("Extras");
   const { currency } = useCurrency();
-  const isEn = locale === "en";
 
   const free = useMemo(
     () => availabilityFor(extras, booked, pickupAt, returnAt),
@@ -81,8 +81,7 @@ export function ExtrasPicker({
         {extras.map((e) => {
           const qty = value[e.id] ?? 0;
           const on = qty > 0;
-          const name = isEn ? e.nameEn : e.nameHr;
-          const note = isEn ? e.noteEn : e.noteHr;
+          const { name, note } = extraText(e, locale);
 
           const freePieces = free[e.id] ?? 0;
           const cap = maxSelectable(e.maxQty, freePieces);
@@ -163,11 +162,16 @@ export function ExtrasPicker({
                   ) : (
                     <>
                       {note && (
-                        <span className="text-muted-foreground">{note} · </span>
+                        <span className="text-muted-foreground">
+                          {note}
+                          {e.totalStock < 20 ? " · " : ""}
+                        </span>
                       )}
-                      <span className="text-muted-foreground">
-                        {t("freeLeft", { count: freePieces })}
-                      </span>
+                      {e.totalStock < 20 && (
+                        <span className="text-muted-foreground">
+                          {t("freeLeft", { count: freePieces })}
+                        </span>
+                      )}
                     </>
                   )}
                 </p>
@@ -180,7 +184,7 @@ export function ExtrasPicker({
                     : "text-muted-foreground"
                 }`}
               >
-                {priceLabel(e)}
+                <bdi dir="ltr">{priceLabel(e)}</bdi>
               </span>
             </li>
           );

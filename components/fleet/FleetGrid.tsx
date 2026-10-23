@@ -58,7 +58,7 @@ function Select({
         id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-11 w-full appearance-none truncate rounded-full border border-border bg-surface pl-4 pr-10 text-sm text-foreground outline-none transition-colors hover:border-foreground/30 focus:border-brand"
+        className="h-11 w-full appearance-none truncate rounded-full border border-border bg-surface ps-4 pe-10 text-sm text-foreground outline-none transition-colors hover:border-foreground/30 focus:border-brand"
       >
         {options.map((o) => (
           <option key={o.value} value={o.value}>
@@ -66,7 +66,7 @@ function Select({
           </option>
         ))}
       </select>
-      <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+      <ChevronDown className="pointer-events-none absolute end-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
     </div>
   );
 }
@@ -235,11 +235,9 @@ export function FleetGrid({
           </div>
 
           <div className="mt-5 flex flex-col gap-3 border-t border-border pt-5 sm:flex-row sm:items-center">
-            <p className="text-sm text-muted-foreground">
-              <span className="font-display text-lg font-semibold text-foreground">
-                {t("resultsCount", { count: visibleCars.length })}
-              </span>
-            </p>
+            <h2 className="font-display text-lg font-semibold text-foreground">
+              {t("resultsCount", { count: visibleCars.length })}
+            </h2>
             {filtersActive && (
               <button
                 type="button"
@@ -250,7 +248,7 @@ export function FleetGrid({
                 {t("clearFilters")}
               </button>
             )}
-            <div className="flex gap-2 sm:ml-auto">
+            <div className="flex gap-2 sm:ms-auto">
               {brands.length > 1 && (
                 <Select
                   id="fleet-brand"

@@ -99,7 +99,7 @@ export function CarGallery({
             <Image
               key={src + i}
               src={src}
-              alt={i === index ? `${title} — ${i + 1}/${count}` : ""}
+              alt={i === index ? `${title}, ${i + 1}/${count}` : ""}
               aria-hidden={i !== index}
               fill
               priority={priority && i === 0}
@@ -124,9 +124,9 @@ export function CarGallery({
               e.stopPropagation();
               go(-1);
             }}
-            className="absolute left-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white opacity-80 backdrop-blur-sm transition-opacity hover:opacity-100 sm:opacity-0 sm:group-hover/gallery:opacity-90"
+            className="absolute start-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white opacity-80 backdrop-blur-sm transition-opacity hover:opacity-100 sm:opacity-0 sm:group-hover/gallery:opacity-90"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className="rtl:-scale-x-100 h-5 w-5" />
           </button>
           <button
             type="button"
@@ -135,13 +135,13 @@ export function CarGallery({
               e.stopPropagation();
               go(1);
             }}
-            className="absolute right-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white opacity-80 backdrop-blur-sm transition-opacity hover:opacity-100 sm:opacity-0 sm:group-hover/gallery:opacity-90"
+            className="absolute end-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white opacity-80 backdrop-blur-sm transition-opacity hover:opacity-100 sm:opacity-0 sm:group-hover/gallery:opacity-90"
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className="rtl:-scale-x-100 h-5 w-5" />
           </button>
 
           {/* Dots */}
-          <div className="absolute bottom-2.5 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-black/40 px-2 py-1.5 backdrop-blur-sm">
+          <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 items-center rounded-full bg-black/40 px-1 backdrop-blur-sm">
             {images.map((_, i) => (
               <button
                 key={i}
@@ -152,12 +152,14 @@ export function CarGallery({
                   setPaused(true);
                   setIndex(i);
                 }}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === index
-                    ? "w-5 bg-brand-foreground"
-                    : "w-1.5 bg-white/60 hover:bg-white"
-                }`}
-              />
+                className="group/dot grid h-6 min-w-6 place-items-center px-1"
+              >
+                <span
+                  className={`block h-1.5 rounded-full transition-all ${
+                    i === index ? "w-5 bg-brand-foreground" : "w-1.5 bg-white/60 group-hover/dot:bg-white"
+                  }`}
+                />
+              </button>
             ))}
           </div>
         </>

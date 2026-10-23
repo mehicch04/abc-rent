@@ -65,7 +65,7 @@ export function HowItWorks() {
                   <div className={`mt-12 h-1 overflow-hidden rounded-full ${last ? "bg-white/25" : "bg-white/10"}`}>
                     <div
                       style={{ width: `${((i + 1) / steps.length) * 100}%`, transitionDelay: `${250 + i * 150}ms` }}
-                      className={`h-full origin-left rounded-full transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                      className={`h-full origin-left rtl:origin-right rounded-full transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                         inView ? "scale-x-100" : "scale-x-0"
                       } ${last ? "bg-white" : "bg-brand-400"}`}
                     />

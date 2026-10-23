@@ -33,7 +33,7 @@ export function Faq() {
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
                   aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-6 py-6 text-left"
+                  className="flex w-full items-center justify-between gap-6 py-6 text-start"
                 >
                   <span className="font-display text-base font-medium text-foreground sm:text-lg">{item.q}</span>
                   {isOpen ? (

@@ -42,7 +42,7 @@ export function PillLink({
   className?: string;
 }) {
   const v = VARIANTS[variant];
-  const pad = size === "sm" ? "py-1 pl-4 pr-1 text-xs" : "py-1.5 pl-5 pr-1.5 text-sm";
+  const pad = size === "sm" ? "py-1 ps-4 pe-1 text-xs" : "py-1.5 ps-5 pe-1.5 text-sm";
   const dot = size === "sm" ? "h-7 w-7" : "h-9 w-9";
   const cls = `${BASE} ${pad} ${v.btn} ${className}`;
   const inner = (
@@ -51,7 +51,7 @@ export function PillLink({
       <span
         className={`inline-flex ${dot} items-center justify-center rounded-full transition-transform duration-300 group-hover:rotate-45 ${v.dot}`}
       >
-        {icon ?? <ArrowUpRight className="h-4 w-4" />}
+        {icon ?? <ArrowUpRight className="rtl:-scale-x-100 h-4 w-4" />}
       </span>
     </>
   );

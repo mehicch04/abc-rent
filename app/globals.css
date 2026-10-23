@@ -51,6 +51,28 @@
     @apply bg-background text-foreground font-sans antialiased;
   }
 
+  /* Arabic: one family for body and headings, no faux italics, no negative tracking. */
+  html[lang="ar"] body,
+  html[lang="ar"] .font-sans,
+  html[lang="ar"] .font-display {
+    font-family: var(--font-arabic), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  }
+  html[lang="ar"] em,
+  html[lang="ar"] .italic {
+    font-style: normal;
+  }
+  html[lang="ar"] [class*="tracking-"] {
+    letter-spacing: 0;
+  }
+  html[lang="ar"] [class*="leading-[1.0"],
+  html[lang="ar"] .leading-none,
+  html[lang="ar"] .leading-tight {
+    line-height: 1.35;
+  }
+  html[lang="ar"] .uppercase {
+    text-transform: none;
+  }
+
   html.theme-transition,
   html.theme-transition *,
   html.theme-transition *::before,

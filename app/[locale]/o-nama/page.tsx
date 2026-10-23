@@ -65,7 +65,7 @@ export default async function AboutPage({
 
         <div className="mt-16 grid grid-cols-2 gap-px border-y border-border bg-border lg:grid-cols-4">
           {stats.map((s) => (
-            <div key={s.label} className="bg-background py-8 pl-6 odd:pl-0 lg:pl-8 lg:odd:pl-8 lg:first:pl-0">
+            <div key={s.label} className="bg-background py-8 ps-6 odd:ps-0 lg:ps-8 lg:odd:ps-8 lg:first:ps-0">
               <p className="font-display text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">{s.value}</p>
               <p className="mt-2 text-sm text-muted-foreground">{s.label}</p>
             </div>

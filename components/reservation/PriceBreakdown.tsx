@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import type { ExtraItem } from "@/lib/extras";
 import { extraLineTotal } from "@/lib/extras";
+import { extraText } from "@/lib/extras-i18n";
 import { formatPrice } from "@/lib/currency";
 import { useCurrency } from "@/components/currency/CurrencyProvider";
 import type { ExtraSelection } from "./ExtrasPicker";
@@ -21,7 +22,6 @@ export function PriceBreakdown({
   const t = useTranslations("Extras");
   const locale = useLocale();
   const { currency } = useCurrency();
-  const isEn = locale === "en";
 
   const chosen = extras
     .filter((e) => (selection[e.id] ?? 0) > 0)
@@ -29,7 +29,7 @@ export function PriceBreakdown({
       const qty = selection[e.id];
       return {
         id: e.id,
-        name: isEn ? e.nameEn : e.nameHr,
+        name: extraText(e, locale).name,
         qty,
         pricing: e.pricing,
         total: extraLineTotal(e.pricing, e.price, qty, days),
@@ -53,7 +53,7 @@ export function PriceBreakdown({
               {t("rentalLine", { days, dayWord })}
             </dt>
             <dd className="shrink-0 font-medium tabular-nums text-foreground">
-              {formatPrice(rentalTotal, currency)}
+              <bdi dir="ltr">{formatPrice(rentalTotal, currency)}</bdi>
             </dd>
           </div>
         )}
@@ -73,7 +73,7 @@ export function PriceBreakdown({
             >
               {c.pricing === "INCLUDED"
                 ? t("included")
-                : formatPrice(c.total, currency)}
+                : <bdi dir="ltr">{formatPrice(c.total, currency)}</bdi>}
             </dd>
           </div>
         ))}
@@ -81,7 +81,7 @@ export function PriceBreakdown({
         <div className="flex items-baseline justify-between gap-4 border-t border-border pt-2.5">
           <dt className="font-semibold text-foreground">{t("estimate")}</dt>
           <dd className="shrink-0 font-display text-lg font-semibold tabular-nums text-brand-strong">
-            {formatPrice(grandTotal, currency)}
+            <bdi dir="ltr">{formatPrice(grandTotal, currency)}</bdi>
           </dd>
         </div>
       </dl>

@@ -17,7 +17,7 @@ export default function LocaleNotFound() {
         href="/"
         className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-medium text-brand-foreground transition-colors hover:bg-brand-700"
       >
-        <ArrowLeft className="h-4 w-4" />
+        <ArrowLeft className="rtl:-scale-x-100 h-4 w-4" />
         {t("backHome")}
       </Link>
     </div>

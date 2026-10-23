@@ -37,7 +37,7 @@ export function HomeAbout() {
         >
           <span
             aria-hidden
-            className="text-outline pointer-events-none absolute -bottom-8 -right-3 -z-10 select-none font-display text-[10rem] font-semibold leading-none tracking-tighter text-white/20"
+            className="text-outline pointer-events-none absolute -bottom-8 -end-3 -z-10 select-none font-display text-[10rem] font-semibold leading-none tracking-tighter text-white/20"
           >
             24h
           </span>
@@ -53,7 +53,7 @@ export function HomeAbout() {
                 className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-5 text-sm font-medium text-ink transition-colors hover:bg-white/90"
               >
                 <Phone className="h-4 w-4 text-brand" />
-                {phone.value}
+                <bdi dir="ltr">{phone.value}</bdi>
               </a>
             )}
             <a

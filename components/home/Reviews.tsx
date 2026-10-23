@@ -41,7 +41,8 @@ export function Reviews({ data }: { data: ReviewsData }) {
     const el = track.current;
     if (!el) return;
     const card = el.querySelector<HTMLElement>("figure");
-    el.scrollBy({ left: dir * ((card?.offsetWidth ?? 320) + 16), behavior: "smooth" });
+    const flip = getComputedStyle(el).direction === "rtl" ? -1 : 1;
+    el.scrollBy({ left: flip * dir * ((card?.offsetWidth ?? 320) + 16), behavior: "smooth" });
   };
 
   return (
@@ -83,7 +84,7 @@ export function Reviews({ data }: { data: ReviewsData }) {
                 &rdquo;
               </span>
             </div>
-            <blockquote className="mt-5 line-clamp-6 flex-1 text-[15px] leading-relaxed text-foreground/85">{r.text}</blockquote>
+            <blockquote dir="auto" className="mt-5 line-clamp-6 flex-1 text-[15px] leading-relaxed text-foreground/85">{r.text}</blockquote>
             <figcaption className="mt-7 flex items-center gap-3 border-t border-border pt-5">
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-ink text-xs font-semibold text-white dark:bg-white dark:text-ink">
                 {initials(r.author)}
@@ -118,7 +119,7 @@ export function Reviews({ data }: { data: ReviewsData }) {
               aria-label={t("prev")}
               className="grid h-11 w-11 place-items-center rounded-full border border-border text-foreground transition-colors hover:border-foreground/30"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="rtl:-scale-x-100 h-4 w-4" />
             </button>
             <button
               type="button"
@@ -126,7 +127,7 @@ export function Reviews({ data }: { data: ReviewsData }) {
               aria-label={t("next")}
               className="grid h-11 w-11 place-items-center rounded-full bg-ink text-white transition-colors hover:bg-ink-700 dark:bg-white dark:text-ink"
             >
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
             </button>
           </div>
         )}

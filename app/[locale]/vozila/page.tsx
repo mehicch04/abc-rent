@@ -6,7 +6,7 @@ import { AlertTriangle } from "lucide-react";
 
 import { type SearchContext } from "@/lib/types";
 import { getAvailableCars, isValidPeriod } from "@/lib/availability";
-import { getBrowseCars, getActiveLocations } from "@/lib/fleet-data";
+import { getBrowseCars, getLocations } from "@/lib/fleet-data";
 import { getActiveExtras } from "@/lib/extras";
 import { getBookedExtras } from "@/lib/extras-availability";
 import { ReservationSearchForm } from "@/components/reservation/ReservationSearchForm";
@@ -69,7 +69,7 @@ export default async function VehiclesPage({
 
   const [cars, locations, extras, bookedExtras] = await Promise.all([
     periodValid ? getAvailableCars(pickupDate!, returnDate!) : getBrowseCars(),
-    getActiveLocations(),
+    getLocations(locale),
     getActiveExtras(),
     getBookedExtras().catch(() => []),
   ]);

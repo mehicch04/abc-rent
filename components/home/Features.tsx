@@ -9,11 +9,11 @@ export function Features() {
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-      <div className="grid gap-8 md:grid-cols-3 md:gap-0 md:divide-x md:divide-border">
+      <div className="grid gap-8 md:grid-cols-3 md:gap-0 md:divide-x rtl:md:divide-x-reverse md:divide-border">
         {items.map((item, i) => {
           const Icon = ICONS[i] ?? Plane;
           return (
-            <div key={item.title} className="flex gap-4 md:px-8 md:first:pl-0 md:last:pr-0">
+            <div key={item.title} className="flex gap-4 md:px-8 md:first:ps-0 md:last:pe-0">
               <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand-strong">
                 <Icon className="h-5 w-5" />
               </span>

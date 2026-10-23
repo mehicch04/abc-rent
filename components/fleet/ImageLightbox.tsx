@@ -86,7 +86,7 @@ export function ImageLightbox({
         type="button"
         aria-label={t("closeGallery")}
         onClick={onClose}
-        className="absolute right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20"
+        className="absolute end-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20"
       >
         <X className="h-5 w-5" />
       </button>
@@ -139,9 +139,9 @@ export function ImageLightbox({
               e.stopPropagation();
               setIndex((i) => (i - 1 + count) % count);
             }}
-            className="absolute left-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 sm:left-5"
+            className="absolute start-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 sm:start-5"
           >
-            <ChevronLeft className="h-6 w-6" />
+            <ChevronLeft className="rtl:-scale-x-100 h-6 w-6" />
           </button>
           <button
             type="button"
@@ -150,9 +150,9 @@ export function ImageLightbox({
               e.stopPropagation();
               setIndex((i) => (i + 1) % count);
             }}
-            className="absolute right-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 sm:right-5"
+            className="absolute end-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 sm:end-5"
           >
-            <ChevronRight className="h-6 w-6" />
+            <ChevronRight className="rtl:-scale-x-100 h-6 w-6" />
           </button>
         </>
       )}

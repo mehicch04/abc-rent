@@ -1,0 +1,40 @@
+import type { ExtraItem } from "@/lib/extras";
+
+type Copy = { name: string; note?: string };
+
+/** German and Arabic copy for the extras we seed. Anything else falls back to English. */
+const COPY: Record<string, { de: Copy; ar: Copy }> = {
+  "no deposit": {
+    de: { name: "Ohne Kaution", note: "Kleine Tagesgebühr statt Kaution" },
+    ar: { name: "بدون وديعة", note: "رسوم يومية بسيطة بدلاً من الوديعة" },
+  },
+  "child seat": {
+    de: { name: "Kindersitz", note: "Für Kinder von 1 bis 5 Jahren" },
+    ar: { name: "كرسي أطفال", note: "للأطفال من 1 إلى 5 سنوات" },
+  },
+  "booster seat": {
+    de: { name: "Sitzerhöhung", note: "Für Kinder von 5 bis 10 Jahren" },
+    ar: { name: "مقعد رافع", note: "للأطفال من 5 إلى 10 سنوات" },
+  },
+  "cross border": {
+    de: { name: "Grenzübertritt", note: "Fahrten außerhalb von Bosnien und Herzegowina" },
+    ar: { name: "عبور الحدود", note: "القيادة خارج البوسنة والهرسك" },
+  },
+  cleaning: {
+    de: { name: "Reinigung", note: "Sie geben das Auto ungereinigt zurück" },
+    ar: { name: "تنظيف السيارة", note: "تعيد السيارة دون الحاجة لتنظيفها" },
+  },
+  "private driver": {
+    de: { name: "Privatfahrer", note: "Nur Fahrer, ohne Kraftstoff" },
+    ar: { name: "سائق خاص", note: "السائق فقط، الوقود غير مشمول" },
+  },
+};
+
+export function extraText(e: Pick<ExtraItem, "nameHr" | "nameEn" | "noteHr" | "noteEn">, locale: string): { name: string; note: string | null } {
+  if (locale === "bs") return { name: e.nameHr, note: e.noteHr };
+  if (locale === "de" || locale === "ar") {
+    const c = COPY[e.nameEn.trim().toLowerCase()]?.[locale];
+    if (c) return { name: c.name, note: c.note ?? e.noteEn };
+  }
+  return { name: e.nameEn, note: e.noteEn };
+}

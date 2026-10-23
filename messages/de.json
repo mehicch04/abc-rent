@@ -1,0 +1,643 @@
+{
+  "Nav": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "vehicles": "Fahrzeuge",
+    "terms": "Mietbedingungen",
+    "contact": "Kontakt",
+    "menu": "Menü",
+    "theme": "Design wechseln",
+    "language": "Sprache",
+    "book": "Jetzt buchen",
+    "call": "Anrufen",
+    "guides": "Ratgeber"
+  },
+  "Search": {
+    "title": "Finden Sie Ihr Auto",
+    "pickupLocation": "Abholort",
+    "returnLocation": "Rückgabeort",
+    "pickupDate": "Abholdatum",
+    "returnDate": "Rückgabedatum",
+    "time": "Uhrzeit",
+    "sameLocation": "Rückgabe am gleichen Ort",
+    "search": "Autos suchen",
+    "placeholder": "Ort wählen",
+    "errRequired": "Bitte füllen Sie alle Felder aus.",
+    "errOrder": "Die Rückgabe muss nach der Abholung liegen.",
+    "sameAsPickup": "Wie Abholung",
+    "change": "Ändern"
+  },
+  "Fleet": {
+    "title": "Unsere Flotte",
+    "subtitle": "Gepflegte Fahrzeuge für jeden Anlass und jedes Budget.",
+    "resultsTitle": "Suchergebnisse",
+    "detailsTitle": "Buchungsdetails",
+    "period": "Zeitraum",
+    "pickup": "Abholung",
+    "return": "Rückgabe",
+    "days": "Tage",
+    "day": "Tag",
+    "noResults": "Für diese Daten ist kein Auto frei. Versuchen Sie einen anderen Zeitraum oder kontaktieren Sie uns.",
+    "allVehicles": "Alle Fahrzeuge",
+    "select": "Auswählen",
+    "class": "Klasse",
+    "year": "Baujahr",
+    "seats": "Sitze",
+    "fuel": "Kraftstoff",
+    "all": "Alle",
+    "categories": {
+      "LIMUZINA": "Limousine",
+      "LUXURY": "Premium",
+      "SUV": "SUV",
+      "COUPE": "Coupé",
+      "COMPACT": "Stadt",
+      "KARAVAN": "Kombi",
+      "CABRIO": "Cabrio",
+      "TRANSPORT": "7 Sitze",
+      "MINIBUS": "Kleinbus 8+1"
+    },
+    "invalidPeriod": "Der gewählte Zeitraum ist ungültig, die Rückgabe muss nach der Abholung liegen. Wir zeigen alle Fahrzeuge.",
+    "viewAll": "Alle Fahrzeuge ansehen",
+    "sort": {
+      "label": "Sortieren:",
+      "recommended": "Empfohlen",
+      "priceAsc": "Preis: aufsteigend",
+      "priceDesc": "Preis: absteigend",
+      "yearDesc": "Baujahr: neueste zuerst",
+      "nameAsc": "Name: A bis Z",
+      "nameDesc": "Name: Z bis A"
+    },
+    "brandLabel": "Marke",
+    "allBrands": "Alle Marken",
+    "resultsCount": "{count, plural, one {# Fahrzeug} other {# Fahrzeuge}}",
+    "clearFilters": "Filter zurücksetzen",
+    "typeLabel": "Fahrzeugtyp",
+    "allTypes": "Alle Typen",
+    "backToFleet": "Zurück zur Flotte",
+    "specifications": "Technische Daten",
+    "description": "Über dieses Auto",
+    "similar": "Ähnliche Fahrzeuge",
+    "notOffered": "Dieses Fahrzeug ist derzeit nicht verfügbar.",
+    "bookNow": "Dieses Auto buchen",
+    "featuredTitle": "Ausgewählte Fahrzeuge aus unserer Flotte",
+    "included": [
+      "Vollkasko",
+      "Unbegrenzte Kilometer",
+      "Kostenlos am Flughafen",
+      "Pannenhilfe 24/7"
+    ],
+    "book": "Buchen",
+    "perDayLabel": "pro Tag",
+    "cardSeats": "Sitze",
+    "cardBags": "Koffer",
+    "cardGearbox": "Getriebe",
+    "popular": "Am häufigsten gebucht",
+    "perDayShort": "/ Tag",
+    "depositLabel": "Kaution",
+    "includedShort": "Versicherung und unbegrenzte Kilometer inklusive",
+    "includedTiny": "Versicherung und Kilometer inklusive",
+    "spec": {
+      "seats": "Sitze",
+      "doors": "Türen",
+      "gearbox": "Getriebe",
+      "fuel": "Kraftstoff",
+      "year": "Baujahr",
+      "luggage": "Gepäck",
+      "ac": "Klimaanlage",
+      "class": "Klasse",
+      "yes": "Ja",
+      "no": "Nein"
+    },
+    "gearboxText": {
+      "AUTOMATIC": "Automatikgetriebe",
+      "MANUAL": "Schaltgetriebe"
+    },
+    "about": {
+      "compact": "Der {name} ist kompakt, leicht zu parken und sparsam, gemacht für Sarajevos Straßen und Tagesausflüge.",
+      "suv": "Der {name} bietet eine hohe Sitzposition und Sicherheit auf Bergstraßen, passend für Bjelašnica, Jahorina und Reisen durch Bosnien.",
+      "family": "Der {name} hat {seats} Sitze, die ganze Familie passt in ein Auto.",
+      "van": "Der {name} befördert {seats} Personen mit Gepäck, ein Fahrzeug für die Großfamilie oder Gruppe.",
+      "sedan": "Der {name} ist eine komfortable Limousine für lange Strecken und Geschäftsreisen.",
+      "wagon": "Der {name} ist die praktische Wahl, wenn Gepäck zählt, mit großem Kofferraum für längere Reisen.",
+      "spec": "Mit {gearbox}, {seats} Sitzen und Platz für {bags, plural, one {# Koffer} other {# Koffer}}."
+    },
+    "video": "Das Auto im Video",
+    "videoNote": "Genau dieses Auto bekommen Sie, kein ähnliches.",
+    "need": "Das brauchen Sie",
+    "needLicence": "Gültiger Führerschein",
+    "needId": "Personalausweis oder Reisepass",
+    "needDeposit": "Kaution {amount}, Rückgabe mit dem Auto",
+    "needNoPay": "Keine Vorauszahlung",
+    "prev": "Zurück",
+    "next": "Weiter",
+    "perDayWord": "Tag"
+  },
+  "Inquiry": {
+    "title": "Buchungsanfrage",
+    "subtitle": "Senden Sie eine Anfrage oder schreiben Sie uns per WhatsApp. Wir antworten so schnell wie möglich.",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "flight": "Flugnummer (optional)",
+    "message": "Hinweis (optional)",
+    "send": "Anfrage senden",
+    "whatsapp": "WhatsApp",
+    "or": "oder",
+    "sending": "Wird gesendet...",
+    "success": "Anfrage erhalten!",
+    "successBody": "Vielen Dank! Ihre Anfrage ist bei uns. Die Buchungsbestätigung kommt per E-Mail, bitte prüfen Sie auch den Spam Ordner.",
+    "errRequired": "Pflichtfeld",
+    "errGeneric": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.",
+    "summaryPickup": "Abholung",
+    "summaryReturn": "Rückgabe",
+    "close": "Schließen",
+    "pickupLocation": "Abholort",
+    "returnLocation": "Rückgabeort",
+    "selectLocation": "Ort wählen…",
+    "sameAsPickup": "Wie Abholung"
+  },
+  "Footer": {
+    "contact": "Kontakt",
+    "locations": "Abholung",
+    "follow": "Folgen Sie uns",
+    "tagline": "Autovermietung in Sarajevo. Ihr Auto wartet am Flughafen, außerdem bieten wir Fahrer und Transfers.",
+    "rights": "Alle Rechte vorbehalten.",
+    "hours": "Öffnungszeiten",
+    "navTitle": "Schnellzugriff",
+    "languages": "Wir sprechen Bosnisch, Englisch, Arabisch und Deutsch.",
+    "hoursValue": "Rund um die Uhr, täglich"
+  },
+  "About": {
+    "eyebrow": "Über uns",
+    "title": "Eine Vermietung, die auch um Mitternacht antwortet",
+    "lead": "ABC Rent a Car ist eine kleine Agentur aus Sarajevo. Wir bringen das Auto dorthin, wo Sie es brauchen, und gehen auch mitten in der Nacht ans Telefon.",
+    "intro2": "Unsere Flotte umfasst Stadtautos, SUVs, die Mercedes E-Klasse und Kleinbusse für neun Personen. Jedes Auto hat Automatik.",
+    "stats": {
+      "clientsLabel": "Zufriedene Kunden",
+      "carsLabel": "Fahrzeuge in der Flotte",
+      "supportLabel": "Erreichbarkeit",
+      "depositLabel": "Kaution"
+    },
+    "storyTitle": "Wer wir sind",
+    "storyP1": "Ihr Auto wartet ohne Aufpreis am Flughafen Sarajevo oder in unserem Büro, und wir bringen es auch zu Ihrer Adresse. Jedes Fahrzeug ist vollkaskoversichert und regelmäßig gewartet.",
+    "storyP2": "Neben der Autovermietung bieten wir einen professionellen Fahrerservice und Flughafentransfers. Buchen können Sie über die Website, WhatsApp oder telefonisch.",
+    "features": {
+      "f1Title": "Rund um die Uhr erreichbar",
+      "f1Text": "Melden Sie sich jederzeit, für eine Buchung oder für Hilfe unterwegs.",
+      "f2Title": "Kostenlos am Flughafen",
+      "f2Text": "Abholung und Rückgabe am Flughafen Sarajevo und in unserem Büro ohne Aufpreis.",
+      "f3Title": "Vollkasko",
+      "f3Text": "Alle Fahrzeuge sind vollkaskoversichert und regelmäßig gewartet.",
+      "f4Title": "Klare Preise",
+      "f4Text": "Der Preis, den Sie sehen, ist der Preis, den Sie zahlen."
+    },
+    "mapTitle": "So finden Sie uns",
+    "mapText": "Unser Büro ist in Sarajevo, und Sie können das Auto auch am Flughafen oder an Ihrer Adresse übernehmen.",
+    "openMap": "In Google Maps öffnen",
+    "ctaTitle": "Bereit für die Fahrt?",
+    "ctaText": "Sehen Sie sich unsere Fahrzeuge an oder melden Sie sich. Wir helfen gern bei der Wahl des passenden Autos.",
+    "ctaFleet": "Fahrzeuge ansehen",
+    "ctaContact": "Kontakt aufnehmen",
+    "storyHeadline": "Ein kleines Team aus Sarajevo,",
+    "storyAccent": "das jeden Anruf annimmt.",
+    "imageAlt": "Fahrer von ABC Rent a Car öffnet einem Fahrgast die Tür",
+    "featuresEyebrow": "Warum wir",
+    "featuresTitle": "Darauf können Sie",
+    "featuresAccent": "sich verlassen."
+  },
+  "Contact": {
+    "title": "Kontakt",
+    "lead": "Fragen, Buchungen oder Hilfe unterwegs. Wir antworten jeden Tag, rund um die Uhr.",
+    "ourOffices": "Wo Sie das Auto übernehmen",
+    "hoursLabel": "Öffnungszeiten",
+    "phonesLabel": "Telefon",
+    "emailLabel": "E-Mail",
+    "locationLabel": "Adresse",
+    "mapHeading": "So finden Sie uns",
+    "openMap": "In Google Maps öffnen",
+    "formHeading": "Senden Sie uns eine Anfrage",
+    "formLead": "Hinterlassen Sie Ihre Daten und wir melden uns. Schneller geht es per WhatsApp.",
+    "infoEyebrow": "Kontaktdaten",
+    "infoTitle": "Am schnellsten erreichen Sie uns",
+    "infoAccent": "per WhatsApp.",
+    "whatsapp": "Per WhatsApp schreiben",
+    "hoursValue": "Rund um die Uhr, täglich"
+  },
+  "Common": {
+    "from": "ab",
+    "perDay": "Tag",
+    "loading": "Wird geladen...",
+    "backHome": "Zur Startseite",
+    "notFound": "Seite nicht gefunden",
+    "backToTop": "Nach oben",
+    "prevImage": "Vorheriges Foto",
+    "nextImage": "Nächstes Foto",
+    "closeGallery": "Galerie schließen",
+    "waLabel": "Schreiben Sie uns per WhatsApp",
+    "waShort": "Schreiben Sie uns",
+    "waText": "Hallo, ich möchte mich nach einem Mietwagen erkundigen."
+  },
+  "Form": {
+    "firstName": "Vorname",
+    "firstNamePh": "Ihr Vorname",
+    "lastName": "Nachname",
+    "lastNamePh": "Ihr Nachname",
+    "email": "E-Mail",
+    "emailPh": "sie@email.com",
+    "phone": "Telefon",
+    "phonePh": "+387 ...",
+    "company": "Firma",
+    "companyPh": "Name Ihrer Firma",
+    "message": "Nachricht",
+    "messagePh": "Wie können wir helfen?",
+    "name": "Name",
+    "optional": "optional",
+    "submit": "Anfrage senden",
+    "sending": "Wird gesendet…",
+    "whatsapp": "WhatsApp",
+    "waIntro": "Anfrage von der Website:",
+    "successTitle": "Anfrage gesendet!",
+    "successText": "Danke für Ihre Anfrage. Wir melden uns so schnell wie möglich.",
+    "reference": "Referenz",
+    "sendAnother": "Neue Anfrage senden",
+    "errorText": "Beim Senden ist etwas schiefgelaufen. Bitte versuchen Sie es erneut oder rufen Sie uns an.",
+    "privacy": "Mit dem Absenden stimmen Sie zu, dass wir Sie zu Ihrer Anfrage kontaktieren."
+  },
+  "Seo": {
+    "home": {
+      "title": "Mietwagen Sarajevo | Kostenlose Übergabe am Flughafen",
+      "description": "Autovermietung in Sarajevo mit kostenloser Übergabe am Flughafen Sarajevo. 200 € Kaution, unbegrenzte Kilometer und Vollkasko. Fahrerservice und Transfers."
+    },
+    "fleet": {
+      "title": "Unsere Flotte | Mietwagen in Sarajevo",
+      "description": "Die Flotte von ABC Rent a Car: Stadtautos, SUVs, Mercedes E-Klasse, Audi Q7 und Kleinbusse 8+1. Verfügbarkeit prüfen und anfragen."
+    },
+    "about": {
+      "title": "Über uns",
+      "description": "ABC Rent a Car, Autovermietung in Sarajevo. Kostenlose Übergabe am Flughafen, Vollkasko und Erreichbarkeit rund um die Uhr."
+    },
+    "terms": {
+      "title": "Mietbedingungen",
+      "description": "Mietbedingungen von ABC Rent a Car: Buchung, Dokumente, Kaution, Abholung und Rückgabe, klar und einfach."
+    },
+    "contact": {
+      "title": "Kontakt",
+      "description": "Kontakt zu ABC Rent a Car: Telefon, E-Mail, WhatsApp und Adresse in Sarajevo. Rund um die Uhr erreichbar."
+    },
+    "guides": {
+      "title": "Ratgeber fürs Autofahren in Bosnien",
+      "description": "Bußgelder, Verkehrsregeln, Mietwagen am Flughafen Sarajevo und Tagesausflüge ab Sarajevo. Kurz und klar für Besucher."
+    }
+  },
+  "Extras": {
+    "title": "Extras",
+    "subtitle": "Optional. Sagen Sie uns, was Sie brauchen, wir bestätigen es mit der Buchung.",
+    "perDay": "Tag",
+    "included": "Inklusive",
+    "increase": "Hinzufügen: {name}",
+    "decrease": "Entfernen: {name}",
+    "day": "Tag",
+    "days": "Tage",
+    "rentalLine": "Mietwagen · {days} {dayWord}",
+    "estimate": "Voraussichtlich gesamt",
+    "estimateNote": "Ungefährer Betrag. Den Endpreis bestätigen wir mit der Buchung.",
+    "freeLeft": "Noch {count} frei",
+    "unavailable": "In diesem Zeitraum nicht verfügbar"
+  },
+  "Hero": {
+    "chip": "{score} auf Google, {count} Bewertungen",
+    "titleA": "Landen Sie in Sarajevo,",
+    "titleB": "Ihr Auto wartet schon.",
+    "subtitle": "Ihr Auto wartet ohne Aufpreis am Flughafen Sarajevo. Vollkasko und unbegrenzte Kilometer sind inklusive, die Kaution beginnt bei 200 €.",
+    "ctaPrimary": "Autos ansehen",
+    "ctaSecondary": "Anrufen",
+    "statFleet": "Autos in der Flotte",
+    "statReviews": "Google Bewertungen",
+    "statSupport": "per Telefon und WhatsApp",
+    "imageAlt": "Fahrzeuge von ABC Rent a Car in Sarajevo"
+  },
+  "Features": {
+    "items": [
+      {
+        "title": "Kostenlos am Flughafen",
+        "body": "Abholung und Rückgabe am Flughafen Sarajevo und in unserem Büro. Lieferung an Ihre Adresse kostet eine Taxifahrt."
+      },
+      {
+        "title": "200 € Kaution",
+        "body": "Für Audi Q7 und Mercedes E-Klasse beträgt die Kaution 300 €. Auch ohne Kaution möglich."
+      },
+      {
+        "title": "Rund um die Uhr",
+        "body": "Wir antworten nachts und am Wochenende, auf Bosnisch, Englisch, Arabisch und Deutsch."
+      }
+    ]
+  },
+  "HomeAbout": {
+    "eyebrow": "Über uns",
+    "title": "Eine Vermietung aus Sarajevo, die das Auto dorthin bringt, wo Sie es brauchen,",
+    "accent": "zu jeder Tageszeit.",
+    "cta": "Flotte ansehen",
+    "callout": "Platter Reifen mitten in der Nacht? Rufen Sie einfach an, wir sind da.",
+    "badge": "Rund um die Uhr",
+    "whatsapp": "WhatsApp"
+  },
+  "HomeFleet": {
+    "eyebrow": "Am häufigsten gebucht",
+    "title": "Wählen Sie ein Auto",
+    "accent": "für Ihre Reise",
+    "viewAll": "Alle Autos",
+    "book": "Buchen",
+    "perDay": "Tag",
+    "seats": "{n} Sitze",
+    "auto": "Automatik",
+    "lead": "Die Autos, die unsere Gäste am häufigsten wählen. Preise pro Tag, Versicherung und unbegrenzte Kilometer sind schon inklusive.",
+    "prev": "Vorheriges Auto",
+    "next": "Nächstes Auto",
+    "viewAllCount": "Alle {count} Autos",
+    "from": "ab",
+    "included": [
+      {
+        "title": "Vollkasko",
+        "body": "Im Preis jedes Autos enthalten."
+      },
+      {
+        "title": "Unbegrenzte Kilometer",
+        "body": "Fahren Sie so weit Sie möchten, ohne Kilometergebühr."
+      },
+      {
+        "title": "Kostenlos am Flughafen",
+        "body": "Abholung und Rückgabe am Flughafen Sarajevo ohne Aufpreis."
+      },
+      {
+        "title": "Alle mit Automatik",
+        "body": "Jedes Auto unserer Flotte hat ein Automatikgetriebe."
+      }
+    ],
+    "ctaEyebrow": "Die ganze Flotte",
+    "ctaTitle": "{count} weitere Autos",
+    "ctaAccent": "warten auf Sie.",
+    "ctaBody": "Stadtautos, SUVs, Premium Limousinen und Kleinbusse für neun Personen. Nach Typ, Marke oder Preis filtern.",
+    "ctaCars": "{count} Autos",
+    "ctaTypes": "{count, plural, one {# Fahrzeugtyp} other {# Fahrzeugtypen}}",
+    "ctaButton": "Alle Autos ansehen"
+  },
+  "Services": {
+    "eyebrow": "Services",
+    "title": "Mehr als nur ein Auto?",
+    "accent": "Das bieten wir außerdem.",
+    "cta": "Schreiben Sie uns",
+    "more": "Mehr erfahren",
+    "premium": [
+      {
+        "label": "Premium Service",
+        "title": "Fahrerservice",
+        "body": "Ein Fahrer holt Sie ab, wo Sie möchten, und fährt so lange Sie ihn brauchen. Für Geschäftstermine, Hochzeiten und Stadtrundfahrten, ohne Sorgen um Parkplatz oder Route.",
+        "points": [
+          "Erfahrene, professionelle Fahrer",
+          "Pünktlich und zuverlässig",
+          "Diskret und sicher"
+        ],
+        "badge": "Rund um die Uhr",
+        "cta": "Fahrer buchen",
+        "wa": "Hallo, ich interessiere mich für ein Auto mit Fahrer.",
+        "imageAlt": "Fahrer öffnet einem Fahrgast die Autotür"
+      },
+      {
+        "label": "Transfer",
+        "title": "Transfer vom Flughafen Sarajevo",
+        "body": "Wir empfangen Sie in der Ankunftshalle mit Namensschild und bringen Sie zum Hotel oder zu Ihrer Adresse. Auf dem Rückweg sind Sie pünktlich am Flughafen.",
+        "points": [
+          "Zum und vom Flughafen Sarajevo (SJJ)",
+          "Wir verfolgen Ihren Flug in Echtzeit",
+          "Empfang mit Namensschild"
+        ],
+        "badge": "Jeder Flug, Tag und Nacht",
+        "cta": "Transfer buchen",
+        "wa": "Hallo, ich interessiere mich für einen Flughafentransfer.",
+        "imageAlt": "Terminal des Flughafens Sarajevo mit Autos davor"
+      }
+    ],
+    "items": [
+      {
+        "title": "Lieferung an Ihre Adresse",
+        "body": "Wir bringen das Auto zum Preis einer Taxifahrt an Ihre Adresse in Sarajevo und holen es dort wieder ab."
+      },
+      {
+        "title": "Kleinbusse für Gruppen",
+        "body": "Vito, Caravelle und Transporter für neun Personen und viel Gepäck."
+      },
+      {
+        "title": "Premium Autos",
+        "body": "Mercedes E-Klasse und Audi Q7, wenn Sie Eindruck machen möchten."
+      },
+      {
+        "title": "Familienautos",
+        "body": "Touran, Sharan und Kodiaq mit sieben Sitzen."
+      }
+    ],
+    "prices": [
+      {
+        "label": "Privatfahrer",
+        "price": "50 €",
+        "unit": "Tag",
+        "note": "Nur Fahrer, ohne Kraftstoff"
+      },
+      {
+        "label": "Auto mit Fahrer, alles inklusive",
+        "price": "150 €",
+        "unit": "Tag",
+        "note": "Auto, Fahrer, Kraftstoff und Parken"
+      }
+    ]
+  },
+  "HowItWorks": {
+    "eyebrow": "So funktioniert es",
+    "title": "Ihr Auto in",
+    "accent": "drei Schritten",
+    "lead": "Kein Konto und keine Zahlung auf der Website. Sie senden die Buchung, erhalten sofort eine Bestätigung per E-Mail, und wir klären den Rest.",
+    "cta": "Autos ansehen",
+    "steps": [
+      {
+        "title": "Auto wählen",
+        "body": "Flotte ansehen und Abhol und Rückgabedatum wählen."
+      },
+      {
+        "title": "Buchung senden",
+        "body": "Über das Formular, WhatsApp oder telefonisch. Wir antworten schnell, auch am Wochenende."
+      },
+      {
+        "title": "Schlüssel abholen",
+        "body": "Das Auto wartet am Flughafen, an Ihrer Adresse oder in unserem Büro."
+      }
+    ]
+  },
+  "Requirements": {
+    "eyebrow": "Vor der Abholung",
+    "title": "Das brauchen Sie",
+    "accent": "zum Mieten.",
+    "lead": "Vier Dinge und das Auto gehört Ihnen. Wenn etwas unklar ist, fragen Sie uns vor der Buchung.",
+    "cta": "Mietbedingungen",
+    "ticket": "Checkliste zur Abholung",
+    "items": [
+      {
+        "title": "Führerschein",
+        "body": "Gültig, auf den Namen des Fahrers, der das Auto übernimmt."
+      },
+      {
+        "title": "Ausweis oder Reisepass",
+        "body": "Eines von beiden, zusammen mit dem Führerschein."
+      },
+      {
+        "title": "Kaution",
+        "body": "Sie hinterlegen sie bei der Abholung. Sie beträgt {standard} €, für Audi Q7 und Mercedes E-Klasse {premium} €."
+      },
+      {
+        "title": "Buchen ohne Zahlung",
+        "body": "Sie zahlen nichts im Voraus. Stornierung ist bis 24 Stunden vor der Abholung kostenlos."
+      }
+    ],
+    "footer": "Die Kaution erhalten Sie zurück, sobald das Auto in Ordnung zurück ist."
+  },
+  "Destinations": {
+    "eyebrow": "Ausflüge ab Sarajevo",
+    "title": "Wohin am Wochenende?",
+    "accent": "Alles in wenigen Stunden.",
+    "lead": "Orte, die unsere Gäste am häufigsten besuchen. Die Zeiten sind Richtwerte.",
+    "colPlace": "Ziel",
+    "colKm": "Entfernung",
+    "colTime": "Fahrzeit",
+    "colSeason": "Saison",
+    "ask": "Unsicher, welches Auto passt? Schreiben Sie uns, wir empfehlen Auto und Route.",
+    "cta": "Fragen Sie uns",
+    "waPrefix": "Hallo, ich plane einen Ausflug nach:",
+    "items": [
+      {
+        "name": "Jahorina",
+        "note": "Der Olympiaberg. Im Winter Ski, im Sommer Wandern und Radfahren.",
+        "km": 30,
+        "time": "40 Min.",
+        "season": "Winter und Sommer"
+      },
+      {
+        "name": "Bjelašnica",
+        "note": "Skipisten und die Straße nach Lukomir, dem höchsten Dorf Bosniens.",
+        "km": 30,
+        "time": "40 Min.",
+        "season": "Winter und Sommer"
+      },
+      {
+        "name": "Konjic",
+        "note": "Rafting auf der Neretva und eine alte Steinbrücke im Zentrum.",
+        "km": 60,
+        "time": "1 Std.",
+        "season": "Sommer"
+      },
+      {
+        "name": "Mostar",
+        "note": "Die Alte Brücke und der Basar, unterwegs der Jablanica See.",
+        "km": 130,
+        "time": "2 Std.",
+        "season": "Ganzjährig"
+      },
+      {
+        "name": "Kravice",
+        "note": "Wasserfälle an der Trebižat. Im Sommer kann man baden.",
+        "km": 170,
+        "time": "2 Std. 30 Min.",
+        "season": "Sommer"
+      },
+      {
+        "name": "Jajce",
+        "note": "Der Pliva Wasserfall mitten in der Stadt und die alten Wassermühlen.",
+        "km": 160,
+        "time": "2 Std. 45 Min.",
+        "season": "Ganzjährig"
+      }
+    ],
+    "waAsk": "Hallo, ich plane einen Ausflug und brauche Rat, welches Auto passt."
+  },
+  "Reviews": {
+    "eyebrow": "Bewertungen",
+    "title": "Was unsere Gäste",
+    "accent": "sagen.",
+    "count": "{count} Bewertungen auf Google",
+    "all": "Alle Bewertungen",
+    "prev": "Vorherige Bewertung",
+    "next": "Nächste Bewertung",
+    "source": "Google"
+  },
+  "Visit": {
+    "eyebrow": "So finden Sie uns",
+    "title": "Kommen Sie vorbei",
+    "accent": "oder rufen Sie einfach an.",
+    "reviews": "{count} Google Bewertungen",
+    "directions": "Route planen",
+    "hoursValue": "Rund um die Uhr, täglich"
+  },
+  "Faq": {
+    "eyebrow": "Fragen",
+    "title": "Häufige",
+    "accent": "Fragen",
+    "lead": "Wenn Sie hier keine Antwort finden, schreiben Sie uns per WhatsApp.",
+    "cta": "Per WhatsApp schreiben",
+    "items": [
+      {
+        "q": "Wie buche ich ein Auto?",
+        "a": "Wählen Sie Daten und Auto auf der Website und senden Sie die Buchung. Sie erhalten sofort eine E-Mail mit Buchungsnummer und wir bestätigen. Buchen können Sie auch per WhatsApp oder Telefon, rund um die Uhr."
+      },
+      {
+        "q": "Was ist im Preis enthalten?",
+        "a": "Vollkasko, unbegrenzte Kilometer, kostenlose Übergabe und Rückgabe am Flughafen Sarajevo und in unserem Büro sowie Pannenhilfe rund um die Uhr."
+      },
+      {
+        "q": "Wie hoch ist die Kaution?",
+        "a": "200 € für die meisten Autos und 300 € für Audi Q7 und Mercedes E-Klasse. Sie hinterlegen sie bei der Abholung und erhalten sie bei der Rückgabe zurück. Ohne Kaution kostet es 10 € pro Tag."
+      },
+      {
+        "q": "Kann ich stornieren?",
+        "a": "Ja, kostenlos bis 24 Stunden vor der Abholung. Eine Nachricht oder ein Anruf genügt."
+      },
+      {
+        "q": "Liefern Sie an meine Adresse?",
+        "a": "Ja. Flughafen und Büro sind kostenlos, die Lieferung an eine Adresse in Sarajevo kostet so viel wie eine Taxifahrt vom Flughafen."
+      },
+      {
+        "q": "Darf ich ins Ausland fahren?",
+        "a": "Ja, nach vorheriger Absprache. Der Grenzübertritt kostet einmalig 15 €, wählen Sie ihn einfach bei der Buchung."
+      },
+      {
+        "q": "Haben alle Autos Automatik?",
+        "a": "Ja. Die ganze Flotte hat Automatikgetriebe."
+      },
+      {
+        "q": "Was tun bei einem Unfall?",
+        "a": "Rufen Sie zuerst die Polizei, dann uns. Bewegen Sie das Auto nicht, bevor die Polizei ein Protokoll erstellt hat, danach helfen wir Ihnen weiter."
+      }
+    ]
+  },
+  "Cta": {
+    "title": "Brauchen Sie heute ein Auto?",
+    "body": "Melden Sie sich, wir prüfen sofort, was frei ist.",
+    "primary": "Autos ansehen",
+    "secondary": "Kontakt"
+  },
+  "Guides": {
+    "eyebrow": "Ratgeber",
+    "title": "Bevor Sie",
+    "accent": "losfahren.",
+    "lead": "Kurze Ratgeber fürs Autofahren in Bosnien: Bußgelder, Regeln, Flughafen und Ausflüge ab Sarajevo.",
+    "all": "Alle Ratgeber",
+    "read": "Ratgeber lesen",
+    "minutes": "{n} Min. Lesezeit",
+    "updated": "Aktualisiert am {date}",
+    "pageTitle": "Ratgeber fürs Autofahren in Bosnien",
+    "pageLead": "Was Besucher wissen sollten, bevor sie losfahren: Regeln, Bußgelder, Übergabe am Flughafen und die schönsten Ausflüge ab Sarajevo.",
+    "ctaTitle": "Bereit für die Fahrt?",
+    "ctaBody": "Wählen Sie Auto und Daten. Die Bestätigung mit Buchungsnummer kommt sofort per E-Mail.",
+    "ctaButton": "Autos ansehen",
+    "whatsapp": "Fragen Sie uns per WhatsApp",
+    "back": "Alle Ratgeber",
+    "more": "Weiterlesen"
+  }
+}

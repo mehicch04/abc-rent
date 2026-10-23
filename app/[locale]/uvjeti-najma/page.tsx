@@ -65,7 +65,7 @@ export default async function TermsPage({
   params: { locale: string };
 }) {
   setRequestLocale(locale);
-  const c = RENTAL_TERMS[locale === "en" ? "en" : "bs"];
+  const c = RENTAL_TERMS[(locale in RENTAL_TERMS ? locale : "bs") as keyof typeof RENTAL_TERMS];
 
   return (
     <>
@@ -135,7 +135,7 @@ export default async function TermsPage({
                 </h2>
               </div>
 
-              <div className="mt-4 space-y-4 pl-9">
+              <div className="mt-4 space-y-4 ps-9">
                 {a.blocks.map((block, i) => (
                   <Block key={i} block={block} />
                 ))}

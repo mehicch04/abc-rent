@@ -63,7 +63,7 @@ export function Destinations() {
                     {d.name}
                   </span>
                   <span className="row-span-3 grid h-11 w-11 place-items-center self-center justify-self-end rounded-full border border-border text-foreground transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-white lg:order-last lg:row-span-1">
-                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:rotate-45" />
+                    <ArrowUpRight className="rtl:-scale-x-100 h-4 w-4 transition-transform duration-300 group-hover:rotate-45" />
                   </span>
                   <p className="col-start-2 text-sm leading-relaxed text-muted-foreground lg:col-start-auto">{d.note}</p>
                   <div className="col-start-2 mt-1 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm lg:contents">

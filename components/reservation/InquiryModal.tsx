@@ -35,7 +35,7 @@ const TIME_SLOTS = Array.from(
 function splitISO(iso?: string | null, fallbackOffsetDays = 1) {
   const d = iso ? new Date(iso) : new Date(Date.now() + fallbackOffsetDays * 86_400_000);
   const date = d.toISOString().slice(0, 10);
-  const time = d.toTimeString().slice(0, 5);
+  const time = iso ? d.toTimeString().slice(0, 5) : "10:00";
   return { date, time };
 }
 
@@ -192,7 +192,7 @@ export function InquiryModal({
             type="button"
             aria-label={t("close")}
             onClick={onClose}
-            className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-surface-muted hover:text-foreground"
+            className="absolute end-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-surface-muted hover:text-foreground"
           >
             <X className="h-5 w-5" />
           </button>
@@ -214,7 +214,7 @@ export function InquiryModal({
             </div>
           ) : (
             <>
-              <h3 className="pr-8 font-display text-xl font-semibold tracking-tight">
+              <h3 className="pe-8 font-display text-xl font-semibold tracking-tight">
                 {t("title")}
               </h3>
               <p className="mt-1 text-sm font-medium text-brand-strong">{car.title}</p>
@@ -237,7 +237,7 @@ export function InquiryModal({
                           value={pickupLoc}
                           onChange={(e) => setPickupLoc(e.target.value)}
                           aria-label={t("pickupLocation")}
-                          className={`${input} appearance-none pr-8 ${pickupLoc ? "" : "text-muted-foreground"}`}
+                          className={`${input} appearance-none pe-8 ${pickupLoc ? "" : "text-muted-foreground"}`}
                           required
                         >
                           <option value="" disabled>
@@ -249,7 +249,7 @@ export function InquiryModal({
                             </option>
                           ))}
                         </select>
-                        <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                        <ChevronDown className="pointer-events-none absolute end-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                       </div>
                     </div>
                     <div>
@@ -259,7 +259,7 @@ export function InquiryModal({
                           value={returnLoc}
                           onChange={(e) => setReturnLoc(e.target.value)}
                           aria-label={t("returnLocation")}
-                          className={`${input} appearance-none pr-8`}
+                          className={`${input} appearance-none pe-8`}
                         >
                           <option value="">{t("sameAsPickup")}</option>
                           {locations.map((l) => (
@@ -268,7 +268,7 @@ export function InquiryModal({
                             </option>
                           ))}
                         </select>
-                        <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                        <ChevronDown className="pointer-events-none absolute end-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                       </div>
                     </div>
                   </div>
@@ -291,7 +291,7 @@ export function InquiryModal({
                           value={pickupTime}
                           onChange={(e) => setPickupTime(e.target.value)}
                           aria-label={t("summaryPickup")}
-                          className={`${input} w-full appearance-none pr-8`}
+                          className={`${input} w-full appearance-none pe-8`}
                           required
                         >
                           {TIME_SLOTS.map((s) => (
@@ -300,7 +300,7 @@ export function InquiryModal({
                             </option>
                           ))}
                         </select>
-                        <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                        <ChevronDown className="pointer-events-none absolute end-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                       </div>
                     </div>
                   </div>
@@ -319,7 +319,7 @@ export function InquiryModal({
                           value={returnTime}
                           onChange={(e) => setReturnTime(e.target.value)}
                           aria-label={t("summaryReturn")}
-                          className={`${input} w-full appearance-none pr-8`}
+                          className={`${input} w-full appearance-none pe-8`}
                           required
                         >
                           {TIME_SLOTS.map((s) => (
@@ -328,7 +328,7 @@ export function InquiryModal({
                             </option>
                           ))}
                         </select>
-                        <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                        <ChevronDown className="pointer-events-none absolute end-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                       </div>
                     </div>
                   </div>

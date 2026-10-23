@@ -15,9 +15,9 @@ export type InquiryContext = {
 };
 
 function formatDateTime(value?: Date | string | null): string {
-  if (!value) return "—";
+  if (!value) return "/";
   const d = typeof value === "string" ? new Date(value) : value;
-  if (Number.isNaN(d.getTime())) return "—";
+  if (Number.isNaN(d.getTime())) return "/";
   return new Intl.DateTimeFormat("hr-HR", {
     day: "2-digit",
     month: "2-digit",
@@ -31,9 +31,23 @@ export function buildInquiryMessage(ctx: InquiryContext): string {
   const car = ctx.car.title;
   const start = formatDateTime(ctx.pickupAt);
   const end = formatDateTime(ctx.returnAt);
-  const pickup = ctx.pickupLocation?.name ?? "—";
+  const pickup = ctx.pickupLocation?.name ?? "/";
   const ret = ctx.returnLocation?.name ?? pickup;
 
+  if (ctx.locale === "de") {
+    return (
+      `Hallo, ich möchte den ${car} ` +
+      `vom ${start} bis ${end} mieten. ` +
+      `Abholort: ${pickup}. Rückgabeort: ${ret}.`
+    );
+  }
+  if (ctx.locale === "ar") {
+    return (
+      `مرحباً، أرغب في استئجار ${car} ` +
+      `من ${start} إلى ${end}. ` +
+      `مكان الاستلام: ${pickup}. مكان الإرجاع: ${ret}.`
+    );
+  }
   if (ctx.locale === "en") {
     return (
       `Hello, I'm interested in renting the ${car} ` +

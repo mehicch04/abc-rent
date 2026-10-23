@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { Inter, Montserrat } from "next/font/google";
+import { IBM_Plex_Sans_Arabic, Inter, Montserrat } from "next/font/google";
 import Script from "next/script";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 
 import "../globals.css";
-import { routing, type AppLocale } from "@/i18n/routing";
+import { isRtl, routing, type AppLocale } from "@/i18n/routing";
 import { SITE } from "@/lib/site-config";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CurrencyProvider } from "@/components/currency/CurrencyProvider";
 import { CompanyProvider } from "@/components/company/CompanyProvider";
 import { getCompany } from "@/lib/company";
-import { getActiveLocations } from "@/lib/fleet-data";
+import { getLocations } from "@/lib/fleet-data";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
@@ -36,6 +36,14 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
+const arabic = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  preload: false,
+  variable: "--font-arabic",
+  display: "swap",
+});
+
 const CLIENT_NAMESPACES = [
   "Common",
   "Cta",
@@ -45,16 +53,14 @@ const CLIENT_NAMESPACES = [
   "Fleet",
   "Form",
   "Hero",
-  "HomeAbout",
   "HomeFleet",
   "HowItWorks",
-  "Requirements",
-  "Destinations",
   "Reviews",
   "Inquiry",
   "Nav",
   "Search",
   "Services",
+  "Guides",
   "Visit",
 ] as const;
 
@@ -122,7 +128,7 @@ export default async function LocaleLayout({
   const all = await getMessages();
 
   const company = await getCompany();
-  const footerLocations = await getActiveLocations();
+  const footerLocations = await getLocations(locale);
 
   const messages = Object.fromEntries(
     CLIENT_NAMESPACES.filter((ns) => ns in all).map((ns) => [ns, all[ns]]),
@@ -131,8 +137,9 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
+      dir={isRtl(locale) ? "rtl" : "ltr"}
       suppressHydrationWarning
-      className={`${inter.variable} ${montserrat.variable}`}
+      className={`${inter.variable} ${montserrat.variable} ${arabic.variable}`}
     >
       <body className="min-h-dvh bg-background font-sans text-foreground antialiased">
         {SITE.gtmId && process.env.NODE_ENV === "production" && (

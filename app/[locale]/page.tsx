@@ -2,26 +2,23 @@ import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { getActiveLocations, getBrowseCars } from "@/lib/fleet-data";
-import { SITE } from "@/lib/site-config";
+import { getLocations, getBrowseCars } from "@/lib/fleet-data";
 import type { CarListItem } from "@/lib/types";
 import { Hero } from "@/components/home/Hero";
 import { Features } from "@/components/home/Features";
-import { HomeAbout } from "@/components/home/HomeAbout";
 import { FeaturedFleet, type FleetType } from "@/components/home/FeaturedFleet";
 import { CAR_CATEGORIES, carCategories } from "@/lib/car-categories";
 import { getActiveExtras } from "@/lib/extras";
 import { getBookedExtras } from "@/lib/extras-availability";
 import { Services } from "@/components/home/Services";
 import { HowItWorks } from "@/components/home/HowItWorks";
-import { Visit } from "@/components/home/Visit";
 import { Faq } from "@/components/home/Faq";
 import { CtaBand } from "@/components/home/CtaBand";
 import { ReservationSearchForm } from "@/components/reservation/ReservationSearchForm";
-import { Requirements } from "@/components/home/Requirements";
-import { Destinations } from "@/components/home/Destinations";
 import { Reviews } from "@/components/home/Reviews";
 import { getReviews } from "@/lib/reviews";
+import { getGuides } from "@/lib/guides";
+import { GuidesTeaser } from "@/components/home/GuidesTeaser";
 
 export const revalidate = 300;
 
@@ -48,7 +45,7 @@ export default async function HomePage({
 
   const [cars, locations, extras, bookedExtras, reviews] = await Promise.all([
     getBrowseCars().catch(() => [] as CarListItem[]),
-    getActiveLocations().catch(() => []),
+    getLocations(locale).catch(() => []),
     getActiveExtras().catch(() => []),
     getBookedExtras().catch(() => []),
     getReviews(locale),
@@ -80,7 +77,6 @@ export default async function HomePage({
       </section>
 
       <Features />
-      <HomeAbout />
       <FeaturedFleet
         cars={featured}
         total={cars.length}
@@ -91,10 +87,8 @@ export default async function HomePage({
       />
       <Services />
       <HowItWorks />
-      <Requirements />
-      <Destinations />
       <Reviews data={reviews} />
-      <Visit address={SITE.address} />
+      <GuidesTeaser guides={getGuides(locale)} />
       <Faq />
       <CtaBand />
     </>

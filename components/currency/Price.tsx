@@ -12,5 +12,9 @@ export function Price({
   className?: string;
 }) {
   const { currency } = useCurrency();
-  return <span className={className}>{formatPrice(bam, currency)}</span>;
+  return (
+    <span dir="ltr" className={className}>
+      {formatPrice(bam, currency)}
+    </span>
+  );
 }

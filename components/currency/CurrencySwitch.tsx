@@ -54,7 +54,7 @@ export function CurrencySwitch() {
       {open && (
         <div
           role="listbox"
-          className="absolute right-0 z-50 mt-2 w-40 overflow-hidden rounded-xl border border-border bg-surface p-1 shadow-card"
+          className="absolute end-0 z-50 mt-2 w-40 overflow-hidden rounded-xl border border-border bg-surface p-1 shadow-card"
         >
           {OPTIONS.map((o) => {
             const active = o.value === currency;
@@ -75,7 +75,7 @@ export function CurrencySwitch() {
                 }`}
               >
                 <span className="flex items-center gap-2">
-                  <span className="w-5 text-left font-semibold">{o.symbol}</span>
+                  <span className="w-5 text-start font-semibold">{o.symbol}</span>
                   <span className={active ? "font-semibold" : "text-muted-foreground"}>
                     {o.name}
                   </span>

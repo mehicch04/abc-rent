@@ -77,12 +77,12 @@ export function CarCard({ car, search, onSelect, priority = false, imageSizes, v
             fill
             priority={priority}
             sizes={imageSizes ?? "(max-width: 639px) 92vw, (max-width: 1023px) 46vw, 360px"}
-            className={`object-contain mix-blend-multiply transition-transform duration-700 ease-out group-hover:translate-x-1.5 group-hover:scale-[1.04] ${
+            className={`object-contain mix-blend-multiply transition-transform duration-700 ease-out group-hover:translate-x-1.5 rtl:group-hover:-translate-x-1.5 group-hover:scale-[1.04] ${
               feature ? "px-8 pb-6 pt-14" : "px-5 pb-4 pt-10"
             }`}
           />
         )}
-        <span className="absolute left-3 top-3 flex flex-wrap gap-1.5">
+        <span className="absolute start-3 top-3 flex flex-wrap gap-1.5">
           {badge && (
             <span className="rounded-full bg-brand px-2.5 py-1 text-[11px] font-semibold text-white">{badge}</span>
           )}
@@ -92,15 +92,15 @@ export function CarCard({ car, search, onSelect, priority = false, imageSizes, v
             </span>
           )}
         </span>
-        <span className="absolute right-3 top-3 rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-medium tabular-nums text-ink backdrop-blur-sm">
+        <span className="absolute end-3 top-3 rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-medium tabular-nums text-ink backdrop-blur-sm">
           {car.year}
         </span>
-        <span className="absolute bottom-3 right-3 grid h-9 w-9 place-items-center rounded-full bg-white text-ink opacity-0 transition-all duration-300 group-hover:opacity-100">
-          <ArrowUpRight className="h-4 w-4" />
+        <span className="absolute bottom-3 end-3 grid h-9 w-9 place-items-center rounded-full bg-white text-ink opacity-0 transition-all duration-300 group-hover:opacity-100">
+          <ArrowUpRight className="rtl:-scale-x-100 h-4 w-4" />
         </span>
       </Link>
 
-      <div className={`flex min-w-0 flex-col ${feature ? "px-4 pb-4 pt-5 sm:px-5" : "flex-1 px-3 pb-3 pt-4"} ${row ? "sm:pl-5 sm:pt-3" : ""}`}>
+      <div className={`flex min-w-0 flex-col ${feature ? "px-4 pb-4 pt-5 sm:px-5" : "flex-1 px-3 pb-3 pt-4"} ${row ? "sm:ps-5 sm:pt-3" : ""}`}>
         <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">{car.brand}</p>
         <h3
           className={`mt-1 font-display font-semibold tracking-tight text-foreground ${
@@ -161,11 +161,11 @@ export function CarCard({ car, search, onSelect, priority = false, imageSizes, v
               <button
                 type="button"
                 onClick={() => onSelect?.(car)}
-                className={`group/btn inline-flex h-11 items-center gap-2 rounded-full bg-brand pl-4 pr-1.5 ${row ? "flex-1 justify-between" : ""} text-sm font-medium text-white transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2`}
+                className={`group/btn inline-flex h-11 items-center gap-2 rounded-full bg-brand ps-4 pe-1.5 ${row ? "flex-1 justify-between" : ""} text-sm font-medium text-white transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2`}
               >
                 {t("book")}
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-brand transition-transform duration-300 group-hover/btn:translate-x-0.5">
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
                 </span>
               </button>
             </div>

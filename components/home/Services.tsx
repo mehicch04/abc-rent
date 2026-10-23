@@ -28,6 +28,7 @@ type Premium = {
   imageAlt: string;
 };
 type Item = { title: string; body: string };
+type PriceRow = { label: string; price: string; unit: string; note: string };
 
 const PREMIUM_IMAGES = ["/img/service-chauffeur.webp", "/img/service-airport.webp"];
 const PREMIUM_POS = ["object-[35%_60%]", "object-[65%_55%]"];
@@ -40,6 +41,7 @@ export function Services() {
   const company = useCompany();
   const premium = t.raw("premium") as Premium[];
   const items = t.raw("items") as Item[];
+  const prices = t.raw("prices") as PriceRow[];
   const wa = (text?: string) =>
     `https://wa.me/${company.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
@@ -84,10 +86,10 @@ export function Services() {
                     aria-hidden
                     className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent"
                   />
-                  <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-ink backdrop-blur-md">
+                  <span className="absolute start-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-ink backdrop-blur-md">
                     {p.label}
                   </span>
-                  <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white backdrop-blur-md">
+                  <span className="absolute bottom-4 start-4 inline-flex items-center gap-1.5 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white backdrop-blur-md">
                     <Clock3 className="h-3.5 w-3.5" />
                     {p.badge}
                   </span>
@@ -113,6 +115,22 @@ export function Services() {
                       </li>
                     ))}
                   </ul>
+                  {i === 0 && (
+                    <ul className="mt-6 divide-y divide-border rounded-2xl bg-surface-muted px-4">
+                      {prices.map((row) => (
+                        <li key={row.label} className="flex items-center justify-between gap-4 py-3">
+                          <span className="min-w-0">
+                            <span className="block text-sm font-medium text-foreground">{row.label}</span>
+                            <span className="block text-xs text-muted-foreground">{row.note}</span>
+                          </span>
+                          <span className="shrink-0 text-end">
+                            <bdi dir="ltr" className="font-display text-lg font-semibold text-foreground">{row.price}</bdi>
+                            <span className="text-xs text-muted-foreground"> / {row.unit}</span>
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                   <div className="mt-auto pt-8">
                     <PillLink href={wa(p.wa)}>{p.cta}</PillLink>
                   </div>
@@ -121,7 +139,7 @@ export function Services() {
             ))}
           </div>
 
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-4 hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4">
             {items.map((item, i) => {
               const Icon = ICONS[i] ?? Users;
               const featured = i === 0;
@@ -162,7 +180,7 @@ export function Services() {
                       className={`mt-5 inline-flex items-center gap-1.5 text-sm font-medium ${featured ? "text-white" : "text-brand-strong"}`}
                     >
                       {t("more")}
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                      <ArrowRight className="rtl:-scale-x-100 h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
                     </span>
                   </Link>
                 </motion.div>

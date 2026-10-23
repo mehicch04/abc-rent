@@ -1,5 +1,6 @@
 "use client";
 
+import { intlLocale } from "@/i18n/routing";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
@@ -123,7 +124,7 @@ export function DateField({
   const label = selected
     ? isBs
       ? `${selected.getDate()}. ${BS_MONTHS_SHORT[selected.getMonth()]} ${selected.getFullYear()}.`
-      : new Intl.DateTimeFormat(locale, {
+      : new Intl.DateTimeFormat(intlLocale(locale), {
           day: "numeric",
           month: "short",
           year: "numeric",
@@ -133,13 +134,13 @@ export function DateField({
   const weekdays = isBs
     ? BS_WEEKDAYS
     : Array.from({ length: 7 }, (_, i) =>
-        new Intl.DateTimeFormat(locale, { weekday: "short" }).format(
+        new Intl.DateTimeFormat(intlLocale(locale), { weekday: "short" }).format(
           new Date(2024, 0, 1 + i),
         ),
       );
   const monthLabel = isBs
     ? `${BS_MONTHS[view.getMonth()]} ${view.getFullYear()}.`
-    : new Intl.DateTimeFormat(locale, {
+    : new Intl.DateTimeFormat(intlLocale(locale), {
         month: "long",
         year: "numeric",
       }).format(view);
@@ -191,7 +192,7 @@ export function DateField({
                 onClick={() => setView(new Date(y, m - 1, 1))}
                 className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border text-foreground/80 transition-colors hover:border-brand hover:text-brand"
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="rtl:-scale-x-100 h-4 w-4" />
               </button>
               <span className="text-sm font-semibold capitalize">
                 {monthLabel}
@@ -202,7 +203,7 @@ export function DateField({
                 onClick={() => setView(new Date(y, m + 1, 1))}
                 className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border text-foreground/80 transition-colors hover:border-brand hover:text-brand"
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="rtl:-scale-x-100 h-4 w-4" />
               </button>
             </div>
 

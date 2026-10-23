@@ -50,13 +50,13 @@ export function Visit({ address }: { address: string }) {
             </li>
             <li className="flex items-center gap-3 text-foreground">
               <Clock3 className="h-4 w-4 shrink-0 text-brand-strong" />
-              {company.hours}
+              {locale === "bs" ? company.hours : t("hoursValue")}
             </li>
             {company.phones.map((p) => (
               <li key={p.value}>
                 <a href={p.href} className="flex items-center gap-3 text-foreground hover:text-brand-strong">
                   <Phone className="h-4 w-4 shrink-0 text-brand-strong" />
-                  {p.value}
+                  <bdi dir="ltr">{p.value}</bdi>
                 </a>
               </li>
             ))}

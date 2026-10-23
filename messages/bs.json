@@ -9,7 +9,8 @@
     "theme": "Promijeni temu",
     "language": "Jezik",
     "book": "Rezerviši",
-    "call": "Pozovi"
+    "call": "Pozovi",
+    "guides": "Vodiči"
   },
   "Search": {
     "title": "Pronađite svoje vozilo",
@@ -82,7 +83,7 @@
     "included": [
       "Puno osiguranje",
       "Neograničena kilometraža",
-      "Dostava u Sarajevu",
+      "Besplatno na aerodromu",
       "Pomoć na cesti 24/7"
     ],
     "book": "Rezerviši",
@@ -94,7 +95,42 @@
     "perDayShort": "/ dan",
     "depositLabel": "Depozit",
     "includedShort": "Osiguranje i neograničena km uključeni",
-    "includedTiny": "Osiguranje i kilometraža uključeni"
+    "includedTiny": "Osiguranje i kilometraža uključeni",
+    "spec": {
+      "seats": "Sjedišta",
+      "doors": "Vrata",
+      "gearbox": "Mjenjač",
+      "fuel": "Gorivo",
+      "year": "Godište",
+      "luggage": "Prtljag",
+      "ac": "Klima",
+      "class": "Klasa",
+      "yes": "Da",
+      "no": "Ne"
+    },
+    "gearboxText": {
+      "AUTOMATIC": "automatski mjenjač",
+      "MANUAL": "manuelni mjenjač"
+    },
+    "about": {
+      "compact": "{name} je kompaktan, lako se parkira i malo troši, idealan za sarajevske ulice i jednodnevne izlete.",
+      "suv": "{name} nudi visoku poziciju sjedenja i sigurnost na planinskim cestama, odličan izbor za Bjelašnicu, Jahorinu i putovanja kroz Bosnu.",
+      "family": "{name} ima {seats} sjedišta, pa cijela porodica stane u jedno vozilo.",
+      "van": "{name} prima {seats} osoba sa prtljagom, jedno vozilo za veliku porodicu ili grupu.",
+      "sedan": "{name} je udobna limuzina za duge vožnje i poslovna putovanja.",
+      "wagon": "{name} je praktičan izbor kad je prtljag važan, sa velikim prtljažnikom za duža putovanja.",
+      "spec": "Ima {gearbox}, {seats} sjedišta i mjesta za {bags, plural, one {# kofer} few {# kofera} other {# kofera}}."
+    },
+    "video": "Pogledajte vozilo",
+    "videoNote": "Ovo je tačno vozilo koje dobijate, a ne slično.",
+    "need": "Šta vam treba",
+    "needLicence": "Važeća vozačka dozvola",
+    "needId": "Lična karta ili pasoš",
+    "needDeposit": "Depozit {amount}, vraća se pri povratu",
+    "needNoPay": "Ništa ne plaćate unaprijed",
+    "prev": "Prethodno",
+    "next": "Sljedeće",
+    "perDayWord": "dan"
   },
   "Inquiry": {
     "title": "Upit za rezervaciju",
@@ -125,10 +161,12 @@
     "contact": "Kontakt",
     "locations": "Preuzimanje",
     "follow": "Pratite nas",
-    "tagline": "Rent a car u Sarajevu. Dovozimo auto na aerodrom i na adresu, a imamo i vozače i transfere.",
+    "tagline": "Rent a car u Sarajevu. Auto vas čeka na aerodromu, a imamo i vozače i transfere.",
     "rights": "Sva prava zadržana.",
     "hours": "Radno vrijeme",
-    "navTitle": "Brzi linkovi"
+    "navTitle": "Brzi linkovi",
+    "languages": "Govorimo bosanski, engleski, arapski i njemački.",
+    "hoursValue": "0 do 24h, svaki dan"
   },
   "About": {
     "eyebrow": "O nama",
@@ -142,13 +180,13 @@
       "depositLabel": "Depozit"
     },
     "storyTitle": "Ko smo mi",
-    "storyP1": "Vozilo vam dovozimo tamo gdje vam treba: na Aerodrom Sarajevo ili na bilo koju adresu u Sarajevu, bez doplate. Sva vozila su potpuno osigurana i redovno održavana.",
+    "storyP1": "Vozilo vas čeka na Aerodromu Sarajevo ili u našoj poslovnici, bez doplate, a možemo ga dovesti i na vašu adresu. Sva vozila su potpuno osigurana i redovno održavana.",
     "storyP2": "Osim najma, nudimo i uslugu profesionalnog vozača i transfere s aerodroma. Rezervaciju možete poslati putem stranice, WhatsAppa ili telefonom.",
     "features": {
       "f1Title": "Dostupni 0 do 24h",
       "f1Text": "Javite se bilo kada, i za rezervaciju i za pomoć na putu.",
-      "f2Title": "Besplatna dostava",
-      "f2Text": "Dovozimo vozilo na aerodrom ili na vašu adresu u Sarajevu.",
+      "f2Title": "Besplatno na aerodromu",
+      "f2Text": "Preuzimanje i povrat na Aerodromu Sarajevo i u poslovnici, bez doplate.",
       "f3Title": "Puno osiguranje",
       "f3Text": "Sva vozila su potpuno osigurana i redovno servisirana.",
       "f4Title": "Jasne cijene",
@@ -183,7 +221,8 @@
     "infoEyebrow": "Kontakt podaci",
     "infoTitle": "Najbrže nas dobijete",
     "infoAccent": "na WhatsApp.",
-    "whatsapp": "Pišite na WhatsApp"
+    "whatsapp": "Pišite na WhatsApp",
+    "hoursValue": "0 do 24h, svaki dan"
   },
   "Common": {
     "from": "od",
@@ -227,8 +266,8 @@
   },
   "Seo": {
     "home": {
-      "title": "Rent a Car Sarajevo | Besplatna dostava na aerodrom",
-      "description": "Najam vozila u Sarajevu uz besplatnu dostavu na Aerodrom Sarajevo i vašu adresu. Depozit 200 €, neograničena kilometraža, puno osiguranje. Usluga vozača i transferi."
+      "title": "Rent a Car Sarajevo | Besplatno preuzimanje na aerodromu",
+      "description": "Najam vozila u Sarajevu uz besplatno preuzimanje na Aerodromu Sarajevo. Depozit od 200 €, neograničena kilometraža i puno osiguranje. Usluga vozača i transferi."
     },
     "fleet": {
       "title": "Vozni park | Iznajmite automobil u Sarajevu",
@@ -236,7 +275,7 @@
     },
     "about": {
       "title": "O nama",
-      "description": "Upoznajte ABC Rent a Car, agenciju za najam vozila u Sarajevu. Besplatna dostava, puno osiguranje i podrška 0 do 24h."
+      "description": "Upoznajte ABC Rent a Car, agenciju za najam vozila u Sarajevu. Besplatno preuzimanje na aerodromu, puno osiguranje i podrška 0 do 24."
     },
     "terms": {
       "title": "Uslovi najma",
@@ -245,6 +284,10 @@
     "contact": {
       "title": "Kontakt",
       "description": "Kontaktirajte ABC Rent a Car: telefon, email, WhatsApp i adresa u Sarajevu. Dostupni smo 0 do 24h, svaki dan."
+    },
+    "guides": {
+      "title": "Vodiči za vožnju po Bosni",
+      "description": "Saobraćajne kazne, pravila vožnje, preuzimanje auta na Aerodromu Sarajevo i izleti iz Sarajeva. Kratko i jasno za posjetioce."
     }
   },
   "Extras": {
@@ -266,7 +309,7 @@
     "chip": "Ocjena {score} na Googleu, {count} recenzija",
     "titleA": "Sletite u Sarajevo,",
     "titleB": "auto vas već čeka.",
-    "subtitle": "Dovezemo vozilo na aerodrom ili na vašu adresu u Sarajevu, bez doplate. Depozit je 200 €, kilometraža neograničena, a puno osiguranje je već u cijeni.",
+    "subtitle": "Auto vas čeka na Aerodromu Sarajevo, bez doplate. Puno osiguranje i neograničena kilometraža su u cijeni, a depozit je od 200 €.",
     "ctaPrimary": "Pogledaj vozila",
     "ctaSecondary": "Nazovi nas",
     "statFleet": "vozila u ponudi",
@@ -277,16 +320,16 @@
   "Features": {
     "items": [
       {
-        "title": "Dostava na aerodrom",
-        "body": "Besplatno do aerodroma i do bilo koje adrese u Kantonu Sarajevo."
+        "title": "Besplatno na aerodromu",
+        "body": "Preuzimanje i povrat na Aerodromu Sarajevo i u poslovnici. Dostava na adresu košta jednu vožnju taksijem."
       },
       {
         "title": "Depozit 200 €",
-        "body": "Za Audi Q7 i Mercedes E klasu depozit je 300 €."
+        "body": "Za Audi Q7 i Mercedes E klasu depozit je 300 €. Može i bez depozita."
       },
       {
-        "title": "Dostupni non-stop",
-        "body": "Javljamo se na telefon i WhatsApp i noću i vikendom."
+        "title": "Dostupni 0 do 24",
+        "body": "Javljamo se i noću i vikendom, na bosanskom, engleskom, arapskom i njemačkom."
       }
     ]
   },
@@ -323,8 +366,8 @@
         "body": "Vozite koliko treba, bez doplate po kilometru."
       },
       {
-        "title": "Dostava na aerodrom",
-        "body": "Besplatno do aerodroma i adrese u Kantonu Sarajevo."
+        "title": "Besplatno na aerodromu",
+        "body": "Preuzimanje i povrat na Aerodromu Sarajevo bez doplate."
       },
       {
         "title": "Svi su automatik",
@@ -378,7 +421,7 @@
     "items": [
       {
         "title": "Dostava na adresu",
-        "body": "Auto dovezemo na vašu adresu u Kantonu Sarajevo i preuzmemo ga kad završite."
+        "body": "Auto dovezemo na vašu adresu u Sarajevu za cijenu jedne vožnje taksijem i preuzmemo ga kad završite."
       },
       {
         "title": "Kombi za grupe",
@@ -392,13 +435,27 @@
         "title": "Auto za porodicu",
         "body": "Touran, Sharan i Kodiaq sa sedam sjedišta."
       }
+    ],
+    "prices": [
+      {
+        "label": "Privatni vozač",
+        "price": "50 €",
+        "unit": "dan",
+        "note": "Samo vozač, gorivo nije uključeno"
+      },
+      {
+        "label": "Auto i vozač, sve uključeno",
+        "price": "150 €",
+        "unit": "dan",
+        "note": "Vozilo, vozač, gorivo i parking"
+      }
     ]
   },
   "HowItWorks": {
     "eyebrow": "Kako radimo",
     "title": "Do auta u",
     "accent": "tri koraka",
-    "lead": "Bez otvaranja naloga i bez plaćanja na sajtu. Vi pošaljete upit, mi se javimo i dogovorimo ostalo.",
+    "lead": "Bez otvaranja naloga i bez plaćanja na sajtu. Pošaljete rezervaciju, odmah dobijete email potvrdu, a mi se javimo za ostalo.",
     "cta": "Pogledaj vozila",
     "steps": [
       {
@@ -432,8 +489,8 @@
         "body": "Jedan od ta dva dokumenta, uz vozačku dozvolu."
       },
       {
-        "title": "Kartica za depozit",
-        "body": "Kreditna ili debitna. Depozit je {standard} €, a za Audi Q7 i Mercedes E klasu {premium} €."
+        "title": "Depozit",
+        "body": "Ostavljate ga pri preuzimanju. Iznosi {standard} €, a za Audi Q7 i Mercedes E klasu {premium} €."
       },
       {
         "title": "Rezervacija bez plaćanja",
@@ -515,7 +572,8 @@
     "title": "Svratite do nas",
     "accent": "ili samo nazovite.",
     "reviews": "{count} recenzija na Googleu",
-    "directions": "Upute do nas"
+    "directions": "Upute do nas",
+    "hoursValue": "0 do 24h, svaki dan"
   },
   "Faq": {
     "eyebrow": "Pitanja",
@@ -525,24 +583,36 @@
     "cta": "Pišite na WhatsApp",
     "items": [
       {
-        "q": "Jesu li sva vozila automatik?",
-        "a": "Jesu. Cijeli vozni park ima automatski mjenjač."
+        "q": "Kako rezervisati vozilo?",
+        "a": "Odaberite datume i vozilo na stranici i pošaljite rezervaciju. Odmah dobijate email sa brojem rezervacije, a mi je potvrđujemo. Možete rezervisati i preko WhatsAppa ili telefonom, 0 do 24."
       },
       {
         "q": "Šta je uključeno u cijenu?",
-        "a": "Puno osiguranje, neograničena kilometraža, dostava u Kantonu Sarajevo i pomoć na cesti."
+        "a": "Puno osiguranje, neograničena kilometraža, besplatno preuzimanje i povrat na Aerodromu Sarajevo i u poslovnici, te pomoć na cesti 0 do 24."
+      },
+      {
+        "q": "Koliki je depozit?",
+        "a": "200 € za većinu vozila i 300 € za Audi Q7 i Mercedes E klasu. Ostavljate ga pri preuzimanju i dobijate nazad pri povratu. Može i bez depozita, uz 10 € dnevno."
       },
       {
         "q": "Mogu li otkazati rezervaciju?",
         "a": "Možete, besplatno, najkasnije 24 sata prije preuzimanja. Dovoljna je poruka ili poziv."
       },
       {
-        "q": "Dovozite li auto na aerodrom?",
-        "a": "Da, na Aerodrom Sarajevo i na bilo koju adresu u Kantonu Sarajevo, bez doplate."
+        "q": "Dovozite li auto na moju adresu?",
+        "a": "Da. Na aerodromu i u poslovnici je besplatno, a dostava na adresu u Sarajevu košta koliko jedna vožnja taksijem od aerodroma."
+      },
+      {
+        "q": "Mogu li autom van Bosne i Hercegovine?",
+        "a": "Možete, uz prethodni dogovor. Prelazak granice se plaća jednokratno 15 €, a označite ga pri rezervaciji."
+      },
+      {
+        "q": "Jesu li sva vozila automatik?",
+        "a": "Jesu. Cijeli vozni park ima automatski mjenjač."
       },
       {
         "q": "Šta ako imam nezgodu?",
-        "a": "Pozovite policiju, a odmah zatim i nas. Ne pomjerajte auto dok policija ne dođe, dalje vas vodimo mi."
+        "a": "Prvo pozovite policiju, a odmah zatim nas. Ne pomjerajte auto dok policija ne napravi zapisnik, dalje vas vodimo mi."
       }
     ]
   },
@@ -551,5 +621,23 @@
     "body": "Javite se, pa ćemo odmah provjeriti šta je slobodno.",
     "primary": "Pogledaj vozila",
     "secondary": "Kontakt"
+  },
+  "Guides": {
+    "eyebrow": "Vodiči",
+    "title": "Prije nego",
+    "accent": "krenete na put.",
+    "lead": "Kratki vodiči za vožnju po Bosni: kazne, pravila, aerodrom i izleti iz Sarajeva.",
+    "all": "Svi vodiči",
+    "read": "Pročitaj vodič",
+    "minutes": "{n} min čitanja",
+    "updated": "Ažurirano {date}",
+    "pageTitle": "Vodiči za vožnju po Bosni",
+    "pageLead": "Sve što posjetilac treba znati prije nego sjedne za volan: propisi, kazne, preuzimanje na aerodromu i najljepši izleti iz Sarajeva.",
+    "ctaTitle": "Spremni za put?",
+    "ctaBody": "Odaberite auto i datume. Potvrdu sa brojem rezervacije dobijate odmah emailom.",
+    "ctaButton": "Pogledaj vozila",
+    "whatsapp": "Pitajte nas na WhatsApp",
+    "back": "Svi vodiči",
+    "more": "Pročitajte i"
   }
 }

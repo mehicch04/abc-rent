@@ -9,7 +9,8 @@
     "theme": "Change theme",
     "language": "Language",
     "book": "Book now",
-    "call": "Call"
+    "call": "Call",
+    "guides": "Guides"
   },
   "Search": {
     "title": "Find your vehicle",
@@ -82,7 +83,7 @@
     "included": [
       "Full insurance",
       "Unlimited mileage",
-      "Delivery in Sarajevo",
+      "Free airport pick-up",
       "24/7 roadside help"
     ],
     "book": "Book now",
@@ -94,7 +95,42 @@
     "perDayShort": "/ day",
     "depositLabel": "Deposit",
     "includedShort": "Insurance and unlimited mileage included",
-    "includedTiny": "Insurance and mileage included"
+    "includedTiny": "Insurance and mileage included",
+    "spec": {
+      "seats": "Seats",
+      "doors": "Doors",
+      "gearbox": "Gearbox",
+      "fuel": "Fuel",
+      "year": "Year",
+      "luggage": "Luggage",
+      "ac": "Air conditioning",
+      "class": "Class",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "gearboxText": {
+      "AUTOMATIC": "an automatic gearbox",
+      "MANUAL": "a manual gearbox"
+    },
+    "about": {
+      "compact": "{name} is compact, easy to park and light on fuel, made for Sarajevo streets and day trips.",
+      "suv": "{name} gives you a high seating position and confidence on mountain roads, a good match for Bjelašnica, Jahorina and trips across Bosnia.",
+      "family": "{name} seats {seats}, so the whole family fits in one car.",
+      "van": "{name} carries {seats} people with their luggage, one vehicle for a large family or a group.",
+      "sedan": "{name} is a comfortable sedan for long drives and business trips.",
+      "wagon": "{name} is the practical choice when luggage matters, with a long boot for longer trips.",
+      "spec": "It comes with {gearbox}, {seats} seats and room for {bags, plural, one {# bag} other {# bags}}."
+    },
+    "video": "Watch the car",
+    "videoNote": "This is the exact car you get, not a similar one.",
+    "need": "What you need",
+    "needLicence": "A valid driving licence",
+    "needId": "ID card or passport",
+    "needDeposit": "A {amount} deposit, returned with the car",
+    "needNoPay": "Nothing to pay in advance",
+    "prev": "Previous",
+    "next": "Next",
+    "perDayWord": "day"
   },
   "Inquiry": {
     "title": "Reservation inquiry",
@@ -125,10 +161,12 @@
     "contact": "Contact",
     "locations": "Pickup",
     "follow": "Follow us",
-    "tagline": "Car rental in Sarajevo. We deliver to the airport and your address, and we also offer drivers and transfers.",
+    "tagline": "Car rental in Sarajevo. Your car waits at the airport, and we also offer drivers and transfers.",
     "rights": "All rights reserved.",
     "hours": "Opening hours",
-    "navTitle": "Quick links"
+    "navTitle": "Quick links",
+    "languages": "We speak Bosnian, English, Arabic and German.",
+    "hoursValue": "24/7, every day"
   },
   "About": {
     "eyebrow": "About us",
@@ -142,13 +180,13 @@
       "depositLabel": "Deposit"
     },
     "storyTitle": "Who we are",
-    "storyP1": "We bring the car to wherever you need it: Sarajevo Airport or any address in Sarajevo, at no extra cost. Every vehicle is fully insured and regularly serviced.",
+    "storyP1": "Your car waits at Sarajevo Airport or our office at no extra cost, and we can also bring it to your address. Every vehicle is fully insured and regularly serviced.",
     "storyP2": "Besides car rental we offer a professional chauffeur service and airport transfers. You can book through the website, WhatsApp or by phone.",
     "features": {
       "f1Title": "Available 24/7",
       "f1Text": "Reach us any time, for a booking or for help on the road.",
-      "f2Title": "Free delivery",
-      "f2Text": "We deliver the car to the airport or your address in Sarajevo.",
+      "f2Title": "Free at the airport",
+      "f2Text": "Pick-up and return at Sarajevo Airport and our office at no extra cost.",
       "f3Title": "Full insurance",
       "f3Text": "All vehicles are fully insured and regularly serviced.",
       "f4Title": "Clear prices",
@@ -183,7 +221,8 @@
     "infoEyebrow": "Contact details",
     "infoTitle": "The fastest way to reach us",
     "infoAccent": "is WhatsApp.",
-    "whatsapp": "Message on WhatsApp"
+    "whatsapp": "Message on WhatsApp",
+    "hoursValue": "24/7, every day"
   },
   "Common": {
     "from": "from",
@@ -227,8 +266,8 @@
   },
   "Seo": {
     "home": {
-      "title": "Rent a Car Sarajevo | Free airport delivery",
-      "description": "Car rental in Sarajevo with free delivery to Sarajevo Airport and your address. 200 € deposit, unlimited mileage, full insurance. Chauffeur service and transfers."
+      "title": "Rent a Car Sarajevo | Free airport pick-up",
+      "description": "Car rental in Sarajevo with free pick-up at Sarajevo Airport. 200 € deposit, unlimited mileage and full insurance. Chauffeur service and transfers."
     },
     "fleet": {
       "title": "Our fleet | Rent a car in Sarajevo",
@@ -236,7 +275,7 @@
     },
     "about": {
       "title": "About us",
-      "description": "Meet ABC Rent a Car, a car rental agency in Sarajevo. Free delivery, full insurance and 24/7 support."
+      "description": "Meet ABC Rent a Car, a car rental agency in Sarajevo. Free airport pick-up, full insurance and 24/7 support."
     },
     "terms": {
       "title": "Rental terms",
@@ -245,6 +284,10 @@
     "contact": {
       "title": "Contact",
       "description": "Contact ABC Rent a Car: phone, email, WhatsApp and our address in Sarajevo. Available 24/7, every day."
+    },
+    "guides": {
+      "title": "Driving guides for Bosnia",
+      "description": "Traffic fines, driving rules, picking up a car at Sarajevo Airport and day trips from Sarajevo. Short and clear for visitors."
     }
   },
   "Extras": {
@@ -266,7 +309,7 @@
     "chip": "Rated {score} on Google, {count} reviews",
     "titleA": "Land in Sarajevo,",
     "titleB": "your car is already there.",
-    "subtitle": "We bring the car to the airport or your address in Sarajevo at no extra cost. The deposit is 200 €, mileage is unlimited and full insurance is included.",
+    "subtitle": "Your car waits at Sarajevo Airport at no extra cost. Full insurance and unlimited mileage are included, and the deposit starts at 200 €.",
     "ctaPrimary": "Browse cars",
     "ctaSecondary": "Call us",
     "statFleet": "cars in the fleet",
@@ -277,16 +320,16 @@
   "Features": {
     "items": [
       {
-        "title": "Airport delivery",
-        "body": "Free to the airport and to any address in Sarajevo Canton."
+        "title": "Free at the airport",
+        "body": "Pick-up and return at Sarajevo Airport and our office. Delivery to your address costs one taxi ride."
       },
       {
         "title": "200 € deposit",
-        "body": "For the Audi Q7 and Mercedes E-Class the deposit is 300 €."
+        "body": "For the Audi Q7 and Mercedes E-Class the deposit is 300 €. No deposit is possible too."
       },
       {
         "title": "Open around the clock",
-        "body": "We answer the phone and WhatsApp at night and on weekends."
+        "body": "We answer at night and on weekends, in Bosnian, English, Arabic and German."
       }
     ]
   },
@@ -323,8 +366,8 @@
         "body": "Drive as far as you need, no per km charge."
       },
       {
-        "title": "Airport delivery",
-        "body": "Free to the airport and any address in Sarajevo Canton."
+        "title": "Free at the airport",
+        "body": "Pick-up and return at Sarajevo Airport at no extra cost."
       },
       {
         "title": "All automatic",
@@ -378,7 +421,7 @@
     "items": [
       {
         "title": "Delivery to your address",
-        "body": "We bring the car to your address in Sarajevo Canton and pick it up when you are done."
+        "body": "We bring the car to your address in Sarajevo for the price of one taxi ride and collect it when you are done."
       },
       {
         "title": "Vans for groups",
@@ -386,11 +429,25 @@
       },
       {
         "title": "Premium cars",
-        "body": "Mercedes E Class and Audi Q7 when you want to make an impression."
+        "body": "Mercedes E-Class and Audi Q7 when you want to make an impression."
       },
       {
         "title": "Family cars",
         "body": "Touran, Sharan and Kodiaq with seven seats."
+      }
+    ],
+    "prices": [
+      {
+        "label": "Private driver",
+        "price": "50 €",
+        "unit": "day",
+        "note": "Driver only, fuel not included"
+      },
+      {
+        "label": "Car and driver, all inclusive",
+        "price": "150 €",
+        "unit": "day",
+        "note": "Car, driver, fuel and parking"
       }
     ]
   },
@@ -398,7 +455,7 @@
     "eyebrow": "How it works",
     "title": "Your car in",
     "accent": "three steps",
-    "lead": "No account to create and nothing to pay on the website. You send a request, we get back to you and sort out the rest.",
+    "lead": "No account and nothing to pay on the website. You send a booking, get an email confirmation right away, and we sort out the rest.",
     "cta": "Browse cars",
     "steps": [
       {
@@ -432,8 +489,8 @@
         "body": "One of the two, together with your driving licence."
       },
       {
-        "title": "Card for the deposit",
-        "body": "Credit or debit. The deposit is {standard} €, or {premium} € for the Audi Q7 and Mercedes E Class."
+        "title": "Deposit",
+        "body": "You leave it at pick-up. It is {standard} €, or {premium} € for the Audi Q7 and Mercedes E-Class."
       },
       {
         "title": "No payment to book",
@@ -515,7 +572,8 @@
     "title": "Drop by",
     "accent": "or just give us a call.",
     "reviews": "{count} Google reviews",
-    "directions": "Get directions"
+    "directions": "Get directions",
+    "hoursValue": "24/7, every day"
   },
   "Faq": {
     "eyebrow": "Questions",
@@ -525,24 +583,36 @@
     "cta": "Message on WhatsApp",
     "items": [
       {
-        "q": "Are all cars automatic?",
-        "a": "Yes. The whole fleet has automatic transmission."
+        "q": "How do I book a car?",
+        "a": "Choose your dates and car on the website and send the booking. You get an email with your booking number right away and we confirm it. You can also book by WhatsApp or phone, 24/7."
       },
       {
         "q": "What's included in the price?",
-        "a": "Full insurance, unlimited mileage, delivery within Sarajevo Canton and roadside assistance."
+        "a": "Full insurance, unlimited mileage, free pick-up and return at Sarajevo Airport and our office, and 24/7 roadside assistance."
+      },
+      {
+        "q": "How much is the deposit?",
+        "a": "200 € for most cars and 300 € for the Audi Q7 and Mercedes E-Class. You leave it at pick-up and get it back at return. You can also rent with no deposit for 10 € per day."
       },
       {
         "q": "Can I cancel my booking?",
-        "a": "Yes, free of charge up to 24 hours before pickup. A message or a call is enough."
+        "a": "Yes, free of charge up to 24 hours before pick-up. A message or a call is enough."
       },
       {
-        "q": "Do you deliver to the airport?",
-        "a": "Yes, to Sarajevo Airport and any address in Sarajevo Canton, at no extra cost."
+        "q": "Do you deliver to my address?",
+        "a": "Yes. The airport and our office are free, and delivery to an address in Sarajevo costs the same as one taxi ride from the airport."
+      },
+      {
+        "q": "Can I drive outside Bosnia and Herzegovina?",
+        "a": "Yes, if you arrange it with us first. Crossing the border costs 15 € once, just tick it when you book."
+      },
+      {
+        "q": "Are all cars automatic?",
+        "a": "Yes. The whole fleet has an automatic gearbox."
       },
       {
         "q": "What if I have an accident?",
-        "a": "Call the police, then call us right away. Don't move the car until the police arrive, we'll guide you from there."
+        "a": "Call the police first, then us. Don't move the car until the police have made a report, we guide you from there."
       }
     ]
   },
@@ -551,5 +621,23 @@
     "body": "Get in touch and we'll check what's available right away.",
     "primary": "Browse cars",
     "secondary": "Contact"
+  },
+  "Guides": {
+    "eyebrow": "Guides",
+    "title": "Before you",
+    "accent": "hit the road.",
+    "lead": "Short guides for driving in Bosnia: fines, rules, the airport and day trips from Sarajevo.",
+    "all": "All guides",
+    "read": "Read the guide",
+    "minutes": "{n} min read",
+    "updated": "Updated {date}",
+    "pageTitle": "Driving guides for Bosnia",
+    "pageLead": "What a visitor should know before getting behind the wheel: rules, fines, airport pick-up and the best day trips from Sarajevo.",
+    "ctaTitle": "Ready to go?",
+    "ctaBody": "Choose a car and your dates. You get a confirmation with your booking number by email right away.",
+    "ctaButton": "Browse cars",
+    "whatsapp": "Ask us on WhatsApp",
+    "back": "All guides",
+    "more": "Read next"
   }
 }

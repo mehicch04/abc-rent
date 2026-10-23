@@ -5,10 +5,11 @@ import { getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 
 import { getCarBySlug, getSimilarCars } from "@/lib/car-detail";
-import { getActiveLocations } from "@/lib/fleet-data";
+import { getLocations } from "@/lib/fleet-data";
 import { getActiveExtras } from "@/lib/extras";
 import { getBookedExtras } from "@/lib/extras-availability";
-import { SITE_URL } from "@/lib/seo";
+import { SITE_URL, buildAlternates } from "@/lib/seo";
+import { carDescription } from "@/lib/car-copy";
 import { SITE } from "@/lib/site-config";
 import { CarDetail } from "@/components/fleet/CarDetail";
 
@@ -20,25 +21,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const car = await getCarBySlug(params.slug);
   if (!car) return { title: { absolute: SITE.name } };
 
-  const en = params.locale === "en";
-  const description =
-    (en ? car.descriptionEn : car.descriptionHr) ??
-    (en
-      ? `Rent a ${car.title} in Sarajevo with free airport delivery. ${car.passengers} seats, ${car.transmission.toLowerCase()}.`
-      : `Iznajmite ${car.title} u Sarajevu uz besplatnu dostavu na aerodrom. ${car.passengers} sjedišta, ${car.transmission.toLowerCase()}.`);
+  const t = await getTranslations({ locale: params.locale, namespace: "Fleet" });
+  const description = carDescription(car, params.locale, (k, v) => t(k as never, v as never));
 
   const url = `${SITE_URL}/${params.locale}/vozila/${car.slug}`;
 
   return {
     title: car.title,
     description: description.slice(0, 160),
-    alternates: {
-      canonical: url,
-      languages: {
-        bs: `${SITE_URL}/bs/vozila/${car.slug}`,
-        en: `${SITE_URL}/en/vozila/${car.slug}`,
-      },
-    },
+    alternates: buildAlternates(params.locale, `/vozila/${car.slug}`),
     openGraph: {
       title: car.title,
       description: description.slice(0, 160),
@@ -55,7 +46,7 @@ export default async function CarPage({ params }: Props) {
 
   const [similar, locations, extras, booked, t] = await Promise.all([
     getSimilarCars(car.slug, car.carClass),
-    getActiveLocations(),
+    getLocations(params.locale),
     getActiveExtras(),
     getBookedExtras().catch(() => []),
     getTranslations("Fleet"),
@@ -66,8 +57,7 @@ export default async function CarPage({ params }: Props) {
     "@type": "Product",
     name: car.title,
     image: car.images ?? [],
-    description:
-      (params.locale === "en" ? car.descriptionEn : car.descriptionHr) ?? car.title,
+    description: carDescription(car, params.locale, (k, v) => t(k as never, v as never)),
     brand: { "@type": "Brand", name: car.brand },
     offers: car.pricePerDay
       ? {
@@ -94,7 +84,7 @@ export default async function CarPage({ params }: Props) {
 
       <nav aria-label="breadcrumb" className="flex items-center gap-2 text-sm text-muted-foreground">
         <Link href={`/${params.locale}/vozila`} className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground">
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="h-4 w-4 rtl:-scale-x-100" />
           {t("backToFleet")}
         </Link>
         <span aria-hidden>/</span>

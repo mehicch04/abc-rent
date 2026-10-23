@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Car as CarIcon } from "lucide-react";
@@ -21,7 +22,7 @@ export function SimilarCars({
   const { currency } = useCurrency();
   const trackRef = useRef<HTMLUListElement>(null);
   const [atEnd, setAtEnd] = useState(false);
-  const en = locale === "en";
+  const t = useTranslations("Fleet");
 
   if (cars.length === 0) return null;
 
@@ -60,18 +61,18 @@ export function SimilarCars({
             <button
               type="button"
               onClick={() => move(-1)}
-              aria-label={en ? "Previous" : "Prethodno"}
+              aria-label={t("prev")}
               className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-brand hover:text-brand-strong"
             >
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="rtl:-scale-x-100 h-4 w-4" />
             </button>
             <button
               type="button"
               onClick={() => move(1)}
-              aria-label={en ? "Next" : "Sljedeće"}
+              aria-label={t("next")}
               className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-brand hover:text-brand-strong"
             >
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="rtl:-scale-x-100 h-4 w-4" />
             </button>
           </div>
         )}
@@ -80,6 +81,7 @@ export function SimilarCars({
       <ul
         ref={trackRef}
         onScroll={onScroll}
+        dir="ltr"
         className={
           scrollable
             ? // Snap points so a swipe always lands on a card, never between two.
@@ -122,9 +124,9 @@ export function SimilarCars({
                 </p>
                 {c.pricePerDay != null && (
                   <p className="mt-1 text-sm text-brand-strong">
-                    {formatPrice(c.pricePerDay, currency)}{" "}
+                    <bdi dir="ltr">{formatPrice(c.pricePerDay, currency)}</bdi>{" "}
                     <span className="text-xs text-muted-foreground">
-                      / {en ? "day" : "dan"}
+                      / {t("perDayWord")}
                     </span>
                   </p>
                 )}

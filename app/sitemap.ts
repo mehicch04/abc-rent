@@ -2,14 +2,17 @@ import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/seo";
 import { getAllCarSlugs } from "@/lib/car-detail";
+import { GUIDE_SLUGS } from "@/lib/guides";
 
 const PATHS = [
   "",
   "/vozila",
+  "/vodici",
+  ...GUIDE_SLUGS.map((s) => `/vodici/${s}`),
   "/o-nama",
   "/uvjeti-najma",
   "/kontakt",
-] as const;
+];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();

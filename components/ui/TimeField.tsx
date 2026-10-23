@@ -27,7 +27,7 @@ export function TimeField({
   className?: string;
 }) {
   const base =
-    "h-10 w-full min-w-0 appearance-none rounded-xl border border-border bg-background pl-3 pr-9 text-base text-foreground outline-none transition-colors focus:border-brand focus:ring-2 focus:ring-ring/30 sm:text-sm";
+    "h-10 w-full min-w-0 appearance-none rounded-xl border border-border bg-background ps-3 pe-9 text-base text-foreground outline-none transition-colors focus:border-brand focus:ring-2 focus:ring-ring/30 sm:text-sm";
 
   return (
     <div className="relative">
@@ -45,7 +45,7 @@ export function TimeField({
           </option>
         ))}
       </select>
-      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+      <ChevronDown className="pointer-events-none absolute end-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
     </div>
   );
 }

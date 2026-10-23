@@ -8,7 +8,7 @@ export const SITE = {
     { label: "Mob", value: "+387 62 160 942", href: "tel:+38762160942" },
   ],
   whatsapp: "38762652954",
-  hours: "Non-stop, 0 do 24h",
+  hours: "0 do 24h, svaki dan",
   open24: true,
   address: "Munira Gavrankapetanovića 108, 71210 Sarajevo",
   city: "Sarajevo",
@@ -31,6 +31,7 @@ export const SITE = {
 export const NAV_LINKS = [
   { href: "/", key: "home" },
   { href: "/vozila", key: "vehicles" },
+  { href: "/vodici", key: "guides" },
   { href: "/o-nama", key: "about" },
   { href: "/uvjeti-najma", key: "terms" },
   { href: "/kontakt", key: "contact" },
