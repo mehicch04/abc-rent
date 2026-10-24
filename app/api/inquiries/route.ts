@@ -10,6 +10,7 @@ import { sendOwnerNotification } from "@/lib/notify";
 import { dailyRate, rentalTotal as rentalTotalFor } from "@/lib/pricing";
 import { getCarBusy } from "@/lib/car-busy";
 import { overlapsBusy } from "@/lib/booking";
+import { availabilityFor, getBookedExtras } from "@/lib/extras-availability";
 
 export const runtime = "nodejs";
 
@@ -74,6 +75,14 @@ export async function POST(req: Request) {
       qty,
     };
   });
+
+  if (extraRows.length) {
+    const booked = await getBookedExtras().catch(() => []);
+    const free = availabilityFor(chosen, booked, new Date(d.pickupAt), new Date(d.returnAt));
+    if (extraRows.some((r) => r.qty > (free[r.extraId] ?? 0))) {
+      return NextResponse.json({ ok: false, error: "extras", free }, { status: 409 });
+    }
+  }
 
   const extrasForEmail = extraRows.map((r) => ({
     nameHr: r.nameHr,

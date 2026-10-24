@@ -729,6 +729,12 @@
     "waUs": "Message us on WhatsApp",
     "seoTitle": "Booking",
     "daysCount": "{days, plural, one {# day} other {# days}}",
-    "includedTitle": "Included in the price"
+    "includedTitle": "Included in the price",
+    "equipmentTitle": "Equipment and extras",
+    "equipmentLead": "Quantities show what is really free for your dates.",
+    "stock": "{free} of {total} free",
+    "stockAlways": "Available",
+    "stockNone": "None free for your dates",
+    "errExtras": "Some equipment was just booked by someone else. We updated the quantities, please check and send again."
   }
 }

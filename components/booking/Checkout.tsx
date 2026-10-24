@@ -5,14 +5,13 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import {
   ArrowRight,
-  Baby,
   Check,
   MessageSquareText,
   Loader2,
+  Package,
   Minus,
   Plus,
   ShieldCheck,
-  Sparkles,
   CarFront,
   TriangleAlert,
   UserRound,
@@ -72,9 +71,11 @@ function Choice({
   title,
   note,
   aside,
+  disabled,
 }: {
   name: string;
   checked: boolean;
+  disabled?: boolean;
   onChange: () => void;
   title: string;
   note?: string;
@@ -82,11 +83,11 @@ function Choice({
 }) {
   return (
     <label
-      className={`flex cursor-pointer items-start gap-3 rounded-2xl border p-4 transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring/40 ${
+      className={`flex items-start gap-3 rounded-2xl border p-4 transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring/40 ${
         checked ? "border-brand bg-brand/[0.06]" : "border-border hover:border-foreground/25"
-      }`}
+      } ${disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"}`}
     >
-      <input type="radio" name={name} checked={checked} onChange={onChange} className="peer sr-only" />
+      <input type="radio" name={name} checked={checked} disabled={disabled} onChange={onChange} className="peer sr-only" />
       <span
         aria-hidden
         className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border-2 transition-colors ${
@@ -145,15 +146,13 @@ export function Checkout({ car, pickupAt, returnAt, pickup, ret, extras, booked,
   const start = useMemo(() => new Date(pickupAt), [pickupAt]);
   const end = useMemo(() => new Date(returnAt), [returnAt]);
   const days = rentalDays(start, end);
-  const [status, setStatus] = useState<"idle" | "sending" | "error" | "booked">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "error" | "booked" | "extras">("idle");
   const conflict = overlapsBusy(busy, start, end) || status === "booked";
 
   const find = (n: string) => extras.find((e) => e.nameEn.trim().toLowerCase() === n);
   const noDeposit = find("no deposit");
   const driver = find("private driver");
-  const seats = ["child seat", "booster seat"].map(find).filter((e): e is ExtraItem => Boolean(e));
-  const special = new Set([noDeposit?.id, driver?.id, ...seats.map((e) => e.id)]);
-  const other = extras.filter((e) => !special.has(e.id) && e.pricing !== "INCLUDED");
+  const gear = extras.filter((e) => e.id !== noDeposit?.id && e.id !== driver?.id && e.pricing !== "INCLUDED");
 
   const free = useMemo(
     () =>
@@ -165,7 +164,9 @@ export function Checkout({ car, pickupAt, returnAt, pickup, ret, extras, booked,
       ),
     [extras, booked, start, end],
   );
-  const cap = (e: ExtraItem) => maxSelectable(e.maxQty, free[e.id] ?? e.totalStock);
+  const [live, setLive] = useState<Record<string, number>>({});
+  const freeOf = (e: ExtraItem) => Math.max(0, live[e.id] ?? free[e.id] ?? e.totalStock);
+  const cap = (e: ExtraItem) => maxSelectable(e.maxQty, freeOf(e));
 
   const [form, setForm] = useState<Record<Field, string>>({ firstName: "", lastName: "", phone: "", email: "", flight: "", note: "" });
   const [errors, setErrors] = useState<Partial<Record<Field, string>>>({});
@@ -182,7 +183,7 @@ export function Checkout({ car, pickupAt, returnAt, pickup, ret, extras, booked,
   const chosen = [
     ...(skipDeposit && noDeposit ? [{ e: noDeposit, q: 1 }] : []),
     ...(withDriver && driver ? [{ e: driver, q: 1 }] : []),
-    ...[...seats, ...other].filter((e) => (qty[e.id] ?? 0) > 0).map((e) => ({ e, q: qty[e.id] })),
+    ...gear.filter((e) => (qty[e.id] ?? 0) > 0).map((e) => ({ e, q: qty[e.id] })),
   ];
 
   const rental = (car.pricePerDay ?? 0) * days;
@@ -197,6 +198,7 @@ export function Checkout({ car, pickupAt, returnAt, pickup, ret, extras, booked,
 
   useEffect(() => {
     if (done || status === "booked") top.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (status === "extras") document.getElementById("co-gear")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [done, status]);
 
   function validate() {
@@ -239,6 +241,14 @@ export function Checkout({ car, pickupAt, returnAt, pickup, ret, extras, booked,
       });
       const data = await res.json().catch(() => ({}));
       if (data.error === "booked") return setStatus("booked");
+      if (data.error === "extras" && data.free) {
+        const next: Record<string, number> = data.free;
+        setLive((l) => ({ ...l, ...next }));
+        setQty((q) => Object.fromEntries(Object.entries(q).map(([id, n]) => [id, Math.min(n, next[id] ?? n)])));
+        if (driver && next[driver.id] === 0) setWithDriver(false);
+        if (noDeposit && next[noDeposit.id] === 0) setSkipDeposit(false);
+        return setStatus("extras");
+      }
       if (!res.ok || !data.ok) throw new Error(data.error ?? "failed");
       setDone({ reference: data.reference });
     } catch {
@@ -407,83 +417,108 @@ export function Checkout({ car, pickupAt, returnAt, pickup, ret, extras, booked,
               </Card>
             )}
 
-            {seats.length > 0 && (
-              <Card title={t("childTitle")} icon={<Baby className="h-4 w-4" />}>
-                <ul className="divide-y divide-border">
-                  {seats.map((e) => {
-                    const max = cap(e);
+            {gear.length > 0 && (
+              <div id="co-gear" className="scroll-mt-24">
+              <Card title={t("equipmentTitle")} icon={<Package className="h-4 w-4" />}>
+                <p className="-mt-2 mb-4 text-[13px] text-muted-foreground">{t("equipmentLead")}</p>
+                {status === "extras" && (
+                  <p role="alert" className="mb-4 flex items-start gap-2 rounded-2xl bg-amber-400/15 px-4 py-3 text-sm font-medium text-amber-800 dark:text-amber-200">
+                    <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0" />
+                    {t("errExtras")}
+                  </p>
+                )}
+                <ul className="grid gap-2.5">
+                  {gear.map((e) => {
                     const x = extraText(e, locale);
+                    const max = cap(e);
+                    const left = freeOf(e);
+                    const v = qty[e.id] ?? 0;
+                    const counted = e.totalStock < 20;
+                    const pct = counted ? Math.round((left / Math.max(1, e.totalStock)) * 100) : 100;
                     return (
-                      <li key={e.id} className="flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0">
-                        <span className="min-w-0">
-                          <span className="block text-sm font-semibold text-foreground">{x.name}</span>
-                          <span className="block text-[13px] text-muted-foreground">
-                            {unit(e)}
-                            {max === 0 ? ` · ${te("unavailable")}` : x.note ? ` · ${x.note}` : ""}
+                      <li
+                        key={e.id}
+                        className={`rounded-2xl border p-4 transition-colors ${
+                          v > 0 ? "border-brand bg-brand/[0.06]" : "border-border"
+                        } ${left === 0 ? "opacity-60" : ""}`}
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="min-w-0">
+                            <p className="text-sm font-semibold text-foreground">{x.name}</p>
+                            {x.note && <p className="mt-0.5 text-[13px] leading-snug text-muted-foreground">{x.note}</p>}
+                            <p className="mt-1 text-[13px] font-medium text-foreground">{unit(e)}</p>
+                          </div>
+                          {e.maxQty > 1 ? (
+                            <Stepper name={x.name} value={v} max={max} onChange={(n) => setQty((q) => ({ ...q, [e.id]: n }))} />
+                          ) : (
+                            <label className="relative mt-0.5 inline-flex shrink-0 cursor-pointer items-center">
+                              <input
+                                type="checkbox"
+                                checked={v > 0}
+                                disabled={max === 0}
+                                onChange={(ev) => setQty((q) => ({ ...q, [e.id]: ev.target.checked ? 1 : 0 }))}
+                                aria-label={x.name}
+                                className="peer sr-only"
+                              />
+                              <span
+                                aria-hidden
+                                className="relative h-6 w-11 rounded-full bg-foreground/15 transition-colors after:absolute after:start-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:bg-brand peer-checked:after:translate-x-5 peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-disabled:opacity-40 rtl:peer-checked:after:-translate-x-5"
+                              />
+                            </label>
+                          )}
+                        </div>
+                        <div className="mt-3 flex items-center gap-3">
+                          {counted && (
+                            <span aria-hidden className="h-1.5 flex-1 overflow-hidden rounded-full bg-foreground/10">
+                              <span
+                                className={`block h-full rounded-full ${left === 0 ? "bg-rose-500" : pct <= 34 ? "bg-amber-500" : "bg-emerald-500"}`}
+                                style={{ width: `${pct}%` }}
+                              />
+                            </span>
+                          )}
+                          <span
+                            className={`shrink-0 text-xs font-medium ${
+                              left === 0
+                                ? "text-rose-600 dark:text-rose-300"
+                                : counted && pct <= 34
+                                  ? "text-amber-700 dark:text-amber-300"
+                                  : "text-emerald-700 dark:text-emerald-300"
+                            }`}
+                          >
+                            {left === 0 ? t("stockNone") : counted ? t("stock", { free: left, total: e.totalStock }) : t("stockAlways")}
                           </span>
-                        </span>
-                        <Stepper name={x.name} value={qty[e.id] ?? 0} max={max} onChange={(v) => setQty((q) => ({ ...q, [e.id]: v }))} />
+                        </div>
                       </li>
                     );
                   })}
                 </ul>
               </Card>
+              </div>
             )}
 
-            {driver && cap(driver) > 0 && (
+            {driver && (
               <Card title={t("driverTitle")} icon={<CarFront className="h-4 w-4" />}>
                 <div className="grid gap-2.5">
                   <Choice name="driver" checked={!withDriver} onChange={() => setWithDriver(false)} title={t("driverSelf")} note={t("driverSelfNote")} />
                   <Choice
                     name="driver"
                     checked={withDriver}
+                    disabled={cap(driver) === 0}
                     onChange={() => setWithDriver(true)}
                     title={extraText(driver, locale).name}
-                    note={extraText(driver, locale).note ?? undefined}
+                    note={[
+                      extraText(driver, locale).note,
+                      cap(driver) === 0
+                        ? t("stockNone")
+                        : driver.totalStock < 20
+                          ? t("stock", { free: freeOf(driver), total: driver.totalStock })
+                          : null,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
                     aside={<>+{unit(driver)}</>}
                   />
                 </div>
-              </Card>
-            )}
-
-            {other.length > 0 && (
-              <Card title={t("otherTitle")} icon={<Sparkles className="h-4 w-4" />}>
-                <ul className="divide-y divide-border">
-                  {other.map((e) => {
-                    const max = cap(e);
-                    const x = extraText(e, locale);
-                    const v = qty[e.id] ?? 0;
-                    return (
-                      <li key={e.id} className="flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0">
-                        <span className="min-w-0">
-                          <span className="block text-sm font-semibold text-foreground">{x.name}</span>
-                          <span className="block text-[13px] text-muted-foreground">
-                            {unit(e)}
-                            {max === 0 ? ` · ${te("unavailable")}` : x.note ? ` · ${x.note}` : ""}
-                          </span>
-                        </span>
-                        {e.maxQty > 1 ? (
-                          <Stepper name={x.name} value={v} max={max} onChange={(n) => setQty((q) => ({ ...q, [e.id]: n }))} />
-                        ) : (
-                          <label className="relative inline-flex shrink-0 cursor-pointer items-center">
-                            <input
-                              type="checkbox"
-                              checked={v > 0}
-                              disabled={max === 0}
-                              onChange={(ev) => setQty((q) => ({ ...q, [e.id]: ev.target.checked ? 1 : 0 }))}
-                              aria-label={x.name}
-                              className="peer sr-only"
-                            />
-                            <span
-                              aria-hidden
-                              className="relative h-6 w-11 rounded-full bg-foreground/15 transition-colors after:absolute after:start-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:bg-brand peer-checked:after:translate-x-5 peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-disabled:opacity-40 rtl:peer-checked:after:-translate-x-5"
-                            />
-                          </label>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
               </Card>
             )}
 

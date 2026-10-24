@@ -729,6 +729,12 @@
     "waUs": "Pišite nam na WhatsApp",
     "seoTitle": "Rezervacija",
     "daysCount": "{days, plural, one {# dan} few {# dana} other {# dana}}",
-    "includedTitle": "U cijenu uključeno"
+    "includedTitle": "U cijenu uključeno",
+    "equipmentTitle": "Oprema i dodaci",
+    "equipmentLead": "Količine pokazuju šta je stvarno slobodno za vaše datume.",
+    "stock": "Slobodno {free} od {total}",
+    "stockAlways": "Dostupno",
+    "stockNone": "Nema slobodnih za vaše datume",
+    "errExtras": "Dio opreme je u međuvremenu rezervisan. Uskladili smo količine, provjerite i pošaljite ponovo."
   }
 }

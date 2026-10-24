@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { busyCarsFor, getCarOccupancy } from "@/lib/extras-availability";
+import { availabilityFor, busyCarsFor, getBookedExtras, getCarOccupancy } from "@/lib/extras-availability";
 import { ADMIN_COOKIE, tokenValid } from "@/lib/admin-auth";
 import { sendReservationDecisionEmail } from "@/lib/email";
 
@@ -99,6 +99,28 @@ export async function confirmInquiry(formData: FormData) {
       ]);
       if (conflictsRes > 0 || conflictsBlk > 0) {
         return { msg: "conflict" as const, email: null };
+      }
+    }
+
+    const lines = await tx.inquiryExtra.findMany({
+      where: { inquiryId: inquiry.id, extraId: { not: null } },
+      select: { extraId: true, qty: true, extra: { select: { totalStock: true } } },
+    });
+    const need = new Map<string, { qty: number; totalStock: number }>();
+    for (const l of lines) {
+      if (!l.extraId || !l.extra) continue;
+      const cur = need.get(l.extraId);
+      need.set(l.extraId, { qty: (cur?.qty ?? 0) + l.qty, totalStock: l.extra.totalStock });
+    }
+    if (need.size) {
+      const free = availabilityFor(
+        [...need].map(([id, v]) => ({ id, totalStock: v.totalStock })),
+        await getBookedExtras(),
+        inquiry.pickupAt,
+        inquiry.returnAt,
+      );
+      if ([...need].some(([id, v]) => v.qty > (free[id] ?? 0))) {
+        return { msg: "extrasconfirm" as const, email: null };
       }
     }
 

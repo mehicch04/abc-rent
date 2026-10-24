@@ -729,6 +729,12 @@
     "waUs": "راسلنا على واتساب",
     "seoTitle": "الحجز",
     "daysCount": "{days, plural, one {يوم واحد} two {يومان} few {# أيام} many {# يوماً} other {# يوم}}",
-    "includedTitle": "مشمول في السعر"
+    "includedTitle": "مشمول في السعر",
+    "equipmentTitle": "المعدات والإضافات",
+    "equipmentLead": "الكميات تعكس المتوفر فعلاً في تواريخك.",
+    "stock": "متوفر {free} من {total}",
+    "stockAlways": "متوفر",
+    "stockNone": "غير متوفر في تواريخك",
+    "errExtras": "تم حجز جزء من المعدات للتو. عدّلنا الكميات، يرجى المراجعة والإرسال مجدداً."
   }
 }

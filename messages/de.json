@@ -729,6 +729,12 @@
     "waUs": "Per WhatsApp schreiben",
     "seoTitle": "Buchung",
     "daysCount": "{days, plural, one {# Tag} other {# Tage}}",
-    "includedTitle": "Im Preis inbegriffen"
+    "includedTitle": "Im Preis inbegriffen",
+    "equipmentTitle": "Ausstattung und Extras",
+    "equipmentLead": "Die Mengen zeigen, was für Ihre Daten wirklich frei ist.",
+    "stock": "{free} von {total} frei",
+    "stockAlways": "Verfügbar",
+    "stockNone": "Für Ihre Daten nichts frei",
+    "errExtras": "Ein Teil der Ausstattung wurde gerade gebucht. Wir haben die Mengen angepasst, bitte prüfen und erneut senden."
   }
 }

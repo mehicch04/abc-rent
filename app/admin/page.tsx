@@ -119,6 +119,10 @@ const MESSAGES: Record<string, { text: string; tone: "ok" | "warn" | "err" }> =
       text: "Nije moguće potvrditi: vozilo je već zauzeto u tom periodu (potvrđena rezervacija ili blokada).",
       tone: "err",
     },
+    extrasconfirm: {
+      text: "Nije moguće potvrditi: dio opreme iz ove rezervacije više nije slobodan u tom periodu. Otvorite rezervaciju, smanjite ili uklonite opremu, pa potvrdite.",
+      tone: "err",
+    },
     blocked: {
       text: "Blokada je dodana — vozilo je nedostupno u tom periodu.",
       tone: "ok",
