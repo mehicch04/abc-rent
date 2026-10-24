@@ -1,23 +1,14 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 import { ArrowUpRight, Cog, Infinity as InfinityIcon, Plane, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { CarListItem } from "@/lib/types";
-import type { ExtraItem } from "@/lib/extras";
-import type { Booked } from "@/lib/extras-availability";
 import type { CarCategory } from "@/lib/car-categories";
 import { CarCard } from "@/components/fleet/CarCard";
 import { Price } from "@/components/currency/Price";
 import { PillLink } from "@/components/ui/PillLink";
 import { Heading } from "./Heading";
-
-const InquiryModal = dynamic(
-  () => import("@/components/reservation/InquiryModal").then((m) => m.InquiryModal),
-  { ssr: false },
-);
 
 export type FleetType = { id: CarCategory; count: number; from: number | null; image: string | null };
 
@@ -27,29 +18,17 @@ export function FeaturedFleet({
   cars,
   total,
   types,
-  locations,
-  extras,
-  bookedExtras,
 }: {
   cars: CarListItem[];
   total: number;
   types: FleetType[];
-  locations: { id: string; name: string }[];
-  extras: ExtraItem[];
-  bookedExtras: Booked[];
 }) {
   const t = useTranslations("HomeFleet");
   const tf = useTranslations("Fleet");
-  const [selected, setSelected] = useState<CarListItem | null>(null);
-  const [modalReady, setModalReady] = useState(false);
   const perks = t.raw("included") as { title: string; body: string }[];
   const [lead, ...rest] = cars;
   const prices = types.map((x) => x.from).filter((x): x is number => x != null);
   const minPrice = prices.length ? Math.min(...prices) : null;
-
-  useEffect(() => {
-    if (selected) setModalReady(true);
-  }, [selected]);
 
   return (
     <section className="bg-surface-muted py-20 sm:py-28">
@@ -67,7 +46,6 @@ export function FeaturedFleet({
               car={lead}
               variant="feature"
               badge={tf("popular")}
-              onSelect={setSelected}
               imageSizes="(max-width: 1023px) 92vw, 600px"
             />
             {rest.length > 0 && (
@@ -77,8 +55,7 @@ export function FeaturedFleet({
                     key={car.id}
                     car={car}
                     variant="row"
-                    onSelect={setSelected}
-                    imageSizes="(max-width: 639px) 92vw, 240px"
+                          imageSizes="(max-width: 639px) 92vw, 240px"
                   />
                 ))}
               </div>
@@ -150,16 +127,6 @@ export function FeaturedFleet({
         </Link>
       </div>
 
-      {(selected || modalReady) && (
-        <InquiryModal
-          car={selected}
-          search={{}}
-          locations={locations}
-          extras={extras}
-          bookedExtras={bookedExtras}
-          onClose={() => setSelected(null)}
-        />
-      )}
     </section>
   );
 }

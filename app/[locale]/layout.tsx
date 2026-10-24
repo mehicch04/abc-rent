@@ -61,6 +61,7 @@ const CLIENT_NAMESPACES = [
   "Search",
   "Services",
   "Guides",
+  "Booking",
   "Visit",
 ] as const;
 

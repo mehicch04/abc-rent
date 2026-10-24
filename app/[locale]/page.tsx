@@ -8,8 +8,6 @@ import { Hero } from "@/components/home/Hero";
 import { Features } from "@/components/home/Features";
 import { FeaturedFleet, type FleetType } from "@/components/home/FeaturedFleet";
 import { CAR_CATEGORIES, carCategories } from "@/lib/car-categories";
-import { getActiveExtras } from "@/lib/extras";
-import { getBookedExtras } from "@/lib/extras-availability";
 import { Services } from "@/components/home/Services";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { Faq } from "@/components/home/Faq";
@@ -43,11 +41,9 @@ export default async function HomePage({
 }) {
   setRequestLocale(locale);
 
-  const [cars, locations, extras, bookedExtras, reviews] = await Promise.all([
+  const [cars, locations, reviews] = await Promise.all([
     getBrowseCars().catch(() => [] as CarListItem[]),
     getLocations(locale).catch(() => []),
-    getActiveExtras().catch(() => []),
-    getBookedExtras().catch(() => []),
     getReviews(locale),
   ]);
 
@@ -81,9 +77,6 @@ export default async function HomePage({
         cars={featured}
         total={cars.length}
         types={types}
-        locations={locations.map((l) => ({ id: l.id, name: l.name }))}
-        extras={extras}
-        bookedExtras={bookedExtras}
       />
       <Services />
       <HowItWorks />

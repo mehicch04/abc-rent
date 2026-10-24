@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { bookingHref } from "@/lib/booking";
 import { ArrowRight, ArrowUpRight, Briefcase, Cog, Fuel, ShieldCheck, Users } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import type { AppLocale } from "@/i18n/routing";
@@ -17,17 +18,25 @@ type Variant = "default" | "feature" | "row";
 type Props = {
   car: CarListItem;
   search?: SearchContext;
-  onSelect?: (car: CarListItem) => void;
   priority?: boolean;
   imageSizes?: string;
   variant?: Variant;
   badge?: string;
 };
 
-export function CarCard({ car, search, onSelect, priority = false, imageSizes, variant = "default", badge }: Props) {
+export function CarCard({ car, search, priority = false, imageSizes, variant = "default", badge }: Props) {
   const locale = useLocale() as AppLocale;
   const t = useTranslations("Fleet");
   const href = `/${locale}/vozila/${car.slug}`;
+  const bookHref =
+    search?.pickupAt && search?.returnAt
+      ? `/${locale}${bookingHref(car.slug, {
+          pickupLocationId: search.pickupLocationId,
+          returnLocationId: search.returnLocationId,
+          pickupAt: search.pickupAt,
+          returnAt: search.returnAt,
+        })}`
+      : `${href}#rezervacija`;
   const image = car.images?.[0];
   const cat = carCategories(car)[0];
   const feature = variant === "feature";
@@ -158,16 +167,15 @@ export function CarCard({ car, search, onSelect, priority = false, imageSizes, v
               >
                 <WhatsAppIcon className="h-5 w-5" />
               </a>
-              <button
-                type="button"
-                onClick={() => onSelect?.(car)}
+              <Link
+                href={bookHref}
                 className={`group/btn inline-flex h-11 items-center gap-2 rounded-full bg-brand ps-4 pe-1.5 ${row ? "flex-1 justify-between" : ""} text-sm font-medium text-white transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2`}
               >
                 {t("book")}
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-brand transition-transform duration-300 group-hover/btn:translate-x-0.5">
                   <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
                 </span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>

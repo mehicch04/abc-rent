@@ -4,26 +4,16 @@ import { useMemo, useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { ChevronDown, X } from "lucide-react";
 import { CarCard } from "./CarCard";
-import dynamic from "next/dynamic";
-
-const InquiryModal = dynamic(
-  () => import("@/components/reservation/InquiryModal").then((m) => m.InquiryModal),
-  { ssr: false },
-);
 import {
   CAR_CATEGORIES,
   carCategories,
   type CarCategory,
 } from "@/lib/car-categories";
 import type { CarListItem, SearchContext } from "@/lib/types";
-import type { ExtraItem } from "@/lib/extras";
-import type { Booked } from "@/lib/extras-availability";
 
 type Props = {
   cars: CarListItem[];
   search?: SearchContext;
-  /** Pickup/return offices offered in the inquiry modal. */
-  locations?: { id: string; name: string }[];
   /** Hide the type-filter bar (e.g. on the homepage featured section). */
   showFilters?: boolean;
   /** Eagerly load the first few car photos (use on the dedicated fleet page). */
@@ -31,9 +21,6 @@ type Props = {
   /** Override the image `sizes` (e.g. smaller on the homepage teaser grid). */
   imageSizes?: string;
   initialType?: CarCategory;
-  /** Optional equipment offered in the inquiry modal. */
-  extras?: ExtraItem[];
-  bookedExtras?: Booked[];
 };
 
 function Select({
@@ -82,20 +69,12 @@ export type SortKey =
 export function FleetGrid({
   cars,
   search,
-  locations,
   showFilters = true,
   eagerFirstImages = false,
   imageSizes,
-  extras,
-  bookedExtras,
   initialType,
 }: Props) {
   const t = useTranslations("Fleet");
-  const [selected, setSelected] = useState<CarListItem | null>(null);
-  const [modalReady, setModalReady] = useState(false);
-  useEffect(() => {
-    if (selected) setModalReady(true);
-  }, [selected]);
   const [active, setActive] = useState<CarCategory | "ALL">(initialType ?? "ALL");
   const [brand, setBrand] = useState<string>("ALL");
   const [sort, setSort] = useState<SortKey>("RECOMMENDED");
@@ -282,7 +261,6 @@ export function FleetGrid({
               search={search}
               priority={eagerFirstImages && i < 3}
               imageSizes={imageSizes}
-              onSelect={setSelected}
             />
           ))}
         </div>
@@ -292,16 +270,6 @@ export function FleetGrid({
         </p>
       )}
 
-      {(selected || modalReady) && (
-      <InquiryModal
-        car={selected}
-        search={search}
-        locations={locations}
-        extras={extras}
-        bookedExtras={bookedExtras}
-        onClose={() => setSelected(null)}
-      />
-      )}
     </>
   );
 }

@@ -8,6 +8,8 @@ import { rentalDays, extraLineTotal } from "@/lib/extras";
 import { withUniqueReference, REF_PREFIX } from "@/lib/reference";
 import { sendOwnerNotification } from "@/lib/notify";
 import { dailyRate, rentalTotal as rentalTotalFor } from "@/lib/pricing";
+import { getCarBusy } from "@/lib/car-busy";
+import { overlapsBusy } from "@/lib/booking";
 
 export const runtime = "nodejs";
 
@@ -45,6 +47,10 @@ export async function POST(req: Request) {
       ? prisma.location.findUnique({ where: { id: d.returnLocationId } })
       : null,
   ]);
+
+  if (car && overlapsBusy(await getCarBusy(car.id), new Date(d.pickupAt), new Date(d.returnAt))) {
+    return NextResponse.json({ ok: false, error: "booked" }, { status: 409 });
+  }
 
   const wanted = d.extras ?? [];
   const chosen = wanted.length
