@@ -72,6 +72,11 @@
   html[lang="ar"] .uppercase {
     text-transform: none;
   }
+  html[lang="ar"] .text-\[10px\],
+  html[lang="ar"] .text-\[10\.5px\],
+  html[lang="ar"] .text-\[11px\] {
+    font-size: 0.75rem;
+  }
 
   html.theme-transition,
   html.theme-transition *,

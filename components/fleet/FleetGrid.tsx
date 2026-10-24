@@ -1,179 +1,193 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
-import { ChevronDown, X } from "lucide-react";
-import { CarCard } from "./CarCard";
+import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, m as motion } from "framer-motion";
+import { useLocale, useTranslations } from "next-intl";
 import {
-  CAR_CATEGORIES,
-  carCategories,
-  type CarCategory,
-} from "@/lib/car-categories";
+  Bus,
+  Car,
+  CarFront,
+  CarTaxiFront,
+  ChevronDown,
+  Gauge,
+  Gem,
+  Package,
+  SlidersHorizontal,
+  Sun,
+  Users,
+  X,
+} from "lucide-react";
+import { FleetCard } from "./FleetCard";
+import { EMPTY, FilterPanel, type Facet, type Group, type Option, type Selection } from "./FleetFilters";
+import { CAR_CATEGORIES, carCategories, type CarCategory } from "@/lib/car-categories";
+import { FUEL_LABELS, TRANSMISSION_LABELS, label } from "@/lib/car-labels";
+import { currencySymbol, displayAmount } from "@/lib/currency";
+import { useCurrency } from "@/components/currency/CurrencyProvider";
+import { rentalDays } from "@/lib/extras";
+import type { AppLocale } from "@/i18n/routing";
 import type { CarListItem, SearchContext } from "@/lib/types";
 
 type Props = {
   cars: CarListItem[];
   search?: SearchContext;
-  /** Hide the type-filter bar (e.g. on the homepage featured section). */
-  showFilters?: boolean;
-  /** Eagerly load the first few car photos (use on the dedicated fleet page). */
   eagerFirstImages?: boolean;
-  /** Override the image `sizes` (e.g. smaller on the homepage teaser grid). */
   imageSizes?: string;
   initialType?: CarCategory;
 };
 
-function Select({
-  id,
-  label,
-  value,
-  onChange,
-  options,
-}: {
-  id: string;
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  options: { value: string; label: string }[];
-}) {
-  return (
-    <div className="relative min-w-0 flex-1 sm:w-52 sm:flex-none">
-      <label htmlFor={id} className="sr-only">
-        {label}
-      </label>
-      <select
-        id={id}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="h-11 w-full appearance-none truncate rounded-full border border-border bg-surface ps-4 pe-10 text-sm text-foreground outline-none transition-colors hover:border-foreground/30 focus:border-brand"
-      >
-        {options.map((o) => (
-          <option key={o.value} value={o.value}>
-            {o.label}
-          </option>
-        ))}
-      </select>
-      <ChevronDown className="pointer-events-none absolute end-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-    </div>
-  );
-}
+export type SortKey = "RECOMMENDED" | "PRICE_ASC" | "PRICE_DESC" | "YEAR_DESC" | "NAME_ASC" | "NAME_DESC";
 
-export type SortKey =
-  | "RECOMMENDED"
-  | "PRICE_ASC"
-  | "PRICE_DESC"
-  | "YEAR_DESC"
-  | "NAME_ASC"
-  | "NAME_DESC";
+const ICONS: Record<CarCategory, Option["icon"]> = {
+  LIMUZINA: Car,
+  LUXURY: Gem,
+  SUV: CarFront,
+  COUPE: Gauge,
+  COMPACT: CarTaxiFront,
+  KARAVAN: Package,
+  CABRIO: Sun,
+  TRANSPORT: Users,
+  MINIBUS: Bus,
+};
 
-export function FleetGrid({
-  cars,
-  search,
-  showFilters = true,
-  eagerFirstImages = false,
-  imageSizes,
-  initialType,
-}: Props) {
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, initialType }: Props) {
   const t = useTranslations("Fleet");
-  const [active, setActive] = useState<CarCategory | "ALL">(initialType ?? "ALL");
-  const [brand, setBrand] = useState<string>("ALL");
+  const locale = useLocale() as AppLocale;
+  const { currency } = useCurrency();
+  const [sel, setSel] = useState<Selection>(() => ({ ...EMPTY, cat: initialType ? [initialType] : [] }));
   const [sort, setSort] = useState<SortKey>("RECOMMENDED");
+  const [drawer, setDrawer] = useState(false);
 
-  // Effective categories per car (explicit, else derived from carClass).
-  const carCats = useMemo(
-    () => new Map(cars.map((c) => [c.id, carCategories(c)])),
-    [cars],
-  );
+  const steps = currency === "EUR" ? [50, 100, 150] : [100, 200, 300];
+  const money = (v: number) => `⁦${v} ${currencySymbol(currency)}⁩`;
 
-  const counts = useMemo(() => {
-    const m = new Map<CarCategory, number>();
-    for (const c of cars) {
-      if (brand !== "ALL" && c.brand !== brand) continue;
-      for (const cat of carCats.get(c.id) ?? []) {
-        m.set(cat, (m.get(cat) ?? 0) + 1);
-      }
-    }
-    return m;
-  }, [cars, carCats, brand]);
+  const values = useMemo(() => {
+    const bucket = (p: number | null) => {
+      if (p == null) return [];
+      const v = displayAmount(p, currency);
+      const i = steps.findIndex((s) => v <= s);
+      return [String(i === -1 ? steps.length : i)];
+    };
+    return new Map(
+      cars.map((c) => [
+        c.id,
+        {
+          price: bucket(c.pricePerDay),
+          cat: carCategories(c) as string[],
+          gear: [c.transmission as string],
+          fuel: [c.fuelType as string],
+          seats: [String(c.passengers)],
+          brand: c.brand ? [c.brand.trim()] : [],
+        } satisfies Record<Facet, string[]>,
+      ]),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cars, currency]);
 
-  // Only categories that still have cars under the current brand.
-  const typeOptions = useMemo(
-    () =>
-      CAR_CATEGORIES.filter((cat) => (counts.get(cat) ?? 0) > 0).map((cat) => ({
-        id: cat,
-        label: t(`categories.${cat}`),
-        count: counts.get(cat) ?? 0,
-      })),
-    [counts, t],
-  );
-
-  // Brands that still have cars in the chosen category, alphabetical.
-  const brands = useMemo(() => {
-    const m = new Map<string, number>();
-    for (const c of cars) {
-      if (active !== "ALL" && !carCats.get(c.id)?.includes(active)) continue;
-      const b = c.brand?.trim();
-      if (b) m.set(b, (m.get(b) ?? 0) + 1);
-    }
-    return [...m.entries()].sort((a, b) => a[0].localeCompare(b[0], "bs"));
-  }, [cars, carCats, active]);
-
-  const totalForBrands = useMemo(
-    () => brands.reduce((a, [, n]) => a + n, 0),
-    [brands],
-  );
-
-  useEffect(() => {
-    if (brand !== "ALL" && !brands.some(([b]) => b === brand)) {
-      setBrand("ALL");
-    }
-  }, [brands, brand]);
-
-  useEffect(() => {
-    if (active !== "ALL" && (counts.get(active) ?? 0) === 0) {
-      setActive("ALL");
-    }
-  }, [counts, active]);
-
-  const allCount = useMemo(
-    () => cars.filter((c) => brand === "ALL" || c.brand === brand).length,
-    [cars, brand],
-  );
-
-  const filtersActive = active !== "ALL" || brand !== "ALL";
-  const clearFilters = () => {
-    setActive("ALL");
-    setBrand("ALL");
+  const matches = (c: CarListItem, except?: Facet) => {
+    const v = values.get(c.id)!;
+    return (Object.keys(sel) as Facet[]).every((f) => f === except || sel[f].length === 0 || v[f].some((x) => sel[f].includes(x)));
   };
 
-  const visibleCars = useMemo(() => {
-    const filtered = cars.filter((c) => {
-      const byType = active === "ALL" || carCats.get(c.id)?.includes(active);
-      const byBrand = brand === "ALL" || c.brand === brand;
-      return byType && byBrand;
-    });
+  const count = (f: Facet, value: string) => cars.filter((c) => matches(c, f) && values.get(c.id)![f].includes(value)).length;
+  const present = (f: Facet) => {
+    const s = new Set<string>();
+    for (const c of cars) values.get(c.id)![f].forEach((x) => s.add(x));
+    return s;
+  };
 
-    switch (sort) {
-      case "PRICE_ASC":
-        // Cars without a price go last.
-        return filtered.sort(
-          (a, b) => (a.pricePerDay ?? Infinity) - (b.pricePerDay ?? Infinity),
-        );
-      case "PRICE_DESC":
-        return filtered.sort(
-          (a, b) => (b.pricePerDay ?? -Infinity) - (a.pricePerDay ?? -Infinity),
-        );
-      case "YEAR_DESC":
-        return filtered.sort((a, b) => b.year - a.year);
-      case "NAME_ASC":
-        return filtered.sort((a, b) => a.title.localeCompare(b.title, "bs"));
-      case "NAME_DESC":
-        return filtered.sort((a, b) => b.title.localeCompare(a.title, "bs"));
-      case "RECOMMENDED":
-      default:
-        return filtered; // owner's order from the admin (sortOrder)
-    }
-  }, [active, brand, sort, cars, carCats]);
+  const groups: Group[] = useMemo(() => {
+    const p = present("price");
+    const priceLabels = [
+      t("priceUpTo", { b: money(steps[0]) }),
+      t("priceBetween", { a: money(steps[0]), b: money(steps[1]) }),
+      t("priceBetween", { a: money(steps[1]), b: money(steps[2]) }),
+      t("priceOver", { a: money(steps[2]) }),
+    ];
+    const cats = present("cat");
+    const gears = present("gear");
+    const fuels = present("fuel");
+    const seats = [...present("seats")].sort((a, b) => Number(a) - Number(b));
+    const brands = [...present("brand")].sort((a, b) => a.localeCompare(b, "bs"));
+    return [
+      {
+        id: "cat",
+        kind: "list",
+        title: t("fCategory"),
+        options: CAR_CATEGORIES.filter((c) => cats.has(c)).map((c) => ({ value: c, label: t(`categories.${c}`), count: count("cat", c), icon: ICONS[c] })),
+      },
+      {
+        id: "price",
+        kind: "check",
+        title: t("fPrice"),
+        options: priceLabels.map((l, i) => ({ value: String(i), label: l, count: count("price", String(i)) })).filter((o) => p.has(o.value)),
+      },
+      {
+        id: "gear",
+        kind: "check",
+        title: t("fGearbox"),
+        options: (["AUTOMATIC", "MANUAL"] as const).filter((g) => gears.has(g)).map((g) => ({ value: g, label: label(TRANSMISSION_LABELS[g], locale), count: count("gear", g) })),
+      },
+      {
+        id: "fuel",
+        kind: "check",
+        title: t("fFuel"),
+        options: (Object.keys(FUEL_LABELS) as (keyof typeof FUEL_LABELS)[])
+          .filter((f) => fuels.has(f))
+          .map((f) => ({ value: f, label: label(FUEL_LABELS[f], locale), count: count("fuel", f) })),
+      },
+      {
+        id: "seats",
+        kind: "check",
+        title: t("fSeats"),
+        options: seats.map((n) => ({ value: n, label: t("seatsN", { n }), count: count("seats", n) })),
+      },
+      {
+        id: "brand",
+        kind: "check",
+        title: t("fBrand"),
+        options: brands.map((b) => ({ value: b, label: b, count: count("brand", b) })),
+      },
+    ];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cars, values, sel, currency, locale, t]);
+
+  const toggle = (f: Facet, v: string) =>
+    setSel((s) => ({ ...s, [f]: s[f].includes(v) ? s[f].filter((x) => x !== v) : [...s[f], v] }));
+  const clear = () => setSel(EMPTY);
+
+  const visible = useMemo(() => {
+    const list = cars.filter((c) => matches(c));
+    const by = {
+      PRICE_ASC: (a: CarListItem, b: CarListItem) => (a.pricePerDay ?? Infinity) - (b.pricePerDay ?? Infinity),
+      PRICE_DESC: (a: CarListItem, b: CarListItem) => (b.pricePerDay ?? -Infinity) - (a.pricePerDay ?? -Infinity),
+      YEAR_DESC: (a: CarListItem, b: CarListItem) => b.year - a.year,
+      NAME_ASC: (a: CarListItem, b: CarListItem) => a.title.localeCompare(b.title, "bs"),
+      NAME_DESC: (a: CarListItem, b: CarListItem) => b.title.localeCompare(a.title, "bs"),
+    } as const;
+    return sort === "RECOMMENDED" ? list : [...list].sort(by[sort]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cars, values, sel, sort]);
+
+  const chips = groups.flatMap((g) =>
+    sel[g.id].map((v) => ({ f: g.id, v, label: g.options.find((o) => o.value === v)?.label ?? v })),
+  );
+  const activeCount = chips.length;
+
+  const days = search?.pickupAt && search?.returnAt ? rentalDays(new Date(search.pickupAt), new Date(search.returnAt)) : undefined;
+
+  useEffect(() => {
+    if (!drawer) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const esc = (e: KeyboardEvent) => e.key === "Escape" && setDrawer(false);
+    window.addEventListener("keydown", esc);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", esc);
+    };
+  }, [drawer]);
 
   const SORT_OPTIONS: { value: SortKey; label: string }[] = [
     { value: "RECOMMENDED", label: t("sort.recommended") },
@@ -185,91 +199,153 @@ export function FleetGrid({
   ];
 
   return (
-    <>
-      {showFilters && (
-        <div className="mb-10">
-          <div className="no-scrollbar -mx-4 flex gap-1 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">
-            {[{ id: "ALL" as const, label: t("allTypes"), count: allCount }, ...typeOptions].map((o) => {
-              const on = active === o.id;
-              return (
-                <button
-                  key={o.id}
-                  type="button"
-                  onClick={() => setActive(on && o.id !== "ALL" ? "ALL" : o.id)}
-                  aria-pressed={on}
-                  className={`relative isolate inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full px-4 text-sm font-medium transition-colors ${
-                    on ? "text-white dark:text-ink" : "text-foreground/65 hover:text-foreground"
-                  }`}
-                >
-                  {on && (
-                    <span className="absolute inset-0 -z-10 rounded-full bg-ink dark:bg-white" />
-                  )}
-                  {o.label}
-                  <sup className={`text-[10px] font-medium tabular-nums ${on ? "opacity-70" : "text-muted-foreground"}`}>
-                    {o.count}
-                  </sup>
-                </button>
-              );
-            })}
-          </div>
+    <div className="grid gap-8 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-7">
+      <aside className="hidden lg:block">
+        <div className="no-scrollbar sticky top-24 max-h-[calc(100vh-7.5rem)] overflow-y-auto pb-6 pe-1">
+          <FilterPanel groups={groups} selection={sel} onToggle={toggle} onClear={clear} />
+        </div>
+      </aside>
 
-          <div className="mt-5 flex flex-col gap-3 border-t border-border pt-5 sm:flex-row sm:items-center">
-            <h2 className="font-display text-lg font-semibold text-foreground">
-              {t("resultsCount", { count: visibleCars.length })}
-            </h2>
-            {filtersActive && (
-              <button
-                type="button"
-                onClick={clearFilters}
-                className="inline-flex h-8 w-fit items-center gap-1 rounded-full px-2 text-xs font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
-              >
-                <X className="h-3.5 w-3.5" />
-                {t("clearFilters")}
-              </button>
-            )}
-            <div className="flex gap-2 sm:ms-auto">
-              {brands.length > 1 && (
-                <Select
-                  id="fleet-brand"
-                  label={t("brandLabel")}
-                  value={brand}
-                  onChange={setBrand}
-                  options={[
-                    { value: "ALL", label: t("allBrands") },
-                    ...brands.map(([name, n]) => ({ value: name, label: `${name} (${n})` })),
-                  ]}
-                />
-              )}
-              <Select
+      <div className="min-w-0">
+        <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
+          <h2 className="flex items-baseline gap-2.5 font-display text-2xl font-semibold tracking-tight text-foreground sm:text-[1.75rem]">
+            {t("chooseTitle")}
+            <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground rtl:normal-case rtl:tracking-normal">
+              {t("availableN", { count: visible.length })}
+            </span>
+          </h2>
+          <div className="flex w-full items-center gap-2 sm:w-auto">
+            <button
+              type="button"
+              onClick={() => setDrawer(true)}
+              className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full bg-foreground px-4 text-xs font-semibold uppercase tracking-[0.06em] text-background transition-opacity hover:opacity-90 sm:flex-none lg:hidden rtl:normal-case"
+            >
+              <SlidersHorizontal className="h-4 w-4" />
+              {t("filters")}
+              {activeCount > 0 && <span className="grid h-5 min-w-5 place-items-center rounded-full bg-brand px-1.5 text-[10px] text-white">{activeCount}</span>}
+            </button>
+            <label htmlFor="fleet-sort" className="hidden text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground sm:block rtl:normal-case">
+              {t("sortBy")}
+            </label>
+            <div className="relative flex-1 sm:flex-none">
+              <select
                 id="fleet-sort"
-                label={t("sort.label")}
                 value={sort}
-                onChange={(v) => setSort(v as SortKey)}
-                options={SORT_OPTIONS}
-              />
+                onChange={(e) => setSort(e.target.value as SortKey)}
+                aria-label={t("sortBy")}
+                className="h-10 w-full appearance-none rounded-full border border-border bg-surface pe-9 ps-4 text-xs font-semibold uppercase tracking-[0.04em] text-foreground outline-none transition-colors hover:border-foreground/30 focus:border-brand sm:w-56 rtl:normal-case"
+              >
+                {SORT_OPTIONS.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute end-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             </div>
           </div>
         </div>
-      )}
 
-      {visibleCars.length > 0 ? (
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleCars.map((car, i) => (
-            <CarCard
-              key={car.id}
-              car={car}
-              search={search}
-              priority={eagerFirstImages && i < 3}
-              imageSizes={imageSizes}
+        <AnimatePresence initial={false}>
+          {chips.length > 0 && (
+            <motion.ul
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: EASE }}
+              className="flex flex-wrap gap-1.5 overflow-hidden pt-4"
+            >
+              {chips.map((c) => (
+                <li key={`${c.f}:${c.v}`}>
+                  <button
+                    type="button"
+                    onClick={() => toggle(c.f, c.v)}
+                    aria-label={t("removeFilter", { name: c.label })}
+                    className="inline-flex h-8 items-center gap-1.5 rounded-full bg-brand/10 pe-2 ps-3 text-xs font-semibold text-brand-strong transition-colors hover:bg-brand/15"
+                  >
+                    {c.label}
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </li>
+              ))}
+              <li>
+                <button type="button" onClick={clear} className="inline-flex h-8 items-center px-2 text-xs font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">
+                  {t("clearAll")}
+                </button>
+              </li>
+            </motion.ul>
+          )}
+        </AnimatePresence>
+
+        {visible.length > 0 ? (
+          <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {visible.map((car, i) => (
+              <motion.li
+                key={car.id}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease: EASE, delay: Math.min(i, 8) * 0.035 }}
+              >
+                <FleetCard car={car} search={search} days={days} priority={eagerFirstImages && i < 3} sizes={imageSizes} />
+              </motion.li>
+            ))}
+          </ul>
+        ) : (
+          <div className="mt-6 rounded-[22px] bg-surface-muted p-10 text-center">
+            <p className="text-muted-foreground">{t("noMatch")}</p>
+            <button type="button" onClick={clear} className="mt-4 inline-flex h-10 items-center rounded-full bg-foreground px-5 text-sm font-semibold text-background">
+              {t("clearAll")}
+            </button>
+          </div>
+        )}
+      </div>
+
+      <AnimatePresence>
+        {drawer && (
+          <div className="fixed inset-0 z-[60] lg:hidden" role="dialog" aria-modal="true" aria-labelledby="fleet-filters-title">
+            <motion.button
+              type="button"
+              aria-label={t("closeFilters")}
+              onClick={() => setDrawer(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-ink/50 backdrop-blur-[2px]"
             />
-          ))}
-        </div>
-      ) : (
-        <p className="rounded-2xl bg-surface-muted p-10 text-center text-muted-foreground">
-          {t("noResults")}
-        </p>
-      )}
-
-    </>
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ duration: 0.38, ease: EASE }}
+              className="absolute inset-x-0 bottom-0 flex max-h-[88vh] flex-col rounded-t-[28px] bg-surface shadow-[0_-20px_60px_-20px_rgba(0,0,0,0.4)]"
+            >
+              <div className="flex justify-center pt-3">
+                <span className="h-1.5 w-10 rounded-full bg-foreground/15" />
+              </div>
+              <button
+                type="button"
+                onClick={() => setDrawer(false)}
+                aria-label={t("closeFilters")}
+                className="absolute end-4 top-4 grid h-9 w-9 place-items-center rounded-full bg-surface-muted text-foreground"
+              >
+                <X className="h-4 w-4" />
+              </button>
+              <div className="overflow-y-auto px-5 pb-4 pt-3">
+                <FilterPanel groups={groups} selection={sel} onToggle={toggle} onClear={clear} headingId="fleet-filters-title" closeSpace />
+              </div>
+              <div className="border-t border-border px-5 pb-[max(16px,env(safe-area-inset-bottom))] pt-3">
+                <button
+                  type="button"
+                  onClick={() => setDrawer(false)}
+                  className="inline-flex h-12 w-full items-center justify-center rounded-full bg-brand text-sm font-semibold text-white transition-colors hover:bg-brand-700"
+                >
+                  {t("showN", { count: visible.length })}
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
