@@ -9,7 +9,7 @@ import { useReturnAfterPickup } from "@/hooks/useReturnAfterPickup";
 import { rentalDays } from "@/lib/extras";
 import { joinLocal, overlapsBusy, splitLocal, type BookingQuery, type BusyRange } from "@/lib/booking";
 import { todayISO } from "@/lib/dates";
-import { CONTROL, LABEL, Select } from "./fields";
+import { CONTROL, LABEL, ReturnField, Select } from "./fields";
 import { Amount } from "./ui";
 
 type Loc = { id: string; name: string; slug: string };
@@ -80,30 +80,20 @@ export function DateEditor({
           </Select>
         </div>
 
-        <label className="flex cursor-pointer items-center gap-2.5 text-[13px] text-foreground/80">
-          <input
-            type="checkbox"
-            checked={diff}
-            onChange={(e) => {
-              setDiff(e.target.checked);
-              if (e.target.checked && !returnLoc) setReturnLoc(pickupLoc);
-            }}
-            className="h-[18px] w-[18px] rounded-md accent-[#0879B8]"
-          />
-          {t("differentReturn")}
-        </label>
-
-        {diff && (
-          <div>
-            <label htmlFor="de-return" className={LABEL}>
-              <MapPin className="h-3.5 w-3.5 text-brand-strong" />
-              {t("returnPlace")}
-            </label>
-            <Select id="de-return" value={returnLoc} onChange={setReturnLoc}>
-              {options}
-            </Select>
-          </div>
-        )}
+        <ReturnField
+          id="de-return"
+          label={t("returnPlace")}
+          diff={diff}
+          onDiff={(v) => {
+            setDiff(v);
+            if (v && !returnLoc) setReturnLoc(pickupLoc);
+          }}
+          value={returnLoc || pickupLoc}
+          onChange={setReturnLoc}
+          pickupName={locations.find((l) => l.id === pickupLoc)?.name}
+        >
+          {options}
+        </ReturnField>
 
         {[
           { k: "p", label: t("pickupDate"), d: pd, tm: pt, min: todayISO(0), sd: setPd, st: setPt },

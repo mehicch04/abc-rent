@@ -587,7 +587,9 @@
     "all": "Alle Bewertungen",
     "prev": "Vorherige Bewertung",
     "next": "Nächste Bewertung",
-    "source": "Google"
+    "source": "Google",
+    "googleReview": "Google Bewertung",
+    "verify": "Auf Google prüfen"
   },
   "Visit": {
     "eyebrow": "So finden Sie uns",

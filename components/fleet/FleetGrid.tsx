@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, m as motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import {
@@ -58,6 +58,30 @@ export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, 
   const [sel, setSel] = useState<Selection>(() => ({ ...EMPTY, cat: initialType ? [initialType] : [] }));
   const [sort, setSort] = useState<SortKey>("RECOMMENDED");
   const [drawer, setDrawer] = useState(false);
+  const results = useRef<HTMLDivElement>(null);
+  const changed = useRef(false);
+  const mounted = useRef(false);
+
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    changed.current = true;
+  }, [sel]);
+
+  useEffect(() => {
+    if (drawer || !changed.current) return;
+    changed.current = false;
+    const el = results.current;
+    if (!el) return;
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        const top = el.getBoundingClientRect().top + window.scrollY - 96;
+        if (window.scrollY > top + 8) window.scrollTo({ top, behavior: "smooth" });
+      }),
+    );
+  }, [sel, drawer]);
 
   const steps = currency === "EUR" ? [50, 100, 150] : [100, 200, 300];
   const money = (v: number) => `⁦${v} ${currencySymbol(currency)}⁩`;
@@ -206,7 +230,7 @@ export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, 
         </div>
       </aside>
 
-      <div className="min-w-0">
+      <div ref={results} className="min-h-[85vh] min-w-0">
         <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
           <h2 className="flex items-baseline gap-2.5 font-display text-2xl font-semibold tracking-tight text-foreground sm:text-[1.75rem]">
             {t("chooseTitle")}

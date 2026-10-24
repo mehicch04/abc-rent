@@ -587,7 +587,9 @@
     "all": "كل المراجعات",
     "prev": "المراجعة السابقة",
     "next": "المراجعة التالية",
-    "source": "Google"
+    "source": "Google",
+    "googleReview": "مراجعة على Google",
+    "verify": "تحقق على Google"
   },
   "Visit": {
     "eyebrow": "موقعنا",

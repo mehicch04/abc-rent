@@ -16,7 +16,7 @@ import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import type { BusyRange } from "@/lib/booking";
 import { todayISO } from "@/lib/dates";
 import type { AppLocale } from "@/i18n/routing";
-import { CONTROL, LABEL, Select } from "./fields";
+import { CONTROL, LABEL, ReturnField, Select } from "./fields";
 import { quote, type BookingState } from "./state";
 
 type Loc = { id: string; name: string; slug: string };
@@ -86,34 +86,21 @@ export function BookingWidget({
           </Select>
         </div>
 
-        <label className="flex cursor-pointer items-center gap-2.5 text-sm text-foreground/80">
-          <input
-            type="checkbox"
-            checked={b.diff}
-            onChange={(e) => set({ diff: e.target.checked, returnLoc: e.target.checked ? b.returnLoc || b.pickupLoc : "" })}
-            className="h-5 w-5 rounded-md border-border accent-[#0879B8]"
-          />
-          {t("differentReturn")}
-        </label>
-
-        {b.diff && (
-          <div>
-            <label htmlFor="bw-return" className={LABEL}>
-              <MapPin className="h-3.5 w-3.5 text-brand-strong" />
-              {t("returnPlace")}
-            </label>
-            <Select id="bw-return" value={b.returnLoc} onChange={(v) => set({ returnLoc: v })}>
-              <option value="" disabled>
-                {t("choose")}
-              </option>
-              {locations.map((l) => (
-                <option key={l.id} value={l.id}>
-                  {l.name}
-                </option>
-              ))}
-            </Select>
-          </div>
-        )}
+        <ReturnField
+          id="bw-return"
+          label={t("returnPlace")}
+          diff={b.diff}
+          onDiff={(v) => set({ diff: v, returnLoc: v ? b.returnLoc || b.pickupLoc : "" })}
+          value={b.returnLoc || b.pickupLoc}
+          onChange={(v) => set({ returnLoc: v })}
+          pickupName={locations.find((l) => l.id === b.pickupLoc)?.name}
+        >
+          {locations.map((l) => (
+            <option key={l.id} value={l.id}>
+              {l.name}
+            </option>
+          ))}
+        </ReturnField>
 
         {[
           { key: "pickup", label: t("pickupDate"), date: b.pickupDate, time: b.pickupTime, min: minDate },

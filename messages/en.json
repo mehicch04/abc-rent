@@ -587,7 +587,9 @@
     "all": "All reviews",
     "prev": "Previous review",
     "next": "Next review",
-    "source": "Google"
+    "source": "Google",
+    "googleReview": "Google review",
+    "verify": "Verify on Google"
   },
   "Visit": {
     "eyebrow": "Find us",

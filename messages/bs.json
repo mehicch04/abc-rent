@@ -587,7 +587,9 @@
     "all": "Sve recenzije",
     "prev": "Prethodna recenzija",
     "next": "Sljedeća recenzija",
-    "source": "Google"
+    "source": "Google",
+    "googleReview": "Google recenzija",
+    "verify": "Provjeri na Googleu"
   },
   "Visit": {
     "eyebrow": "Gdje smo",
