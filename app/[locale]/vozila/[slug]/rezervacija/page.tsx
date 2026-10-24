@@ -86,6 +86,7 @@ export default async function CheckoutPage({ params, searchParams }: Props) {
         booked={booked}
         busy={busy}
         upsell={upsell}
+        locations={locations.map((l) => ({ id: l.id, name: l.name, slug: l.slug }))}
       />
     </div>
   );

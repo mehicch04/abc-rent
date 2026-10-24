@@ -8,6 +8,7 @@ import { ADMIN_COOKIE, tokenValid } from "@/lib/admin-auth";
 import { REF_PREFIX, withUniqueReference } from "@/lib/reference";
 import { extraLineTotal, rentalDays } from "@/lib/extras";
 import { rentalTotal } from "@/lib/pricing";
+import { isAllInclusive } from "@/lib/extras-kind";
 import {
   availabilityFor,
   getBookedExtras,
@@ -123,7 +124,7 @@ export async function createManualInquiry(formData: FormData) {
       })
     : null;
 
-  const rental = await rentalTotal(car, days);
+  const rental = extraRows.some(isAllInclusive) ? 0 : await rentalTotal(car, days);
   const extrasTotal = extraRows.reduce(
     (a, e) => a + extraLineTotal(e.pricing, e.unitPrice, e.qty, days),
     0,

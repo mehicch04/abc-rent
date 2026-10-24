@@ -100,6 +100,7 @@ const extras = [
   { id: "abc-cross-border", nameHr: "Prelazak granice", nameEn: "Cross border", noteHr: "Vožnja izvan Bosne i Hercegovine", noteEn: "Driving outside Bosnia and Herzegovina", pricing: ExtraPricing.PER_RENTAL, eur: 15, maxQty: 1, totalStock: 99, sortOrder: 3 },
   { id: "abc-cleaning", nameHr: "Čišćenje vozila", nameEn: "Cleaning", noteHr: "Vozilo vraćate bez čišćenja", noteEn: "Return the car without cleaning it", pricing: ExtraPricing.PER_RENTAL, eur: 15, maxQty: 1, totalStock: 99, sortOrder: 4 },
   { id: "abc-private-driver", nameHr: "Privatni vozač", nameEn: "Private driver", noteHr: "Samo vozač, gorivo nije uključeno", noteEn: "Driver only, fuel not included", pricing: ExtraPricing.PER_DAY, eur: 50, maxQty: 1, totalStock: 3, sortOrder: 5 },
+  { id: "abc-all-inclusive", nameHr: "All inclusive: auto i vozač", nameEn: "All inclusive: car and driver", noteHr: "Auto, vozač, gorivo i parking u jednoj dnevnoj cijeni", noteEn: "Car, driver, fuel and parking in one daily price", pricing: ExtraPricing.PER_DAY, eur: 150, maxQty: 1, totalStock: 3, sortOrder: 6 },
 ];
 
 async function main() {

@@ -10,6 +10,7 @@ import { sendOwnerNotification } from "@/lib/notify";
 import { dailyRate, rentalTotal as rentalTotalFor } from "@/lib/pricing";
 import { getCarBusy } from "@/lib/car-busy";
 import { overlapsBusy } from "@/lib/booking";
+import { isAllInclusive } from "@/lib/extras-kind";
 import { availabilityFor, getBookedExtras } from "@/lib/extras-availability";
 
 export const runtime = "nodejs";
@@ -98,7 +99,8 @@ export async function POST(req: Request) {
     ),
   }));
 
-    const rentalTotal = await rentalTotalFor(car, days);
+  const allIn = extraRows.some(isAllInclusive);
+  const rentalTotal = allIn ? 0 : await rentalTotalFor(car, days);
   const extrasTotal = extrasForEmail.reduce((a, e) => a + e.lineTotal, 0);
   const totalPrice = rentalTotal + extrasTotal;
 
@@ -135,7 +137,7 @@ export async function POST(req: Request) {
       returnLocationName: ret?.name ?? null,
       extras: extrasForEmail,
       days,
-      pricePerDay: car ? await dailyRate(car) : null,
+      pricePerDay: car && !allIn ? await dailyRate(car) : null,
     };
 
     const email = await sendInquiryEmail(emailData);

@@ -8,6 +8,7 @@ import { ADMIN_COOKIE, tokenValid } from "@/lib/admin-auth";
 import { availabilityFor, getBookedExtras, maxSelectable } from "@/lib/extras-availability";
 import { extraLineTotal, rentalDays } from "@/lib/extras";
 import { rentalTotal } from "@/lib/pricing";
+import { isAllInclusive } from "@/lib/extras-kind";
 
 async function requireAdmin() {
   if (!(await tokenValid(cookies().get(ADMIN_COOKIE)?.value))) {
@@ -150,7 +151,7 @@ export async function updateInquiry(formData: FormData) {
       })
     : null;
 
-  const rental = await rentalTotal(car, days);
+  const rental = extraRows.some(isAllInclusive) ? 0 : await rentalTotal(car, days);
   const extrasTotal = extraRows.reduce(
     (a, e) => a + extraLineTotal(e.pricing, e.unitPrice, e.qty, days),
     0,

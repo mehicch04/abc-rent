@@ -5,6 +5,7 @@ import { Calculator, Lock, Minus, Plus } from "lucide-react";
 import { DateField } from "@/components/ui/DateField";
 import { TimeField } from "@/components/ui/TimeField";
 import type { ExtraItem } from "@/lib/extras";
+import { isAllInclusive } from "@/lib/extras-kind";
 import {
   availabilityFor,
   busyCarsFor,
@@ -95,7 +96,8 @@ export function NewReservationForm({
   // ── Price ────────────────────────────────────────────────────────────────
   const nDays = validPeriod ? days(from!, to!) : 0;
   const car = cars.find((c) => c.id === carId);
-  const rentalTotal = car?.pricePerDay != null ? car.pricePerDay * nDays : 0;
+  const allIn = extras.some((e) => (chosen[e.id] ?? 0) > 0 && isAllInclusive(e));
+  const rentalTotal = !allIn && car?.pricePerDay != null ? car.pricePerDay * nDays : 0;
 
   const extraLines = extras
     .filter((e) => (chosen[e.id] ?? 0) > 0)

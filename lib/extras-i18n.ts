@@ -28,6 +28,10 @@ const COPY: Record<string, { de: Copy; ar: Copy }> = {
     de: { name: "Privatfahrer", note: "Nur Fahrer, ohne Kraftstoff" },
     ar: { name: "سائق خاص", note: "السائق فقط، الوقود غير مشمول" },
   },
+  "all inclusive: car and driver": {
+    de: { name: "All inclusive: Auto mit Fahrer", note: "Auto, Fahrer, Kraftstoff und Parken zu einem Tagespreis" },
+    ar: { name: "شامل كلياً: سيارة مع سائق", note: "السيارة والسائق والوقود والمواقف بسعر يومي واحد" },
+  },
 };
 
 export function extraText(e: Pick<ExtraItem, "nameHr" | "nameEn" | "noteHr" | "noteEn">, locale: string): { name: string; note: string | null } {
