@@ -10,7 +10,10 @@
     "language": "Sprache",
     "book": "Jetzt buchen",
     "call": "Anrufen",
-    "guides": "Ratgeber"
+    "guides": "Ratgeber",
+    "open24": "Rund um die Uhr, täglich",
+    "airport": "Ihr Auto wartet am Flughafen",
+    "rating": "{count} Google Bewertungen"
   },
   "Search": {
     "title": "Finden Sie Ihr Auto",

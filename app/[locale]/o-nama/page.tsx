@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Band } from "@/components/ui/Band";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { CalendarCheck, Heart, MapPin, ShieldCheck } from "lucide-react";
@@ -73,8 +74,8 @@ export default async function AboutPage({
         </div>
       </section>
 
-      <section className="bg-surface-muted py-20 sm:py-24">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <Band>
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[4/5]">
             <Image src="/img/chauffeur.webp" alt={t("imageAlt")} fill sizes="(max-width: 1023px) 100vw, 50vw" className="object-cover" />
           </div>
@@ -83,7 +84,7 @@ export default async function AboutPage({
             <ul className="mt-8 border-t border-border">
               {features.map(({ icon: Icon, title, text }) => (
                 <li key={title} className="flex gap-4 border-b border-border py-5">
-                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface text-brand-strong">
+                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-brand-strong ring-1 ring-white/10">
                     <Icon className="h-5 w-5" />
                   </span>
                   <div>
@@ -95,7 +96,7 @@ export default async function AboutPage({
             </ul>
           </div>
         </div>
-      </section>
+      </Band>
 
       <Visit address={SITE.address} />
       <CtaBand />

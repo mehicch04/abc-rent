@@ -10,7 +10,10 @@
     "language": "Jezik",
     "book": "Rezerviši",
     "call": "Pozovi",
-    "guides": "Vodiči"
+    "guides": "Vodiči",
+    "open24": "0 do 24h, svaki dan",
+    "airport": "Auto vas čeka na aerodromu",
+    "rating": "{count} recenzija na Googleu"
   },
   "Search": {
     "title": "Pronađite svoje vozilo",

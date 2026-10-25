@@ -10,7 +10,10 @@
     "language": "Language",
     "book": "Book now",
     "call": "Call",
-    "guides": "Guides"
+    "guides": "Guides",
+    "open24": "24 hours, every day",
+    "airport": "Your car waits at the airport",
+    "rating": "{count} Google reviews"
   },
   "Search": {
     "title": "Find your vehicle",

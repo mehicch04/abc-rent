@@ -8,7 +8,6 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import "../globals.css";
 import { isRtl, routing, type AppLocale } from "@/i18n/routing";
 import { SITE } from "@/lib/site-config";
-import { ThemeProvider } from "@/components/theme-provider";
 import { CurrencyProvider } from "@/components/currency/CurrencyProvider";
 import { CompanyProvider } from "@/components/company/CompanyProvider";
 import { getCompany } from "@/lib/company";
@@ -159,7 +158,6 @@ export default async function LocaleLayout({
           </>
         )}
         <JsonLd locale={locale} />
-        <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
             <CompanyProvider value={company}>
             <CurrencyProvider defaultCurrency="EUR">
@@ -175,7 +173,6 @@ export default async function LocaleLayout({
             </CurrencyProvider>
             </CompanyProvider>
           </NextIntlClientProvider>
-        </ThemeProvider>
       </body>
     </html>
   );

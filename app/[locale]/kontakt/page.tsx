@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Band } from "@/components/ui/Band";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ExternalLink, MapPin } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo";
@@ -115,7 +116,8 @@ export default async function ContactPage({
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pt-16 sm:px-6">
+      <Band className="pt-3">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
         <h2 className="font-display text-xl font-semibold text-foreground">{t("ourOffices")}</h2>
         <ul className="mt-6 grid gap-x-8 sm:grid-cols-3">
           {locations.map((loc) => (
@@ -128,7 +130,8 @@ export default async function ContactPage({
             </li>
           ))}
         </ul>
-      </section>
+        </div>
+      </Band>
     </>
   );
 }

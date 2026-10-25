@@ -1,5 +1,6 @@
 "use client";
 
+import { Band } from "@/components/ui/Band";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -291,7 +292,11 @@ export function CarDetail({
         </div>
       </div>
 
-      <SimilarCars cars={similar} locale={locale} title={t("similar")} />
+      {similar.length > 0 && (
+        <Band className="-mx-3 mt-14 sm:-mx-4" inner="px-5 pb-10 pt-2 sm:px-8">
+          <SimilarCars cars={similar} locale={locale} title={t("similar")} />
+        </Band>
+      )}
 
       <ImageLightbox
         images={car.images ?? []}

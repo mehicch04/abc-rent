@@ -9,6 +9,7 @@ import { CarCard } from "@/components/fleet/CarCard";
 import { Price } from "@/components/currency/Price";
 import { PillLink } from "@/components/ui/PillLink";
 import { Heading } from "./Heading";
+import { Band } from "@/components/ui/Band";
 
 export type FleetType = { id: CarCategory; count: number; from: number | null; image: string | null };
 
@@ -31,8 +32,8 @@ export function FeaturedFleet({
   const minPrice = prices.length ? Math.min(...prices) : null;
 
   return (
-    <section className="bg-surface-muted py-20 sm:py-28">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+    <Band className="py-3">
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <Heading eyebrow={t("eyebrow")} title={t("title")} accent={t("accent")} subtitle={t("lead")} className="max-w-xl" />
           <PillLink href="/vozila" variant="dark" className="self-start lg:self-auto">
@@ -85,7 +86,7 @@ export function FeaturedFleet({
 
         <Link
           href="/vozila"
-          className="group relative mt-5 block overflow-hidden rounded-[28px] bg-ink p-7 text-white ring-1 ring-white/10 sm:p-10 lg:p-12"
+          className="group relative mt-5 block overflow-hidden rounded-[28px] bg-gradient-to-br from-brand/30 via-white/[0.04] to-white/[0.02] p-7 text-white ring-1 ring-white/10 transition-colors hover:ring-white/20 sm:p-10 lg:p-12"
         >
           <span
             aria-hidden
@@ -126,7 +127,6 @@ export function FeaturedFleet({
           </div>
         </Link>
       </div>
-
-    </section>
+    </Band>
   );
 }

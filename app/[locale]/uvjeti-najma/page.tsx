@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CtaBand } from "@/components/home/CtaBand";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { buildPageMetadata } from "@/lib/seo";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -145,6 +146,7 @@ export default async function TermsPage({
         </div>
       </div>
     </div>
+    <CtaBand />
     </>
   );
 }

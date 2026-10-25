@@ -10,7 +10,7 @@ import { Heading } from "./Heading";
 
 function Stars({ value, className = "h-4 w-4" }: { value: number; className?: string }) {
   return (
-    <span className="flex shrink-0 gap-0.5" aria-label={`${value}/5`}>
+    <span className="flex shrink-0 gap-0.5" role="img" aria-label={`${value}/5`}>
       {Array.from({ length: 5 }, (_, i) => (
         <Star key={i} aria-hidden className={`${className} ${i < Math.round(value) ? "fill-[#F5A524] text-[#F5A524]" : "fill-border text-border"}`} />
       ))}

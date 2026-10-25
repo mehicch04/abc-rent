@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { Band } from "@/components/ui/Band";
 import type { Guide } from "@/lib/guides";
 import { GuideCard } from "@/components/guides/GuideCard";
 import { PillLink } from "@/components/ui/PillLink";
@@ -9,7 +10,8 @@ export function GuidesTeaser({ guides }: { guides: Guide[] }) {
   if (!guides.length) return null;
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
+    <Band className="py-3">
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
       <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
         <Heading eyebrow={t("eyebrow")} title={t("title")} accent={t("accent")} subtitle={t("lead")} />
         <PillLink href="/vodici" variant="outline" className="self-start sm:self-auto">
@@ -23,6 +25,7 @@ export function GuidesTeaser({ guides }: { guides: Guide[] }) {
           </li>
         ))}
       </ul>
-    </section>
+      </div>
+    </Band>
   );
 }

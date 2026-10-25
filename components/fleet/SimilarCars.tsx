@@ -50,7 +50,7 @@ export function SimilarCars({
   };
 
   return (
-    <section className="mt-12 border-t border-border pt-8">
+    <section className="mt-8">
       <div className="mb-4 flex items-center justify-between gap-4">
         <h2 className="font-display text-lg font-semibold text-foreground">
           {title}

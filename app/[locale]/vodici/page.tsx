@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CtaBand } from "@/components/home/CtaBand";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { GuideCard } from "@/components/guides/GuideCard";
@@ -34,6 +35,7 @@ export default async function GuidesPage({ params: { locale } }: { params: { loc
           ))}
         </ul>
       </section>
+      <CtaBand />
     </>
   );
 }
