@@ -376,16 +376,31 @@ export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, 
               <div className="flex justify-center pt-3">
                 <span className="h-1.5 w-10 rounded-full bg-foreground/15" />
               </div>
-              <button
-                type="button"
-                onClick={() => setDrawer(false)}
-                aria-label={t("closeFilters")}
-                className="absolute end-4 top-4 grid h-9 w-9 place-items-center rounded-full bg-surface-muted text-foreground"
-              >
-                <X className="h-4 w-4" />
-              </button>
-              <div className="overflow-y-auto px-5 pb-4 pt-3">
-                <FilterPanel groups={groups} selection={sel} onToggle={toggle} onClear={clear} headingId="fleet-filters-title" closeSpace />
+              <div className="flex items-center justify-between gap-3 border-b border-border px-5 pb-3 pt-2">
+                <h2 id="fleet-filters-title" className="font-display text-xl font-semibold tracking-tight text-foreground">
+                  {t("filters")}
+                </h2>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={clear}
+                    disabled={activeCount === 0}
+                    className="h-9 px-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-40 rtl:normal-case rtl:tracking-normal"
+                  >
+                    {t("clearAll")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDrawer(false)}
+                    aria-label={t("closeFilters")}
+                    className="grid h-9 w-9 place-items-center rounded-full bg-surface-muted text-foreground"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+              <div className="overflow-y-auto overscroll-contain px-5 pb-4">
+                <FilterPanel groups={groups} selection={sel} onToggle={toggle} onClear={clear} bare />
               </div>
               <div className="border-t border-border px-5 pb-[max(16px,env(safe-area-inset-bottom))] pt-3">
                 <button

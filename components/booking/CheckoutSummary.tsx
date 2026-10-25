@@ -104,7 +104,7 @@ export function CheckoutSummary({
           )}
         </div>
         <div className="min-w-0 lg:mt-4">
-          <p className="truncate font-display text-lg font-semibold text-foreground">{car.title}</p>
+          <p className="line-clamp-2 font-display text-lg font-semibold leading-snug text-foreground">{car.title}</p>
           <p className="truncate text-xs text-muted-foreground">
             {[pick(TRANSMISSION_LABELS[car.transmission], locale), pick(FUEL_LABELS[car.fuelType], locale), t("daysCount", { days })].join(" · ")}
           </p>

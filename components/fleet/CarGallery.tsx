@@ -4,6 +4,34 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Car as CarIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useCarFrame } from "./useCarFrame";
+
+function Slide({ src, alt, active, priority, sizes, frozen }: { src: string; alt: string; active: boolean; priority: boolean; sizes: string; frozen: boolean }) {
+  const { frame, ready, onLoad, onError } = useCarFrame(src, 1.6);
+  const photo = frame?.photo === true;
+  const fit = frame && !frame.photo ? frame : null;
+  return (
+    <div
+      aria-hidden={!active}
+      style={fit ? { transformOrigin: fit.origin, transform: fit.transform } : undefined}
+      className={`absolute inset-0 transition-[opacity,transform] duration-500 ease-out ${photo ? "" : "mix-blend-multiply"} ${active && ready ? "opacity-100" : "opacity-0"}`}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        priority={priority}
+        sizes={sizes}
+        quality={90}
+        onLoad={onLoad}
+        onError={onError}
+        className={`transition-transform duration-300 ease-out [@media(hover:hover)]:group-hover/gallery:scale-[1.03] ${frozen ? "[@media(hover:hover)]:scale-[1.03]" : ""} ${
+          photo ? "object-cover" : `object-contain [filter:contrast(1.08)_brightness(1.04)] ${fit ? "" : "p-4"}`
+        }`}
+      />
+    </div>
+  );
+}
 
 type Props = {
   images: string[];
@@ -96,20 +124,14 @@ export function CarGallery({
       >
         {images.map((src, i) =>
           ready.has(i) ? (
-            <Image
+            <Slide
               key={src + i}
               src={src}
               alt={i === index ? `${title}, ${i + 1}/${count}` : ""}
-              aria-hidden={i !== index}
-              fill
+              active={i === index}
               priority={priority && i === 0}
               sizes={sizes}
-              quality={90}
-              className={`object-contain p-4 mix-blend-multiply transition-[opacity,transform] duration-300 ease-out [@media(hover:hover)]:group-hover/gallery:scale-[1.03] ${
-                frozen ? "[@media(hover:hover)]:scale-[1.03]" : ""
-              } ${
-                i === index ? "opacity-100" : "opacity-0"
-              }`}
+              frozen={frozen}
             />
           ) : null,
         )}

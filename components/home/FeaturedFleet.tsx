@@ -1,19 +1,18 @@
 "use client";
 
-import { m as motion } from "framer-motion";
 import { Cog, Infinity as InfinityIcon, Plane, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { CarListItem } from "@/lib/types";
 import type { CarCategory } from "@/lib/car-categories";
 import { FleetCard } from "@/components/fleet/FleetCard";
 import { PillLink } from "@/components/ui/PillLink";
+import { CardRail } from "@/components/ui/CardRail";
 import { Band } from "@/components/ui/Band";
 import { Heading } from "./Heading";
 
 export type FleetType = { id: CarCategory; count: number; from: number | null; image: string | null };
 
 const PERKS = [ShieldCheck, InfinityIcon, Plane, Cog];
-const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function FeaturedFleet({ cars, total }: { cars: CarListItem[]; total: number; types?: FleetType[] }) {
   const t = useTranslations("HomeFleet");
@@ -31,19 +30,10 @@ export function FeaturedFleet({ cars, total }: { cars: CarListItem[]; total: num
           </PillLink>
         </div>
 
-        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {shown.map((car, i) => (
-            <motion.li
-              key={car.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.45, ease: EASE, delay: i * 0.05 }}
-            >
-              <FleetCard car={car} sizes="(max-width: 639px) 92vw, (max-width: 1023px) 46vw, 360px" />
-            </motion.li>
-          ))}
-        </ul>
+        <CardRail
+          className="mt-12"
+          items={shown.map((car) => ({ key: car.id, node: <FleetCard car={car} sizes="(max-width: 639px) 84vw, (max-width: 1023px) 46vw, 400px" /> }))}
+        />
 
         <ul className="mt-6 grid overflow-hidden rounded-[24px] bg-white/[0.03] ring-1 ring-white/10 sm:grid-cols-2 lg:grid-cols-4">
           {perks.map((p, i) => {

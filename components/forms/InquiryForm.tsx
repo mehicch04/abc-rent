@@ -18,8 +18,14 @@ const EMPTY = {
   message: "",
 };
 
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+type Req = "firstName" | "lastName" | "email" | "phone";
+const REQ: Req[] = ["firstName", "lastName", "email", "phone"];
+
 export function InquiryForm({ type = "contact" }: { type?: FormType }) {
   const t = useTranslations("Form");
+  const tb = useTranslations("Booking");
+  const [errors, setErrors] = useState<Partial<Record<Req, string>>>({});
   const company = useCompany();
   const locale = useLocale();
   const [form, setForm] = useState(EMPTY);
@@ -28,8 +34,17 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
   );
   const [reference, setReference] = useState<string | null>(null);
 
-  const set = (k: keyof typeof EMPTY) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+  const set = (k: keyof typeof EMPTY) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((f) => ({ ...f, [k]: e.target.value }));
+    if (k in errors) setErrors((x) => ({ ...x, [k]: undefined }));
+  };
+
+  const check = (k: Req, v: string) => {
+    const x = v.trim();
+    if (k === "email") return EMAIL.test(x) ? undefined : tb("errEmail");
+    if (k === "phone") return x.replace(/[^\d+]/g, "").length >= 6 ? undefined : tb("errPhone");
+    return x.length >= 2 ? undefined : tb("errRequired");
+  };
 
   const waText = encodeURIComponent(
     `${t("waIntro")}\n` +
@@ -43,6 +58,14 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const next: Partial<Record<Req, string>> = {};
+    for (const k of REQ) next[k] = check(k, form[k]);
+    setErrors(next);
+    const bad = REQ.find((k) => next[k]);
+    if (bad) {
+      document.getElementById(bad)?.focus();
+      return;
+    }
     setStatus("submitting");
     try {
       const res = await fetch("/api/contact", {
@@ -97,13 +120,14 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
   }
 
   const inputCls =
-    "w-full min-w-0 rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/70 outline-none transition-colors focus:border-brand focus:ring-2 focus:ring-brand/30 sm:text-sm";
+    "w-full min-w-0 rounded-xl border border-border bg-surface aria-[invalid=true]:border-rose-400 aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-rose-500/15 px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/70 outline-none transition-colors focus:border-brand focus:ring-2 focus:ring-brand/30 sm:text-sm";
   const labelCls = "mb-1.5 block text-sm font-medium text-foreground";
   const req = <span className="text-brand">*</span>;
 
   return (
     <form
       onSubmit={onSubmit}
+      noValidate
       className="rounded-2xl bg-surface-muted p-6 sm:p-8"
     >
       <div className="grid gap-4 sm:grid-cols-2">
@@ -113,12 +137,20 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
           </label>
           <input
             id="firstName"
+            aria-invalid={errors.firstName ? true : undefined}
+            aria-describedby={errors.firstName ? "firstName-err" : undefined}
+            onBlur={() => form.firstName && setErrors((x) => ({ ...x, firstName: check("firstName", form.firstName) }))}
             required
             value={form.firstName}
             onChange={set("firstName")}
             className={inputCls}
             placeholder={t("firstNamePh")}
           />
+          {errors.firstName && (
+            <p id="firstName-err" className="mt-1.5 text-xs font-medium text-rose-600">
+              {errors.firstName}
+            </p>
+          )}
         </div>
         <div>
           <label className={labelCls} htmlFor="lastName">
@@ -126,12 +158,20 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
           </label>
           <input
             id="lastName"
+            aria-invalid={errors.lastName ? true : undefined}
+            aria-describedby={errors.lastName ? "lastName-err" : undefined}
+            onBlur={() => form.lastName && setErrors((x) => ({ ...x, lastName: check("lastName", form.lastName) }))}
             required
             value={form.lastName}
             onChange={set("lastName")}
             className={inputCls}
             placeholder={t("lastNamePh")}
           />
+          {errors.lastName && (
+            <p id="lastName-err" className="mt-1.5 text-xs font-medium text-rose-600">
+              {errors.lastName}
+            </p>
+          )}
         </div>
         <div>
           <label className={labelCls} htmlFor="email">
@@ -139,6 +179,9 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
           </label>
           <input
             id="email"
+            aria-invalid={errors.email ? true : undefined}
+            aria-describedby={errors.email ? "email-err" : undefined}
+            onBlur={() => form.email && setErrors((x) => ({ ...x, email: check("email", form.email) }))}
             type="email"
             required
             value={form.email}
@@ -146,6 +189,11 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
             className={inputCls}
             placeholder={t("emailPh")}
           />
+          {errors.email && (
+            <p id="email-err" className="mt-1.5 text-xs font-medium text-rose-600">
+              {errors.email}
+            </p>
+          )}
         </div>
         <div>
           <label className={labelCls} htmlFor="phone">
@@ -153,6 +201,9 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
           </label>
           <input
             id="phone"
+            aria-invalid={errors.phone ? true : undefined}
+            aria-describedby={errors.phone ? "phone-err" : undefined}
+            onBlur={() => form.phone && setErrors((x) => ({ ...x, phone: check("phone", form.phone) }))}
             type="tel"
             required
             value={form.phone}
@@ -160,6 +211,11 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
             className={inputCls}
             placeholder={t("phonePh")}
           />
+          {errors.phone && (
+            <p id="phone-err" className="mt-1.5 text-xs font-medium text-rose-600">
+              {errors.phone}
+            </p>
+          )}
         </div>
       </div>
 

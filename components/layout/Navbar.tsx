@@ -8,9 +8,9 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { NAV_LINKS, SITE } from "@/lib/site-config";
 import { useCompany } from "@/components/company/CompanyProvider";
-import { CurrencySwitch } from "@/components/currency/CurrencySwitch";
+import { CurrencyChips, CurrencySwitch } from "@/components/currency/CurrencySwitch";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { LanguageToggle } from "./LanguageToggle";
+import { LanguageChips, LanguageToggle } from "./LanguageToggle";
 
 const useIso = typeof window === "undefined" ? useEffect : useLayoutEffect;
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -104,6 +104,18 @@ export function Navbar() {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const esc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", esc);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", esc);
+    };
+  }, [open]);
+
   return (
     <>
     <div className="hidden lg:block">
@@ -119,7 +131,7 @@ export function Navbar() {
       >
         <nav className="mx-auto flex h-[68px] max-w-[1320px] items-center justify-between gap-3 px-4 sm:px-6">
           <Link href="/" className="flex shrink-0 items-center" aria-label={SITE.name}>
-            <Image src="/logo.png" alt={SITE.name} width={86} height={40} loading="eager" className="h-9 w-auto sm:h-10" />
+            <Image src="/logo.png" alt={SITE.name} width={86} height={40} loading="eager" className="h-9 w-[77px] sm:h-10 sm:w-[86px]" />
           </Link>
 
           <ul onMouseLeave={() => setHover(null)} className="relative hidden items-center rounded-full bg-surface-muted p-1 lg:flex">
@@ -182,7 +194,22 @@ export function Navbar() {
 
         <AnimatePresence>
           {open && (
+            <motion.button
+              key="scrim"
+              type="button"
+              aria-label={t("menu")}
+              tabIndex={-1}
+              onClick={() => setOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-x-0 bottom-0 top-[68px] bg-ink/30 backdrop-blur-[2px] lg:hidden"
+            />
+          )}
+          {open && (
             <motion.div
+              key="panel"
               initial={{ opacity: 0, y: -8, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
@@ -204,11 +231,18 @@ export function Navbar() {
                   </motion.li>
                 ))}
               </ul>
-              <div className="mt-3 flex items-center justify-between gap-2 rounded-2xl bg-surface-muted p-1.5 sm:hidden">
-                <div className="flex items-center">
-                  <LanguageToggle />
-                  <span aria-hidden className="h-4 w-px bg-border" />
-                  <CurrencySwitch />
+              <div className="mt-3 grid gap-2 sm:hidden">
+                <div>
+                  <p className="mb-1.5 px-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground rtl:normal-case">{t("language")}</p>
+                  <div className="rounded-2xl bg-surface-muted p-1">
+                    <LanguageChips />
+                  </div>
+                </div>
+                <div>
+                  <p className="mb-1.5 px-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground rtl:normal-case">{t("currency")}</p>
+                  <div className="rounded-2xl bg-surface-muted p-1">
+                    <CurrencyChips />
+                  </div>
                 </div>
               </div>
               <div className="mt-3 grid grid-cols-2 gap-2">

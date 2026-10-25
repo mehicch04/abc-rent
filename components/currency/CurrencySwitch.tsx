@@ -89,3 +89,28 @@ export function CurrencySwitch() {
     </div>
   );
 }
+
+export function CurrencyChips() {
+  const { currency, setCurrency } = useCurrency();
+  return (
+    <div className="grid grid-cols-2 gap-1">
+      {OPTIONS.map((o) => {
+        const active = o.value === currency;
+        return (
+          <button
+            key={o.value}
+            type="button"
+            aria-pressed={active}
+            onClick={() => setCurrency(o.value)}
+            className={`inline-flex h-10 items-center justify-center gap-1.5 rounded-xl text-xs font-semibold transition-colors ${
+              active ? "bg-surface text-foreground shadow-sm ring-1 ring-border" : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <span className="text-sm">{o.symbol}</span>
+            <span className="font-medium">{o.name}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}

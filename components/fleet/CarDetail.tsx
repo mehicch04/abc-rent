@@ -3,6 +3,7 @@
 import { CarTitle } from "./CarTitle";
 import { Band } from "@/components/ui/Band";
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, m as motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import {
@@ -120,6 +121,23 @@ export function CarDetail({
       window.removeEventListener("resize", update);
     };
   }, []);
+
+  const [bar, setBar] = useState(false);
+  useEffect(() => {
+    const el = stickRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setBar(!e.isIntersecting), { rootMargin: "-80px 0px 0px 0px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  useEffect(() => {
+    const root = document.documentElement;
+    if (bar) root.dataset.bar = "1";
+    else delete root.dataset.bar;
+    return () => {
+      delete root.dataset.bar;
+    };
+  }, [bar]);
 
   const description = carDescription(car, locale, (k, v) => t(k as never, v as never));
   const video = carVideo(car.slug);
@@ -285,9 +303,57 @@ export function CarDetail({
 
       {similar.length > 0 && (
         <Band className="-mx-3 mt-16 sm:-mx-4" inner="px-5 pb-12 pt-6 sm:px-10 sm:pb-14 sm:pt-10">
-          <SimilarCars cars={similar} locale={locale} title={t("similar")} />
+          <SimilarCars cars={similar} locale={locale} title={t("similar")} bleed="-mx-5 px-5" />
         </Band>
       )}
+
+      <AnimatePresence>
+        {bar && (
+          <motion.div
+            initial={{ y: "110%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "110%" }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-surface/95 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 shadow-[0_-18px_40px_-28px_rgba(11,18,32,0.45)] backdrop-blur-xl lg:hidden"
+          >
+            <div className="mx-auto flex max-w-xl items-center justify-between gap-3">
+              <div className="min-w-0 leading-tight">
+                <p className="truncate text-xs text-muted-foreground">
+                  {q.valid && !q.booked ? (
+                    <>
+                      {tb("daysCount", { days: q.days })} · {tb("total")}
+                    </>
+                  ) : (
+                    car.title
+                  )}
+                </p>
+                <p className="mt-0.5 whitespace-nowrap">
+                  <bdi dir="ltr" className="font-display text-xl font-semibold text-foreground">
+                    {formatPrice(q.valid && !q.booked ? q.total : car.pricePerDay ?? 0, currency)}
+                  </bdi>
+                  {!(q.valid && !q.booked) && <span className="text-xs text-muted-foreground"> {tb("perDay")}</span>}
+                </p>
+              </div>
+              {q.canGo ? (
+                <Link
+                  href={q.href}
+                  className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-brand px-5 text-sm font-semibold text-white shadow-[0_12px_24px_-14px_rgba(8,121,184,0.95)] transition-colors active:scale-[0.98]"
+                >
+                  {t("book")}
+                  <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
+                </Link>
+              ) : (
+                <a
+                  href="#rezervacija"
+                  className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-brand px-5 text-sm font-semibold text-white"
+                >
+                  {tb("pickDates")}
+                </a>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <ImageLightbox
         images={car.images ?? []}

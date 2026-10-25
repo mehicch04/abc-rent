@@ -130,8 +130,10 @@ export function FilterPanel({
   onClear,
   headingId,
   closeSpace,
+  bare,
 }: {
   closeSpace?: boolean;
+  bare?: boolean;
   groups: Group[];
   selection: Selection;
   onToggle: (f: Facet, v: string) => void;
@@ -142,7 +144,7 @@ export function FilterPanel({
   const active = Object.values(selection).some((v) => v.length > 0);
   return (
     <div>
-      <div className={`flex items-center justify-between gap-3 border-b border-border pb-4 ${closeSpace ? "pe-12" : ""}`}>
+      {!bare && <div className={`flex items-center justify-between gap-3 border-b border-border pb-4 ${closeSpace ? "pe-12" : ""}`}>
         <h2 id={headingId} className="font-display text-xl font-semibold tracking-tight text-foreground">
           {t("filters")}
         </h2>
@@ -154,7 +156,7 @@ export function FilterPanel({
         >
           {t("clearAll")}
         </button>
-      </div>
+      </div>}
       {usable(groups, selection).map((g, i) => (
         <GroupBlock key={g.id} group={g} selected={selection[g.id]} onToggle={(v) => onToggle(g.id, v)} defaultOpen={i < 3 || selection[g.id].length > 0} />
       ))}

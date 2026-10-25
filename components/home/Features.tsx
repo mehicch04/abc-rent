@@ -13,7 +13,7 @@ export function Features() {
         {items.map((item, i) => {
           const Icon = ICONS[i] ?? Plane;
           return (
-            <div key={item.title} className="flex gap-4 md:px-8 md:first:ps-0 md:last:pe-0">
+            <div key={item.title} className="flex gap-4 md:flex-col md:gap-3 md:px-5 md:first:ps-0 md:last:pe-0 lg:flex-row lg:gap-4 lg:px-8">
               <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand-strong">
                 <Icon className="h-5 w-5" />
               </span>

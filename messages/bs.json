@@ -13,7 +13,8 @@
     "guides": "Vodiči",
     "open24": "0 do 24h, svaki dan",
     "airport": "Auto vas čeka na aerodromu",
-    "rating": "{count} recenzija na Googleu"
+    "rating": "{count} recenzija na Googleu",
+    "currency": "Valuta"
   },
   "Search": {
     "title": "Pronađite svoje vozilo",
@@ -827,7 +828,8 @@
     "copy": "Kopiraj broj",
     "copied": "Kopirano",
     "submitShort": "Pošalji",
-    "nextStep": "Sljedeći korak"
+    "nextStep": "Sljedeći korak",
+    "pickDates": "Odaberi datume"
   },
   "Rules": {
     "title": "Pravila najma ukratko",

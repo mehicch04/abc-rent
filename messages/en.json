@@ -13,7 +13,8 @@
     "guides": "Guides",
     "open24": "24 hours, every day",
     "airport": "Your car waits at the airport",
-    "rating": "{count} Google reviews"
+    "rating": "{count} Google reviews",
+    "currency": "Currency"
   },
   "Search": {
     "title": "Find your vehicle",
@@ -827,7 +828,8 @@
     "copy": "Copy number",
     "copied": "Copied",
     "submitShort": "Send",
-    "nextStep": "Next step"
+    "nextStep": "Next step",
+    "pickDates": "Choose dates"
   },
   "Rules": {
     "title": "Rental rules at a glance",

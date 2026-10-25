@@ -9,7 +9,7 @@ import { DateField } from "@/components/ui/DateField";
 import { useReturnAfterPickup } from "@/hooks/useReturnAfterPickup";
 import { track } from "@/lib/track";
 
-type SimpleLocation = { id: string; name: string; city: string };
+type SimpleLocation = { id: string; name: string; city: string; slug?: string };
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -72,7 +72,9 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
   const router = useRouter();
 
   const [sameLocation, setSameLocation] = useState(true);
-  const [pickupLocationId, setPickupLocationId] = useState("");
+  const [pickupLocationId, setPickupLocationId] = useState(
+    () => (locations.find((l) => l.slug === "aerodrom-sarajevo") ?? locations[0])?.id ?? "",
+  );
   const [returnLocationId, setReturnLocationId] = useState("");
   const [pickupDate, setPickupDate] = useState("");
   const [pickupTime, setPickupTime] = useState("09:00");
@@ -86,8 +88,33 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
 
   useEffect(() => {
     setToday(dateOffset(0));
+    const q = new URLSearchParams(window.location.search);
+    const known = (id: string | null) => (id && locations.some((l) => l.id === id) ? id : null);
+    const split = (iso: string | null) => {
+      const d = iso ? new Date(iso) : null;
+      if (!d || Number.isNaN(d.getTime()) || d.getTime() < Date.now() - 864e5) return null;
+      const p = (n: number) => String(n).padStart(2, "0");
+      return [`${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`, `${p(d.getHours())}:${p(d.getMinutes())}`] as const;
+    };
+    const pl = known(q.get("pickupLocationId"));
+    const rl = known(q.get("returnLocationId"));
+    if (pl) setPickupLocationId(pl);
+    if (rl && rl !== pl) {
+      setSameLocation(false);
+      setReturnLocationId(rl);
+    }
+    const pa = split(q.get("pickupAt"));
+    const ra = split(q.get("returnAt"));
+    if (pa && ra) {
+      setPickupDate(pa[0]);
+      setPickupTime(pa[1]);
+      setReturnDate(ra[0]);
+      setReturnTime(ra[1]);
+      return;
+    }
     setPickupDate((v) => v || dateOffset(1));
     setReturnDate((v) => v || dateOffset(3));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const effectiveReturnId = sameLocation ? pickupLocationId : returnLocationId;

@@ -1,16 +1,18 @@
 "use client";
 
-import { m as motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import type { CarListItem } from "@/lib/types";
 import { FleetCard } from "@/components/fleet/FleetCard";
 import { PillLink } from "@/components/ui/PillLink";
+import { CardRail } from "@/components/ui/CardRail";
 
 export function SimilarCars({
   cars,
   title,
   lead,
+  bleed = "-mx-4 px-4",
 }: {
+  bleed?: string;
   cars: CarListItem[];
   locale?: string;
   title: string;
@@ -35,19 +37,11 @@ export function SimilarCars({
         </PillLink>
       </div>
 
-      <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {cars.slice(0, 3).map((car, i) => (
-          <motion.li
-            key={car.id}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: i * 0.06 }}
-          >
-            <FleetCard car={car} sizes="(max-width: 639px) 92vw, (max-width: 1023px) 46vw, 360px" />
-          </motion.li>
-        ))}
-      </ul>
+      <CardRail
+        className="mt-8"
+        bleed={bleed}
+        items={cars.slice(0, 3).map((car) => ({ key: car.id, node: <FleetCard car={car} sizes="(max-width: 639px) 84vw, (max-width: 1023px) 46vw, 400px" /> }))}
+      />
     </section>
   );
 }

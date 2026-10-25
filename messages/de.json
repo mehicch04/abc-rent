@@ -13,7 +13,8 @@
     "guides": "Ratgeber",
     "open24": "Rund um die Uhr, täglich",
     "airport": "Ihr Auto wartet am Flughafen",
-    "rating": "{count} Google Bewertungen"
+    "rating": "{count} Google Bewertungen",
+    "currency": "Währung"
   },
   "Search": {
     "title": "Finden Sie Ihr Auto",
@@ -827,7 +828,8 @@
     "copy": "Nummer kopieren",
     "copied": "Kopiert",
     "submitShort": "Senden",
-    "nextStep": "Nächster Schritt"
+    "nextStep": "Nächster Schritt",
+    "pickDates": "Daten wählen"
   },
   "Rules": {
     "title": "Mietregeln auf einen Blick",

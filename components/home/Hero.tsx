@@ -45,37 +45,53 @@ export function Hero({ spotlight }: { spotlight?: CarListItem | null }) {
           decoding="sync"
           className="-z-20 object-cover object-[68%_60%] motion-safe:animate-[hero-zoom_18s_ease-out_both]"
         />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/5 rtl:bg-gradient-to-l max-lg:from-ink/80 max-lg:via-ink/60 max-lg:to-ink/40" />
+        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/5 rtl:bg-gradient-to-l max-lg:from-ink/80 max-lg:via-ink/60 max-lg:to-ink/40 max-sm:bg-gradient-to-b max-sm:from-ink/75 max-sm:via-ink/45 max-sm:to-ink/80" />
         <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent" />
         <div aria-hidden className="absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-ink/50 to-transparent" />
 
-        <div className="mx-auto flex min-h-[600px] max-w-6xl flex-col px-5 pb-24 pt-14 sm:min-h-[640px] sm:px-6 sm:pb-28 sm:pt-20 lg:min-h-[700px] lg:pt-24">
+        <div className="mx-auto flex min-h-[460px] max-w-6xl flex-col px-5 pb-24 pt-8 sm:min-h-[640px] sm:px-6 sm:pb-28 sm:pt-20 lg:min-h-[700px] lg:pt-24">
           <div className="max-w-2xl text-white">
-            <h1 className="motion-safe:animate-rise font-display text-[2.3rem] font-semibold leading-[1.02] tracking-[-0.035em] sm:text-6xl lg:text-[4.6rem]">
+            <a
+              href={company.map.link ?? "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="motion-safe:animate-rise mb-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-white/85 ring-1 ring-white/15 backdrop-blur-md sm:hidden"
+            >
+              <span className="flex gap-0.5" aria-hidden>
+                {Array.from({ length: 5 }, (_, i) => (
+                  <Star key={i} className="h-3 w-3 fill-[#F5A524] text-[#F5A524]" />
+                ))}
+              </span>
+              <span className="font-semibold text-white">{score}</span>
+              <span aria-hidden className="h-3 w-px bg-white/25" />
+              {t("trusted", { count })}
+            </a>
+            <h1 className="motion-safe:animate-rise font-display text-[2.05rem] font-semibold leading-[1.04] tracking-[-0.035em] sm:text-6xl lg:text-[4.6rem]">
               {t("titleA")}
               <span className="block text-white/55">{t("titleB")}</span>
             </h1>
 
-            <p style={{ animationDelay: "80ms" }} className="motion-safe:animate-rise mt-5 max-w-md text-[15px] leading-relaxed text-white/80 sm:mt-6 sm:text-[17px]">
+            <p style={{ animationDelay: "80ms" }} className="motion-safe:animate-rise mt-4 max-w-md text-[14.5px] leading-relaxed text-white/75 sm:mt-6 sm:text-[17px] sm:text-white/80">
               {t("subtitle")}
             </p>
 
-            <div style={{ animationDelay: "160ms" }} className="motion-safe:animate-rise mt-7 flex flex-wrap items-center gap-3 sm:mt-9">
+            <div style={{ animationDelay: "160ms" }} className="motion-safe:animate-rise mt-6 flex items-center gap-2.5 sm:mt-9 sm:flex-wrap sm:gap-3">
               <Link
                 href="/vozila"
-                className="group inline-flex h-14 items-center gap-4 rounded-full bg-white pe-2 ps-6 text-[15px] font-semibold text-ink shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6)] transition-transform duration-300 hover:-translate-y-0.5"
+                className="group inline-flex h-12 flex-1 items-center justify-between gap-4 rounded-full bg-white pe-1.5 ps-5 text-[15px] font-semibold text-ink shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6)] transition-transform duration-300 hover:-translate-y-0.5 sm:h-14 sm:flex-none sm:justify-start sm:pe-2 sm:ps-6"
               >
                 {t("ctaPrimary")}
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover:rotate-[-45deg] rtl:group-hover:rotate-45">
+                <span className="grid h-9 w-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover:rotate-[-45deg] rtl:group-hover:rotate-45 sm:h-10 sm:w-10">
                   <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
                 </span>
               </Link>
               <a
                 href={company.phones[0]?.href ?? "/kontakt"}
-                className="inline-flex h-14 items-center gap-2.5 rounded-full px-5 text-[15px] font-semibold text-white ring-1 ring-white/25 backdrop-blur-sm transition-colors hover:bg-white/10"
+                aria-label={t("ctaSecondary")}
+                className="inline-flex h-12 w-12 shrink-0 items-center justify-center gap-2.5 rounded-full text-[15px] font-semibold text-white ring-1 ring-white/25 backdrop-blur-sm transition-colors hover:bg-white/10 sm:h-14 sm:w-auto sm:px-5"
               >
                 <Phone className="h-4 w-4" />
-                {t("ctaSecondary")}
+                <span className="hidden sm:inline">{t("ctaSecondary")}</span>
               </a>
             </div>
 
@@ -84,7 +100,7 @@ export function Hero({ spotlight }: { spotlight?: CarListItem | null }) {
               target="_blank"
               rel="noopener noreferrer"
               style={{ animationDelay: "240ms" }}
-              className="motion-safe:animate-rise group mt-9 inline-flex items-center gap-4 sm:mt-12"
+              className="motion-safe:animate-rise group mt-12 hidden items-center gap-4 sm:inline-flex"
             >
               <span className="flex -space-x-2.5 rtl:space-x-reverse">
                 {FACES.map((f) => (
@@ -107,7 +123,7 @@ export function Hero({ spotlight }: { spotlight?: CarListItem | null }) {
             </a>
           </div>
 
-          <div className="mt-auto flex items-end justify-between gap-6 pt-10">
+          <div className="mt-auto hidden items-end justify-between gap-6 pt-10 sm:flex">
             <ul className="hidden gap-2 sm:flex">
               {socials.map((s) => (
                 <li key={s.label}>

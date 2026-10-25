@@ -84,3 +84,33 @@ export function LanguageToggle() {
     </div>
   );
 }
+
+export function LanguageChips() {
+  const locale = useLocale() as AppLocale;
+  const pathname = usePathname();
+  const router = useRouter();
+  const [, startTransition] = useTransition();
+  return (
+    <div className="grid grid-cols-4 gap-1">
+      {routing.locales.map((l) => {
+        const active = l === locale;
+        return (
+          <button
+            key={l}
+            type="button"
+            lang={l}
+            aria-pressed={active}
+            aria-label={LOCALE_NAMES[l]}
+            onClick={() => !active && startTransition(() => router.replace(pathname, { locale: l, scroll: false }))}
+            className={`inline-flex h-10 items-center justify-center gap-1.5 rounded-xl text-xs font-semibold transition-colors ${
+              active ? "bg-surface text-foreground shadow-sm ring-1 ring-border" : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <Flag locale={l} />
+            {l.toUpperCase()}
+          </button>
+        );
+      })}
+    </div>
+  );
+}

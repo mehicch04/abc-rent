@@ -23,7 +23,7 @@ export function Footer({ company, locations }: Props) {
     <footer className="mt-24 bg-[#06090F] text-white">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:grid-cols-2 sm:px-6 lg:grid-cols-[1.4fr_0.8fr_1fr_1.1fr]">
         <div>
-          <Image src="/logo-dark.png" alt={SITE.name} width={103} height={48} className="h-12 w-auto" />
+          <Image src="/logo-dark.png" alt={SITE.name} width={103} height={48} className="h-12 w-[103px]" />
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/55">{t("tagline")}</p>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/55">{t("languages")}</p>
           <div className="mt-6 flex gap-2">
@@ -45,10 +45,10 @@ export function Footer({ company, locations }: Props) {
 
         <div>
           <h3 className="text-sm font-semibold">{t("navTitle")}</h3>
-          <ul className="mt-5 space-y-3">
+          <ul className="mt-3 grid grid-cols-2 gap-x-4 sm:grid-cols-1">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="text-sm text-white/55 transition-colors hover:text-white">
+                <Link href={link.href} className="inline-block py-1.5 text-sm text-white/55 transition-colors hover:text-white">
                   {nav(link.key)}
                 </Link>
               </li>
@@ -58,22 +58,22 @@ export function Footer({ company, locations }: Props) {
 
         <div>
           <h3 className="text-sm font-semibold">{t("contact")}</h3>
-          <ul className="mt-5 space-y-3 text-sm text-white/55">
+          <ul className="mt-3 space-y-1 text-sm text-white/55">
             {company.phones.map((p) => (
               <li key={p.value}>
-                <a href={p.href} className="flex items-center gap-2.5 transition-colors hover:text-white">
+                <a href={p.href} className="flex items-center gap-2.5 py-1.5 transition-colors hover:text-white">
                   <Phone className="h-4 w-4 shrink-0 text-brand-400" />
                   <bdi dir="ltr">{p.value}</bdi>
                 </a>
               </li>
             ))}
             <li>
-              <a href={`mailto:${company.email}`} className="flex items-center gap-2.5 transition-colors hover:text-white">
+              <a href={`mailto:${company.email}`} className="flex items-center gap-2.5 py-1.5 transition-colors hover:text-white">
                 <Mail className="h-4 w-4 shrink-0 text-brand-400" />
                 <bdi dir="ltr">{company.email}</bdi>
               </a>
             </li>
-            <li className="flex items-center gap-2.5">
+            <li className="flex items-center gap-2.5 py-1.5">
               <Clock3 className="h-4 w-4 shrink-0 text-brand-400" />
               {locale === "bs" ? company.hours : t("hoursValue")}
             </li>
