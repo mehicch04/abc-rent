@@ -22,8 +22,8 @@ function TopBar() {
   const count = company.rating.count ?? SITE.rating.count;
   const phone = company.phones[0];
   return (
-    <div className="hidden bg-ink text-white/70 lg:block">
-      <div className="mx-auto flex h-9 max-w-6xl items-center justify-between gap-6 px-6 text-xs">
+    <div className="bg-ink text-white/70">
+      <div className="mx-auto flex h-9 max-w-[1320px] items-center justify-between gap-6 px-6 text-xs">
         <a href={company.map.link ?? SITE.map.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 transition-colors hover:text-white">
           <span className="flex gap-0.5" aria-hidden>
             {Array.from({ length: 5 }, (_, i) => (
@@ -68,6 +68,7 @@ export function Navbar() {
   const pathname = usePathname();
   const company = useCompany();
   const [scrolled, setScrolled] = useState(false);
+  const bar = useRef<HTMLSpanElement>(null);
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState<number | null>(null);
   const [pill, setPill] = useState<{ left: number; width: number } | null>(null);
@@ -91,7 +92,11 @@ export function Navbar() {
   }, [measure]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (bar.current) bar.current.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -101,17 +106,18 @@ export function Navbar() {
 
   return (
     <>
+    <div className="hidden lg:block">
       <TopBar />
-      <header className="pointer-events-none sticky top-0 z-50 px-3 pt-2.5 sm:px-4 sm:pt-3">
-        <nav
-          className={`pointer-events-auto relative mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 rounded-full pe-2 ps-4 ring-1 transition-[background-color,box-shadow] duration-300 sm:ps-5 ${
-            scrolled || open
-              ? "bg-surface/80 shadow-[0_22px_50px_-28px_rgba(11,18,32,0.5)] ring-border backdrop-blur-xl backdrop-saturate-150"
-              : "bg-surface shadow-[0_1px_2px_rgba(11,18,32,0.05)] ring-border/80"
-          }`}
-        >
-          <span aria-hidden className="pointer-events-none absolute inset-x-10 -bottom-px h-px bg-gradient-to-r from-transparent via-brand/50 to-transparent" />
-
+    </div>
+    <header className="sticky top-0 z-50">
+      <div
+        className={`relative border-b transition-[background-color,box-shadow,border-color] duration-300 ${
+          scrolled || open
+            ? "border-border bg-surface/85 shadow-[0_14px_40px_-28px_rgba(11,18,32,0.45)] backdrop-blur-xl backdrop-saturate-150"
+            : "border-border/70 bg-surface"
+        }`}
+      >
+        <nav className="mx-auto flex h-[68px] max-w-[1320px] items-center justify-between gap-3 px-4 sm:px-6">
           <Link href="/" className="flex shrink-0 items-center" aria-label={SITE.name}>
             <Image src="/logo.png" alt={SITE.name} width={86} height={40} loading="eager" className="h-9 w-auto sm:h-10" />
           </Link>
@@ -170,6 +176,9 @@ export function Navbar() {
             </button>
           </div>
         </nav>
+        <span aria-hidden className="absolute inset-x-0 -bottom-px h-[2px] overflow-hidden">
+          <span ref={bar} className="block h-full origin-left bg-brand-gradient transition-transform duration-150 ease-out rtl:origin-right" style={{ transform: "scaleX(0)" }} />
+        </span>
 
         <AnimatePresence>
           {open && (
@@ -178,7 +187,7 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
               transition={{ duration: 0.25, ease: EASE }}
-              className="pointer-events-auto absolute inset-x-3 top-full mx-auto mt-2 max-h-[calc(100dvh-6rem)] max-w-6xl origin-top overflow-y-auto rounded-[28px] bg-surface p-3 shadow-[0_30px_60px_-30px_rgba(11,18,32,0.55)] ring-1 ring-border sm:inset-x-4 lg:hidden"
+              className="absolute inset-x-3 top-full mx-auto mt-2 max-h-[calc(100dvh-6rem)] max-w-6xl origin-top overflow-y-auto rounded-[28px] bg-surface p-3 shadow-[0_30px_60px_-30px_rgba(11,18,32,0.55)] ring-1 ring-border sm:inset-x-4 lg:hidden"
             >
               <ul className="grid gap-1">
                 {NAV_LINKS.map((link, i) => (
@@ -223,7 +232,8 @@ export function Navbar() {
             </motion.div>
           )}
         </AnimatePresence>
-      </header>
+      </div>
+    </header>
     </>
   );
 }

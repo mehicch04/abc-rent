@@ -5,6 +5,7 @@ import { Check, ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { LOCALE_NAMES, routing, type AppLocale } from "@/i18n/routing";
+import { Flag } from "@/components/ui/Flag";
 
 export function LanguageToggle() {
   const locale = useLocale() as AppLocale;
@@ -44,9 +45,10 @@ export function LanguageToggle() {
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="inline-flex h-9 items-center gap-1 rounded-full px-3 text-xs font-semibold text-foreground/80 transition-colors hover:bg-foreground/[0.06] hover:text-foreground aria-expanded:bg-foreground/[0.06]"
+        className="inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-xs font-semibold text-foreground/80 transition-colors hover:bg-foreground/[0.06] hover:text-foreground aria-expanded:bg-foreground/[0.06]"
       >
-        {locale.toUpperCase()}
+        <Flag locale={locale} />
+        <span className="hidden xl:inline">{locale.toUpperCase()}</span>
         <span className="sr-only">
           {t("language")}: {LOCALE_NAMES[locale]}
         </span>
@@ -70,7 +72,7 @@ export function LanguageToggle() {
                 }`}
               >
                 <span className="flex items-center gap-2.5">
-                  <span className="w-6 text-start text-xs font-semibold">{l.toUpperCase()}</span>
+                  <Flag locale={l} className="h-4 w-6" />
                   <span className={active ? "font-semibold" : "text-muted-foreground"}>{LOCALE_NAMES[l]}</span>
                 </span>
                 {active && <Check className="h-4 w-4 shrink-0" />}

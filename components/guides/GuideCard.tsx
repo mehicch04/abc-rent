@@ -26,10 +26,11 @@ export function GuideCard({
   return (
     <Link
       href={`/vodici/${guide.slug}`}
-      className="group flex h-full flex-col rounded-[22px] bg-surface p-6 ring-1 ring-border transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-card-hover sm:p-7"
+      data-spot
+      className="group flex h-full flex-col rounded-[22px] bg-surface p-6 ring-1 ring-border transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-card-hover hover:ring-brand/30 sm:p-7"
     >
       <div className="flex items-center justify-between">
-        <span className="grid h-11 w-11 place-items-center rounded-2xl bg-brand/10 text-brand-strong">
+        <span className="grid h-11 w-11 place-items-center rounded-2xl bg-brand/10 text-brand-strong transition-[transform,background-color,color] duration-300 group-hover:-rotate-6 group-hover:scale-110 group-hover:bg-brand group-hover:text-white">
           <Icon className="h-5 w-5" />
         </span>
         <span className="text-xs text-muted-foreground">{minutesLabel}</span>

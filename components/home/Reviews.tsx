@@ -22,7 +22,7 @@ function Card({ r, href, copy }: { r: Review; href: string; copy?: boolean }) {
   const t = useTranslations("Reviews");
   return (
     <figure aria-hidden={copy} className="w-[300px] shrink-0 pe-4 sm:w-[400px]">
-      <div className="flex h-full flex-col rounded-[22px] bg-surface-muted p-5 ring-1 ring-border/70 transition-colors duration-300 hover:bg-surface hover:ring-brand/25 sm:p-6">
+      <div data-spot className="flex h-full flex-col rounded-[22px] bg-surface-muted p-5 ring-1 ring-border/70 transition-colors duration-300 hover:bg-surface hover:ring-brand/25 sm:p-6">
         <div className="flex items-center gap-3">
           <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#5BC8F5] to-[#0767A0] text-base font-semibold text-white shadow-[0_6px_14px_-8px_rgba(8,121,184,0.9)]">
             {r.author.trim().charAt(0).toUpperCase()}

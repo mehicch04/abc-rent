@@ -15,6 +15,7 @@ import { getLocations } from "@/lib/fleet-data";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
+import { Spotlight } from "@/components/motion/Spotlight";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -169,6 +170,7 @@ export default async function LocaleLayout({
               </div>
               <BackToTop />
               <WhatsAppFab />
+              <Spotlight />
             </MotionProvider>
             </CurrencyProvider>
             </CompanyProvider>

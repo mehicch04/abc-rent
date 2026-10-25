@@ -1,11 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { m as motion } from "framer-motion";
 import { Cog, Infinity as InfinityIcon, Plane, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { CarListItem } from "@/lib/types";
-import { carCategories, type CarCategory } from "@/lib/car-categories";
+import type { CarCategory } from "@/lib/car-categories";
 import { FleetCard } from "@/components/fleet/FleetCard";
 import { PillLink } from "@/components/ui/PillLink";
 import { Band } from "@/components/ui/Band";
@@ -16,21 +15,11 @@ export type FleetType = { id: CarCategory; count: number; from: number | null; i
 const PERKS = [ShieldCheck, InfinityIcon, Plane, Cog];
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-export function FeaturedFleet({ cars, total, types }: { cars: CarListItem[]; total: number; types: FleetType[] }) {
+export function FeaturedFleet({ cars, total }: { cars: CarListItem[]; total: number; types?: FleetType[] }) {
   const t = useTranslations("HomeFleet");
-  const tf = useTranslations("Fleet");
   const perks = t.raw("included") as { title: string; body: string }[];
-  const [tab, setTab] = useState<"TOP" | CarCategory>("TOP");
-
-  const tabs = [{ id: "TOP" as const, label: t("tabTop") }, ...types.slice(0, 4).map((x) => ({ id: x.id, label: tf(`categories.${x.id}`) }))];
-
-  const shown = useMemo(() => {
-    const list =
-      tab === "TOP"
-        ? [...cars].sort((a, b) => Number(b.isFeatured) - Number(a.isFeatured))
-        : cars.filter((c) => carCategories(c).includes(tab));
-    return list.slice(0, 6);
-  }, [cars, tab]);
+  const picked = cars.filter((c) => c.isFeatured);
+  const shown = (picked.length ? picked : cars).slice(0, 6);
 
   return (
     <Band className="py-3">
@@ -42,32 +31,13 @@ export function FeaturedFleet({ cars, total, types }: { cars: CarListItem[]; tot
           </PillLink>
         </div>
 
-        <div role="tablist" aria-label={t("eyebrow")} className="no-scrollbar mt-10 flex w-fit max-w-full gap-1 overflow-x-auto rounded-full bg-white/[0.05] p-1.5 ring-1 ring-white/10">
-          {tabs.map((x) => {
-            const on = tab === x.id;
-            return (
-              <button
-                key={x.id}
-                type="button"
-                role="tab"
-                aria-selected={on}
-                onClick={() => setTab(x.id)}
-                className={`h-10 shrink-0 rounded-full px-5 text-sm font-semibold transition-colors duration-300 ${
-                  on ? "bg-white text-ink shadow-[0_8px_20px_-10px_rgba(255,255,255,0.5)]" : "text-white/65 hover:text-white"
-                }`}
-              >
-                {x.label}
-              </button>
-            );
-          })}
-        </div>
-
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((car, i) => (
             <motion.li
-              key={`${tab}-${car.id}`}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
+              key={car.id}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.45, ease: EASE, delay: i * 0.05 }}
             >
               <FleetCard car={car} sizes="(max-width: 639px) 92vw, (max-width: 1023px) 46vw, 360px" />

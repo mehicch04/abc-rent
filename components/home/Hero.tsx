@@ -33,7 +33,7 @@ export function Hero({ spotlight }: { spotlight?: CarListItem | null }) {
   ].filter(Boolean) as { href: string; label: string; icon: JSX.Element }[];
 
   return (
-    <section className="px-3 pt-1 sm:px-4">
+    <section className="px-3 pt-3 sm:px-4">
       <div className="relative isolate overflow-hidden rounded-[32px] bg-ink">
         <Image
           src="/img/hero-fleet.webp"

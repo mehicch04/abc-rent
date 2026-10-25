@@ -74,7 +74,8 @@
   }
   html[lang="ar"] .text-\[10px\],
   html[lang="ar"] .text-\[10\.5px\],
-  html[lang="ar"] .text-\[11px\] {
+  html[lang="ar"] .text-\[11px\],
+  html[lang="ar"] .text-\[11\.5px\] {
     font-size: 0.75rem;
   }
 
@@ -210,4 +211,23 @@
   to {
     transform: scale(1);
   }
+}
+
+[data-spot] {
+  position: relative;
+  isolation: isolate;
+}
+[data-spot]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), rgba(30, 164, 233, 0.13), transparent 48%);
+}
+[data-spot]:hover::after {
+  opacity: 1;
 }

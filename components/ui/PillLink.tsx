@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 type Variant = "brand" | "light" | "dark" | "outline";
 
 const BASE =
-  "group inline-flex shrink-0 items-center gap-3 rounded-full font-medium transition-colors";
+  "group relative inline-flex shrink-0 items-center gap-3 overflow-hidden rounded-full font-medium transition-[background-color,border-color,transform] duration-300 active:scale-[0.98]";
 
 const VARIANTS: Record<Variant, { btn: string; dot: string }> = {
   brand: {
@@ -47,6 +47,7 @@ export function PillLink({
   const cls = `${BASE} ${pad} ${v.btn} ${className}`;
   const inner = (
     <>
+      <span aria-hidden className="pointer-events-none absolute inset-y-0 -start-1/2 w-1/3 -skew-x-12 bg-white/25 opacity-0 transition-[transform,opacity] duration-700 group-hover:translate-x-[480%] group-hover:opacity-100 rtl:group-hover:-translate-x-[480%]" />
       {children}
       <span
         className={`inline-flex ${dot} items-center justify-center rounded-full transition-transform duration-300 group-hover:rotate-45 ${v.dot}`}
