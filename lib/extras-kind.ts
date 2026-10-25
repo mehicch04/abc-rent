@@ -8,5 +8,5 @@ export function isPrivateDriver(e: { nameEn: string }): boolean {
 }
 
 export function isNoDeposit(e: { nameEn: string }): boolean {
-  return e.nameEn.trim().toLowerCase() === "no deposit";
+  return e.nameEn.trim().toLowerCase().includes("no deposit");
 }

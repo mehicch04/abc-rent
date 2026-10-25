@@ -34,6 +34,8 @@ import { carCategories } from "@/lib/car-categories";
 import { splitLocal, type BusyRange } from "@/lib/booking";
 import { addDays, shortDate, todayISO } from "@/lib/dates";
 import { BookingWidget } from "@/components/booking/BookingWidget";
+import { RentalRules } from "@/components/fleet/RentalRules";
+import { trackItem } from "@/lib/track";
 import { AvailabilityCalendar } from "@/components/booking/AvailabilityCalendar";
 import { quote, type BookingState } from "@/components/booking/state";
 
@@ -97,6 +99,10 @@ export function CarDetail({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    trackItem("view_item", { id: car.id, title: car.title, brand: car.brand, category: car.carClass, priceBam: car.pricePerDay });
+  }, [car.id, car.title, car.brand, car.carClass, car.pricePerDay]);
+
   const q = quote(car, b, busy, locations);
   const stickRef = useRef<HTMLDivElement>(null);
   const [stickTop, setStickTop] = useState(96);
@@ -128,12 +134,6 @@ export function CarDetail({
     { icon: Briefcase, label: t("spec.luggage"), value: car.luggage != null ? String(car.luggage) : "/" },
     { icon: Snowflake, label: t("spec.ac"), value: car.airCondition ? t("spec.yes") : t("spec.no") },
     { icon: Armchair, label: t("spec.class"), value: pick(CLASS_LABELS[car.carClass], lang) },
-  ];
-  const need = [
-    t("needLicence"),
-    t("needId"),
-    ...(car.deposit != null ? [t("needDeposit", { amount: `⁦${formatPrice(car.deposit, currency)}⁩` })] : []),
-    t("needNoPay"),
   ];
 
   const pickRange = (start: string, end: string | null) =>
@@ -213,17 +213,7 @@ export function CarDetail({
             </div>
           </section>
 
-          <section className="rounded-[22px] p-5 ring-1 ring-border sm:p-6">
-            <h2 className="font-display text-lg font-semibold text-foreground">{t("need")}</h2>
-            <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
-              {need.map((n) => (
-                <li key={n} className="flex items-start gap-2 text-sm text-foreground/85">
-                  <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-brand-strong" />
-                  {n}
-                </li>
-              ))}
-            </ul>
-          </section>
+          <RentalRules deposit={car.deposit} />
 
           {video && (
             <section>

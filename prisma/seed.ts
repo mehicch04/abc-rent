@@ -94,10 +94,11 @@ const gallery = (main: string) => {
 };
 
 const extras = [
-  { id: "abc-no-deposit", nameHr: "Bez depozita", nameEn: "No deposit", noteHr: "Mala dnevna naknada umjesto depozita", noteEn: "A small daily fee instead of a deposit", pricing: ExtraPricing.PER_DAY, eur: 10, maxQty: 1, totalStock: 99, sortOrder: 0 },
+  { id: "abc-no-deposit", nameHr: "Puno osiguranje bez depozita", nameEn: "Full insurance, no deposit", noteHr: "Ne ostavljate depozit pri preuzimanju", noteEn: "No deposit to leave at pick-up", pricing: ExtraPricing.PER_DAY, eur: 10, maxQty: 1, totalStock: 99, sortOrder: 0 },
   { id: "abc-child-seat", nameHr: "Dječija sjedalica", nameEn: "Child seat", noteHr: "Za djecu od 1 do 5 godina", noteEn: "For children aged 1 to 5", pricing: ExtraPricing.PER_DAY, eur: 5, maxQty: 2, totalStock: 4, sortOrder: 1 },
   { id: "abc-booster-seat", nameHr: "Booster sjedište", nameEn: "Booster seat", noteHr: "Za djecu od 5 do 10 godina", noteEn: "For children aged 5 to 10", pricing: ExtraPricing.PER_DAY, eur: 10, maxQty: 2, totalStock: 4, sortOrder: 2 },
   { id: "abc-cross-border", nameHr: "Prelazak granice", nameEn: "Cross border", noteHr: "Vožnja izvan Bosne i Hercegovine", noteEn: "Driving outside Bosnia and Herzegovina", pricing: ExtraPricing.PER_RENTAL, eur: 15, maxQty: 1, totalStock: 99, sortOrder: 3 },
+  { id: "abc-additional-driver", nameHr: "Dodatni vozač", nameEn: "Additional driver", noteHr: "Drugi vozač upisan u ugovor o najmu", noteEn: "A second driver on the rental agreement", pricing: ExtraPricing.PER_DAY, eur: 5, maxQty: 2, totalStock: 99, sortOrder: 3 },
   { id: "abc-cleaning", nameHr: "Čišćenje vozila", nameEn: "Cleaning", noteHr: "Vozilo vraćate bez čišćenja", noteEn: "Return the car without cleaning it", pricing: ExtraPricing.PER_RENTAL, eur: 15, maxQty: 1, totalStock: 99, sortOrder: 4 },
   { id: "abc-private-driver", nameHr: "Privatni vozač", nameEn: "Private driver", noteHr: "Samo vozač, gorivo nije uključeno", noteEn: "Driver only, fuel not included", pricing: ExtraPricing.PER_DAY, eur: 50, maxQty: 1, totalStock: 3, sortOrder: 5 },
   { id: "abc-all-inclusive", nameHr: "All inclusive: auto i vozač", nameEn: "All inclusive: car and driver", noteHr: "Auto, vozač, gorivo i parking u jednoj dnevnoj cijeni", noteEn: "Car, driver, fuel and parking in one daily price", pricing: ExtraPricing.PER_DAY, eur: 150, maxQty: 1, totalStock: 3, sortOrder: 6 },

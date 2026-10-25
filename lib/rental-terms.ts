@@ -53,8 +53,9 @@ export const RENTAL_TERMS: Record<AppLocale, TermsContent> = {
         topic: "Cijena i šta je uključeno",
         blocks: [
           { type: "p", text: "U cijenu najma uključeno je:" },
-          { type: "ul", items: ["neograničena kilometraža,", "puno osiguranje vozila,", "besplatno preuzimanje i vraćanje na Aerodromu Sarajevo (SJJ) i u poslovnici,", "pomoć na cesti 0 do 24."] },
-          { type: "p", text: "Svi dodaci koje odaberete vide se u obračunu prije slanja rezervacije." },
+          { type: "ul", items: ["neograničena kilometraža,", "osnovno osiguranje vozila,", "besplatno preuzimanje i vraćanje na Aerodromu Sarajevo (SJJ) i u poslovnici,", "pomoć na cesti 0 do 24."] },
+          { type: "p", text: "Puno osiguranje bez depozita možete dodati za 10 € dnevno. Svi dodaci koje odaberete vide se u obračunu prije slanja rezervacije." },
+          { type: "p", text: "Ništa ne plaćate unaprijed. Najam i odabrane dodatke plaćate pri preuzimanju vozila." },
         ],
       },
       {
@@ -62,8 +63,8 @@ export const RENTAL_TERMS: Record<AppLocale, TermsContent> = {
         topic: "Depozit",
         blocks: [
           { type: "p", text: `Depozit iznosi ${STD} € za većinu vozila, a ${PREM} € za Audi Q7 i Mercedes E klasu. Tačan iznos piše uz svako vozilo.` },
-          { type: "p", text: "Depozit ostavljate pri preuzimanju i dobijate ga nazad u cijelosti kada vratite vozilo u urednom stanju." },
-          { type: "p", text: "Ako ne želite ostaviti depozit, možete odabrati opciju bez depozita za 10 € dnevno." },
+          { type: "p", text: "Depozit ostavljate u gotovini pri preuzimanju i dobijate ga nazad u cijelosti kada vratite vozilo u urednom stanju." },
+          { type: "p", text: "Ako ne želite ostaviti depozit, odaberite puno osiguranje bez depozita za 10 € dnevno." },
         ],
       },
       {
@@ -78,7 +79,7 @@ export const RENTAL_TERMS: Record<AppLocale, TermsContent> = {
         n: 6,
         topic: "Dodaci i usluge",
         blocks: [
-          { type: "ul", items: ["dječija sjedalica (1 do 5 godina): 5 € dnevno,", "booster sjedište (5 do 10 godina): 10 € dnevno,", "prelazak granice: 15 € jednokratno,", "čišćenje vozila: 15 € jednokratno,", "privatni vozač: 50 € dnevno, gorivo nije uključeno,", "auto i vozač, sve uključeno: 150 € dnevno (vozilo, vozač, gorivo i parking)."] },
+          { type: "ul", items: ["dječija sjedalica (1 do 5 godina): 5 € dnevno,", "booster sjedište (5 do 10 godina): 10 € dnevno,", "prelazak granice: 15 € jednokratno,", "dodatni vozač: 5 € dnevno,", "čišćenje vozila: 15 € jednokratno,", "privatni vozač: 50 € dnevno, gorivo nije uključeno,", "auto i vozač, sve uključeno: 150 € dnevno (vozilo, vozač, gorivo i parking)."] },
         ],
       },
       {
@@ -134,8 +135,9 @@ export const RENTAL_TERMS: Record<AppLocale, TermsContent> = {
         topic: "Price and what is included",
         blocks: [
           { type: "p", text: "The rental price includes:" },
-          { type: "ul", items: ["unlimited mileage,", "full insurance,", "free pick-up and return at Sarajevo Airport (SJJ) and at our office,", "24/7 roadside assistance."] },
-          { type: "p", text: "Every extra you choose is shown in the price breakdown before you send the booking." },
+          { type: "ul", items: ["unlimited mileage,", "basic insurance,", "free pick-up and return at Sarajevo Airport (SJJ) and at our office,", "24/7 roadside assistance."] },
+          { type: "p", text: "Full insurance with no deposit can be added for 10 € per day. Every extra you choose is shown in the price breakdown before you send the booking." },
+          { type: "p", text: "You pay nothing in advance. The rental and any extras are paid at pick-up." },
         ],
       },
       {
@@ -143,8 +145,8 @@ export const RENTAL_TERMS: Record<AppLocale, TermsContent> = {
         topic: "Deposit",
         blocks: [
           { type: "p", text: `The deposit is ${STD} € for most cars and ${PREM} € for the Audi Q7 and Mercedes E-Class. The exact amount is shown on every car.` },
-          { type: "p", text: "You leave it at pick-up and get it back in full when the car is returned in good order." },
-          { type: "p", text: "If you prefer not to leave a deposit, choose the no deposit option for 10 € per day." },
+          { type: "p", text: "You leave it in cash at pick-up and get it back in full when the car is returned in good order." },
+          { type: "p", text: "If you prefer not to leave a deposit, choose full insurance with no deposit for 10 € per day." },
         ],
       },
       {
@@ -159,7 +161,7 @@ export const RENTAL_TERMS: Record<AppLocale, TermsContent> = {
         n: 6,
         topic: "Extras and services",
         blocks: [
-          { type: "ul", items: ["child seat (age 1 to 5): 5 € per day,", "booster seat (age 5 to 10): 10 € per day,", "cross border: 15 € once,", "cleaning: 15 € once,", "private driver: 50 € per day, fuel not included,", "car and driver, all inclusive: 150 € per day (car, driver, fuel and parking)."] },
+          { type: "ul", items: ["child seat (age 1 to 5): 5 € per day,", "booster seat (age 5 to 10): 10 € per day,", "cross border: 15 € once,", "additional driver: 5 € per day,", "cleaning: 15 € once,", "private driver: 50 € per day, fuel not included,", "car and driver, all inclusive: 150 € per day (car, driver, fuel and parking)."] },
         ],
       },
       {
@@ -215,7 +217,7 @@ export const RENTAL_TERMS: Record<AppLocale, TermsContent> = {
         topic: "Preis und Leistungen",
         blocks: [
           { type: "p", text: "Im Mietpreis enthalten:" },
-          { type: "ul", items: ["unbegrenzte Kilometer,", "Vollkasko,", "kostenlose Übergabe und Rückgabe am Flughafen Sarajevo (SJJ) und in unserem Büro,", "Pannenhilfe rund um die Uhr."] },
+          { type: "ul", items: ["unbegrenzte Kilometer,", "Basisversicherung,", "kostenlose Übergabe und Rückgabe am Flughafen Sarajevo (SJJ) und in unserem Büro,", "Pannenhilfe rund um die Uhr."] },
           { type: "p", text: "Jedes gewählte Extra sehen Sie in der Preisübersicht, bevor Sie die Buchung senden." },
         ],
       },
@@ -224,8 +226,8 @@ export const RENTAL_TERMS: Record<AppLocale, TermsContent> = {
         topic: "Kaution",
         blocks: [
           { type: "p", text: `Die Kaution beträgt ${STD} € für die meisten Autos und ${PREM} € für Audi Q7 und Mercedes E-Klasse. Der genaue Betrag steht bei jedem Auto.` },
-          { type: "p", text: "Sie hinterlegen sie bei der Abholung und erhalten sie vollständig zurück, wenn das Auto in ordentlichem Zustand zurückkommt." },
-          { type: "p", text: "Ohne Kaution mieten Sie mit der Option „Ohne Kaution“ für 10 € pro Tag." },
+          { type: "p", text: "Sie hinterlegen sie bar bei der Abholung und erhalten sie vollständig zurück, wenn das Auto in ordentlichem Zustand zurückkommt." },
+          { type: "p", text: "Ohne Kaution mieten Sie mit der Vollkasko ohne Kaution für 10 € pro Tag." },
         ],
       },
       {
@@ -240,7 +242,7 @@ export const RENTAL_TERMS: Record<AppLocale, TermsContent> = {
         n: 6,
         topic: "Extras und Services",
         blocks: [
-          { type: "ul", items: ["Kindersitz (1 bis 5 Jahre): 5 € pro Tag,", "Sitzerhöhung (5 bis 10 Jahre): 10 € pro Tag,", "Grenzübertritt: 15 € einmalig,", "Reinigung: 15 € einmalig,", "Privatfahrer: 50 € pro Tag, ohne Kraftstoff,", "Auto mit Fahrer, alles inklusive: 150 € pro Tag (Auto, Fahrer, Kraftstoff und Parken)."] },
+          { type: "ul", items: ["Kindersitz (1 bis 5 Jahre): 5 € pro Tag,", "Sitzerhöhung (5 bis 10 Jahre): 10 € pro Tag,", "Grenzübertritt: 15 € einmalig,", "Zusatzfahrer: 5 € pro Tag,", "Reinigung: 15 € einmalig,", "Privatfahrer: 50 € pro Tag, ohne Kraftstoff,", "Auto mit Fahrer, alles inklusive: 150 € pro Tag (Auto, Fahrer, Kraftstoff und Parken)."] },
         ],
       },
       {
@@ -296,8 +298,9 @@ export const RENTAL_TERMS: Record<AppLocale, TermsContent> = {
         topic: "السعر وما يشمله",
         blocks: [
           { type: "p", text: "يشمل سعر الإيجار:" },
-          { type: "ul", items: ["كيلومترات مفتوحة،", "تأمين شامل،", "استلام وتسليم مجاني في مطار سراييفو (SJJ) وفي مكتبنا،", "مساعدة على الطريق على مدار الساعة."] },
-          { type: "p", text: "كل إضافة تختارها تظهر في تفاصيل السعر قبل إرسال الحجز." },
+          { type: "ul", items: ["كيلومترات مفتوحة،", "تأمين أساسي،", "استلام وتسليم مجاني في مطار سراييفو (SJJ) وفي مكتبنا،", "مساعدة على الطريق على مدار الساعة."] },
+          { type: "p", text: "يمكنك إضافة التأمين الشامل بدون وديعة مقابل 10 يورو يومياً. كل إضافة تختارها تظهر في تفاصيل السعر قبل إرسال الحجز." },
+          { type: "p", text: "لا تدفع شيئاً مقدماً. تدفع الإيجار والإضافات عند استلام السيارة." },
         ],
       },
       {
@@ -305,8 +308,8 @@ export const RENTAL_TERMS: Record<AppLocale, TermsContent> = {
         topic: "الوديعة",
         blocks: [
           { type: "p", text: `الوديعة ${STD} يورو لمعظم السيارات و${PREM} يورو لأودي Q7 ومرسيدس الفئة E. المبلغ الدقيق مكتوب عند كل سيارة.` },
-          { type: "p", text: "تتركها عند الاستلام وتستعيدها كاملة عند إرجاع السيارة بحالة جيدة." },
-          { type: "p", text: "إذا كنت لا تريد ترك وديعة فاختر خيار «بدون وديعة» مقابل 10 يورو يومياً." },
+          { type: "p", text: "تتركها نقداً عند الاستلام وتستعيدها كاملة عند إرجاع السيارة بحالة جيدة." },
+          { type: "p", text: "إذا كنت لا تريد ترك وديعة فاختر التأمين الشامل بدون وديعة مقابل 10 يورو يومياً." },
         ],
       },
       {
@@ -321,7 +324,7 @@ export const RENTAL_TERMS: Record<AppLocale, TermsContent> = {
         n: 6,
         topic: "الإضافات والخدمات",
         blocks: [
-          { type: "ul", items: ["كرسي أطفال (من 1 إلى 5 سنوات): 5 يورو يومياً،", "مقعد رافع (من 5 إلى 10 سنوات): 10 يورو يومياً،", "عبور الحدود: 15 يورو مرة واحدة،", "تنظيف السيارة: 15 يورو مرة واحدة،", "سائق خاص: 50 يورو يومياً، الوقود غير مشمول،", "سيارة مع سائق شامل كل شيء: 150 يورو يومياً (السيارة والسائق والوقود والمواقف)."] },
+          { type: "ul", items: ["كرسي أطفال (من 1 إلى 5 سنوات): 5 يورو يومياً،", "مقعد رافع (من 5 إلى 10 سنوات): 10 يورو يومياً،", "عبور الحدود: 15 يورو مرة واحدة،", "سائق إضافي: 5 يورو يومياً،", "تنظيف السيارة: 15 يورو مرة واحدة،", "سائق خاص: 50 يورو يومياً، الوقود غير مشمول،", "سيارة مع سائق شامل كل شيء: 150 يورو يومياً (السيارة والسائق والوقود والمواقف)."] },
         ],
       },
       {

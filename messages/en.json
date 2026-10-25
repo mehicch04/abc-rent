@@ -84,7 +84,7 @@
     "bookNow": "Book this vehicle",
     "featuredTitle": "Featured vehicles from our fleet",
     "included": [
-      "Full insurance",
+      "Insurance included",
       "Unlimited mileage",
       "Free airport pick-up",
       "24/7 roadside help"
@@ -193,7 +193,9 @@
     "hours": "Opening hours",
     "navTitle": "Quick links",
     "languages": "We speak Bosnian, English, Arabic and German.",
-    "hoursValue": "24/7, every day"
+    "hoursValue": "24/7, every day",
+    "privacy": "Privacy policy",
+    "cookies": "Cookie settings"
   },
   "About": {
     "eyebrow": "About us",
@@ -207,15 +209,15 @@
       "depositLabel": "Deposit"
     },
     "storyTitle": "Who we are",
-    "storyP1": "Your car waits at Sarajevo Airport or our office at no extra cost, and we can also bring it to your address. Every vehicle is fully insured and regularly serviced.",
+    "storyP1": "Your car waits at Sarajevo Airport or our office at no extra cost, and we can also bring it to your address. Every vehicle is insured and regularly serviced.",
     "storyP2": "Besides car rental we offer a professional chauffeur service and airport transfers. You can book through the website, WhatsApp or by phone.",
     "features": {
       "f1Title": "Available 24/7",
       "f1Text": "Reach us any time, for a booking or for help on the road.",
       "f2Title": "Free at the airport",
       "f2Text": "Pick-up and return at Sarajevo Airport and our office at no extra cost.",
-      "f3Title": "Full insurance",
-      "f3Text": "All vehicles are fully insured and regularly serviced.",
+      "f3Title": "Insured cars",
+      "f3Text": "All vehicles are insured and regularly serviced.",
       "f4Title": "Clear prices",
       "f4Text": "The price you see is the price you pay. No hidden fees."
     },
@@ -289,12 +291,12 @@
     "reference": "Reference",
     "sendAnother": "Send another inquiry",
     "errorText": "Something went wrong while sending. Please try again or contact us by phone.",
-    "privacy": "By submitting this form you agree to be contacted regarding your inquiry."
+    "privacy": "By submitting this form you agree to be contacted regarding your inquiry. More in our <link>privacy policy</link>."
   },
   "Seo": {
     "home": {
       "title": "Rent a Car Sarajevo | Free airport pick-up",
-      "description": "Car rental in Sarajevo with free pick-up at Sarajevo Airport. 200 € deposit, unlimited mileage and full insurance. Chauffeur service and transfers."
+      "description": "Car rental in Sarajevo with free pick-up at Sarajevo Airport. 200 € deposit, unlimited mileage and insurance included. Chauffeur service and transfers."
     },
     "fleet": {
       "title": "Our fleet | Rent a car in Sarajevo",
@@ -302,7 +304,7 @@
     },
     "about": {
       "title": "About us",
-      "description": "Meet ABC Rent a Car, a car rental agency in Sarajevo. Free airport pick-up, full insurance and 24/7 support."
+      "description": "Meet ABC Rent a Car, a car rental agency in Sarajevo. Free airport pick-up, insurance included and 24/7 support."
     },
     "terms": {
       "title": "Rental terms",
@@ -315,6 +317,10 @@
     "guides": {
       "title": "Driving guides for Bosnia",
       "description": "Traffic fines, driving rules, picking up a car at Sarajevo Airport and day trips from Sarajevo. Short and clear for visitors."
+    },
+    "privacy": {
+      "title": "Privacy policy",
+      "description": "How ABC Rent a Car collects, uses and stores your personal data and cookies, and what your rights are."
     }
   },
   "Extras": {
@@ -336,7 +342,7 @@
     "chip": "Rated {score} on Google, {count} reviews",
     "titleA": "Land in Sarajevo,",
     "titleB": "your car is already there.",
-    "subtitle": "Your car waits at Sarajevo Airport at no extra cost. Full insurance and unlimited mileage are included, and the deposit starts at 200 €.",
+    "subtitle": "Your car waits at Sarajevo Airport at no extra cost. Insurance and unlimited mileage are included, and the deposit starts at 200 €.",
     "ctaPrimary": "Browse cars",
     "ctaSecondary": "Call us",
     "statFleet": "cars in the fleet",
@@ -387,7 +393,7 @@
     "from": "from",
     "included": [
       {
-        "title": "Full insurance",
+        "title": "Insurance included",
         "body": "Included in the price of every car."
       },
       {
@@ -620,11 +626,15 @@
       },
       {
         "q": "What's included in the price?",
-        "a": "Full insurance, unlimited mileage, free pick-up and return at Sarajevo Airport and our office, and 24/7 roadside assistance."
+        "a": "Basic insurance, unlimited mileage, free pick-up and return at Sarajevo Airport and our office, and 24/7 roadside assistance. Full insurance with no deposit can be added for 10 € per day."
       },
       {
         "q": "How much is the deposit?",
-        "a": "200 € for most cars and 300 € for the Audi Q7 and Mercedes E-Class. You leave it at pick-up and get it back at return. You can also rent with no deposit for 10 € per day."
+        "a": "200 € for most cars and 300 € for the Audi Q7 and Mercedes E-Class. You leave it in cash at pick-up and get it back at return. You can also rent with no deposit by adding full insurance for 10 € per day."
+      },
+      {
+        "q": "How do I pay?",
+        "a": "You pay nothing in advance. The rental and extras are paid at pick-up, and the deposit is left in cash."
       },
       {
         "q": "Can I cancel my booking?",
@@ -692,7 +702,7 @@
     "total": "Total",
     "continue": "Continue to booking",
     "askWa": "Ask on WhatsApp",
-    "deposit": "{amount} deposit, returned with the car",
+    "deposit": "Deposit {amount} in cash, returned at drop-off",
     "noPrepay": "Nothing to pay in advance",
     "freeCancel": "Free cancellation up to 24 hours before pick-up",
     "extrasTitle": "Extras you can add in the next step",
@@ -722,12 +732,12 @@
     "flight": "Flight number",
     "flightHint": "So we can follow your arrival",
     "optional": "optional",
-    "depositTitle": "Deposit",
-    "depositStd": "With deposit",
-    "depositStdNote": "You leave a {amount} deposit at pick-up and get it back at return",
-    "noDaily": "No extra cost",
-    "depositNone": "No deposit",
-    "depositNoneNote": "No deposit to leave, a small daily fee instead",
+    "depositTitle": "Insurance and deposit",
+    "depositStd": "Basic insurance",
+    "depositStdNote": "Included in the price. You leave a {amount} deposit in cash at pick-up and get it back at return.",
+    "noDaily": "Included",
+    "depositNone": "Full insurance, no deposit",
+    "depositNoneNote": "No deposit to leave at pick-up.",
     "childTitle": "Child seats",
     "driverTitle": "Do you need a driver?",
     "driverSelf": "No, I'll drive",
@@ -740,11 +750,11 @@
     "upsellDiff": "+{amount} for the whole rental",
     "upsellTake": "Take this one instead",
     "payTitle": "No prepayment",
-    "payBody": "You pay nothing now. You get an email with your booking number right away and pay only when you pick up the car.",
+    "payBody": "You pay nothing now. You get an email with your booking number right away. The rental is paid at pick-up and the deposit is left in cash.",
     "submit": "Send booking",
     "sending": "Sending…",
     "orWa": "Prefer WhatsApp",
-    "terms": "By sending you accept the <link>rental terms</link>.",
+    "terms": "By sending you accept the <link>rental terms</link> and the <privacy>privacy policy</privacy>.",
     "summary": "Booking summary",
     "change": "Change dates",
     "depositLabel": "Deposit",
@@ -791,5 +801,48 @@
     "copied": "Copied",
     "submitShort": "Send",
     "nextStep": "Next step"
+  },
+  "Rules": {
+    "title": "Rental rules at a glance",
+    "lead": "Everything you need to know before booking, in one place.",
+    "all": "Full rental terms",
+    "driverT": "Driver and documents",
+    "driverB": "A valid driving licence and an ID card or passport.",
+    "ageLine": "The driver must be at least {age} years old.",
+    "yearsLine": "Driving licence held for at least {years, plural, one {# year} other {# years}}.",
+    "insuranceT": "Insurance",
+    "insuranceB": "Basic insurance is included. Full insurance with no deposit: {price} per day.",
+    "excessLine": "Excess with basic insurance: up to {amount}.",
+    "depositT": "Deposit",
+    "depositB": "{amount} in cash at pick-up, returned when you bring the car back.",
+    "payT": "Payment",
+    "payB": "Nothing in advance. You pay the rental at pick-up.",
+    "fuelT": "Fuel",
+    "fuelB": "Return the car with the same amount of fuel.",
+    "kmT": "Mileage",
+    "kmB": "Unlimited, no charge per kilometre.",
+    "cancelT": "Cancellation",
+    "cancelB": "Free up to 24 hours before pick-up.",
+    "borderT": "Crossing borders",
+    "borderB": "With notice in advance. The fee depends on the country.",
+    "extraDriverT": "Additional driver",
+    "extraDriverB": "{price} per day, added to the agreement."
+  },
+  "Consent": {
+    "title": "Cookies and privacy",
+    "body": "We use necessary cookies to make the site work. With your consent we also use analytics and marketing cookies, to see what helps our guests and to show relevant offers.",
+    "policy": "Privacy policy",
+    "acceptAll": "Accept all",
+    "necessary": "Necessary only",
+    "settings": "Settings",
+    "save": "Save choice",
+    "necessaryT": "Necessary",
+    "necessaryB": "Language, currency and your cookie choice.",
+    "analyticsT": "Analytics",
+    "analyticsB": "Anonymous visit statistics to improve the site.",
+    "marketingT": "Marketing",
+    "marketingB": "Measuring ads on Google and Meta.",
+    "always": "Always on",
+    "close": "Close"
   }
 }

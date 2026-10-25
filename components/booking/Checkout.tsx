@@ -36,6 +36,7 @@ import { FUEL_LABELS, TRANSMISSION_LABELS, label as pick } from "@/lib/car-label
 import { localParts, shortDate } from "@/lib/dates";
 import type { AppLocale } from "@/i18n/routing";
 import { CheckoutSummary, type SummaryLine } from "./CheckoutSummary";
+import { trackItem } from "@/lib/track";
 import { Amount, Choice, Reveal, Step, Stepper, Toggle, useStickyTop } from "./ui";
 
 type Loc = { id: string; name: string; slug: string };
@@ -142,6 +143,14 @@ export function Checkout({ car, pickupAt, returnAt, pickup, ret, locations, extr
   }, [done]);
 
   useEffect(() => setLive({}), [pickupAt, returnAt]);
+
+  const tracked = useRef(false);
+  useEffect(() => {
+    if (tracked.current) return;
+    tracked.current = true;
+    trackItem("begin_checkout", { id: car.id, title: car.title, brand: car.brand, category: car.carClass, priceBam: car.pricePerDay }, { days }, rental);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setQty((q) => {
@@ -261,6 +270,12 @@ export function Checkout({ car, pickupAt, returnAt, pickup, ret, locations, extr
       try {
         sessionStorage.removeItem(STORE);
       } catch {}
+      trackItem(
+        "generate_lead",
+        { id: car.id, title: car.title, brand: car.brand, category: car.carClass, priceBam: car.pricePerDay },
+        { lead_source: "booking", transaction_id: data.reference, days, extras: chosen.map(({ e }) => e.nameEn).join(", ") },
+        total,
+      );
       setDone({ reference: data.reference });
     } catch {
       setStatus("error");
@@ -741,6 +756,11 @@ export function Checkout({ car, pickupAt, returnAt, pickup, ret, locations, extr
               {t.rich("terms", {
                 link: (c) => (
                   <Link href="/uvjeti-najma" className="font-medium text-foreground underline underline-offset-2">
+                    {c}
+                  </Link>
+                ),
+                privacy: (c) => (
+                  <Link href="/privatnost" className="font-medium text-foreground underline underline-offset-2">
                     {c}
                   </Link>
                 ),

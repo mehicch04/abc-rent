@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { NAV_LINKS, SITE } from "@/lib/site-config";
 import type { Company } from "@/lib/company";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
+import { ConsentLink } from "@/components/consent/CookieConsent";
 
 type Props = {
   company: Company;
@@ -104,6 +105,10 @@ export function Footer({ company, locations }: Props) {
             <Link href="/uvjeti-najma" className="transition-colors hover:text-white">
               {nav("terms")}
             </Link>
+            <Link href="/privatnost" className="transition-colors hover:text-white">
+              {t("privacy")}
+            </Link>
+            <ConsentLink label={t("cookies")} className="transition-colors hover:text-white" />
             <span>
               Powered and designed by{" "}
               <a href="https://mehiccdev.com" target="_blank" rel="noopener" className="font-medium text-white/80 underline underline-offset-4 transition-colors hover:text-white">

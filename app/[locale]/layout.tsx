@@ -16,6 +16,9 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { Spotlight } from "@/components/motion/Spotlight";
+import { CookieConsent } from "@/components/consent/CookieConsent";
+import { TrackClicks } from "@/components/analytics/TrackClicks";
+import { gtmBootstrap } from "@/lib/consent";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -62,6 +65,8 @@ const CLIENT_NAMESPACES = [
   "Services",
   "Guides",
   "Booking",
+  "Rules",
+  "Consent",
   "Visit",
 ] as const;
 
@@ -146,16 +151,8 @@ export default async function LocaleLayout({
         {SITE.gtmId && process.env.NODE_ENV === "production" && (
           <>
             <Script id="gtm" strategy="afterInteractive">
-              {`(function(w,d,i){var ev=['scroll','pointerdown','keydown','touchstart','mousemove'],done=false;function load(){if(done)return;done=true;ev.forEach(function(e){w.removeEventListener(e,load)});w.dataLayer=w.dataLayer||[];w.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;d.head.appendChild(j)}ev.forEach(function(e){w.addEventListener(e,load,{passive:true})})})(window,document,'${SITE.gtmId}');`}
+              {gtmBootstrap(SITE.gtmId)}
             </Script>
-            <noscript>
-              <iframe
-                src={`https://www.googletagmanager.com/ns.html?id=${SITE.gtmId}`}
-                height="0"
-                width="0"
-                style={{ display: "none", visibility: "hidden" }}
-              />
-            </noscript>
           </>
         )}
         <JsonLd locale={locale} />
@@ -171,6 +168,8 @@ export default async function LocaleLayout({
               <BackToTop />
               <WhatsAppFab />
               <Spotlight />
+              <TrackClicks />
+              <CookieConsent />
             </MotionProvider>
             </CurrencyProvider>
             </CompanyProvider>

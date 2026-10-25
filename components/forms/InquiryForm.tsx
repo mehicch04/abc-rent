@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Send, MessageCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { useCompany } from "@/components/company/CompanyProvider";
+import { Link } from "@/i18n/navigation";
+import { track } from "@/lib/track";
 
 type FormType = "contact" | "business";
 
@@ -50,6 +52,7 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
       });
       const data = await res.json();
       if (res.ok && data.ok) {
+        track("generate_lead", { lead_source: "contact_form" });
         setReference(data.reference ?? null);
         setStatus("success");
       } else {
@@ -219,7 +222,15 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
         </a>
       </div>
 
-      <p className="mt-3 text-xs text-muted-foreground">{t("privacy")}</p>
+      <p className="mt-3 text-xs text-muted-foreground">
+        {t.rich("privacy", {
+          link: (c) => (
+            <Link href="/privatnost" className="font-medium text-foreground underline underline-offset-2">
+              {c}
+            </Link>
+          ),
+        })}
+      </p>
     </form>
   );
 }

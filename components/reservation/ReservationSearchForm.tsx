@@ -7,6 +7,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { DateField } from "@/components/ui/DateField";
 import { useReturnAfterPickup } from "@/hooks/useReturnAfterPickup";
+import { track } from "@/lib/track";
 
 type SimpleLocation = { id: string; name: string; city: string };
 
@@ -114,6 +115,11 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
       returnLocationId: effectiveReturnId,
       pickupAt: start.toISOString(),
       returnAt: end.toISOString(),
+    });
+    track("search", {
+      search_term: locations.find((l) => l.id === pickupLocationId)?.name ?? "",
+      pickup_date: pickupDate,
+      return_date: returnDate,
     });
     router.push(`/vozila?${params.toString()}`);
   }

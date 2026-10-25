@@ -84,7 +84,7 @@
     "bookNow": "Dieses Auto buchen",
     "featuredTitle": "Ausgewählte Fahrzeuge aus unserer Flotte",
     "included": [
-      "Vollkasko",
+      "Versicherung inklusive",
       "Unbegrenzte Kilometer",
       "Kostenlos am Flughafen",
       "Pannenhilfe 24/7"
@@ -193,7 +193,9 @@
     "hours": "Öffnungszeiten",
     "navTitle": "Schnellzugriff",
     "languages": "Wir sprechen Bosnisch, Englisch, Arabisch und Deutsch.",
-    "hoursValue": "Rund um die Uhr, täglich"
+    "hoursValue": "Rund um die Uhr, täglich",
+    "privacy": "Datenschutz",
+    "cookies": "Cookie Einstellungen"
   },
   "About": {
     "eyebrow": "Über uns",
@@ -207,15 +209,15 @@
       "depositLabel": "Kaution"
     },
     "storyTitle": "Wer wir sind",
-    "storyP1": "Ihr Auto wartet ohne Aufpreis am Flughafen Sarajevo oder in unserem Büro, und wir bringen es auch zu Ihrer Adresse. Jedes Fahrzeug ist vollkaskoversichert und regelmäßig gewartet.",
+    "storyP1": "Ihr Auto wartet ohne Aufpreis am Flughafen Sarajevo oder in unserem Büro, und wir bringen es auch zu Ihrer Adresse. Jedes Fahrzeug ist versichert und regelmäßig gewartet.",
     "storyP2": "Neben der Autovermietung bieten wir einen professionellen Fahrerservice und Flughafentransfers. Buchen können Sie über die Website, WhatsApp oder telefonisch.",
     "features": {
       "f1Title": "Rund um die Uhr erreichbar",
       "f1Text": "Melden Sie sich jederzeit, für eine Buchung oder für Hilfe unterwegs.",
       "f2Title": "Kostenlos am Flughafen",
       "f2Text": "Abholung und Rückgabe am Flughafen Sarajevo und in unserem Büro ohne Aufpreis.",
-      "f3Title": "Vollkasko",
-      "f3Text": "Alle Fahrzeuge sind vollkaskoversichert und regelmäßig gewartet.",
+      "f3Title": "Versicherte Fahrzeuge",
+      "f3Text": "Alle Fahrzeuge sind versichert und regelmäßig gewartet.",
       "f4Title": "Klare Preise",
       "f4Text": "Der Preis, den Sie sehen, ist der Preis, den Sie zahlen."
     },
@@ -289,12 +291,12 @@
     "reference": "Referenz",
     "sendAnother": "Neue Anfrage senden",
     "errorText": "Beim Senden ist etwas schiefgelaufen. Bitte versuchen Sie es erneut oder rufen Sie uns an.",
-    "privacy": "Mit dem Absenden stimmen Sie zu, dass wir Sie zu Ihrer Anfrage kontaktieren."
+    "privacy": "Mit dem Absenden stimmen Sie zu, dass wir Sie zu Ihrer Anfrage kontaktieren. Mehr in der <link>Datenschutzerklärung</link>."
   },
   "Seo": {
     "home": {
       "title": "Mietwagen Sarajevo | Kostenlose Übergabe am Flughafen",
-      "description": "Autovermietung in Sarajevo mit kostenloser Übergabe am Flughafen Sarajevo. 200 € Kaution, unbegrenzte Kilometer und Vollkasko. Fahrerservice und Transfers."
+      "description": "Autovermietung in Sarajevo mit kostenloser Übergabe am Flughafen Sarajevo. 200 € Kaution, unbegrenzte Kilometer und Versicherung inklusive. Fahrerservice und Transfers."
     },
     "fleet": {
       "title": "Unsere Flotte | Mietwagen in Sarajevo",
@@ -302,7 +304,7 @@
     },
     "about": {
       "title": "Über uns",
-      "description": "ABC Rent a Car, Autovermietung in Sarajevo. Kostenlose Übergabe am Flughafen, Vollkasko und Erreichbarkeit rund um die Uhr."
+      "description": "ABC Rent a Car, Autovermietung in Sarajevo. Kostenlose Übergabe am Flughafen, Versicherung inklusive und Erreichbarkeit rund um die Uhr."
     },
     "terms": {
       "title": "Mietbedingungen",
@@ -315,6 +317,10 @@
     "guides": {
       "title": "Ratgeber fürs Autofahren in Bosnien",
       "description": "Bußgelder, Verkehrsregeln, Mietwagen am Flughafen Sarajevo und Tagesausflüge ab Sarajevo. Kurz und klar für Besucher."
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "description": "Wie ABC Rent a Car Ihre personenbezogenen Daten und Cookies erhebt, nutzt und speichert, und welche Rechte Sie haben."
     }
   },
   "Extras": {
@@ -336,7 +342,7 @@
     "chip": "{score} auf Google, {count} Bewertungen",
     "titleA": "Landen Sie in Sarajevo,",
     "titleB": "Ihr Auto wartet schon.",
-    "subtitle": "Ihr Auto wartet ohne Aufpreis am Flughafen Sarajevo. Vollkasko und unbegrenzte Kilometer sind inklusive, die Kaution beginnt bei 200 €.",
+    "subtitle": "Ihr Auto wartet ohne Aufpreis am Flughafen Sarajevo. Versicherung und unbegrenzte Kilometer sind inklusive, die Kaution beginnt bei 200 €.",
     "ctaPrimary": "Autos ansehen",
     "ctaSecondary": "Anrufen",
     "statFleet": "Autos in der Flotte",
@@ -387,7 +393,7 @@
     "from": "ab",
     "included": [
       {
-        "title": "Vollkasko",
+        "title": "Versicherung inklusive",
         "body": "Im Preis jedes Autos enthalten."
       },
       {
@@ -620,11 +626,15 @@
       },
       {
         "q": "Was ist im Preis enthalten?",
-        "a": "Vollkasko, unbegrenzte Kilometer, kostenlose Übergabe und Rückgabe am Flughafen Sarajevo und in unserem Büro sowie Pannenhilfe rund um die Uhr."
+        "a": "Basisversicherung, unbegrenzte Kilometer, kostenlose Übergabe und Rückgabe am Flughafen Sarajevo und in unserem Büro sowie Pannenhilfe rund um die Uhr. Vollkasko ohne Kaution ist für 10 € pro Tag zubuchbar."
       },
       {
         "q": "Wie hoch ist die Kaution?",
-        "a": "200 € für die meisten Autos und 300 € für Audi Q7 und Mercedes E-Klasse. Sie hinterlegen sie bei der Abholung und erhalten sie bei der Rückgabe zurück. Ohne Kaution kostet es 10 € pro Tag."
+        "a": "200 € für die meisten Autos und 300 € für Audi Q7 und Mercedes E-Klasse. Sie hinterlegen sie bar bei der Abholung und erhalten sie bei der Rückgabe zurück. Ohne Kaution mieten Sie mit Vollkasko für 10 € pro Tag."
+      },
+      {
+        "q": "Wie bezahle ich?",
+        "a": "Sie zahlen nichts im Voraus. Miete und Extras zahlen Sie bei der Abholung, die Kaution hinterlegen Sie bar."
       },
       {
         "q": "Kann ich stornieren?",
@@ -692,7 +702,7 @@
     "total": "Gesamt",
     "continue": "Weiter zur Buchung",
     "askWa": "Per WhatsApp fragen",
-    "deposit": "Kaution {amount}, Rückgabe mit dem Auto",
+    "deposit": "Kaution {amount} in bar, zurück bei der Rückgabe",
     "noPrepay": "Keine Vorauszahlung",
     "freeCancel": "Kostenlose Stornierung bis 24 Stunden vor Abholung",
     "extrasTitle": "Extras im nächsten Schritt",
@@ -722,12 +732,12 @@
     "flight": "Flugnummer",
     "flightHint": "Damit wir Ihre Ankunft verfolgen",
     "optional": "optional",
-    "depositTitle": "Kaution",
-    "depositStd": "Mit Kaution",
-    "depositStdNote": "Sie hinterlegen {amount} bei der Abholung und erhalten sie zurück",
-    "noDaily": "Ohne Aufpreis",
-    "depositNone": "Ohne Kaution",
-    "depositNoneNote": "Keine Kaution, dafür eine kleine Tagesgebühr",
+    "depositTitle": "Versicherung und Kaution",
+    "depositStd": "Basisversicherung",
+    "depositStdNote": "Im Preis inbegriffen. Sie hinterlegen {amount} Kaution bar bei der Abholung und erhalten sie zurück.",
+    "noDaily": "Inklusive",
+    "depositNone": "Vollkasko ohne Kaution",
+    "depositNoneNote": "Keine Kaution bei der Abholung.",
     "childTitle": "Kindersitze",
     "driverTitle": "Brauchen Sie einen Fahrer?",
     "driverSelf": "Nein, ich fahre selbst",
@@ -740,11 +750,11 @@
     "upsellDiff": "+{amount} für die ganze Miete",
     "upsellTake": "Dieses Auto nehmen",
     "payTitle": "Keine Vorauszahlung",
-    "payBody": "Sie zahlen jetzt nichts. Sie erhalten sofort eine E-Mail mit Ihrer Buchungsnummer und zahlen erst bei der Abholung.",
+    "payBody": "Sie zahlen jetzt nichts. Sie erhalten sofort eine E-Mail mit Ihrer Buchungsnummer. Die Miete zahlen Sie bei der Abholung, die Kaution hinterlegen Sie bar.",
     "submit": "Buchung senden",
     "sending": "Wird gesendet…",
     "orWa": "Lieber per WhatsApp",
-    "terms": "Mit dem Senden akzeptieren Sie die <link>Mietbedingungen</link>.",
+    "terms": "Mit dem Senden akzeptieren Sie die <link>Mietbedingungen</link> und die <privacy>Datenschutzerklärung</privacy>.",
     "summary": "Buchungsübersicht",
     "change": "Daten ändern",
     "depositLabel": "Kaution",
@@ -791,5 +801,48 @@
     "copied": "Kopiert",
     "submitShort": "Senden",
     "nextStep": "Nächster Schritt"
+  },
+  "Rules": {
+    "title": "Mietregeln auf einen Blick",
+    "lead": "Alles, was Sie vor der Buchung wissen sollten, an einem Ort.",
+    "all": "Alle Mietbedingungen",
+    "driverT": "Fahrer und Dokumente",
+    "driverB": "Gültiger Führerschein und Personalausweis oder Reisepass.",
+    "ageLine": "Der Fahrer muss mindestens {age} Jahre alt sein.",
+    "yearsLine": "Führerschein seit mindestens {years, plural, one {# Jahr} other {# Jahren}}.",
+    "insuranceT": "Versicherung",
+    "insuranceB": "Die Basisversicherung ist inklusive. Vollkasko ohne Kaution: {price} pro Tag.",
+    "excessLine": "Selbstbeteiligung mit Basisversicherung: bis {amount}.",
+    "depositT": "Kaution",
+    "depositB": "{amount} in bar bei der Abholung, zurück bei der Rückgabe.",
+    "payT": "Bezahlung",
+    "payB": "Nichts im Voraus. Die Miete zahlen Sie bei der Abholung.",
+    "fuelT": "Kraftstoff",
+    "fuelB": "Rückgabe mit gleicher Tankfüllung.",
+    "kmT": "Kilometer",
+    "kmB": "Unbegrenzt, ohne Aufpreis pro Kilometer.",
+    "cancelT": "Stornierung",
+    "cancelB": "Kostenlos bis 24 Stunden vor der Abholung.",
+    "borderT": "Grenzübertritt",
+    "borderB": "Nach vorheriger Absprache. Der Aufpreis hängt vom Land ab.",
+    "extraDriverT": "Zusatzfahrer",
+    "extraDriverB": "{price} pro Tag, wird im Vertrag eingetragen."
+  },
+  "Consent": {
+    "title": "Cookies und Datenschutz",
+    "body": "Wir nutzen notwendige Cookies, damit die Seite funktioniert. Mit Ihrer Zustimmung nutzen wir auch Analyse und Marketing Cookies, um zu sehen, was unseren Gästen hilft, und passende Angebote zu zeigen.",
+    "policy": "Datenschutzerklärung",
+    "acceptAll": "Alle akzeptieren",
+    "necessary": "Nur notwendige",
+    "settings": "Einstellungen",
+    "save": "Auswahl speichern",
+    "necessaryT": "Notwendig",
+    "necessaryB": "Sprache, Währung und Ihre Cookie Auswahl.",
+    "analyticsT": "Analyse",
+    "analyticsB": "Anonyme Besuchsstatistik zur Verbesserung der Seite.",
+    "marketingT": "Marketing",
+    "marketingB": "Messung von Anzeigen bei Google und Meta.",
+    "always": "Immer aktiv",
+    "close": "Schließen"
   }
 }

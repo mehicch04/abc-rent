@@ -84,7 +84,7 @@
     "bookNow": "Rezerviši ovo vozilo",
     "featuredTitle": "Izdvojena vozila iz naše ponude",
     "included": [
-      "Puno osiguranje",
+      "Osiguranje uključeno",
       "Neograničena kilometraža",
       "Besplatno na aerodromu",
       "Pomoć na cesti 24/7"
@@ -193,7 +193,9 @@
     "hours": "Radno vrijeme",
     "navTitle": "Brzi linkovi",
     "languages": "Govorimo bosanski, engleski, arapski i njemački.",
-    "hoursValue": "0 do 24h, svaki dan"
+    "hoursValue": "0 do 24h, svaki dan",
+    "privacy": "Politika privatnosti",
+    "cookies": "Postavke kolačića"
   },
   "About": {
     "eyebrow": "O nama",
@@ -207,15 +209,15 @@
       "depositLabel": "Depozit"
     },
     "storyTitle": "Ko smo mi",
-    "storyP1": "Vozilo vas čeka na Aerodromu Sarajevo ili u našoj poslovnici, bez doplate, a možemo ga dovesti i na vašu adresu. Sva vozila su potpuno osigurana i redovno održavana.",
+    "storyP1": "Vozilo vas čeka na Aerodromu Sarajevo ili u našoj poslovnici, bez doplate, a možemo ga dovesti i na vašu adresu. Sva vozila su osigurana i redovno održavana.",
     "storyP2": "Osim najma, nudimo i uslugu profesionalnog vozača i transfere s aerodroma. Rezervaciju možete poslati putem stranice, WhatsAppa ili telefonom.",
     "features": {
       "f1Title": "Dostupni 0 do 24h",
       "f1Text": "Javite se bilo kada, i za rezervaciju i za pomoć na putu.",
       "f2Title": "Besplatno na aerodromu",
       "f2Text": "Preuzimanje i povrat na Aerodromu Sarajevo i u poslovnici, bez doplate.",
-      "f3Title": "Puno osiguranje",
-      "f3Text": "Sva vozila su potpuno osigurana i redovno servisirana.",
+      "f3Title": "Osigurana vozila",
+      "f3Text": "Sva vozila su osigurana i redovno servisirana.",
       "f4Title": "Jasne cijene",
       "f4Text": "Cijena koju vidite je cijena koju plaćate. Bez skrivenih troškova."
     },
@@ -289,12 +291,12 @@
     "reference": "Broj upita",
     "sendAnother": "Pošalji novi upit",
     "errorText": "Došlo je do greške pri slanju. Pokušajte ponovo ili nas kontaktirajte telefonom.",
-    "privacy": "Slanjem forme pristajete da vas kontaktiramo u vezi s vašim upitom."
+    "privacy": "Slanjem forme pristajete da vas kontaktiramo u vezi s vašim upitom. Više u <link>politici privatnosti</link>."
   },
   "Seo": {
     "home": {
       "title": "Rent a Car Sarajevo | Besplatno preuzimanje na aerodromu",
-      "description": "Najam vozila u Sarajevu uz besplatno preuzimanje na Aerodromu Sarajevo. Depozit od 200 €, neograničena kilometraža i puno osiguranje. Usluga vozača i transferi."
+      "description": "Najam vozila u Sarajevu uz besplatno preuzimanje na Aerodromu Sarajevo. Depozit od 200 €, neograničena kilometraža i osiguranje u cijeni. Usluga vozača i transferi."
     },
     "fleet": {
       "title": "Vozni park | Iznajmite automobil u Sarajevu",
@@ -302,7 +304,7 @@
     },
     "about": {
       "title": "O nama",
-      "description": "Upoznajte ABC Rent a Car, agenciju za najam vozila u Sarajevu. Besplatno preuzimanje na aerodromu, puno osiguranje i podrška 0 do 24."
+      "description": "Upoznajte ABC Rent a Car, agenciju za najam vozila u Sarajevu. Besplatno preuzimanje na aerodromu, osiguranje u cijeni i podrška 0 do 24."
     },
     "terms": {
       "title": "Uslovi najma",
@@ -315,6 +317,10 @@
     "guides": {
       "title": "Vodiči za vožnju po Bosni",
       "description": "Saobraćajne kazne, pravila vožnje, preuzimanje auta na Aerodromu Sarajevo i izleti iz Sarajeva. Kratko i jasno za posjetioce."
+    },
+    "privacy": {
+      "title": "Politika privatnosti",
+      "description": "Kako ABC Rent a Car prikuplja, koristi i čuva vaše lične podatke i kolačiće, i koja su vaša prava."
     }
   },
   "Extras": {
@@ -336,7 +342,7 @@
     "chip": "Ocjena {score} na Googleu, {count} recenzija",
     "titleA": "Sletite u Sarajevo,",
     "titleB": "auto vas već čeka.",
-    "subtitle": "Auto vas čeka na Aerodromu Sarajevo, bez doplate. Puno osiguranje i neograničena kilometraža su u cijeni, a depozit je od 200 €.",
+    "subtitle": "Auto vas čeka na Aerodromu Sarajevo, bez doplate. Osiguranje i neograničena kilometraža su u cijeni, a depozit je od 200 €.",
     "ctaPrimary": "Pogledaj vozila",
     "ctaSecondary": "Nazovi nas",
     "statFleet": "vozila u ponudi",
@@ -387,7 +393,7 @@
     "from": "od",
     "included": [
       {
-        "title": "Puno osiguranje",
+        "title": "Osiguranje uključeno",
         "body": "Uključeno u cijenu svakog vozila."
       },
       {
@@ -620,11 +626,15 @@
       },
       {
         "q": "Šta je uključeno u cijenu?",
-        "a": "Puno osiguranje, neograničena kilometraža, besplatno preuzimanje i povrat na Aerodromu Sarajevo i u poslovnici, te pomoć na cesti 0 do 24."
+        "a": "Osnovno osiguranje, neograničena kilometraža, besplatno preuzimanje i povrat na Aerodromu Sarajevo i u poslovnici, te pomoć na cesti 0 do 24. Puno osiguranje bez depozita možete dodati za 10 € dnevno."
       },
       {
         "q": "Koliki je depozit?",
-        "a": "200 € za većinu vozila i 300 € za Audi Q7 i Mercedes E klasu. Ostavljate ga pri preuzimanju i dobijate nazad pri povratu. Može i bez depozita, uz 10 € dnevno."
+        "a": "200 € za većinu vozila i 300 € za Audi Q7 i Mercedes E klasu. Ostavljate ga u gotovini pri preuzimanju i dobijate nazad pri povratu. Može i bez depozita, uz puno osiguranje za 10 € dnevno."
+      },
+      {
+        "q": "Kako se plaća najam?",
+        "a": "Ništa ne plaćate unaprijed. Najam i dodatke plaćate pri preuzimanju vozila, a depozit ostavljate u gotovini."
       },
       {
         "q": "Mogu li otkazati rezervaciju?",
@@ -692,7 +702,7 @@
     "total": "Ukupno",
     "continue": "Nastavi na rezervaciju",
     "askWa": "Pitajte na WhatsApp",
-    "deposit": "Depozit {amount}, vraća se pri povratu",
+    "deposit": "Depozit {amount} u gotovini, vraća se pri povratu",
     "noPrepay": "Ništa ne plaćate unaprijed",
     "freeCancel": "Besplatno otkazivanje do 24 sata prije preuzimanja",
     "extrasTitle": "Dodaci koje birate u sljedećem koraku",
@@ -722,12 +732,12 @@
     "flight": "Broj leta",
     "flightHint": "Da pratimo vaš dolazak",
     "optional": "opcionalno",
-    "depositTitle": "Depozit",
-    "depositStd": "Sa depozitom",
-    "depositStdNote": "Depozit {amount} ostavljate pri preuzimanju i dobijate ga nazad",
-    "noDaily": "Bez doplate",
-    "depositNone": "Bez depozita",
-    "depositNoneNote": "Ne ostavljate depozit, plaćate malu dnevnu naknadu",
+    "depositTitle": "Osiguranje i depozit",
+    "depositStd": "Osnovno osiguranje",
+    "depositStdNote": "Uključeno u cijenu. Depozit {amount} ostavljate u gotovini pri preuzimanju i dobijate ga nazad.",
+    "noDaily": "Uključeno",
+    "depositNone": "Puno osiguranje bez depozita",
+    "depositNoneNote": "Ne ostavljate depozit pri preuzimanju.",
     "childTitle": "Dječija sjedišta",
     "driverTitle": "Treba li vam vozač?",
     "driverSelf": "Ne, vozim sam",
@@ -740,11 +750,11 @@
     "upsellDiff": "+{amount} za cijeli najam",
     "upsellTake": "Uzmi ovo vozilo",
     "payTitle": "Bez plaćanja unaprijed",
-    "payBody": "Ništa ne plaćate sada. Odmah dobijate email sa brojem rezervacije, a plaćate tek pri preuzimanju vozila.",
+    "payBody": "Ništa ne plaćate sada. Odmah dobijate email sa brojem rezervacije. Najam plaćate pri preuzimanju vozila, a depozit ostavljate u gotovini.",
     "submit": "Pošalji rezervaciju",
     "sending": "Šaljem…",
     "orWa": "Radije preko WhatsAppa",
-    "terms": "Slanjem rezervacije prihvatate <link>uslove najma</link>.",
+    "terms": "Slanjem rezervacije prihvatate <link>uslove najma</link> i <privacy>politiku privatnosti</privacy>.",
     "summary": "Pregled rezervacije",
     "change": "Promijeni datume",
     "depositLabel": "Depozit",
@@ -791,5 +801,48 @@
     "copied": "Kopirano",
     "submitShort": "Pošalji",
     "nextStep": "Sljedeći korak"
+  },
+  "Rules": {
+    "title": "Pravila najma ukratko",
+    "lead": "Sve što trebate znati prije rezervacije, na jednom mjestu.",
+    "all": "Svi uslovi najma",
+    "driverT": "Vozač i dokumenti",
+    "driverB": "Važeća vozačka dozvola i lična karta ili pasoš.",
+    "ageLine": "Vozač mora imati najmanje {age} godina.",
+    "yearsLine": "Vozačka dozvola najmanje {years, plural, one {# godinu} few {# godine} other {# godina}}.",
+    "insuranceT": "Osiguranje",
+    "insuranceB": "Osnovno osiguranje je u cijeni. Puno osiguranje bez depozita: {price} dnevno.",
+    "excessLine": "Učešće u šteti uz osnovno osiguranje: do {amount}.",
+    "depositT": "Depozit",
+    "depositB": "{amount} u gotovini pri preuzimanju, vraća se pri povratu vozila.",
+    "payT": "Plaćanje",
+    "payB": "Ništa unaprijed. Najam plaćate pri preuzimanju vozila.",
+    "fuelT": "Gorivo",
+    "fuelB": "Vozilo vraćate sa istom količinom goriva.",
+    "kmT": "Kilometraža",
+    "kmB": "Neograničena, bez doplate po kilometru.",
+    "cancelT": "Otkazivanje",
+    "cancelB": "Besplatno do 24 sata prije preuzimanja.",
+    "borderT": "Prelazak granice",
+    "borderB": "Uz prethodnu najavu. Doplata zavisi od zemlje.",
+    "extraDriverT": "Dodatni vozač",
+    "extraDriverB": "{price} dnevno, upisuje se u ugovor."
+  },
+  "Consent": {
+    "title": "Kolačići i privatnost",
+    "body": "Koristimo nužne kolačiće da bi sajt radio. Uz vaš pristanak koristimo i analitičke i marketinške kolačiće, da vidimo šta gostima pomaže i da prikazujemo relevantne ponude.",
+    "policy": "Politika privatnosti",
+    "acceptAll": "Prihvati sve",
+    "necessary": "Samo nužni",
+    "settings": "Postavke",
+    "save": "Sačuvaj izbor",
+    "necessaryT": "Nužni",
+    "necessaryB": "Jezik, valuta i vaš izbor kolačića.",
+    "analyticsT": "Analitika",
+    "analyticsB": "Anonimna statistika posjeta, da poboljšamo sajt.",
+    "marketingT": "Marketing",
+    "marketingB": "Mjerenje oglasa na Googleu i Meti.",
+    "always": "Uvijek uključeni",
+    "close": "Zatvori"
   }
 }
