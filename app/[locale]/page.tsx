@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getLocations, getBrowseCars } from "@/lib/fleet-data";
 import type { CarListItem } from "@/lib/types";
 import { Hero } from "@/components/home/Hero";
+import { ReservationSearchForm } from "@/components/reservation/ReservationSearchForm";
 import { Features } from "@/components/home/Features";
 import { FeaturedFleet, type FleetType } from "@/components/home/FeaturedFleet";
 import { CAR_CATEGORIES, carCategories } from "@/lib/car-categories";
@@ -63,7 +64,11 @@ export default async function HomePage({
 
   return (
     <>
-      <Hero locations={locations} />
+      <Hero />
+
+      <section id="rezervacija" className="relative z-10 mx-auto -mt-20 max-w-6xl scroll-mt-24 px-4 sm:-mt-24 sm:px-6">
+        <ReservationSearchForm locations={locations} />
+      </section>
       <Features />
       <FeaturedFleet
         cars={cars}

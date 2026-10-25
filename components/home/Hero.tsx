@@ -5,11 +5,8 @@ import { Check, Star } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { intlLocale } from "@/i18n/routing";
 import { useCompany } from "@/components/company/CompanyProvider";
-import { ReservationSearchForm } from "@/components/reservation/ReservationSearchForm";
 
-type Loc = { id: string; name: string; city: string; slug?: string };
-
-export function Hero({ locations }: { locations: Loc[] }) {
+export function Hero() {
   const t = useTranslations("Hero");
   const locale = useLocale();
   const company = useCompany();
@@ -32,7 +29,7 @@ export function Hero({ locations }: { locations: Loc[] }) {
         />
         <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(90%_80%_at_50%_35%,rgba(11,18,32,0.5)_0%,rgba(11,18,32,0.82)_70%,#0B1220_100%)]" />
 
-        <div className="mx-auto flex max-w-5xl flex-col items-center px-4 pb-10 pt-10 text-center text-white sm:px-6 sm:pb-16 sm:pt-20 lg:min-h-[640px] lg:justify-center lg:pt-16">
+        <div className="mx-auto flex max-w-5xl flex-col items-center px-4 pb-28 pt-10 text-center text-white sm:px-6 sm:pb-36 sm:pt-20 lg:min-h-[620px] lg:justify-center lg:pt-14">
           <a
             href={company.map.link ?? "#"}
             target="_blank"
@@ -59,11 +56,7 @@ export function Hero({ locations }: { locations: Loc[] }) {
             {t("subtitle")}
           </p>
 
-          <div id="rezervacija" style={{ animationDelay: "180ms" }} className="motion-safe:animate-rise mt-8 w-full max-w-4xl scroll-mt-24 sm:mt-10">
-            <ReservationSearchForm locations={locations} variant="bar" />
-          </div>
-
-          <ul style={{ animationDelay: "240ms" }} className="motion-safe:animate-rise mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/65">
+          <ul style={{ animationDelay: "180ms" }} className="motion-safe:animate-rise mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/65">
             {perks.map((x) => (
               <li key={x} className="inline-flex items-center gap-2">
                 <Check className="h-4 w-4 text-emerald-400" strokeWidth={3} />
