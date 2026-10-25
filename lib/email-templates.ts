@@ -97,6 +97,7 @@ export type OwnerInquiryVars = {
   flightNumber: string;
   note: string;
   guestLocale: "HR" | "EN";
+  guestWa?: string;
   extras?: ExtraLine[];
   days?: number;
   pricePerDay?: number | null;
@@ -116,6 +117,7 @@ export type GuestConfirmationVars = {
   agencyPhone: string;
   agencyEmail: string;
   agencyAddress: string;
+  agencyWa?: string;
 };
 
 export type ContactRequestVars = {
@@ -127,6 +129,7 @@ export type ContactRequestVars = {
   company: string;
   message: string;
   guestLocale: "HR" | "EN";
+  guestWa?: string;
 };
 
 export function contactRequestHtml(v: ContactRequestVars): string {
@@ -201,7 +204,8 @@ export function contactRequestHtml(v: ContactRequestVars): string {
 
   ${messageBlock}
 
-  <tr><td style="padding:24px 32px 32px 32px;" class="px">
+  ${v.guestWa ? `<tr><td style="padding:24px 32px 0 32px;" class="px"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#25D366" style="background-color:#25D366;"><a href="${v.guestWa}" style="display:block;padding:12px 30px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:18px;color:#06301A;font-weight:bold;text-decoration:none;">Odgovori na WhatsApp</a></td></tr></table></td></tr>` : ""}
+  <tr><td style="padding:${v.guestWa ? "12px" : "24px"} 32px 32px 32px;" class="px">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0">
     <tr><td style="background-color:#0879B8;">
       <a href="mailto:${v.email}?subject=${encodeURIComponent(`Odgovor na va\u0161 upit | ABC Rent a Car`)}" style="display:block;padding:12px 30px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:18px;color:#ffffff;font-weight:bold;text-decoration:none;">Odgovori emailom</a>
@@ -374,7 +378,8 @@ ${extrasHtml}${noteBlock}
     </td></tr>
 
     <!-- CTA buttons -->
-    <tr><td style="padding:28px 32px 32px 32px;" class="px">
+    ${v.guestWa ? `<tr><td style="padding:28px 32px 0 32px;" class="px"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#25D366" style="background-color:#25D366;"><a href="${v.guestWa}" style="display:block;padding:13px 28px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:18px;color:#06301A;font-weight:bold;text-decoration:none;text-align:left;">Pi&scaron;i gostu na WhatsApp</a></td></tr></table></td></tr>` : ""}
+    <tr><td style="padding:${v.guestWa ? "12px" : "28px"} 32px 32px 32px;" class="px">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0">
       <tr>
         <td bgcolor="#0879B8" style="background-color:#0879B8;">
@@ -500,6 +505,7 @@ td {mso-line-height-rule:exactly;}
         Telefon: <a href="tel:${telHref(v.agencyPhone)}" style="color:#0879B8;text-decoration:underline;">${v.agencyPhone}</a><br>
         Email: <a href="mailto:${v.agencyEmail}" style="color:#0879B8;text-decoration:underline;">${v.agencyEmail}</a>
       </td></tr>
+      ${v.agencyWa ? `<tr><td style="padding-top:16px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#25D366" style="background-color:#25D366;"><a href="${v.agencyWa}" style="display:block;padding:13px 28px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:18px;color:#06301A;font-weight:bold;text-decoration:none;text-align:left;">Pi&scaron;ite nam na WhatsApp</a></td></tr></table></td></tr>` : ""}
       </table>
     </td></tr>
 
@@ -615,6 +621,7 @@ td {mso-line-height-rule:exactly;}
         Phone: <a href="tel:${telHref(v.agencyPhone)}" style="color:#0879B8;text-decoration:underline;">${v.agencyPhone}</a><br>
         Email: <a href="mailto:${v.agencyEmail}" style="color:#0879B8;text-decoration:underline;">${v.agencyEmail}</a>
       </td></tr>
+      ${v.agencyWa ? `<tr><td style="padding-top:16px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#25D366" style="background-color:#25D366;"><a href="${v.agencyWa}" style="display:block;padding:13px 28px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:18px;color:#06301A;font-weight:bold;text-decoration:none;text-align:left;">Message us on WhatsApp</a></td></tr></table></td></tr>` : ""}
       </table>
     </td></tr>
 
@@ -654,6 +661,7 @@ export type DecisionVars = {
   agencyPhone: string;
   agencyEmail: string;
   agencyAddress: string;
+  agencyWa?: string;
   /** Copy varies by decision + language; supplied by lib/email.ts. */
   title: string;
   greeting: string;
@@ -755,6 +763,7 @@ td {mso-line-height-rule:exactly;}
         Telefon: <a href="tel:${telHref(v.agencyPhone)}" style="color:#0879B8;text-decoration:underline;">${v.agencyPhone}</a><br>
         Email: <a href="mailto:${v.agencyEmail}" style="color:#0879B8;text-decoration:underline;">${v.agencyEmail}</a>
       </td></tr>
+      ${v.agencyWa ? `<tr><td style="padding-top:16px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#25D366" style="background-color:#25D366;"><a href="${v.agencyWa}" style="display:block;padding:13px 28px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:18px;color:#06301A;font-weight:bold;text-decoration:none;text-align:left;">Pi&scaron;ite nam na WhatsApp</a></td></tr></table></td></tr>` : ""}
       </table>
     </td></tr>
 
@@ -868,6 +877,7 @@ td {mso-line-height-rule:exactly;}
         Phone: <a href="tel:${telHref(v.agencyPhone)}" style="color:#0879B8;text-decoration:underline;">${v.agencyPhone}</a><br>
         Email: <a href="mailto:${v.agencyEmail}" style="color:#0879B8;text-decoration:underline;">${v.agencyEmail}</a>
       </td></tr>
+      ${v.agencyWa ? `<tr><td style="padding-top:16px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#25D366" style="background-color:#25D366;"><a href="${v.agencyWa}" style="display:block;padding:13px 28px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:18px;color:#06301A;font-weight:bold;text-decoration:none;text-align:left;">Message us on WhatsApp</a></td></tr></table></td></tr>` : ""}
       </table>
     </td></tr>
 

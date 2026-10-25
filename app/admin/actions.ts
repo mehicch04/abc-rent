@@ -148,7 +148,7 @@ export async function confirmInquiry(formData: FormData) {
   revalidateTag("fleet");
   revalidateTag("extras");
   revalidatePath("/admin", "layout");
-  backTo({ status, range, msg: outcome.msg });
+  backTo({ status, range, msg: outcome.msg, ...(outcome.email ? { wa: id } : {}) });
 }
 
 export async function cancelInquiry(formData: FormData) {

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { waDigits } from "@/lib/phone";
+import { guestTemplates, waLink } from "@/lib/wa-messages";
+import { GuestWhatsApp } from "@/components/admin/GuestWhatsApp";
 import {
   CalendarDays,
   Car as CarIcon,
@@ -112,7 +114,7 @@ const STATUS_BADGE: Record<string, { label: string; cls: string }> = {
 const MESSAGES: Record<string, { text: string; tone: "ok" | "warn" | "err" }> =
   {
     confirmed: {
-      text: "Rezervacija je potvrđena — vozilo je zauzeto za taj period.",
+      text: "Rezervacija je potvrđena. Vozilo je zauzeto za taj period.",
       tone: "ok",
     },
     cancelled: { text: "Upit je otkazan.", tone: "ok" },
@@ -125,7 +127,7 @@ const MESSAGES: Record<string, { text: string; tone: "ok" | "warn" | "err" }> =
       tone: "err",
     },
     blocked: {
-      text: "Blokada je dodana — vozilo je nedostupno u tom periodu.",
+      text: "Blokada je dodana. Vozilo je nedostupno u tom periodu.",
       tone: "ok",
     },
     unblocked: { text: "Blokada je uklonjena.", tone: "ok" },
@@ -203,6 +205,32 @@ export default async function AdminPage({
     RANGES.some((r) => r.id === rangeRaw) ? rangeRaw : "all"
   ) as Range;
   const msg = MESSAGES[one(searchParams.msg) ?? ""];
+  const waId = one(searchParams.wa);
+  const waInquiry =
+    waId && one(searchParams.msg) === "confirmed"
+      ? await prisma.inquiry
+          .findUnique({
+            where: { id: waId },
+            include: { car: { select: { title: true } }, pickupLocation: { select: { name: true } } },
+          })
+          .catch(() => null)
+      : null;
+  const waConfirm = waInquiry
+    ? waLink(
+        waInquiry.phone,
+        guestTemplates(
+          {
+            firstName: waInquiry.firstName,
+            reference: waInquiry.reference,
+            carTitle: waInquiry.car?.title ?? waInquiry.carTitleSnapshot,
+            pickupAt: waInquiry.pickupAt,
+            returnAt: waInquiry.returnAt,
+            pickupLocation: waInquiry.pickupLocation?.name,
+          },
+          waInquiry.locale === "EN" ? "EN" : "HR",
+        ).find((m) => m.key === "confirm")!.text,
+      )
+    : null;
   const missingExtras = one(searchParams.missing);
 
   const rangeMs = RANGES.find((r) => r.id === range)?.ms ?? null;
@@ -378,6 +406,21 @@ export default async function AdminPage({
           }`}
         >
           {msg.text}
+          {waConfirm && waInquiry && (
+            <span className="mt-3 flex flex-wrap items-center gap-3">
+              <a
+                href={waConfirm}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2 text-sm font-semibold text-[#06301A] transition-colors hover:bg-[#1FB859]"
+              >
+                Javi gostu na WhatsApp
+              </a>
+              <span className="text-xs opacity-80">
+                {waInquiry.firstName} {waInquiry.lastName} · {waInquiry.phone}
+              </span>
+            </span>
+          )}
           {missingExtras && (
             <span className="mt-0.5 block text-xs opacity-90">
               Nije preneseno: {missingExtras}
@@ -716,14 +759,18 @@ export default async function AdminPage({
                   >
                     <Phone className="h-3.5 w-3.5 shrink-0" /> {q.phone}
                   </a>
-                  <a
-                    href={`https://wa.me/${waDigits(q.phone)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center rounded-full bg-[#25D366]/15 px-2 py-0.5 text-[11px] font-semibold text-[#128C4B] transition-colors hover:bg-[#25D366]/25"
-                  >
-                    WhatsApp
-                  </a>
+                  <GuestWhatsApp
+                    phone={q.phone}
+                    lang={q.locale === "EN" ? "EN" : "HR"}
+                    guest={{
+                      firstName: q.firstName,
+                      reference: q.reference,
+                      carTitle: q.car?.title ?? q.carTitleSnapshot,
+                      pickupAt: q.pickupAt,
+                      returnAt: q.returnAt,
+                      pickupLocation: q.pickupLocation?.name,
+                    }}
+                  />
                 </span>
                 {q.flightNumber && (
                   <span className="flex items-center gap-1.5">

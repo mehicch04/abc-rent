@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import type { InquiryInput } from "@/lib/validations";
 import { SITE } from "@/lib/site-config";
+import { agencyText, guestTemplates, waLink } from "@/lib/wa-messages";
 import {
   contactRequestHtml,
   ownerInquiryHtml,
@@ -83,6 +84,20 @@ export async function sendInquiryEmail(
     pricePerDay: data.pricePerDay ?? null,
     currency: data.currency ?? "BAM",
     guestLocale,
+    guestWa: waLink(
+      data.phone,
+      guestTemplates(
+        {
+          firstName: data.firstName,
+          reference: data.reference,
+          carTitle: data.carTitle,
+          pickupAt: data.pickupAt,
+          returnAt: data.returnAt,
+          pickupLocation: data.pickupLocationName,
+        },
+        guestLocale,
+      )[0].text,
+    ),
   });
 
   try {
@@ -136,6 +151,7 @@ export async function sendGuestConfirmationEmail(
       agencyPhone: esc(SITE.phones[0]?.value ?? ""),
       agencyEmail: esc(SITE.email),
       agencyAddress: esc(SITE.name),
+      agencyWa: waLink(`+${SITE.whatsapp}`, agencyText(data.reference, locale)),
       extras: data.extras ?? [],
       days: data.days ?? 1,
       pricePerDay: data.pricePerDay ?? null,
@@ -206,6 +222,12 @@ export async function sendContactEmail(
     company: esc(data.company),
     message: esc(data.message),
     guestLocale: isEn ? "EN" : "HR",
+    guestWa: waLink(
+      data.phone,
+      isEn
+        ? `Hello ${data.firstName}, this is ABC Rent a Car. Thank you for your message ${data.reference}.`
+        : `Zdravo ${data.firstName}, ovdje ABC Rent a Car. Hvala na poruci ${data.reference}.`,
+    ),
   });
 
   const subject =
@@ -331,6 +353,7 @@ export async function sendReservationDecisionEmail({
       agencyPhone: esc(SITE.phones[0]?.value ?? ""),
       agencyEmail: esc(SITE.email),
       agencyAddress: esc(SITE.name),
+      agencyWa: waLink(`+${SITE.whatsapp}`, agencyText(inquiry.reference, locale)),
       title: confirmed ? c.confirmedTitle : c.cancelledTitle,
       greeting: c.greeting(esc(name)),
       intro: confirmed ? c.confirmedIntro : c.cancelledIntro,
