@@ -65,47 +65,48 @@ export async function confirmInquiry(formData: FormData) {
   const id = String(formData.get("id") ?? "");
   if (!id) backTo({ status, range, msg: "error" });
 
-  const outcome = await prisma.$transaction(async (tx) => {
-    const inquiry = await tx.inquiry.findUnique({
+  const outcome = await (async () => {
+    const inquiry = await prisma.inquiry.findUnique({
       where: { id },
       include: { car: { select: { title: true } } },
     });
     if (!inquiry || inquiry.status === "CANCELLED") {
       return { msg: "error" as const, email: null };
     }
-    // Idempotent re-click: already confirmed → no second email.
     if (inquiry.status === "CONFIRMED") {
       return { msg: "confirmed" as const, email: null };
     }
 
-    if (inquiry.carId) {
-      const [conflictsRes, conflictsBlk] = await Promise.all([
-        tx.inquiry.count({
-          where: {
-            carId: inquiry.carId,
-            status: { in: ["CONFIRMED", "IN_PROGRESS"] },
-            id: { not: inquiry.id },
-            pickupAt: { lt: inquiry.returnAt },
-            returnAt: { gt: inquiry.pickupAt },
-          },
-        }),
-        tx.carBlock.count({
-          where: {
-            carId: inquiry.carId,
-            startAt: { lt: inquiry.returnAt },
-            endAt: { gt: inquiry.pickupAt },
-          },
-        }),
-      ]);
-      if (conflictsRes > 0 || conflictsBlk > 0) {
-        return { msg: "conflict" as const, email: null };
-      }
+    const [conflictsRes, conflictsBlk, lines] = await Promise.all([
+      inquiry.carId
+        ? prisma.inquiry.count({
+            where: {
+              carId: inquiry.carId,
+              status: { in: ["CONFIRMED", "IN_PROGRESS"] },
+              id: { not: inquiry.id },
+              pickupAt: { lt: inquiry.returnAt },
+              returnAt: { gt: inquiry.pickupAt },
+            },
+          })
+        : 0,
+      inquiry.carId
+        ? prisma.carBlock.count({
+            where: {
+              carId: inquiry.carId,
+              startAt: { lt: inquiry.returnAt },
+              endAt: { gt: inquiry.pickupAt },
+            },
+          })
+        : 0,
+      prisma.inquiryExtra.findMany({
+        where: { inquiryId: inquiry.id, extraId: { not: null } },
+        select: { extraId: true, qty: true, extra: { select: { totalStock: true } } },
+      }),
+    ]);
+    if (conflictsRes > 0 || conflictsBlk > 0) {
+      return { msg: "conflict" as const, email: null };
     }
 
-    const lines = await tx.inquiryExtra.findMany({
-      where: { inquiryId: inquiry.id, extraId: { not: null } },
-      select: { extraId: true, qty: true, extra: { select: { totalStock: true } } },
-    });
     const need = new Map<string, { qty: number; totalStock: number }>();
     for (const l of lines) {
       if (!l.extraId || !l.extra) continue;
@@ -124,12 +125,13 @@ export async function confirmInquiry(formData: FormData) {
       }
     }
 
-    await tx.inquiry.update({
-      where: { id: inquiry.id },
+    const { count } = await prisma.inquiry.updateMany({
+      where: { id: inquiry.id, status: inquiry.status },
       data: { status: "CONFIRMED" },
     });
+    if (count === 0) return { msg: "confirmed" as const, email: null };
     return { msg: "confirmed" as const, email: toDecisionRow(inquiry) };
-  });
+  })();
 
   // Email after the transaction committed; never blocks the action.
   if (outcome.email) {
