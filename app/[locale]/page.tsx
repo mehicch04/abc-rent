@@ -66,7 +66,7 @@ export default async function HomePage({
 
   return (
     <>
-      <Hero fleetCount={cars.length} />
+      <Hero spotlight={featured[0] ?? null} />
 
       <section id="rezervacija" className="relative z-10 mx-auto -mt-16 max-w-6xl scroll-mt-24 px-4 sm:px-6">
         <ReservationSearchForm locations={locations} />
@@ -74,7 +74,7 @@ export default async function HomePage({
 
       <Features />
       <FeaturedFleet
-        cars={featured}
+        cars={cars}
         total={cars.length}
         types={types}
       />

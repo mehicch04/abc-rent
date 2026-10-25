@@ -155,7 +155,9 @@
     "cardDeposit": "depozit",
     "unlimitedKm": "Neograničena km",
     "removeFilter": "Ukloni filter {name}",
-    "closeFilters": "Zatvori"
+    "closeFilters": "Zatvori",
+    "similarEyebrow": "Preporuka za vas",
+    "similarLead": "Vozila iste klase i slične cijene. Osiguranje i neograničena kilometraža su uključeni u svako."
   },
   "Inquiry": {
     "title": "Upit za rezervaciju",
@@ -340,7 +342,9 @@
     "statFleet": "vozila u ponudi",
     "statReviews": "recenzija na Googleu",
     "statSupport": "na telefonu i WhatsAppu",
-    "imageAlt": "Vozila ABC Rent a Car u Sarajevu"
+    "imageAlt": "Vozila ABC Rent a Car u Sarajevu",
+    "available": "Dostupno danas",
+    "trusted": "{count} recenzija na Googleu"
   },
   "Features": {
     "items": [
@@ -405,7 +409,8 @@
     "ctaBody": "Gradski auti, SUV, premium limuzine i kombiji za devet putnika. Birajte po tipu, marki ili cijeni.",
     "ctaCars": "{count} vozila",
     "ctaTypes": "{count, plural, one {# tip} few {# tipa} other {# tipova}} vozila",
-    "ctaButton": "Pogledaj sva vozila"
+    "ctaButton": "Pogledaj sva vozila",
+    "tabTop": "Najtraženija"
   },
   "Services": {
     "eyebrow": "Usluge",

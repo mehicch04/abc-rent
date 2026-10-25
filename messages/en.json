@@ -155,7 +155,9 @@
     "cardDeposit": "deposit",
     "unlimitedKm": "Unlimited km",
     "removeFilter": "Remove filter {name}",
-    "closeFilters": "Close"
+    "closeFilters": "Close",
+    "similarEyebrow": "Recommended for you",
+    "similarLead": "Cars in the same class and price range. Insurance and unlimited mileage are included with every one."
   },
   "Inquiry": {
     "title": "Reservation inquiry",
@@ -340,7 +342,9 @@
     "statFleet": "cars in the fleet",
     "statReviews": "Google reviews",
     "statSupport": "on phone and WhatsApp",
-    "imageAlt": "ABC Rent a Car vehicles in Sarajevo"
+    "imageAlt": "ABC Rent a Car vehicles in Sarajevo",
+    "available": "Available today",
+    "trusted": "{count} reviews on Google"
   },
   "Features": {
     "items": [
@@ -405,7 +409,8 @@
     "ctaBody": "City cars, SUVs, premium sedans and vans for nine passengers. Browse by type, brand or price.",
     "ctaCars": "{count} cars",
     "ctaTypes": "{count, plural, one {# car type} other {# car types}}",
-    "ctaButton": "See all cars"
+    "ctaButton": "See all cars",
+    "tabTop": "Most booked"
   },
   "Services": {
     "eyebrow": "Services",

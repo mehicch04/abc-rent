@@ -18,11 +18,22 @@ export const getCarBySlug = unstable_cache(
 
 export const getSimilarCars = unstable_cache(
   async (slug: string, carClass: string): Promise<CarListItem[]> => {
-    const rows = await prisma.car.findMany({
+    const same = await prisma.car.findMany({
       where: { isAvailable: true, carClass: carClass as never, slug: { not: slug } },
       orderBy: [{ isFeatured: "desc" }, { sortOrder: "asc" }],
       take: 3,
     });
+    const rows =
+      same.length >= 3
+        ? same
+        : [
+            ...same,
+            ...(await prisma.car.findMany({
+              where: { isAvailable: true, slug: { notIn: [slug, ...same.map((c) => c.slug)] } },
+              orderBy: [{ isFeatured: "desc" }, { sortOrder: "asc" }],
+              take: 3 - same.length,
+            })),
+          ];
     const { seasonalPricing } = await getCompany().catch(() => ({
       seasonalPricing: false,
     }));

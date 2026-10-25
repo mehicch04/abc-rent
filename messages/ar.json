@@ -155,7 +155,9 @@
     "cardDeposit": "الوديعة",
     "unlimitedKm": "كيلومترات غير محدودة",
     "removeFilter": "إزالة الفلتر {name}",
-    "closeFilters": "إغلاق"
+    "closeFilters": "إغلاق",
+    "similarEyebrow": "نوصي لك",
+    "similarLead": "سيارات من الفئة نفسها وبسعر مشابه. التأمين والكيلومترات غير المحدودة مشمولة مع كل سيارة."
   },
   "Inquiry": {
     "title": "طلب حجز",
@@ -340,7 +342,9 @@
     "statFleet": "سيارة في الأسطول",
     "statReviews": "مراجعة على Google",
     "statSupport": "على الهاتف وواتساب",
-    "imageAlt": "سيارات ABC Rent a Car في سراييفو"
+    "imageAlt": "سيارات ABC Rent a Car في سراييفو",
+    "available": "متاح اليوم",
+    "trusted": "{count} مراجعة على Google"
   },
   "Features": {
     "items": [
@@ -405,7 +409,8 @@
     "ctaBody": "سيارات مدينة وSUV وسيدان فاخرة وفانات لتسعة ركاب. اختر حسب النوع أو الماركة أو السعر.",
     "ctaCars": "{count} سيارة",
     "ctaTypes": "{count, plural, zero {لا أنواع} one {نوع واحد} two {نوعان} few {# أنواع} many {# نوعاً} other {# نوع}}",
-    "ctaButton": "عرض كل السيارات"
+    "ctaButton": "عرض كل السيارات",
+    "tabTop": "الأكثر طلباً"
   },
   "Services": {
     "eyebrow": "الخدمات",

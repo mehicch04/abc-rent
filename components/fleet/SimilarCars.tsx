@@ -1,138 +1,51 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { m as motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
-import Link from "next/link";
-import { ChevronLeft, ChevronRight, Car as CarIcon } from "lucide-react";
-
 import type { CarListItem } from "@/lib/types";
-import { formatPrice } from "@/lib/currency";
-import { useCurrency } from "@/components/currency/CurrencyProvider";
+import { FleetCard } from "@/components/fleet/FleetCard";
+import { PillLink } from "@/components/ui/PillLink";
 
 export function SimilarCars({
   cars,
-  locale,
   title,
+  lead,
 }: {
   cars: CarListItem[];
-  locale: string;
+  locale?: string;
   title: string;
+  lead?: string;
 }) {
-  const { currency } = useCurrency();
-  const trackRef = useRef<HTMLUListElement>(null);
-  const [atEnd, setAtEnd] = useState(false);
   const t = useTranslations("Fleet");
-
   if (cars.length === 0) return null;
-
-  const scrollable = cars.length >= 3;
-
-  const move = (dir: 1 | -1) => {
-    const el = trackRef.current;
-    if (!el) return;
-    const step = el.clientWidth / Math.min(3, cars.length);
-    const maxLeft = el.scrollWidth - el.clientWidth;
-
-    if (dir === 1 && el.scrollLeft >= maxLeft - 8) {
-      el.scrollTo({ left: 0, behavior: "smooth" });
-    } else if (dir === -1 && el.scrollLeft <= 8) {
-      el.scrollTo({ left: maxLeft, behavior: "smooth" });
-    } else {
-      el.scrollBy({ left: step * dir, behavior: "smooth" });
-    }
-  };
-
-  const onScroll = () => {
-    const el = trackRef.current;
-    if (!el) return;
-    setAtEnd(el.scrollLeft >= el.scrollWidth - el.clientWidth - 8);
-  };
 
   return (
     <section className="mt-8">
-      <div className="mb-4 flex items-center justify-between gap-4">
-        <h2 className="font-display text-lg font-semibold text-foreground">
-          {title}
-        </h2>
-
-        {scrollable && (
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={() => move(-1)}
-              aria-label={t("prev")}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-brand hover:text-brand-strong"
-            >
-              <ChevronLeft className="rtl:-scale-x-100 h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={() => move(1)}
-              aria-label={t("next")}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-brand hover:text-brand-strong"
-            >
-              <ChevronRight className="rtl:-scale-x-100 h-4 w-4" />
-            </button>
-          </div>
-        )}
+      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+        <div className="max-w-xl">
+          <span className="inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1 text-xs font-medium text-foreground/70 ring-1 ring-border">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
+            {t("similarEyebrow")}
+          </span>
+          <h2 className="mt-4 font-display text-[1.75rem] font-semibold leading-tight tracking-[-0.02em] text-foreground sm:text-[2.1rem]">{title}</h2>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">{lead ?? t("similarLead")}</p>
+        </div>
+        <PillLink href="/vozila" variant="dark" className="self-start sm:self-auto">
+          {t("viewAll")}
+        </PillLink>
       </div>
 
-      <ul
-        ref={trackRef}
-        onScroll={onScroll}
-        dir="ltr"
-        className={
-          scrollable
-            ? // Snap points so a swipe always lands on a card, never between two.
-              "flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            : "grid gap-4 sm:grid-cols-2"
-        }
-      >
-        {cars.map((c) => (
-          <li
-            key={c.id}
-            className={
-              scrollable
-                ? "w-[78%] shrink-0 snap-start sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.667rem)]"
-                : ""
-            }
+      <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {cars.slice(0, 3).map((car, i) => (
+          <motion.li
+            key={car.id}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: i * 0.06 }}
           >
-            <Link
-              href={`/${locale}/vozila/${c.slug}`}
-              className="group block overflow-hidden rounded-2xl border border-border bg-surface transition-colors hover:border-brand"
-            >
-              <div className="relative aspect-[16/10] w-full bg-[#EEF2F6]">
-                {c.images?.[0] ? (
-                  <Image
-                    src={c.images[0]}
-                    alt={c.title}
-                    fill
-                    sizes="(max-width: 639px) 78vw, (max-width: 1023px) 46vw, 31vw"
-                    className="object-contain p-3 mix-blend-multiply transition-transform duration-300 group-hover:scale-[1.03]"
-                  />
-                ) : (
-                  <div className="flex h-full items-center justify-center text-muted-foreground">
-                    <CarIcon className="h-10 w-10" />
-                  </div>
-                )}
-              </div>
-
-              <div className="p-4">
-                <p className="truncate text-sm font-semibold text-foreground">
-                  {c.title}
-                </p>
-                {c.pricePerDay != null && (
-                  <p className="mt-1 text-sm text-brand-strong">
-                    <bdi dir="ltr">{formatPrice(c.pricePerDay, currency)}</bdi>{" "}
-                    <span className="text-xs text-muted-foreground">
-                      / {t("perDayWord")}
-                    </span>
-                  </p>
-                )}
-              </div>
-            </Link>
-          </li>
+            <FleetCard car={car} sizes="(max-width: 639px) 92vw, (max-width: 1023px) 46vw, 360px" />
+          </motion.li>
         ))}
       </ul>
     </section>

@@ -155,7 +155,9 @@
     "cardDeposit": "Kaution",
     "unlimitedKm": "Unbegrenzte km",
     "removeFilter": "Filter {name} entfernen",
-    "closeFilters": "Schließen"
+    "closeFilters": "Schließen",
+    "similarEyebrow": "Empfehlung für Sie",
+    "similarLead": "Fahrzeuge derselben Klasse und Preislage. Versicherung und unbegrenzte Kilometer sind immer inklusive."
   },
   "Inquiry": {
     "title": "Buchungsanfrage",
@@ -340,7 +342,9 @@
     "statFleet": "Autos in der Flotte",
     "statReviews": "Google Bewertungen",
     "statSupport": "per Telefon und WhatsApp",
-    "imageAlt": "Fahrzeuge von ABC Rent a Car in Sarajevo"
+    "imageAlt": "Fahrzeuge von ABC Rent a Car in Sarajevo",
+    "available": "Heute verfügbar",
+    "trusted": "{count} Bewertungen auf Google"
   },
   "Features": {
     "items": [
@@ -405,7 +409,8 @@
     "ctaBody": "Stadtautos, SUVs, Premium Limousinen und Kleinbusse für neun Personen. Nach Typ, Marke oder Preis filtern.",
     "ctaCars": "{count} Autos",
     "ctaTypes": "{count, plural, one {# Fahrzeugtyp} other {# Fahrzeugtypen}}",
-    "ctaButton": "Alle Autos ansehen"
+    "ctaButton": "Alle Autos ansehen",
+    "tabTop": "Beliebt"
   },
   "Services": {
     "eyebrow": "Services",

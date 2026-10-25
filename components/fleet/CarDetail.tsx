@@ -293,7 +293,7 @@ export function CarDetail({
       </div>
 
       {similar.length > 0 && (
-        <Band className="-mx-3 mt-14 sm:-mx-4" inner="px-5 pb-10 pt-2 sm:px-8">
+        <Band className="-mx-3 mt-16 sm:-mx-4" inner="px-5 pb-12 pt-6 sm:px-10 sm:pb-14 sm:pt-10">
           <SimilarCars cars={similar} locale={locale} title={t("similar")} />
         </Band>
       )}
