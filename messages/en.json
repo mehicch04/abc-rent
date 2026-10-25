@@ -355,7 +355,12 @@
     "statSupport": "on phone and WhatsApp",
     "imageAlt": "ABC Rent a Car vehicles in Sarajevo",
     "available": "Available today",
-    "trusted": "{count} reviews on Google"
+    "trusted": "{count} reviews on Google",
+    "perks": [
+      "No prepayment",
+      "Free cancellation up to 24h",
+      "All automatic"
+    ]
   },
   "Features": {
     "items": [

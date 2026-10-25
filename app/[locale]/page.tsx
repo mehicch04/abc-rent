@@ -12,7 +12,6 @@ import { Services } from "@/components/home/Services";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { Faq } from "@/components/home/Faq";
 import { CtaBand } from "@/components/home/CtaBand";
-import { ReservationSearchForm } from "@/components/reservation/ReservationSearchForm";
 import { Reviews } from "@/components/home/Reviews";
 import { getReviews } from "@/lib/reviews";
 import { getGuides } from "@/lib/guides";
@@ -47,8 +46,6 @@ export default async function HomePage({
     getReviews(locale),
   ]);
 
-  const picked = cars.filter((c) => c.isFeatured).slice(0, 3);
-  const featured = picked.length ? picked : cars.slice(0, 3);
   const types: FleetType[] = CAR_CATEGORIES.map((id) => {
     const inType = cars.filter((c) => carCategories(c).includes(id));
     const cheapest = inType
@@ -66,21 +63,16 @@ export default async function HomePage({
 
   return (
     <>
-      <Hero spotlight={featured[0] ?? null} />
-
-      <section id="rezervacija" className="relative z-10 mx-auto -mt-16 max-w-6xl scroll-mt-24 px-4 sm:px-6">
-        <ReservationSearchForm locations={locations} />
-      </section>
-
+      <Hero locations={locations} />
       <Features />
       <FeaturedFleet
         cars={cars}
         total={cars.length}
         types={types}
       />
-      <Services />
-      <HowItWorks />
       <Reviews data={reviews} />
+      <HowItWorks />
+      <Services />
       <GuidesTeaser guides={getGuides(locale)} />
       <Faq />
       <CtaBand />

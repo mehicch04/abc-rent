@@ -355,7 +355,12 @@
     "statSupport": "على الهاتف وواتساب",
     "imageAlt": "سيارات ABC Rent a Car في سراييفو",
     "available": "متاح اليوم",
-    "trusted": "{count} مراجعة على Google"
+    "trusted": "{count} مراجعة على Google",
+    "perks": [
+      "بدون دفع مسبق",
+      "إلغاء مجاني حتى 24 ساعة",
+      "جميع السيارات أوتوماتيك"
+    ]
   },
   "Features": {
     "items": [

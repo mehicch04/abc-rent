@@ -355,7 +355,12 @@
     "statSupport": "na telefonu i WhatsAppu",
     "imageAlt": "Vozila ABC Rent a Car u Sarajevu",
     "available": "Dostupno danas",
-    "trusted": "{count} recenzija na Googleu"
+    "trusted": "{count} recenzija na Googleu",
+    "perks": [
+      "Bez plaćanja unaprijed",
+      "Besplatno otkazivanje do 24h",
+      "Svi automatik"
+    ]
   },
   "Features": {
     "items": [

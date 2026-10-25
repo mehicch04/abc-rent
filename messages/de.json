@@ -355,7 +355,12 @@
     "statSupport": "per Telefon und WhatsApp",
     "imageAlt": "Fahrzeuge von ABC Rent a Car in Sarajevo",
     "available": "Heute verfügbar",
-    "trusted": "{count} Bewertungen auf Google"
+    "trusted": "{count} Bewertungen auf Google",
+    "perks": [
+      "Keine Vorauszahlung",
+      "Kostenlos stornieren bis 24 Std. vorher",
+      "Alle mit Automatik"
+    ]
   },
   "Features": {
     "items": [

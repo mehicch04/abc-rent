@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { m as motion, AnimatePresence } from "framer-motion";
-import { MapPin, CalendarDays, Clock, ArrowRight, AlertCircle, ChevronDown, Repeat2 } from "lucide-react";
+import { MapPin, CalendarDays, Clock, ArrowRight, AlertCircle, ChevronDown, Repeat2, Search } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { DateField } from "@/components/ui/DateField";
@@ -66,7 +66,7 @@ function StyledSelect({
 }
 
 
-export function ReservationSearchForm({ locations }: { locations: SimpleLocation[] }) {
+export function ReservationSearchForm({ locations, variant = "card" }: { locations: SimpleLocation[]; variant?: "card" | "bar" }) {
   const t = useTranslations("Search");
   const locale = useLocale();
   const router = useRouter();
@@ -149,6 +149,153 @@ export function ReservationSearchForm({ locations }: { locations: SimpleLocation
       return_date: returnDate,
     });
     router.push(`/vozila?${params.toString()}`);
+  }
+
+  if (variant === "bar") {
+    const SEG = "flex min-w-0 items-center gap-3 px-4 py-3 lg:py-2";
+    const CAP = "block text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground rtl:normal-case rtl:tracking-normal";
+    const BARE = "min-w-0 cursor-pointer appearance-none bg-transparent p-0 text-[15px] font-medium text-foreground outline-none";
+    const dateSeg = (
+      label: string,
+      Icon: typeof CalendarDays,
+      date: string,
+      min: string,
+      setDate: (v: string) => void,
+      time: string,
+      setTime: (v: string) => void,
+    ) => (
+      <div className={SEG}>
+        <Icon className="h-4 w-4 shrink-0 text-brand" />
+        <div className="min-w-0 flex-1">
+          <span className={CAP}>{label}</span>
+          <div className="flex items-center gap-1.5">
+            <DateField compact value={date} min={min} locale={locale} onChange={setDate} className="h-6 min-w-0 shrink text-[15px] font-medium text-foreground outline-none focus-visible:underline [&>svg]:hidden" />
+            <span aria-hidden className="text-muted-foreground">·</span>
+            <span className="relative shrink-0">
+              <select value={time} onChange={(e) => setTime(e.target.value)} aria-label={`${label} – ${t("time")}`} className={`${BARE} pe-5 tabular-nums focus-visible:underline`}>
+                {TIME_SLOTS.map((x) => (
+                  <option key={x} value={x}>
+                    {x}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute end-0 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+
+    return (
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+        className="w-full"
+      >
+        <div className="rounded-[26px] bg-surface p-2 text-start shadow-[0_40px_80px_-40px_rgba(0,0,0,0.75)] lg:rounded-full">
+          <div className="grid divide-y divide-border lg:grid-cols-[1.3fr_1fr_1fr_auto] lg:items-center lg:divide-x lg:divide-y-0 rtl:lg:divide-x-reverse">
+            <div className={SEG}>
+              <MapPin className="h-4 w-4 shrink-0 text-brand" />
+              <div className="min-w-0 flex-1">
+                <label htmlFor="pickup-loc" className={CAP}>
+                  {t("pickupLocation")}
+                </label>
+                <span className="relative block">
+                  <select id="pickup-loc" value={pickupLocationId} onChange={(e) => setPickupLocationId(e.target.value)} className={`${BARE} w-full truncate pe-6 focus-visible:underline`}>
+                    <option value="" disabled>
+                      {t("placeholder")}
+                    </option>
+                    {locations.map((l) => (
+                      <option key={l.id} value={l.id}>
+                        {l.name}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute end-0 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                </span>
+              </div>
+            </div>
+            {dateSeg(t("pickupDate"), CalendarDays, pickupDate, today, setPickupDate, pickupTime, setPickupTime)}
+            {dateSeg(t("returnDate"), Clock, returnDate, pickupDate, setReturnDate, returnTime, setReturnTime)}
+            <div className="pt-2 lg:ps-2 lg:pt-0 rtl:lg:pe-2 rtl:lg:ps-0">
+              <button
+                type="submit"
+                className="group inline-flex h-14 w-full items-center justify-center gap-2 rounded-[20px] bg-brand px-7 text-[15px] font-semibold text-white shadow-[0_14px_30px_-14px_rgba(8,121,184,0.9)] transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 lg:w-auto lg:rounded-full"
+              >
+                <Search className="h-4 w-4" />
+                {t("search")}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 flex min-h-10 flex-wrap items-center justify-center gap-x-4 gap-y-3">
+          <label className="inline-flex cursor-pointer select-none items-center gap-2.5 text-sm text-white/80">
+            <input
+              type="checkbox"
+              checked={sameLocation}
+              onChange={(e) => {
+                setSameLocation(e.target.checked);
+                if (!e.target.checked) requestAnimationFrame(() => returnRef.current?.focus());
+              }}
+              className="peer sr-only"
+            />
+            <span
+              aria-hidden
+              className="relative h-5 w-9 shrink-0 rounded-full bg-white/25 transition-colors duration-300 after:absolute after:start-0.5 after:top-0.5 after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.22,1,0.36,1)] peer-checked:bg-brand peer-checked:after:translate-x-4 rtl:peer-checked:after:-translate-x-4 peer-focus-visible:ring-2 peer-focus-visible:ring-white/60"
+            />
+            {t("sameLocation")}
+          </label>
+          <AnimatePresence initial={false}>
+            {!sameLocation && (
+              <motion.span
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                className="relative inline-flex"
+              >
+                <MapPin className="pointer-events-none absolute start-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-300" />
+                <select
+                  ref={returnRef}
+                  id="return-loc"
+                  aria-label={t("returnLocation")}
+                  value={returnLocationId}
+                  onChange={(e) => setReturnLocationId(e.target.value)}
+                  className="h-10 max-w-[78vw] cursor-pointer appearance-none truncate rounded-full bg-white/10 pe-9 ps-10 text-sm font-medium text-white outline-none ring-1 ring-white/25 backdrop-blur-md transition-colors hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white/60 [&>option]:text-ink"
+                >
+                  <option value="" disabled>
+                    {t("returnLocation")}
+                  </option>
+                  {locations.map((l) => (
+                    <option key={l.id} value={l.id}>
+                      {l.name}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="pointer-events-none absolute end-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/70" />
+              </motion.span>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {error && (
+              <motion.p
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                role="alert"
+                className="inline-flex items-center gap-1.5 rounded-full bg-rose-500/20 px-3 py-1.5 text-sm font-medium text-white ring-1 ring-rose-300/40"
+              >
+                <AlertCircle className="h-4 w-4 shrink-0" />
+                {error}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
+      </form>
+    );
   }
 
   return (

@@ -14,6 +14,7 @@ type Props = {
   /** When set, also renders a hidden input so native <form> submits the value. */
   name?: string;
   className?: string;
+  compact?: boolean;
 };
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -40,6 +41,7 @@ export function DateField({
   placeholder = "—",
   name,
   className = "",
+  compact = false,
 }: Props) {
   const btnRef = useRef<HTMLButtonElement>(null);
   const popRef = useRef<HTMLDivElement>(null);
@@ -123,11 +125,11 @@ export function DateField({
 
   const label = selected
     ? isBs
-      ? `${selected.getDate()}. ${BS_MONTHS_SHORT[selected.getMonth()]} ${selected.getFullYear()}.`
+      ? `${selected.getDate()}. ${BS_MONTHS_SHORT[selected.getMonth()]}${compact ? "" : ` ${selected.getFullYear()}.`}`
       : new Intl.DateTimeFormat(intlLocale(locale), {
           day: "numeric",
           month: "short",
-          year: "numeric",
+          ...(compact ? {} : { year: "numeric" as const }),
         }).format(selected)
     : placeholder;
 

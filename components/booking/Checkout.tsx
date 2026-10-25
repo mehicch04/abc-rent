@@ -385,7 +385,7 @@ export function Checkout({ car, pickupAt, returnAt, pickup, ret, locations, extr
     });
     return (
       <div ref={top} className="scroll-mt-24">
-        <StepBar steps={steps} active={2} progress={progress} />
+        <StepBar steps={steps} active={2} progress={progress} center />
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -843,9 +843,9 @@ function SubmitButton({
   );
 }
 
-function StepBar({ steps, active, progress }: { steps: string[]; active: number; progress: number[] }) {
+function StepBar({ steps, active, progress, center }: { steps: string[]; active: number; progress: number[]; center?: boolean }) {
   return (
-    <ol className="flex items-center gap-2 text-xs font-medium sm:gap-3 sm:text-sm">
+    <ol className={`flex items-center gap-2 text-xs font-medium sm:gap-3 sm:text-sm ${center ? "mx-auto max-w-xl sm:justify-center" : ""}`}>
       {steps.map((s, i) => {
         const isDone = i < active;
         const isActive = i === active;
