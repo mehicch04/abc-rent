@@ -120,7 +120,7 @@ export default async function VehiclesPage({
           search={search}
           eagerFirstImages
           initialType={initialType}
-          imageSizes="(max-width: 639px) 92vw, (max-width: 1279px) 46vw, 300px"
+          imageSizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 400px"
         />
       ) : (
         <p className="rounded-2xl border border-border bg-surface p-8 text-center text-muted-foreground">

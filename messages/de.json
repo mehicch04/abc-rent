@@ -157,7 +157,8 @@
     "removeFilter": "Filter {name} entfernen",
     "closeFilters": "Schließen",
     "similarEyebrow": "Empfehlung für Sie",
-    "similarLead": "Fahrzeuge derselben Klasse und Preislage. Versicherung und unbegrenzte Kilometer sind immer inklusive."
+    "similarLead": "Fahrzeuge derselben Klasse und Preislage. Versicherung und unbegrenzte Kilometer sind immer inklusive.",
+    "reset": "Zurücksetzen"
   },
   "Inquiry": {
     "title": "Buchungsanfrage",

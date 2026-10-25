@@ -11,6 +11,7 @@ import { FUEL_LABELS, TRANSMISSION_LABELS, label } from "@/lib/car-labels";
 import { bookingHref } from "@/lib/booking";
 import type { CarListItem, SearchContext } from "@/lib/types";
 import { Price } from "@/components/currency/Price";
+import { useCarFrame } from "./useCarFrame";
 
 export function FleetCard({
   car,
@@ -40,6 +41,9 @@ export function FleetCard({
     : `${href}#rezervacija`;
   const cat = carCategories(car)[0];
   const image = car.images?.[0];
+  const { frame, ready, onLoad, onError } = useCarFrame(image, 1.6);
+  const photo = frame?.photo === true;
+  const fit = frame && !frame.photo ? frame : null;
 
   const specs = [
     { icon: Users, text: `${car.passengers} ${t("cardSeats")}` },
@@ -82,23 +86,44 @@ export function FleetCard({
 
       <div className="light-island relative aspect-[16/10] overflow-hidden rounded-[20px] bg-[radial-gradient(120%_90%_at_50%_0%,#FFFFFF_0%,#EEF4F9_45%,#DCE8F2_100%)]">
         <div className="absolute inset-x-3 top-3 z-[1] flex items-start justify-between gap-2">
-          <span className="flex gap-1.5">
+          <span className="flex min-w-0 gap-1.5 whitespace-nowrap">
             {car.isFeatured && <span className="rounded-full bg-brand px-2.5 py-1 text-[11px] font-semibold text-white shadow-sm">{t("popular")}</span>}
-            {cat && <span className="rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-ink shadow-sm">{t(`categories.${cat}`)}</span>}
+            {cat && <span className="min-w-0 truncate rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-ink shadow-sm">{t(`categories.${cat}`)}</span>}
           </span>
-          <span className="rounded-full bg-ink/80 px-2.5 py-1 text-[11px] font-medium tabular-nums text-white backdrop-blur">{car.year}</span>
+          <span className="shrink-0 rounded-full bg-ink/80 px-2.5 py-1 text-[11px] font-medium tabular-nums text-white backdrop-blur">{car.year}</span>
         </div>
-        <span aria-hidden className="absolute inset-x-[18%] bottom-[11%] h-5 rounded-[50%] bg-ink/30 blur-lg transition-transform duration-500 group-hover:scale-x-110" />
+        {fit && (
+          <span
+            aria-hidden
+            style={{ top: `calc(${(fit.floor * 100).toFixed(2)}% - 16px)`, width: `${(fit.width * 80).toFixed(2)}%` }}
+            className="absolute left-1/2 h-5 -translate-x-1/2 rounded-[50%] bg-ink/30 blur-lg transition-transform duration-500 group-hover:scale-x-110"
+          />
+        )}
         {image && (
-          <div className="absolute inset-0 mix-blend-multiply transition-transform duration-500 ease-out [transform:translate3d(var(--px,0px),0,0)]">
-            <Image
-              src={image}
-              alt=""
-              fill
-              priority={priority}
-              sizes={sizes ?? "(max-width: 639px) 92vw, (max-width: 1279px) 46vw, 300px"}
-              className="object-contain px-6 pb-4 pt-9 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1 group-hover:scale-[1.07]"
-            />
+          <div
+            className={`absolute inset-0 transition-[transform,opacity] duration-500 ease-out ${ready ? "opacity-100" : "opacity-0"} ${
+              photo ? "" : "mix-blend-multiply [transform:translate3d(var(--px,0px),0,0)]"
+            }`}
+          >
+            <div
+              className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={fit ? { transformOrigin: fit.origin, transform: fit.transform } : undefined}
+            >
+              <Image
+                src={image}
+                alt=""
+                fill
+                priority={priority}
+                onLoad={onLoad}
+                onError={onError}
+                sizes={sizes ?? "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 400px"}
+                className={`transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  photo
+                    ? "object-cover group-hover:scale-[1.05]"
+                    : `object-contain [filter:contrast(1.08)_brightness(1.04)] group-hover:-translate-y-1 group-hover:scale-[1.05] ${fit ? "" : "px-6 pb-4 pt-9"}`
+                }`}
+              />
+            </div>
           </div>
         )}
       </div>

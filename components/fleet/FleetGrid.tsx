@@ -18,7 +18,7 @@ import {
   X,
 } from "lucide-react";
 import { FleetCard } from "./FleetCard";
-import { EMPTY, FilterPanel, type Facet, type Group, type Option, type Selection } from "./FleetFilters";
+import { EMPTY, FilterBar, FilterPanel, type Facet, type Group, type Option, type Selection } from "./FleetFilters";
 import { CAR_CATEGORIES, carCategories, type CarCategory } from "@/lib/car-categories";
 import { FUEL_LABELS, TRANSMISSION_LABELS, label } from "@/lib/car-labels";
 import { currencySymbol, displayAmount } from "@/lib/currency";
@@ -180,6 +180,7 @@ export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, 
   const toggle = (f: Facet, v: string) =>
     setSel((s) => ({ ...s, [f]: s[f].includes(v) ? s[f].filter((x) => x !== v) : [...s[f], v] }));
   const clear = () => setSel(EMPTY);
+  const reset = (f: Facet) => setSel((s) => ({ ...s, [f]: [] }));
 
   const visible = useMemo(() => {
     const list = cars.filter((c) => matches(c));
@@ -222,10 +223,33 @@ export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, 
     { value: "NAME_DESC", label: t("sort.nameDesc") },
   ];
 
+  const sortSelect = (id: string, bar?: boolean) => (
+    <div className={`relative ${bar ? "min-w-0 flex-1 lg:w-52 lg:flex-none" : ""}`}>
+      <select
+        id={id}
+        value={sort}
+        onChange={(e) => setSort(e.target.value as SortKey)}
+        aria-label={t("sortBy")}
+        className={`h-10 appearance-none rounded-full pe-9 ps-4 text-xs font-semibold uppercase tracking-[0.04em] text-foreground outline-none transition-colors rtl:normal-case ${
+          bar
+            ? "w-full bg-surface-muted hover:bg-border/60 focus-visible:ring-2 focus-visible:ring-brand"
+            : "w-56 border border-border bg-surface hover:border-foreground/30 focus:border-brand"
+        }`}
+      >
+        {SORT_OPTIONS.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+      <ChevronDown className="pointer-events-none absolute end-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+    </div>
+  );
+
   return (
-    <div className="grid gap-8 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-7">
-      <aside className="hidden lg:block">
-        <div className="no-scrollbar sticky top-24 max-h-[calc(100vh-7.5rem)] overflow-y-auto pb-6 pe-1">
+    <div className="relative">
+      <aside className="absolute inset-y-0 end-full me-6 hidden w-[256px] min-[1680px]:block">
+        <div className="no-scrollbar motion-safe:animate-rise sticky top-[88px] max-h-[calc(100vh-104px)] overflow-y-auto rounded-[26px] bg-surface/90 px-5 pb-3 pt-5 shadow-[0_30px_60px_-40px_rgba(11,18,32,0.5)] ring-1 ring-border backdrop-blur-xl">
           <FilterPanel groups={groups} selection={sel} onToggle={toggle} onClear={clear} />
         </div>
       </aside>
@@ -238,35 +262,29 @@ export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, 
               {t("availableN", { count: visible.length })}
             </span>
           </h2>
-          <div className="flex w-full items-center gap-2 sm:w-auto">
+          <div className="hidden items-center gap-2 min-[1680px]:flex">
+            <label htmlFor="fleet-sort" className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground rtl:normal-case">
+              {t("sortBy")}
+            </label>
+            {sortSelect("fleet-sort")}
+          </div>
+        </div>
+
+        <div className="sticky top-[80px] z-30 mt-5 before:pointer-events-none before:absolute before:-inset-x-3 before:-top-3 before:bottom-1/2 before:-z-10 before:bg-background before:content-[''] min-[1680px]:hidden">
+          <div className="hidden lg:block">
+            <FilterBar groups={groups} selection={sel} onToggle={toggle} onReset={reset} total={visible.length} end={sortSelect("fleet-sort-bar", true)} />
+          </div>
+          <div className="flex items-center gap-1.5 rounded-full bg-surface/85 p-1.5 shadow-[0_18px_44px_-30px_rgba(11,18,32,0.55)] ring-1 ring-border backdrop-blur-xl backdrop-saturate-150 lg:hidden">
             <button
               type="button"
               onClick={() => setDrawer(true)}
-              className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full bg-foreground px-4 text-xs font-semibold uppercase tracking-[0.06em] text-background transition-opacity hover:opacity-90 sm:flex-none lg:hidden rtl:normal-case"
+              className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full bg-ink px-4 text-xs font-semibold uppercase tracking-[0.06em] text-white transition-opacity hover:opacity-90 rtl:normal-case"
             >
               <SlidersHorizontal className="h-4 w-4" />
               {t("filters")}
               {activeCount > 0 && <span className="grid h-5 min-w-5 place-items-center rounded-full bg-brand px-1.5 text-[10px] text-white">{activeCount}</span>}
             </button>
-            <label htmlFor="fleet-sort" className="hidden text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground sm:block rtl:normal-case">
-              {t("sortBy")}
-            </label>
-            <div className="relative flex-1 sm:flex-none">
-              <select
-                id="fleet-sort"
-                value={sort}
-                onChange={(e) => setSort(e.target.value as SortKey)}
-                aria-label={t("sortBy")}
-                className="h-10 w-full appearance-none rounded-full border border-border bg-surface pe-9 ps-4 text-xs font-semibold uppercase tracking-[0.04em] text-foreground outline-none transition-colors hover:border-foreground/30 focus:border-brand sm:w-56 rtl:normal-case"
-              >
-                {SORT_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute end-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            </div>
+            {sortSelect("fleet-sort-m", true)}
           </div>
         </div>
 
@@ -302,7 +320,7 @@ export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, 
         </AnimatePresence>
 
         {visible.length > 0 ? (
-          <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <ul className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {visible.map((car, i) => (
               <motion.li
                 key={car.id}

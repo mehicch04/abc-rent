@@ -157,7 +157,8 @@
     "removeFilter": "Remove filter {name}",
     "closeFilters": "Close",
     "similarEyebrow": "Recommended for you",
-    "similarLead": "Cars in the same class and price range. Insurance and unlimited mileage are included with every one."
+    "similarLead": "Cars in the same class and price range. Insurance and unlimited mileage are included with every one.",
+    "reset": "Reset"
   },
   "Inquiry": {
     "title": "Reservation inquiry",

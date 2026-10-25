@@ -157,7 +157,8 @@
     "removeFilter": "Ukloni filter {name}",
     "closeFilters": "Zatvori",
     "similarEyebrow": "Preporuka za vas",
-    "similarLead": "Vozila iste klase i slične cijene. Osiguranje i neograničena kilometraža su uključeni u svako."
+    "similarLead": "Vozila iste klase i slične cijene. Osiguranje i neograničena kilometraža su uključeni u svako.",
+    "reset": "Poništi"
   },
   "Inquiry": {
     "title": "Upit za rezervaciju",
