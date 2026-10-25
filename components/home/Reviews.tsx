@@ -10,13 +10,12 @@ import { PillLink } from "@/components/ui/PillLink";
 import { Heading } from "./Heading";
 
 const ACCENTS = [
-  { c: "#0EA5E9", a: "#38BDF8", b: "#0369A1" },
-  { c: "#8B5CF6", a: "#A78BFA", b: "#6D28D9" },
-  { c: "#F59E0B", a: "#FBBF24", b: "#D97706" },
-  { c: "#10B981", a: "#34D399", b: "#047857" },
-  { c: "#F43F5E", a: "#FB7185", b: "#BE123C" },
-  { c: "#6366F1", a: "#818CF8", b: "#4338CA" },
+  { a: "#1EA4E9", b: "#0767A0" },
+  { a: "#26324A", b: "#0B1220" },
+  { a: "#82CEF6", b: "#0C5A86" },
+  { a: "#64748B", b: "#334155" },
 ];
+const BRAND = "#0879B8";
 const SLOTS = 6;
 const R = 15;
 const C = 2 * Math.PI * R;
@@ -136,7 +135,7 @@ function Slot({
     <li
       ref={self}
       className={`group/s relative transition-transform duration-300 ease-out ${paused ? "-translate-y-1" : ""} ${slot === 3 ? "hidden sm:block" : slot > 3 ? "hidden lg:block" : ""}`}
-      style={{ "--acc": acc.c } as CSSProperties}
+      style={{ "--acc": BRAND } as CSSProperties}
       onPointerEnter={(e) => e.pointerType === "mouse" && setHover(true)}
       onPointerLeave={(e) => e.pointerType === "mouse" && setHover(false)}
       onFocus={() => setFocus(true)}
@@ -147,9 +146,9 @@ function Slot({
     >
       <motion.article
         animate={controls}
-        style={paused ? ({ "--tw-ring-color": `${acc.c}66` } as CSSProperties) : undefined}
+        style={paused ? ({ "--tw-ring-color": `${BRAND}40` } as CSSProperties) : undefined}
         className={`relative isolate flex h-[330px] flex-col overflow-hidden rounded-[24px] bg-surface p-5 transition-[box-shadow] duration-300 sm:p-6 ${
-          paused ? "shadow-[0_34px_60px_-36px_var(--acc)] ring-2" : "shadow-[0_1px_2px_rgba(11,18,32,0.04),0_18px_40px_-30px_rgba(11,18,32,0.35)] ring-1 ring-border"
+          paused ? "shadow-[0_30px_60px_-38px_rgba(8,121,184,0.55)] ring-2" : "shadow-[0_1px_2px_rgba(11,18,32,0.04),0_18px_40px_-30px_rgba(11,18,32,0.35)] ring-1 ring-border"
         }`}
       >
         <AnimatePresence initial={false}>
@@ -161,7 +160,7 @@ function Slot({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6 }}
             className="pointer-events-none absolute inset-0 -z-10"
-            style={{ background: `radial-gradient(90% 60% at 0% 0%, ${acc.c}24 0%, ${acc.c}0A 45%, transparent 75%)` }}
+            style={{ background: "radial-gradient(90% 60% at 0% 0%, rgba(8,121,184,0.06) 0%, transparent 70%)" }}
           />
         </AnimatePresence>
         <AnimatePresence mode="popLayout" initial={false}>
@@ -175,7 +174,7 @@ function Slot({
           >
             <div className={`flex items-center gap-3 ${rotate ? "pe-12" : ""}`}>
               <span
-                className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-base font-semibold text-white shadow-[0_8px_18px_-10px_var(--acc)]"
+                className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-base font-semibold text-white shadow-[0_8px_18px_-12px_rgba(11,18,32,0.6)]"
                 style={{ backgroundImage: `linear-gradient(135deg, ${acc.a}, ${acc.b})` }}
               >
                 {initial}
@@ -191,7 +190,7 @@ function Slot({
               </span>
             </div>
             <div className="relative mt-4 min-h-0 flex-1">
-              <span aria-hidden className="absolute -start-1 -top-5 select-none font-display text-6xl font-bold leading-none opacity-20" style={{ color: acc.c }}>
+              <span aria-hidden className="absolute -start-1 -top-5 select-none font-display text-6xl font-bold leading-none text-brand opacity-[0.12]">
                 &ldquo;
               </span>
               <blockquote dir="auto" className="relative line-clamp-7 ps-1 pt-2 text-[15px] leading-relaxed text-foreground/85">
@@ -220,24 +219,24 @@ function Slot({
             >
               <svg viewBox="0 0 36 36" aria-hidden className="absolute inset-0 h-full w-full -rotate-90">
                 <circle cx="18" cy="18" r={R} fill="none" strokeWidth="3" className="stroke-border" />
-                <circle ref={ring} cx="18" cy="18" r={R} fill="none" strokeWidth="3" strokeLinecap="round" stroke={acc.c} strokeDasharray={C} strokeDashoffset={0} />
+                <circle ref={ring} cx="18" cy="18" r={R} fill="none" strokeWidth="3" strokeLinecap="round" stroke={BRAND} strokeDasharray={C} strokeDashoffset={0} />
               </svg>
               <span aria-hidden className={`relative text-[11px] font-semibold tabular-nums text-foreground transition-opacity duration-200 ${paused ? "opacity-0" : "opacity-100"}`}>
                 <span ref={secs} />
               </span>
-              <Pause aria-hidden className={`absolute h-3.5 w-3.5 fill-current transition-opacity duration-200 ${paused ? "opacity-100" : "opacity-0"}`} style={{ color: acc.c }} />
+              <Pause aria-hidden className={`absolute h-3.5 w-3.5 fill-current text-brand transition-opacity duration-200 ${paused ? "opacity-100" : "opacity-0"}`} />
             </button>
             <span
               aria-hidden
               className={`pointer-events-none absolute bottom-5 end-5 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold text-white transition-[opacity,transform] duration-300 sm:bottom-6 sm:end-6 ${
                 paused ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
               }`}
-              style={{ backgroundColor: acc.b }}
+              style={{ backgroundColor: "#0B1220" }}
             >
               {t("paused")}
             </span>
             <span aria-hidden className="absolute inset-x-0 bottom-0 h-[3px] bg-border/50">
-              <span ref={bar} className="block h-full origin-left rtl:origin-right" style={{ backgroundColor: acc.c }} />
+              <span ref={bar} className="block h-full origin-left bg-brand/70 rtl:origin-right" />
             </span>
           </>
         )}
@@ -299,11 +298,8 @@ export function Reviews({ data }: { data: ReviewsData }) {
     <section ref={root} className="px-3 py-3 sm:px-4">
       <div className="light-island relative isolate overflow-hidden rounded-[28px] bg-background ring-1 ring-border/60">
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-          <span className="absolute -start-24 -top-32 h-[420px] w-[420px] rounded-full bg-[#38BDF8]/20 blur-3xl" />
-          <span className="absolute -top-40 start-1/3 h-[380px] w-[380px] rounded-full bg-[#A78BFA]/20 blur-3xl" />
-          <span className="absolute -end-20 top-10 h-[360px] w-[360px] rounded-full bg-[#FB7185]/15 blur-3xl" />
-          <span className="absolute -bottom-40 start-1/4 h-[360px] w-[360px] rounded-full bg-[#FBBF24]/15 blur-3xl" />
-          <span className="absolute -bottom-32 -end-10 h-[320px] w-[320px] rounded-full bg-[#34D399]/15 blur-3xl" />
+          <span className="absolute -start-32 -top-40 h-[460px] w-[460px] rounded-full bg-brand-300/20 blur-3xl" />
+          <span className="absolute -bottom-48 -end-24 h-[420px] w-[420px] rounded-full bg-brand/10 blur-3xl" />
         </div>
 
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
