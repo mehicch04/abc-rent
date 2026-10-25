@@ -73,7 +73,9 @@ export async function getReviews(locale: string): Promise<ReviewsData> {
       score: data.rating ?? base.score,
       count: data.userRatingCount ?? base.count,
       url: data.googleMapsUri ?? base.url,
-      reviews: fetched.length ? fetched : byLocale(MANUAL_REVIEWS, locale),
+      reviews: [...fetched, ...byLocale(MANUAL_REVIEWS, locale)].filter(
+        (r, i, all) => all.findIndex((x) => x.author.trim().toLowerCase() === r.author.trim().toLowerCase()) === i,
+      ),
     };
   } catch {
     return base;

@@ -627,7 +627,10 @@
     "next": "Nächste Bewertung",
     "source": "Google",
     "googleReview": "Google Bewertung",
-    "verify": "Auf Google prüfen"
+    "verify": "Auf Google prüfen",
+    "paused": "Pausiert",
+    "hint": "Mit der Maus auf eine Bewertung zeigen oder antippen, um sie anzuhalten",
+    "book": "Auto buchen"
   },
   "Visit": {
     "eyebrow": "So finden Sie uns",

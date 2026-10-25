@@ -627,7 +627,10 @@
     "next": "المراجعة التالية",
     "source": "Google",
     "googleReview": "مراجعة على Google",
-    "verify": "تحقق على Google"
+    "verify": "تحقق على Google",
+    "paused": "متوقف مؤقتًا",
+    "hint": "مرّر المؤشر فوق التقييم أو المسه لإيقافه",
+    "book": "احجز سيارة"
   },
   "Visit": {
     "eyebrow": "موقعنا",

@@ -627,7 +627,10 @@
     "next": "Sljedeća recenzija",
     "source": "Google",
     "googleReview": "Google recenzija",
-    "verify": "Provjeri na Googleu"
+    "verify": "Provjeri na Googleu",
+    "paused": "Pauzirano",
+    "hint": "Pređite mišem ili dodirnite recenziju da je zaustavite",
+    "book": "Rezerviši auto"
   },
   "Visit": {
     "eyebrow": "Gdje smo",

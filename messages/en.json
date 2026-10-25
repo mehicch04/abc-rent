@@ -627,7 +627,10 @@
     "next": "Next review",
     "source": "Google",
     "googleReview": "Google review",
-    "verify": "Verify on Google"
+    "verify": "Verify on Google",
+    "paused": "Paused",
+    "hint": "Hover or tap a review to pause it",
+    "book": "Book a car"
   },
   "Visit": {
     "eyebrow": "Find us",
