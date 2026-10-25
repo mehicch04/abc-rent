@@ -754,7 +754,7 @@
     "firstName": "First name",
     "lastName": "Last name",
     "phone": "Phone or WhatsApp",
-    "phoneHint": "With country code, e.g. +387",
+    "phoneHint": "Pick your country, then type the number. We will message you on WhatsApp.",
     "email": "Email",
     "emailHint": "We send your booking confirmation here",
     "flight": "Flight number",
@@ -873,5 +873,11 @@
     "marketingB": "Measuring ads on Google and Meta.",
     "always": "Always on",
     "close": "Close"
+  },
+  "Phone": {
+    "country": "Country",
+    "placeholder": "Phone number",
+    "search": "Search country or code",
+    "none": "No results"
   }
 }

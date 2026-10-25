@@ -26,10 +26,15 @@ export function CardRail({
     return first.offsetWidth + parseFloat(getComputedStyle(el).columnGap || "0");
   };
 
+  const raf = useRef(0);
   const onScroll = () => {
-    const el = ref.current;
-    const w = step();
-    if (el && w) setAt(Math.min(items.length - 1, Math.round(Math.abs(el.scrollLeft) / w)));
+    if (raf.current) return;
+    raf.current = requestAnimationFrame(() => {
+      raf.current = 0;
+      const el = ref.current;
+      const w = step();
+      if (el && w) setAt(Math.min(items.length - 1, Math.round(Math.abs(el.scrollLeft) / w)));
+    });
   };
 
   const go = (i: number) => {
@@ -40,23 +45,21 @@ export function CardRail({
   };
 
   return (
-    <div className={className}>
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    >
       <ul
         ref={ref}
         onScroll={onScroll}
-        className={`no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 sm:mx-0 sm:grid sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 ${bleed} ${cols}`}
+        className={`no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain pb-1 [-webkit-overflow-scrolling:touch] sm:mx-0 sm:grid sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 ${bleed} ${cols}`}
       >
-        {items.map((it, i) => (
+        {items.map((it) => (
           <li key={it.key} className="w-[84%] shrink-0 snap-center sm:w-auto">
-            <motion.div
-              className="h-full"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: Math.min(i, 5) * 0.05 }}
-            >
-              {it.node}
-            </motion.div>
+            {it.node}
           </li>
         ))}
       </ul>
@@ -76,6 +79,6 @@ export function CardRail({
           ))}
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

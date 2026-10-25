@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { waDigits } from "@/lib/phone";
 import {
   CalendarDays,
   Car as CarIcon,
@@ -708,12 +709,22 @@ export default async function AdminPage({
                 >
                   <Mail className="h-3.5 w-3.5 shrink-0" /> {q.email}
                 </a>
-                <a
-                  href={`tel:${q.phone}`}
-                  className="flex items-center gap-1.5 transition-colors hover:text-brand"
-                >
-                  <Phone className="h-3.5 w-3.5 shrink-0" /> {q.phone}
-                </a>
+                <span className="flex items-center gap-2">
+                  <a
+                    href={`tel:+${waDigits(q.phone)}`}
+                    className="flex items-center gap-1.5 transition-colors hover:text-brand"
+                  >
+                    <Phone className="h-3.5 w-3.5 shrink-0" /> {q.phone}
+                  </a>
+                  <a
+                    href={`https://wa.me/${waDigits(q.phone)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center rounded-full bg-[#25D366]/15 px-2 py-0.5 text-[11px] font-semibold text-[#128C4B] transition-colors hover:bg-[#25D366]/25"
+                  >
+                    WhatsApp
+                  </a>
+                </span>
                 {q.flightNumber && (
                   <span className="flex items-center gap-1.5">
                     <Plane className="h-3.5 w-3.5 shrink-0" /> {q.flightNumber}

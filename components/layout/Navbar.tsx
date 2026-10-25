@@ -92,14 +92,25 @@ export function Navbar() {
   }, [measure]);
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 40);
+    let raf = 0;
+    const paint = () => {
+      raf = 0;
+      const y = window.scrollY;
+      setScrolled(y > 40);
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (bar.current) bar.current.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
+      if (bar.current) bar.current.style.transform = `scaleX(${max > 0 ? Math.min(1, Math.max(0, y / max)) : 0})`;
     };
-    onScroll();
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(paint);
+    };
+    paint();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => setOpen(false), [pathname]);
@@ -189,7 +200,7 @@ export function Navbar() {
           </div>
         </nav>
         <span aria-hidden className="absolute inset-x-0 -bottom-px h-[2px] overflow-hidden">
-          <span ref={bar} className="block h-full origin-left bg-brand-gradient transition-transform duration-150 ease-out rtl:origin-right" style={{ transform: "scaleX(0)" }} />
+          <span ref={bar} className="block h-full origin-left bg-brand-gradient will-change-transform rtl:origin-right" style={{ transform: "scaleX(0)" }} />
         </span>
 
         <AnimatePresence>

@@ -6,6 +6,8 @@ import { Send, MessageCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { useCompany } from "@/components/company/CompanyProvider";
 import { Link } from "@/i18n/navigation";
 import { track } from "@/lib/track";
+import { phoneValid } from "@/lib/phone";
+import { PhoneField } from "./PhoneField";
 
 type FormType = "contact" | "business";
 
@@ -42,7 +44,7 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
   const check = (k: Req, v: string) => {
     const x = v.trim();
     if (k === "email") return EMAIL.test(x) ? undefined : tb("errEmail");
-    if (k === "phone") return x.replace(/[^\d+]/g, "").length >= 6 ? undefined : tb("errPhone");
+    if (k === "phone") return phoneValid(x) ? undefined : tb("errPhone");
     return x.length >= 2 ? undefined : tb("errRequired");
   };
 
@@ -199,17 +201,16 @@ export function InquiryForm({ type = "contact" }: { type?: FormType }) {
           <label className={labelCls} htmlFor="phone">
             {t("phone")} {req}
           </label>
-          <input
+          <PhoneField
             id="phone"
-            aria-invalid={errors.phone ? true : undefined}
-            aria-describedby={errors.phone ? "phone-err" : undefined}
-            onBlur={() => form.phone && setErrors((x) => ({ ...x, phone: check("phone", form.phone) }))}
-            type="tel"
-            required
             value={form.phone}
-            onChange={set("phone")}
-            className={inputCls}
-            placeholder={t("phonePh")}
+            onChange={(v) => {
+              setForm((f) => ({ ...f, phone: v }));
+              if (errors.phone) setErrors((x) => ({ ...x, phone: undefined }));
+            }}
+            onBlur={() => form.phone && setErrors((x) => ({ ...x, phone: check("phone", form.phone) }))}
+            invalid={Boolean(errors.phone)}
+            describedBy={errors.phone ? "phone-err" : undefined}
           />
           {errors.phone && (
             <p id="phone-err" className="mt-1.5 text-xs font-medium text-rose-600">

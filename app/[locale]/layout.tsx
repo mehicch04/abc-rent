@@ -49,6 +49,7 @@ const arabic = IBM_Plex_Sans_Arabic({
 
 const CLIENT_NAMESPACES = [
   "Common",
+  "Phone",
   "Cta",
   "Extras",
   "Faq",

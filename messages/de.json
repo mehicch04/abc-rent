@@ -754,7 +754,7 @@
     "firstName": "Vorname",
     "lastName": "Nachname",
     "phone": "Telefon oder WhatsApp",
-    "phoneHint": "Mit Ländervorwahl, z. B. +49",
+    "phoneHint": "Land wählen, dann Nummer eingeben. Wir schreiben Ihnen per WhatsApp.",
     "email": "E-Mail",
     "emailHint": "Hierhin senden wir die Buchungsbestätigung",
     "flight": "Flugnummer",
@@ -873,5 +873,11 @@
     "marketingB": "Messung von Anzeigen bei Google und Meta.",
     "always": "Immer aktiv",
     "close": "Schließen"
+  },
+  "Phone": {
+    "country": "Land",
+    "placeholder": "151 2345678",
+    "search": "Land oder Vorwahl suchen",
+    "none": "Keine Treffer"
   }
 }

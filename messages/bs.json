@@ -754,7 +754,7 @@
     "firstName": "Ime",
     "lastName": "Prezime",
     "phone": "Telefon ili WhatsApp",
-    "phoneHint": "Sa pozivnim brojem, npr. +387",
+    "phoneHint": "Odaberite državu, pa upišite broj. Na njega vam pišemo na WhatsApp.",
     "email": "Email",
     "emailHint": "Ovdje šaljemo potvrdu rezervacije",
     "flight": "Broj leta",
@@ -873,5 +873,11 @@
     "marketingB": "Mjerenje oglasa na Googleu i Meti.",
     "always": "Uvijek uključeni",
     "close": "Zatvori"
+  },
+  "Phone": {
+    "country": "Država",
+    "placeholder": "61 234 567",
+    "search": "Pretraži državu ili pozivni broj",
+    "none": "Nema rezultata"
   }
 }

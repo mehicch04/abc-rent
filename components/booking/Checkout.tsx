@@ -27,6 +27,8 @@ import { isAllInclusive, isNoDeposit, isPrivateDriver } from "@/lib/extras-kind"
 import { extraText } from "@/lib/extras-i18n";
 import { availabilityFor, maxSelectable, type Booked } from "@/lib/extras-availability";
 import { formatPrice } from "@/lib/currency";
+import { phoneValid } from "@/lib/phone";
+import { PhoneField } from "@/components/forms/PhoneField";
 import { useCurrency } from "@/components/currency/CurrencyProvider";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { Link } from "@/i18n/navigation";
@@ -173,7 +175,7 @@ export function Checkout({ car, pickupAt, returnAt, pickup, ret, locations, extr
   const valid: Record<Field, boolean> = {
     firstName: form.firstName.trim().length >= 2,
     lastName: form.lastName.trim().length >= 2,
-    phone: form.phone.replace(/[^\d+]/g, "").length >= 6,
+    phone: phoneValid(form.phone),
     email: EMAIL.test(form.email.trim()),
     flight: form.flight.trim().length > 0,
     note: true,
@@ -298,20 +300,32 @@ export function Checkout({ car, pickupAt, returnAt, pickup, ret, locations, extr
           {opts.optional && <span className="text-xs font-normal text-muted-foreground">{t("optional")}</span>}
         </label>
         <div className="relative">
-          <input
-            id={`co-${k}`}
-            type={opts.type ?? "text"}
-            inputMode={opts.mode}
-            autoComplete={opts.auto}
-            dir={opts.dir}
-            value={form[k]}
-            placeholder={opts.ph}
-            aria-invalid={Boolean(err)}
-            aria-describedby={`co-${k}-d`}
-            onChange={(e) => setField(k, e.target.value)}
-            onBlur={() => setTouched((x) => ({ ...x, [k]: true }))}
-            className={`${INPUT} ${err ? "border-rose-500 focus:border-rose-500 focus:ring-rose-500/15" : ok ? "border-emerald-500/60" : "border-border"} ${opts.dir === "ltr" ? "rtl:text-end" : ""}`}
-          />
+          {k === "phone" ? (
+            <PhoneField
+              id="co-phone"
+              value={form.phone}
+              onChange={(v) => setField("phone", v)}
+              onBlur={() => setTouched((x) => ({ ...x, phone: true }))}
+              invalid={Boolean(err)}
+              describedBy="co-phone-d"
+              inputClassName={ok ? "border-emerald-500/60" : ""}
+            />
+          ) : (
+            <input
+              id={`co-${k}`}
+              type={opts.type ?? "text"}
+              inputMode={opts.mode}
+              autoComplete={opts.auto}
+              dir={opts.dir}
+              value={form[k]}
+              placeholder={opts.ph}
+              aria-invalid={Boolean(err)}
+              aria-describedby={`co-${k}-d`}
+              onChange={(e) => setField(k, e.target.value)}
+              onBlur={() => setTouched((x) => ({ ...x, [k]: true }))}
+              className={`${INPUT} ${err ? "border-rose-500 focus:border-rose-500 focus:ring-rose-500/15" : ok ? "border-emerald-500/60" : "border-border"} ${opts.dir === "ltr" ? "rtl:text-end" : ""}`}
+            />
+          )}
           <AnimatePresence>
             {ok && (
               <motion.span

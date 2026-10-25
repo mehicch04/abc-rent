@@ -77,7 +77,7 @@ export function FleetCard({
       ref={ref}
       onPointerMove={move}
       onPointerLeave={leave}
-      className="group relative isolate flex h-full flex-col rounded-[26px] bg-surface p-2 shadow-[0_1px_2px_rgba(11,18,32,0.04),0_14px_34px_-26px_rgba(11,18,32,0.3)] ring-1 ring-border transition-[transform,box-shadow] duration-300 ease-out [transform:perspective(1000px)_rotateX(var(--rx,0deg))_rotateY(var(--ry,0deg))] hover:shadow-[0_40px_70px_-38px_rgba(8,121,184,0.5)] hover:ring-brand/30 motion-reduce:[transform:none]"
+      className="group relative isolate flex h-full flex-col rounded-[26px] bg-surface p-2 shadow-[0_1px_2px_rgba(11,18,32,0.04),0_14px_34px_-26px_rgba(11,18,32,0.3)] ring-1 ring-border transition-[transform,box-shadow] duration-300 ease-out [@media(hover:hover)]:[transform:perspective(1000px)_rotateX(var(--rx,0deg))_rotateY(var(--ry,0deg))] hover:shadow-[0_40px_70px_-38px_rgba(8,121,184,0.5)] hover:ring-brand/30 motion-reduce:[transform:none]"
     >
       <span
         aria-hidden
@@ -85,13 +85,13 @@ export function FleetCard({
       />
       <Link href={href} aria-label={car.title} className="absolute inset-0 z-10 rounded-[26px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
 
-      <div className="light-island relative aspect-[16/10] overflow-hidden rounded-[20px] bg-[radial-gradient(120%_90%_at_50%_0%,#FFFFFF_0%,#EEF4F9_45%,#DCE8F2_100%)]">
+      <div className="light-island relative isolate aspect-[16/10] overflow-hidden rounded-[20px] [transform:translateZ(0)] bg-[radial-gradient(120%_90%_at_50%_0%,#FFFFFF_0%,#EEF4F9_45%,#DCE8F2_100%)]">
         <div className="absolute inset-x-3 top-3 z-[1] flex items-start justify-between gap-2">
           <span className="flex min-w-0 gap-1.5 whitespace-nowrap">
             {car.isFeatured && <span className="rounded-full bg-brand px-2.5 py-1 text-[11px] font-semibold text-white shadow-sm">{t("popular")}</span>}
             {cat && <span className="min-w-0 truncate rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-ink shadow-sm">{t(`categories.${cat}`)}</span>}
           </span>
-          <span className="shrink-0 rounded-full bg-ink/80 px-2.5 py-1 text-[11px] font-medium tabular-nums text-white backdrop-blur">{car.year}</span>
+          <span className="shrink-0 rounded-full bg-ink/85 px-2.5 py-1 text-[11px] font-medium tabular-nums text-white">{car.year}</span>
         </div>
         {fit && (
           <span
