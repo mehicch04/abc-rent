@@ -6,8 +6,11 @@ import {
   ArrowRight,
   Check,
   Clock3,
+  Car,
   Crown,
+  MapPin,
   MapPinHouse,
+  Plane,
   Users,
   UsersRound,
 } from "lucide-react";
@@ -29,9 +32,10 @@ type Premium = {
 };
 type Item = { title: string; body: string };
 type PriceRow = { label: string; price: string; unit: string; note: string };
+type TransferRow = { label: string; note: string; max: number };
 
-const PREMIUM_IMAGES = ["/img/service-chauffeur.webp", "/img/service-airport.webp"];
-const PREMIUM_POS = ["object-[35%_60%]", "object-[65%_55%]"];
+const PREMIUM_IMAGES = ["/img/service-chauffeur-v2.webp", "/img/service-airport.webp"];
+const PREMIUM_POS = ["object-[55%_55%]", "object-[65%_55%]"];
 const ICONS = [MapPinHouse, Users, Crown, UsersRound];
 const LINKS = ["/kontakt", "/vozila", "/vozila", "/vozila"] as const;
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -42,6 +46,7 @@ export function Services() {
   const premium = t.raw("premium") as Premium[];
   const items = t.raw("items") as Item[];
   const prices = t.raw("prices") as PriceRow[];
+  const transfer = t.raw("transfer.rows") as TransferRow[];
   const wa = (text?: string) =>
     `https://wa.me/${company.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
@@ -64,7 +69,7 @@ export function Services() {
             </PillLink>
           </div>
 
-          <div className="mt-12 grid gap-4 lg:grid-cols-2">
+          <div className="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-2">
             {premium.map((p, i) => (
               <motion.article
                 key={p.title}
@@ -72,7 +77,7 @@ export function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6, delay: i * 0.08, ease }}
-                className="flex flex-col rounded-[24px] bg-surface p-2 ring-1 ring-border"
+                className="flex min-w-0 flex-col rounded-[24px] bg-surface p-2 ring-1 ring-border"
               >
                 <div className="relative aspect-[16/10] overflow-hidden rounded-[18px] bg-ink">
                   <Image
@@ -115,6 +120,52 @@ export function Services() {
                       </li>
                     ))}
                   </ul>
+                  {i === 1 && (
+                    <div className="mt-6 rounded-2xl bg-surface-muted px-4">
+                      <div className="flex items-center gap-2 border-b border-border py-3.5 sm:gap-3">
+                        <span className="flex items-center gap-2">
+                          <span className="hidden h-8 w-8 shrink-0 place-items-center rounded-full bg-brand text-white sm:grid shadow-[0_8px_16px_-8px_rgba(8,121,184,0.9)]">
+                            <Plane className="h-4 w-4 rtl:-scale-x-100" />
+                          </span>
+                          <span className="leading-tight">
+                            <span className="block text-[11px] font-semibold tracking-[0.08em] text-brand-strong">SJJ</span>
+                            <span className="block text-sm font-medium text-foreground">{t("transfer.from")}</span>
+                          </span>
+                        </span>
+                        <span aria-hidden className="relative h-6 min-w-14 flex-1 sm:mx-1">
+                          <span className="absolute inset-x-0 top-1/2 border-t-2 border-dashed border-brand/30" />
+                          <span className="absolute top-1/2 grid h-6 w-6 -translate-y-1/2 place-items-center rounded-full bg-surface text-brand-strong shadow-sm ring-1 ring-border motion-safe:animate-[route-drive_4.5s_cubic-bezier(0.65,0,0.35,1)_infinite]">
+                            <Car className="h-3.5 w-3.5 rtl:-scale-x-100" />
+                          </span>
+                          <span className="absolute inset-x-0 -bottom-3 whitespace-nowrap text-center text-[11px] font-medium text-muted-foreground">{t("transfer.eta")}</span>
+                        </span>
+                        <span className="flex items-center gap-2">
+                          <span className="text-end leading-tight">
+                            <span className="block text-[11px] font-semibold tracking-[0.08em] text-brand-strong">{t("transfer.toCode")}</span>
+                            <span className="block text-sm font-medium text-foreground">{t("transfer.to")}</span>
+                          </span>
+                          <span className="hidden h-8 w-8 shrink-0 place-items-center rounded-full bg-ink text-white sm:grid">
+                            <MapPin className="h-4 w-4" />
+                          </span>
+                        </span>
+                      </div>
+                      <ul className="divide-y divide-border">
+                        {transfer.map((row) => (
+                          <li key={row.label} className="flex items-center justify-between gap-4 py-3">
+                            <span className="min-w-0">
+                              <span className="block text-sm font-medium text-foreground">{row.label}</span>
+                              <span className="block text-xs text-muted-foreground">{row.note}</span>
+                            </span>
+                            <span className="inline-flex shrink-0 items-baseline gap-1 text-end">
+                              <Users className="h-3.5 w-3.5 self-center text-brand-strong" />
+                              <span className="font-display text-lg font-semibold text-foreground">{t("transfer.upTo", { n: row.max })}</span>
+                              <span className="text-xs text-muted-foreground">{t("transfer.pax")}</span>
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                   {i === 0 && (
                     <ul className="mt-6 divide-y divide-border rounded-2xl bg-surface-muted px-4">
                       {prices.map((row) => (

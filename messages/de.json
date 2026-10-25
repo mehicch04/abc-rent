@@ -158,7 +158,10 @@
     "closeFilters": "Schließen",
     "similarEyebrow": "Empfehlung für Sie",
     "similarLead": "Fahrzeuge derselben Klasse und Preislage. Versicherung und unbegrenzte Kilometer sind immer inklusive.",
-    "reset": "Zurücksetzen"
+    "reset": "Zurücksetzen",
+    "priceFrom": "Von",
+    "priceTo": "Bis",
+    "inRange": "{count, plural, one {# Fahrzeug} other {# Fahrzeuge}} in diesem Bereich"
   },
   "Inquiry": {
     "title": "Buchungsanfrage",
@@ -486,7 +489,27 @@
         "unit": "Tag",
         "note": "Auto, Fahrer, Kraftstoff und Parken"
       }
-    ]
+    ],
+    "transfer": {
+      "from": "Flughafen Sarajevo",
+      "to": "Stadtzentrum",
+      "eta": "ca. 20 Min.",
+      "upTo": "bis {n}",
+      "pax": "Personen",
+      "rows": [
+        {
+          "label": "Limousine oder SUV",
+          "note": "Für eine bis vier Personen mit Gepäck",
+          "max": 4
+        },
+        {
+          "label": "Kleinbus 8+1",
+          "note": "Für Gruppen, Familien und viel Gepäck",
+          "max": 8
+        }
+      ],
+      "toCode": "Sarajevo"
+    }
   },
   "HowItWorks": {
     "eyebrow": "So funktioniert es",

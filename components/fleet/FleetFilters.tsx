@@ -5,15 +5,23 @@ import { AnimatePresence, m as motion } from "framer-motion";
 import { Check, ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Reveal } from "@/components/booking/ui";
+import { PriceRange, type RangeModel } from "./PriceRange";
 
 export type Facet = "price" | "cat" | "gear" | "fuel" | "seats" | "brand";
 export type Selection = Record<Facet, string[]>;
 export type Option = { value: string; label: string; count: number; icon?: ComponentType<{ className?: string }> };
-export type Group = { id: Facet; title: string; options: Option[]; kind: "check" | "list" };
+export type Group = { id: Facet; title: string; options: Option[]; kind: "check" | "list" | "range"; range?: RangeModel };
 
 export const EMPTY: Selection = { price: [], cat: [], gear: [], fuel: [], seats: [], brand: [] };
 
-const usable = (groups: Group[], selection: Selection) => groups.filter((g) => g.options.length > 1 || selection[g.id].length > 0);
+const usable = (groups: Group[], selection: Selection) =>
+  groups.filter((g) => (g.range ? g.range.max > g.range.min : g.options.length > 1) || selection[g.id].length > 0);
+
+const picked = (g: Group, selected: string[]) => (g.kind === "range" ? Math.min(1, selected.length) : selected.length);
+
+function Body({ group, selected, onToggle }: { group: Group; selected: string[]; onToggle: (v: string) => void }) {
+  return group.range ? <PriceRange {...group.range} /> : <OptionList group={group} selected={selected} onToggle={onToggle} />;
+}
 
 function Box({ on }: { on: boolean }) {
   return (
@@ -100,15 +108,15 @@ function GroupBlock({
       >
         <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-foreground rtl:normal-case rtl:tracking-normal">
           {group.title}
-          {selected.length > 0 && (
-            <span className="grid h-5 min-w-5 place-items-center rounded-full bg-brand px-1.5 text-[10px] font-semibold text-white">{selected.length}</span>
+          {picked(group, selected) > 0 && (
+            <span className="grid h-5 min-w-5 place-items-center rounded-full bg-brand px-1.5 text-[10px] font-semibold text-white">{picked(group, selected)}</span>
           )}
         </span>
         <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
       </button>
       <Reveal show={open}>
         <div className="pb-3">
-          <OptionList group={group} selected={selected} onToggle={onToggle} />
+          <Body group={group} selected={selected} onToggle={onToggle} />
         </div>
       </Reveal>
     </div>
@@ -215,7 +223,7 @@ export function FilterBar({
       <div className="flex items-center gap-1.5 rounded-full bg-surface/85 p-1.5 shadow-[0_18px_44px_-30px_rgba(11,18,32,0.55)] ring-1 ring-border backdrop-blur-xl backdrop-saturate-150">
         <div onScroll={() => setOpen(null)} className="no-scrollbar flex min-w-0 flex-1 items-center gap-1 overflow-x-auto">
           {list.map((g) => {
-            const n = selection[g.id].length;
+            const n = picked(g, selection[g.id]);
             const isOpen = open === g.id;
             return (
               <button
@@ -257,7 +265,7 @@ export function FilterBar({
           >
             <p className="pb-3 text-xs font-semibold uppercase tracking-[0.08em] text-foreground rtl:normal-case rtl:tracking-normal">{group.title}</p>
             <div className="no-scrollbar -mx-2 max-h-[min(50vh,360px)] overflow-y-auto px-2">
-              <OptionList group={group} selected={selection[group.id]} onToggle={(v) => onToggle(group.id, v)} />
+              <Body group={group} selected={selection[group.id]} onToggle={(v) => onToggle(group.id, v)} />
             </div>
             <div className="mt-3 flex items-center justify-between gap-3 border-t border-border pt-3">
               <button

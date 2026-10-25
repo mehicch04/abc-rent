@@ -158,7 +158,10 @@
     "closeFilters": "Close",
     "similarEyebrow": "Recommended for you",
     "similarLead": "Cars in the same class and price range. Insurance and unlimited mileage are included with every one.",
-    "reset": "Reset"
+    "reset": "Reset",
+    "priceFrom": "From",
+    "priceTo": "To",
+    "inRange": "{count, plural, one {# vehicle} other {# vehicles}} in this range"
   },
   "Inquiry": {
     "title": "Reservation inquiry",
@@ -486,7 +489,27 @@
         "unit": "day",
         "note": "Car, driver, fuel and parking"
       }
-    ]
+    ],
+    "transfer": {
+      "from": "Sarajevo Airport",
+      "to": "City centre",
+      "eta": "about 20 min",
+      "upTo": "up to {n}",
+      "pax": "passengers",
+      "rows": [
+        {
+          "label": "Sedan or SUV",
+          "note": "For one to four passengers with luggage",
+          "max": 4
+        },
+        {
+          "label": "Van 8+1",
+          "note": "For groups, families and lots of luggage",
+          "max": 8
+        }
+      ],
+      "toCode": "Sarajevo"
+    }
   },
   "HowItWorks": {
     "eyebrow": "How it works",

@@ -158,7 +158,10 @@
     "closeFilters": "Zatvori",
     "similarEyebrow": "Preporuka za vas",
     "similarLead": "Vozila iste klase i slične cijene. Osiguranje i neograničena kilometraža su uključeni u svako.",
-    "reset": "Poništi"
+    "reset": "Poništi",
+    "priceFrom": "Od",
+    "priceTo": "Do",
+    "inRange": "{count, plural, one {# vozilo} few {# vozila} other {# vozila}} u ovom rasponu"
   },
   "Inquiry": {
     "title": "Upit za rezervaciju",
@@ -486,7 +489,27 @@
         "unit": "dan",
         "note": "Vozilo, vozač, gorivo i parking"
       }
-    ]
+    ],
+    "transfer": {
+      "from": "Aerodrom Sarajevo",
+      "to": "Centar grada",
+      "eta": "oko 20 min",
+      "upTo": "do {n}",
+      "pax": "putnika",
+      "rows": [
+        {
+          "label": "Limuzina ili SUV",
+          "note": "Za jednog do četiri putnika s prtljagom",
+          "max": 4
+        },
+        {
+          "label": "Kombi 8+1",
+          "note": "Za grupe, porodice i puno kofera",
+          "max": 8
+        }
+      ],
+      "toCode": "Sarajevo"
+    }
   },
   "HowItWorks": {
     "eyebrow": "Kako radimo",

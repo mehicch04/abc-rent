@@ -83,27 +83,25 @@ export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, 
     );
   }, [sel, drawer]);
 
-  const steps = currency === "EUR" ? [50, 100, 150] : [100, 200, 300];
   const money = (v: number) => `⁦${v} ${currencySymbol(currency)}⁩`;
 
+  useEffect(() => {
+    setSel((s) => (s.price.length ? { ...s, price: [] } : s));
+  }, [currency]);
+
   const values = useMemo(() => {
-    const bucket = (p: number | null) => {
-      if (p == null) return [];
-      const v = displayAmount(p, currency);
-      const i = steps.findIndex((s) => v <= s);
-      return [String(i === -1 ? steps.length : i)];
-    };
     return new Map(
       cars.map((c) => [
         c.id,
         {
-          price: bucket(c.pricePerDay),
+          amount: c.pricePerDay == null ? null : Math.round(displayAmount(c.pricePerDay, currency)),
+          price: [] as string[],
           cat: carCategories(c) as string[],
           gear: [c.transmission as string],
           fuel: [c.fuelType as string],
           seats: [String(c.passengers)],
           brand: c.brand ? [c.brand.trim()] : [],
-        } satisfies Record<Facet, string[]>,
+        } satisfies Record<Facet, string[]> & { amount: number | null },
       ]),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -111,7 +109,11 @@ export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, 
 
   const matches = (c: CarListItem, except?: Facet) => {
     const v = values.get(c.id)!;
-    return (Object.keys(sel) as Facet[]).every((f) => f === except || sel[f].length === 0 || v[f].some((x) => sel[f].includes(x)));
+    return (Object.keys(sel) as Facet[]).every((f) => {
+      if (f === except || sel[f].length === 0) return true;
+      if (f === "price") return v.amount != null && v.amount >= Number(sel.price[0]) && v.amount <= Number(sel.price[1]);
+      return v[f].some((x) => sel[f].includes(x));
+    });
   };
 
   const count = (f: Facet, value: string) => cars.filter((c) => matches(c, f) && values.get(c.id)![f].includes(value)).length;
@@ -122,13 +124,11 @@ export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, 
   };
 
   const groups: Group[] = useMemo(() => {
-    const p = present("price");
-    const priceLabels = [
-      t("priceUpTo", { b: money(steps[0]) }),
-      t("priceBetween", { a: money(steps[0]), b: money(steps[1]) }),
-      t("priceBetween", { a: money(steps[1]), b: money(steps[2]) }),
-      t("priceOver", { a: money(steps[2]) }),
-    ];
+    const amountsOf = (list: CarListItem[]) =>
+      list.map((c) => values.get(c.id)!.amount).filter((a): a is number => a != null);
+    const all = amountsOf(cars);
+    const lo = all.length ? Math.min(...all) : 0;
+    const hi = all.length ? Math.max(...all) : 0;
     const cats = present("cat");
     const gears = present("gear");
     const fuels = present("fuel");
@@ -143,9 +143,17 @@ export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, 
       },
       {
         id: "price",
-        kind: "check",
+        kind: "range",
         title: t("fPrice"),
-        options: priceLabels.map((l, i) => ({ value: String(i), label: l, count: count("price", String(i)) })).filter((o) => p.has(o.value)),
+        options: [],
+        range: {
+          min: lo,
+          max: hi,
+          value: sel.price.length === 2 ? [Number(sel.price[0]), Number(sel.price[1])] : [lo, hi],
+          amounts: amountsOf(cars.filter((c) => matches(c, "price"))),
+          symbol: currencySymbol(currency),
+          onChange: (a, b) => setSel((s) => ({ ...s, price: a <= lo && b >= hi ? [] : [String(a), String(b)] })),
+        },
       },
       {
         id: "gear",
@@ -196,7 +204,11 @@ export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, 
   }, [cars, values, sel, sort]);
 
   const chips = groups.flatMap((g) =>
-    sel[g.id].map((v) => ({ f: g.id, v, label: g.options.find((o) => o.value === v)?.label ?? v })),
+    g.kind === "range"
+      ? sel.price.length === 2
+        ? [{ f: g.id, v: "range", label: t("priceBetween", { a: money(Number(sel.price[0])), b: money(Number(sel.price[1])) }) }]
+        : []
+      : sel[g.id].map((v) => ({ f: g.id, v, label: g.options.find((o) => o.value === v)?.label ?? v })),
   );
   const activeCount = chips.length;
 
@@ -301,7 +313,7 @@ export function FleetGrid({ cars, search, eagerFirstImages = false, imageSizes, 
                 <li key={`${c.f}:${c.v}`}>
                   <button
                     type="button"
-                    onClick={() => toggle(c.f, c.v)}
+                    onClick={() => (c.f === "price" ? reset("price") : toggle(c.f, c.v))}
                     aria-label={t("removeFilter", { name: c.label })}
                     className="inline-flex h-8 items-center gap-1.5 rounded-full bg-brand/10 pe-2 ps-3 text-xs font-semibold text-brand-strong transition-colors hover:bg-brand/15"
                   >
