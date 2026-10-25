@@ -1,5 +1,6 @@
 "use client";
 
+import { CarTitle } from "./CarTitle";
 import { Band } from "@/components/ui/Band";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
@@ -148,7 +149,7 @@ export function CarDetail({
           </span>
         )}
         <h1 className="mt-2 font-display text-[1.75rem] font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
-          {car.title}
+          <CarTitle title={car.title} model={car.model} />
         </h1>
         <p className="mt-1.5 text-sm text-muted-foreground">
           {[pick(TRANSMISSION_LABELS[car.transmission], lang), pick(FUEL_LABELS[car.fuelType], lang), `${car.passengers} ${t("spec.seats").toLowerCase()}`, String(car.year)].join(" · ")}

@@ -12,6 +12,7 @@ import { bookingHref } from "@/lib/booking";
 import type { CarListItem, SearchContext } from "@/lib/types";
 import { Price } from "@/components/currency/Price";
 import { useCarFrame } from "./useCarFrame";
+import { CarTitle } from "./CarTitle";
 
 export function FleetCard({
   car,
@@ -130,7 +131,9 @@ export function FleetCard({
 
       <div className="px-3 pt-4">
         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-strong rtl:normal-case rtl:tracking-normal">{car.brand}</p>
-        <h3 className="mt-1 truncate font-display text-lg font-semibold tracking-tight text-foreground transition-colors group-hover:text-brand-strong">{car.title}</h3>
+        <h3 title={car.title} className="mt-1 truncate font-display text-[17px] font-semibold tracking-tight text-foreground transition-colors group-hover:text-brand-strong sm:text-lg">
+          <CarTitle title={car.title} model={car.model} variantClassName="transition-colors group-hover:text-brand-strong/70" />
+        </h3>
         <ul className="mt-3 flex flex-wrap gap-1.5">
           {specs.map(({ icon: Icon, text }, i) => (
             <li
