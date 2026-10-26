@@ -10,7 +10,8 @@ import { useCompany } from "@/components/company/CompanyProvider";
 import { Price } from "@/components/currency/Price";
 import { TRANSMISSION_LABELS, label } from "@/lib/car-labels";
 import type { CarListItem } from "@/lib/types";
-import { STAGE_CARS } from "./hero-stage";
+import { STAGE, STAGE_CARS, STAGE_MOB } from "./hero-stage";
+import { useCarFrame } from "@/components/fleet/useCarFrame";
 
 type Spot = (typeof STAGE_CARS)[number] & { car: CarListItem };
 type Key = Spot["key"];
@@ -25,8 +26,24 @@ const short = (title: string) => {
 };
 
 const useIso = typeof window === "undefined" ? useEffect : useLayoutEffect;
-const DESK = { x: 0, y: 0, w: 2528, h: 1884 };
-const MOB = { x: 300, y: 300, w: 2228, h: 1420 };
+const DESK = { x: 0, y: 0, w: STAGE.w, h: STAGE.h };
+const MOB = STAGE_MOB;
+
+function Thumb({ src, on }: { src?: string; on: boolean }) {
+  const { frame, ready, onLoad, onError } = useCarFrame(src, 64 / 40);
+  const fit = frame && !frame.photo ? frame : null;
+  return (
+    <span className={`relative h-10 w-16 shrink-0 overflow-hidden rounded-xl bg-white transition-shadow duration-300 ${on ? "shadow-[inset_0_0_0_1px_rgba(8,121,184,0.25)]" : ""}`}>
+      {src && (
+        <span className={`absolute inset-0 transition-[opacity,transform] duration-300 ${ready ? "opacity-100" : "opacity-0"} ${fit ? "" : "p-1"} ${on ? "scale-110" : "group-hover/p:scale-105"}`}>
+          <span className="absolute inset-0" style={fit ? { transformOrigin: fit.origin, transform: fit.transform } : undefined}>
+            <Image src={src} alt="" fill sizes="64px" onLoad={onLoad} onError={onError} className={`mix-blend-multiply ${frame?.photo ? "object-cover" : "object-contain"}`} />
+          </span>
+        </span>
+      )}
+    </span>
+  );
+}
 
 function Stage({
   spots,
@@ -49,7 +66,7 @@ function Stage({
   const box = mode === "crop" ? MOB : DESK;
   return (
     <svg ref={svgRef} viewBox={`${box.x} ${box.y} ${box.w} ${box.h}`} preserveAspectRatio={mode === "crop" ? "xMidYMid slice" : "none"} className="absolute inset-0 h-full w-full" aria-hidden>
-      {mode === "crop" && <image href="/img/hero/stage-m.webp" x={MOB.x} y={MOB.y} width={MOB.w} height={MOB.h} preserveAspectRatio="none" />}
+      {mode === "crop" && <image href="/img/hero/sebilj-m.webp" x={MOB.x} y={MOB.y} width={MOB.w} height={MOB.h} preserveAspectRatio="none" />}
       <rect x={box.x} y={box.y} width={box.w} height={box.h} fill="#0B1220" className="pointer-events-none transition-opacity duration-500" opacity={active ? 0.58 : 0} />
       {spots.map((s) => {
         const on = active === s.key;
@@ -97,7 +114,7 @@ function Dots({ spots, box, active }: { spots: Spot[]; box: { x: number; y: numb
         <span
           key={s.key}
           aria-hidden
-          style={{ left: `${((s.tag[0] - box.x) / box.w) * 100}%`, top: `${((s.tag[1] + 46 - box.y) / box.h) * 100}%` }}
+          style={{ left: `${((s.tag[0] - box.x) / box.w) * 100}%`, top: `${((s.tag[1] + s.h * 0.14 - box.y) / box.h) * 100}%` }}
           className={`pointer-events-none absolute grid h-5 w-5 -translate-x-1/2 -translate-y-1/2 place-items-center transition-opacity duration-300 ${active ? "opacity-0" : "opacity-100"}`}
         >
           <span className="absolute inset-0 rounded-full bg-brand-300/60 motion-safe:animate-ping" />
@@ -253,9 +270,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
                 on ? "bg-white text-ink ring-white" : "bg-white/[0.08] text-white ring-white/15 hover:bg-white/[0.13]"
               }`}
             >
-              <span className={`relative h-10 w-16 shrink-0 rounded-xl transition-colors duration-300 ${on ? "bg-[radial-gradient(closest-side,rgba(8,121,184,0.18),transparent)]" : "bg-[radial-gradient(closest-side,rgba(255,255,255,0.42),transparent)]"}`}>
-                <Image src={`/img/hero/thumb-${s.key}.webp`} alt="" fill sizes="64px" className={`object-contain transition-transform duration-300 ${on ? "scale-110" : "group-hover/p:scale-105"}`} />
-              </span>
+              <Thumb src={s.car.images?.[0]} on={on} />
               <span className="whitespace-nowrap leading-tight">
                 <span className="block text-[13px] font-semibold">{short(s.car.title)}</span>
                 {s.car.pricePerDay != null && (
@@ -273,27 +288,26 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
 
   return (
     <section className="px-3 pt-3 sm:px-4">
-      <div ref={root} className="relative isolate overflow-hidden rounded-[32px] bg-ink xl:flex xl:min-h-[clamp(660px,calc(100vh-120px),820px)] xl:flex-col">
+      <div ref={root} className="relative isolate overflow-hidden rounded-[32px] bg-ink xl:flex xl:min-h-[max(660px,calc(51.7vw-78px))] xl:flex-col">
         <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_15%_0%,rgba(8,121,184,0.32),transparent_60%)]" />
         <div className="absolute inset-0 -z-10 hidden xl:block">
-          <div className="absolute inset-y-0 left-1/2 aspect-[2528/1884] h-full -translate-x-[28.9%]">
+          <div className="absolute bottom-[110px] left-[calc(4.27%+243px)] aspect-[2576/1093] w-[calc(121.95%-488px)]">
             <Image
-              src="/img/hero/bascarsija.webp"
+              src="/img/hero/sebilj-wide.webp"
               alt={t("imageAlt")}
               fill
               priority
-              sizes="(min-width: 1280px) 60vw, 16px"
+              sizes="(min-width: 1280px) 100vw, 16px"
               quality={90}
               className="object-cover"
             />
-            <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[16%] bg-gradient-to-r from-ink to-transparent" />
-            <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-[12%] bg-gradient-to-l from-ink to-transparent" />
+            <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[24%] bg-gradient-to-r from-ink via-ink/70 to-transparent" />
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[16%] bg-gradient-to-b from-ink to-transparent" />
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-[10%] bg-gradient-to-t from-ink to-transparent" />
             {spots.length > 0 && <Stage spots={spots} active={active} mode="full" onEnter={enter} onLeave={leave} onPick={pick} svgRef={svgFull} />}
             {spots.length > 0 && <Dots spots={spots} box={DESK} active={active} />}
           </div>
-          <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-ink via-ink/80 to-transparent" />
-          <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink/70 to-transparent" />
-          <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink via-ink/50 to-transparent" />
+          <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[46%] bg-gradient-to-r from-ink/90 via-ink/45 to-transparent" />
         </div>
 
         <div className="pointer-events-none relative mx-auto flex w-full max-w-6xl flex-col px-5 pb-28 pt-9 sm:px-6 sm:pb-32 sm:pt-14 xl:flex-1 xl:justify-center xl:pb-32 xl:pt-10">
@@ -350,7 +364,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
 
           {spots.length > 0 && (
             <div className="pointer-events-auto mt-8 xl:hidden">
-              <div className="relative aspect-[2228/1420] overflow-hidden rounded-[22px] ring-1 ring-white/10">
+              <div className="relative aspect-[1450/960] overflow-hidden rounded-[22px] ring-1 ring-white/10">
                 <Stage spots={spots} active={active} mode="crop" onEnter={enter} onLeave={leave} onPick={pick} svgRef={svgCrop} />
                 <Dots spots={spots} box={MOB} active={active} />
                 <span className="pointer-events-none absolute bottom-3 start-3 inline-flex items-center gap-1.5 rounded-full bg-ink/60 px-2.5 py-1 text-[11px] font-semibold text-white ring-1 ring-white/15 backdrop-blur-md">
