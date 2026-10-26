@@ -10,13 +10,23 @@ import { useCompany } from "@/components/company/CompanyProvider";
 import { Price } from "@/components/currency/Price";
 import { TRANSMISSION_LABELS, label } from "@/lib/car-labels";
 import type { CarListItem } from "@/lib/types";
-import { STAGE, STAGE_CARS } from "./hero-stage";
+import { STAGE_CARS } from "./hero-stage";
 
 type Spot = (typeof STAGE_CARS)[number] & { car: CarListItem };
 type Key = Spot["key"];
 
+const short = (title: string) => {
+  const out: string[] = [];
+  for (const w of title.split(/\s+/)) {
+    out.push(w);
+    if (out.filter((x) => x.length > 1).length >= 2) break;
+  }
+  return out.join(" ");
+};
+
 const useIso = typeof window === "undefined" ? useEffect : useLayoutEffect;
-const CROP = { x: 1150, y: 880, w: 1378, h: 1004 };
+const DESK = { x: 150, y: 60, w: 2378, h: 1824 };
+const MOB = { x: 300, y: 300, w: 2228, h: 1420 };
 
 function Stage({
   spots,
@@ -36,11 +46,11 @@ function Stage({
   svgRef?: React.Ref<SVGSVGElement>;
 }) {
   const touch = useRef(false);
-  const vb = mode === "crop" ? `${CROP.x} ${CROP.y} ${CROP.w} ${CROP.h}` : `0 0 ${STAGE.w} ${STAGE.h}`;
+  const box = mode === "crop" ? MOB : DESK;
   return (
-    <svg ref={svgRef} viewBox={vb} preserveAspectRatio={mode === "crop" ? "xMidYMid slice" : "xMaxYMax slice"} className="absolute inset-0 h-full w-full" aria-hidden>
-      {mode === "crop" && <image href="/img/hero/stage-m.webp" x={CROP.x} y={CROP.y} width={CROP.w} height={CROP.h} preserveAspectRatio="none" />}
-      <rect x={0} y={0} width={STAGE.w} height={STAGE.h} fill="#0B1220" className="pointer-events-none transition-opacity duration-500" opacity={active ? 0.58 : 0} />
+    <svg ref={svgRef} viewBox={`${box.x} ${box.y} ${box.w} ${box.h}`} preserveAspectRatio={mode === "crop" ? "xMidYMid slice" : "xMaxYMax meet"} className="absolute inset-0 h-full w-full" aria-hidden>
+      {mode === "crop" && <image href="/img/hero/stage-m.webp" x={MOB.x} y={MOB.y} width={MOB.w} height={MOB.h} preserveAspectRatio="none" />}
+      <rect x={box.x} y={box.y} width={box.w} height={box.h} fill="#0B1220" className="pointer-events-none transition-opacity duration-500" opacity={active ? 0.58 : 0} />
       {spots.map((s) => {
         const on = active === s.key;
         return (
@@ -208,7 +218,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
   const tag = spots.find((s) => s.key === active);
 
   const picker = (
-    <ul data-picker className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] lg:flex-wrap lg:overflow-visible lg:pb-0">
+    <ul data-picker className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] xl:overflow-visible xl:pb-0">
       {spots.map((s) => {
         const on = active === s.key;
         return (
@@ -219,15 +229,15 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
               onPointerLeave={(e) => e.pointerType === "mouse" && leave()}
               onFocus={() => enter(s.key)}
               onBlur={leave}
-              className={`group/p flex items-center gap-3 rounded-2xl py-2 pe-3 ps-2 ring-1 transition-all duration-300 ${
+              className={`group/p flex items-center gap-2.5 rounded-2xl py-1.5 pe-3.5 ps-2 ring-1 transition-all duration-300 ${
                 on ? "bg-white text-ink ring-white" : "bg-white/[0.07] text-white ring-white/15 backdrop-blur-md hover:bg-white/[0.12]"
               }`}
             >
-              <span className={`relative h-10 w-14 shrink-0 overflow-hidden rounded-xl transition-colors ${on ? "bg-[#EEF4F9]" : "bg-white/90"}`}>
-                {s.car.images?.[0] && <Image src={s.car.images[0]} alt="" fill sizes="56px" className="object-contain p-0.5 mix-blend-multiply" />}
+              <span className={`relative h-10 w-16 shrink-0 rounded-xl transition-colors duration-300 ${on ? "bg-[radial-gradient(closest-side,rgba(8,121,184,0.18),transparent)]" : "bg-[radial-gradient(closest-side,rgba(255,255,255,0.42),transparent)]"}`}>
+                <Image src={`/img/hero/thumb-${s.key}.webp`} alt="" fill sizes="64px" className={`object-contain transition-transform duration-300 ${on ? "scale-110" : "group-hover/p:scale-105"}`} />
               </span>
-              <span className="leading-tight">
-                <span className="block text-[13px] font-semibold">{s.car.title.split(" ").slice(0, 3).join(" ")}</span>
+              <span className="whitespace-nowrap leading-tight">
+                <span className="block text-[13px] font-semibold">{short(s.car.title)}</span>
                 {s.car.pricePerDay != null && (
                   <span className={`block text-xs ${on ? "text-ink/60" : "text-white/60"}`}>
                     {tc("from")} <Price bam={s.car.pricePerDay} className={`font-semibold ${on ? "text-brand-strong" : "text-white"}`} /> / {tc("perDay")}
@@ -243,26 +253,23 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
 
   return (
     <section className="px-3 pt-3 sm:px-4">
-      <div ref={root} className="relative isolate overflow-hidden rounded-[32px] bg-ink lg:flex lg:min-h-[clamp(640px,calc(100vh-120px),800px)] lg:flex-col">
-        <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(80%_60%_at_20%_0%,rgba(8,121,184,0.35),transparent_60%)] lg:hidden" />
-        <div className="absolute inset-0 -z-10 hidden lg:block">
+      <div ref={root} className="relative isolate overflow-hidden rounded-[32px] bg-ink xl:flex xl:min-h-[clamp(660px,calc(100vh-120px),820px)] xl:flex-col">
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_15%_0%,rgba(8,121,184,0.32),transparent_60%)]" />
+        <div className="absolute bottom-12 right-0 top-0 -z-10 hidden xl:left-[max(520px,33%)] xl:block">
           <Image
             src="/img/hero/bascarsija.webp"
             alt={t("imageAlt")}
             fill
             priority
-            sizes="(min-width: 1024px) 100vw, 16px"
-            quality={78}
-            className="object-cover object-[100%_100%]"
+            sizes="(min-width: 1280px) 66vw, 16px"
+            quality={90}
+            className="object-contain object-right-bottom"
           />
-          <div aria-hidden className="absolute inset-y-0 left-0 w-[66%] bg-gradient-to-r from-ink via-ink/80 to-transparent" />
-          <div aria-hidden className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-ink/70 to-transparent" />
-          <div aria-hidden className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-ink via-ink/60 to-transparent" />
           {spots.length > 0 && <Stage spots={spots} active={active} mode="full" onEnter={enter} onLeave={leave} onPick={pick} svgRef={svgFull} />}
         </div>
 
-        <div className="pointer-events-none relative mx-auto flex w-full max-w-6xl flex-col px-5 pb-28 pt-9 sm:px-6 sm:pb-32 sm:pt-14 lg:flex-1 lg:justify-center lg:pb-32 lg:pt-10">
-          <div className="pointer-events-auto max-w-xl text-white lg:max-w-[min(640px,52%)] lg:rtl:self-end">
+        <div className="pointer-events-none relative mx-auto flex w-full max-w-6xl flex-col px-5 pb-28 pt-9 sm:px-6 sm:pb-32 sm:pt-14 xl:mx-0 xl:max-w-none xl:flex-1 xl:justify-center xl:px-14 xl:pb-32 xl:pt-10 2xl:px-20">
+          <div className="pointer-events-auto max-w-xl text-white xl:max-w-[500px] xl:rtl:self-end 2xl:max-w-[560px]">
             <a
               href={company.map.link ?? "#"}
               target="_blank"
@@ -279,7 +286,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
 
             <h1
               style={{ animationDelay: "60ms" }}
-              className="motion-safe:animate-rise mt-5 font-display text-[2.2rem] font-semibold leading-[1.03] tracking-[-0.04em] sm:mt-6 sm:text-6xl lg:text-[3.3rem] xl:text-[3.75rem] 2xl:text-[4.1rem]"
+              className="motion-safe:animate-rise mt-5 font-display text-[2.2rem] font-semibold leading-[1.03] tracking-[-0.04em] sm:mt-6 sm:text-6xl xl:text-[3.4rem] 2xl:text-[3.9rem]"
             >
               <span className="block [text-shadow:0_2px_28px_rgba(0,0,0,0.45)]">{t("titleA")}</span>
               <span className="block bg-gradient-to-r from-[#82CEF6] via-[#2BB0F0] to-[#82CEF6] bg-clip-text pb-[0.08em] text-transparent [-webkit-box-decoration-break:clone] [box-decoration-break:clone] [filter:drop-shadow(0_2px_22px_rgba(8,121,184,0.45))] rtl:bg-gradient-to-l">
@@ -303,7 +310,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
             </ul>
 
             {spots.length > 0 && (
-              <div style={{ animationDelay: "240ms" }} className="motion-safe:animate-rise mt-8 hidden lg:block">
+              <div style={{ animationDelay: "240ms" }} className="motion-safe:animate-rise mt-8 hidden xl:block">
                 <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-white/55 rtl:normal-case rtl:tracking-normal">
                   <MousePointerClick className="h-3.5 w-3.5 text-brand-300" />
                   {t("pickHint")}
@@ -314,8 +321,8 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
           </div>
 
           {spots.length > 0 && (
-            <div className="pointer-events-auto mt-8 lg:hidden">
-              <div className="relative aspect-[1378/1004] overflow-hidden rounded-[22px] ring-1 ring-white/10">
+            <div className="pointer-events-auto mt-8 xl:hidden">
+              <div className="relative aspect-[2228/1420] overflow-hidden rounded-[22px] ring-1 ring-white/10">
                 <Stage spots={spots} active={active} mode="crop" onEnter={enter} onLeave={leave} onPick={pick} svgRef={svgCrop} />
                 <span className="pointer-events-none absolute bottom-3 start-3 inline-flex items-center gap-1.5 rounded-full bg-ink/60 px-2.5 py-1 text-[11px] font-semibold text-white ring-1 ring-white/15 backdrop-blur-md">
                   <MousePointerClick className="h-3.5 w-3.5 text-brand-300" />
