@@ -732,7 +732,10 @@
     "ctaButton": "Browse cars",
     "whatsapp": "Ask us on WhatsApp",
     "back": "All guides",
-    "more": "Read next"
+    "more": "Read next",
+    "finesTitle": "Fines in Bosnia",
+    "finesAll": "All fines",
+    "fineSlide": "Fine"
   },
   "Booking": {
     "perDay": "/ day",

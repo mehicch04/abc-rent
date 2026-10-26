@@ -732,7 +732,10 @@
     "ctaButton": "Pogledaj vozila",
     "whatsapp": "Pitajte nas na WhatsApp",
     "back": "Svi vodiči",
-    "more": "Pročitajte i"
+    "more": "Pročitajte i",
+    "finesTitle": "Kazne u BiH",
+    "finesAll": "Sve kazne",
+    "fineSlide": "Kazna"
   },
   "Booking": {
     "perDay": "/ dan",

@@ -1,13 +1,15 @@
-import { ArrowUpRight, BookOpenText, CarFront, Gauge, Plane, Route, Users } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { Guide, GuideIcon } from "@/lib/guides";
+import type { SignKind } from "./RoadSign";
+import { SwingSign } from "./SwingSign";
 
-const ICONS: Record<GuideIcon, typeof Gauge> = {
-  fines: Gauge,
-  rules: CarFront,
-  airport: Plane,
-  trips: Route,
-  family: Users,
+const SIGNS: Record<GuideIcon, SignKind> = {
+  fines: "speed",
+  rules: "warning",
+  airport: "plane",
+  trips: "route",
+  family: "family",
 };
 
 export function GuideCard({
@@ -21,7 +23,6 @@ export function GuideCard({
   minutesLabel: string;
   level?: 2 | 3;
 }) {
-  const Icon = ICONS[guide.icon] ?? BookOpenText;
   const H = level === 2 ? "h2" : "h3";
   return (
     <Link
@@ -30,9 +31,7 @@ export function GuideCard({
       className="group flex h-full flex-col rounded-[22px] bg-surface p-6 ring-1 ring-border transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-card-hover hover:ring-brand/30 sm:p-7"
     >
       <div className="flex items-center justify-between">
-        <span className="grid h-11 w-11 place-items-center rounded-2xl bg-brand/10 text-brand-strong transition-[transform,background-color,color] duration-300 group-hover:-rotate-6 group-hover:scale-110 group-hover:bg-brand group-hover:text-white">
-          <Icon className="h-5 w-5" />
-        </span>
+        <SwingSign kind={SIGNS[guide.icon] ?? "warning"} className="h-12 w-12" />
         <span className="text-xs text-muted-foreground">{minutesLabel}</span>
       </div>
       <H className="mt-6 text-balance font-display text-lg font-semibold leading-snug text-foreground">{guide.title}</H>
