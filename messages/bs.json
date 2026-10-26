@@ -708,7 +708,31 @@
         "q": "Šta ako imam nezgodu?",
         "a": "Prvo pozovite policiju, a odmah zatim nas. Ne pomjerajte auto dok policija ne napravi zapisnik, dalje vas vodimo mi."
       }
-    ]
+    ],
+    "facts": [
+      {
+        "v": "200 €",
+        "l": "depozit za većinu vozila"
+      },
+      {
+        "v": "0 €",
+        "l": "plaćanje unaprijed"
+      },
+      {
+        "v": "24h",
+        "l": "besplatno otkazivanje"
+      },
+      {
+        "v": "∞ km",
+        "l": "neograničena kilometraža"
+      }
+    ],
+    "search": "Pretraži pitanja",
+    "clear": "Obriši pretragu",
+    "empty": "Nema takvog pitanja. Pišite nam na WhatsApp i javit ćemo se brzo.",
+    "supportTitle": "Tu smo 0 do 24",
+    "support": "Javljamo se brzo, i vikendom. Pišite ili pozovite, kako vam je lakše.",
+    "call": "Pozovite"
   },
   "Cta": {
     "title": "Treba vam auto već danas?",

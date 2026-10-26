@@ -708,7 +708,31 @@
         "q": "Was tun bei einem Unfall?",
         "a": "Rufen Sie zuerst die Polizei, dann uns. Bewegen Sie das Auto nicht, bevor die Polizei ein Protokoll erstellt hat, danach helfen wir Ihnen weiter."
       }
-    ]
+    ],
+    "facts": [
+      {
+        "v": "200 €",
+        "l": "Kaution bei den meisten Autos"
+      },
+      {
+        "v": "0 €",
+        "l": "Vorauszahlung"
+      },
+      {
+        "v": "24h",
+        "l": "kostenlos stornieren"
+      },
+      {
+        "v": "∞ km",
+        "l": "unbegrenzte Kilometer"
+      }
+    ],
+    "search": "Fragen durchsuchen",
+    "clear": "Suche löschen",
+    "empty": "Keine passende Frage. Schreiben Sie uns auf WhatsApp, wir melden uns schnell.",
+    "supportTitle": "Rund um die Uhr für Sie da",
+    "support": "Wir antworten schnell, auch am Wochenende. Schreiben oder anrufen, wie es Ihnen passt.",
+    "call": "Anrufen"
   },
   "Cta": {
     "title": "Brauchen Sie heute ein Auto?",

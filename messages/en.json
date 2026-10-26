@@ -708,7 +708,31 @@
         "q": "What if I have an accident?",
         "a": "Call the police first, then us. Don't move the car until the police have made a report, we guide you from there."
       }
-    ]
+    ],
+    "facts": [
+      {
+        "v": "200 €",
+        "l": "deposit on most cars"
+      },
+      {
+        "v": "0 €",
+        "l": "paid in advance"
+      },
+      {
+        "v": "24h",
+        "l": "free cancellation"
+      },
+      {
+        "v": "∞ km",
+        "l": "unlimited mileage"
+      }
+    ],
+    "search": "Search questions",
+    "clear": "Clear search",
+    "empty": "No matching question. Message us on WhatsApp and we will get back to you quickly.",
+    "supportTitle": "We are here 24/7",
+    "support": "We reply quickly, weekends too. Message or call, whatever suits you.",
+    "call": "Call us"
   },
   "Cta": {
     "title": "Need a car today?",
