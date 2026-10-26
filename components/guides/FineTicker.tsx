@@ -49,8 +49,7 @@ export function FineTicker({ fines, title, cta, href, slideLabel }: { fines: Fin
   const reduce = useReducedMotion();
   const [i, setI] = useState(0);
   const [round, setRound] = useState(0);
-  const [hold, setHold] = useState(false);
-  const running = inView && !hold;
+  const running = inView;
   const f = fines[i];
 
   const go = (n: number) => {
@@ -66,8 +65,6 @@ export function FineTicker({ fines, title, cta, href, slideLabel }: { fines: Fin
   return (
     <div
       ref={box}
-      onMouseEnter={() => setHold(true)}
-      onMouseLeave={() => setHold(false)}
       className="relative w-full overflow-hidden rounded-[24px] bg-white/[0.045] p-5 ring-1 ring-white/10 backdrop-blur-sm sm:p-6"
     >
       <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-[linear-gradient(90deg,#FF3B30_0%,#FF3B30_46%,transparent_46%,transparent_54%,#2F7BFF_54%,#2F7BFF_100%)] opacity-80" />
