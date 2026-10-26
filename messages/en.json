@@ -362,7 +362,8 @@
       "All automatic"
     ],
     "pickHint": "Hover over a car",
-    "tapHint": "Tap a car"
+    "tapHint": "Tap a car",
+    "showAll": "Show all"
   },
   "Features": {
     "items": [

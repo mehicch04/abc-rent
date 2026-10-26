@@ -1,5 +1,5 @@
 export const STAGE = { w: 2576, h: 1093 };
-export const STAGE_MOB = { x: 700, y: 100, w: 1450, h: 960 };
+export const STAGE_MOB = { x: 680, y: 0, w: 1380, h: 1150 };
 
 export const STAGE_CARS = [
   { key: "e", slug: "mercedes-e-klasa-2019", img: "/img/hero/hl2-e.webp", x: 1450, y: 784, w: 571, h: 257, tag: [1735, 788],

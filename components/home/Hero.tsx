@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { ArrowUpRight, Check, MousePointerClick, Star } from "lucide-react";
+import { ArrowUpRight, Check, MousePointerClick, Star, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { intlLocale, type AppLocale } from "@/i18n/routing";
-import { Link, useRouter } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
 import { useCompany } from "@/components/company/CompanyProvider";
 import { Price } from "@/components/currency/Price";
 import { TRANSMISSION_LABELS, label } from "@/lib/car-labels";
@@ -52,6 +52,7 @@ function Stage({
   onEnter,
   onLeave,
   onPick,
+  onReset,
   svgRef,
 }: {
   spots: Spot[];
@@ -59,13 +60,14 @@ function Stage({
   mode: "full" | "crop";
   onEnter: (k: Key) => void;
   onLeave: () => void;
-  onPick: (s: Spot, touch: boolean) => void;
+  onPick: (k: Key) => void;
+  onReset: () => void;
   svgRef?: React.Ref<SVGSVGElement>;
 }) {
-  const touch = useRef(false);
   const box = mode === "crop" ? MOB : DESK;
   return (
     <svg ref={svgRef} viewBox={`${box.x} ${box.y} ${box.w} ${box.h}`} preserveAspectRatio={mode === "crop" ? "xMidYMid slice" : "none"} className="absolute inset-0 h-full w-full" aria-hidden>
+      <rect x={box.x} y={box.y} width={box.w} height={box.h} fill="transparent" className={active ? "cursor-pointer" : ""} onClick={onReset} />
       <rect x={box.x} y={box.y} width={box.w} height={box.h} fill="#0B1220" className="pointer-events-none transition-opacity duration-500" opacity={active ? 0.58 : 0} />
       {spots.map((s) => {
         const on = active === s.key;
@@ -96,10 +98,12 @@ function Stage({
           d={s.path}
           fill="transparent"
           className="cursor-pointer"
-          onPointerDown={(e) => (touch.current = e.pointerType !== "mouse")}
           onPointerEnter={(e) => e.pointerType === "mouse" && onEnter(s.key)}
           onPointerLeave={(e) => e.pointerType === "mouse" && onLeave()}
-          onClick={() => onPick(s, touch.current)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onPick(s.key);
+          }}
         />
       ))}
     </svg>
@@ -160,7 +164,6 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
   const t = useTranslations("Hero");
   const tc = useTranslations("Common");
   const locale = useLocale();
-  const router = useRouter();
   const company = useCompany();
   const count = company.rating.count ?? 0;
   const score = (company.rating.score ?? 5).toLocaleString(intlLocale(locale), { minimumFractionDigits: 1 });
@@ -179,6 +182,8 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
   const svgCrop = useRef<SVGSVGElement>(null);
   const leaveT = useRef<ReturnType<typeof setTimeout>>();
   const dragging = useRef(false);
+  const pinned = useRef<Key | null>(null);
+  const [focus, setFocus] = useState(0);
 
   const enter = useCallback((k: Key) => {
     clearTimeout(leaveT.current);
@@ -186,12 +191,19 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
   }, []);
   const leave = useCallback(() => {
     clearTimeout(leaveT.current);
-    leaveT.current = setTimeout(() => setActive(null), 160);
+    leaveT.current = setTimeout(() => setActive(pinned.current), 160);
   }, []);
-  const pick = (s: Spot, touch: boolean) => {
-    if (!touch || active === s.key) router.push(`/vozila/${s.slug}`);
-    else enter(s.key);
-  };
+  const pick = useCallback((k: Key) => {
+    clearTimeout(leaveT.current);
+    pinned.current = k;
+    setActive(k);
+    setFocus((n) => n + 1);
+  }, []);
+  const reset = useCallback(() => {
+    clearTimeout(leaveT.current);
+    pinned.current = null;
+    setActive(null);
+  }, []);
 
   const place = useCallback(() => {
     const box = root.current?.getBoundingClientRect();
@@ -226,10 +238,10 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
         id = setTimeout(step, 1200);
         return;
       }
-      if (canHover && i >= keys.length) return setActive(null);
-      setActive(keys[i % keys.length]);
+      if (i >= keys.length) return setActive(pinned.current);
+      setActive(keys[i]);
       i++;
-      id = setTimeout(step, canHover ? 1300 : 3200);
+      id = setTimeout(step, canHover ? 1300 : 1500);
     };
     id = setTimeout(step, 1400);
     const stop = () => clearTimeout(id);
@@ -244,10 +256,15 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
   }, []);
 
   useEffect(() => {
-    if (!active || hoverable) return;
+    if (hoverable) return;
     root.current?.querySelectorAll<HTMLUListElement>("[data-picker]").forEach((ul) => {
+      if (!ul.offsetParent || dragging.current) return;
+      if (!active) return ul.scrollTo({ left: 0, behavior: "smooth" });
       const li = ul.querySelector<HTMLElement>(`[data-key="${active}"]`);
-      if (ul.offsetParent && li && !dragging.current) ul.scrollTo({ left: li.offsetLeft - ul.offsetLeft - 8, behavior: "smooth" });
+      if (!li) return;
+      const a = li.getBoundingClientRect();
+      const b = ul.getBoundingClientRect();
+      ul.scrollBy({ left: a.left + a.width / 2 - (b.left + b.width / 2), behavior: "smooth" });
     });
   }, [active, hoverable]);
 
@@ -265,8 +282,11 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
               onPointerLeave={(e) => e.pointerType === "mouse" && leave()}
               onFocus={() => enter(s.key)}
               onBlur={leave}
-              className={`group/p flex items-center gap-2.5 rounded-2xl py-1.5 pe-3.5 ps-2 ring-1 transition-[background-color,color,box-shadow] duration-300 ${
-                on ? "bg-white text-ink ring-white" : "bg-white/[0.08] text-white ring-white/15 hover:bg-white/[0.13]"
+              key={on ? `on-${focus}` : "off"}
+              className={`group/p flex items-center gap-2.5 rounded-2xl py-1.5 pe-3 ps-2 ring-1 transition-[background-color,color,box-shadow,opacity] duration-300 ${
+                on
+                  ? "bg-white text-ink shadow-[0_14px_34px_-14px_rgba(30,164,233,0.75)] ring-2 ring-brand-300 motion-safe:animate-[hero-focus_0.5s_cubic-bezier(0.22,1,0.36,1)]"
+                  : `bg-white/[0.08] text-white ring-white/15 hover:bg-white/[0.13] ${active ? "opacity-60 xl:opacity-100" : ""}`
               }`}
             >
               <Thumb src={s.car.images?.[0]} on={on} />
@@ -278,6 +298,9 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
                   </span>
                 )}
               </span>
+              <span className={`ms-1 grid h-8 w-8 shrink-0 place-items-center rounded-full transition-colors duration-300 xl:hidden ${on ? "bg-brand text-white" : "bg-white/10 text-white/70"}`}>
+                <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" />
+              </span>
             </Link>
           </li>
         );
@@ -288,7 +311,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
   return (
     <section className="px-3 pt-3 sm:px-4">
       <div ref={root} className="relative isolate overflow-hidden rounded-[32px] bg-ink xl:flex xl:min-h-[max(660px,calc(49vw-100px))] xl:flex-col">
-        <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_15%_0%,rgba(8,121,184,0.32),transparent_60%)] xl:hidden" />
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(80%_40%_at_20%_60%,rgba(8,121,184,0.22),transparent_70%)] xl:hidden" />
         <div className="absolute inset-0 -z-10 hidden xl:block">
           <div className="absolute left-[calc(4.27%+243px)] top-0 aspect-[2576/1443] w-[calc(121.95%-488px)]">
             <picture>
@@ -302,13 +325,49 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
                 className="absolute inset-0 h-full w-full object-cover"
               />
             </picture>
-            {spots.length > 0 && <Stage spots={spots} active={active} mode="full" onEnter={enter} onLeave={leave} onPick={pick} svgRef={svgFull} />}
+            {spots.length > 0 && <Stage spots={spots} active={active} mode="full" onEnter={enter} onLeave={leave} onPick={pick} onReset={reset} svgRef={svgFull} />}
             {spots.length > 0 && <Dots spots={spots} box={DESK} active={active} />}
           </div>
           <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[48%] bg-[linear-gradient(90deg,rgba(11,18,32,0.7)_0%,rgba(11,18,32,0.45)_45%,rgba(11,18,32,0.18)_75%,rgba(11,18,32,0)_100%)]" />
         </div>
 
-        <div className="pointer-events-none relative mx-auto flex w-full max-w-6xl flex-col px-5 pb-28 pt-9 sm:px-6 sm:pb-32 sm:pt-14 xl:flex-1 xl:justify-center xl:pb-32 xl:pt-10">
+        {spots.length > 0 && (
+          <div className="relative aspect-[1380/1150] w-full sm:aspect-[16/10] xl:hidden">
+            <picture>
+              <source media="(max-width: 1279.98px)" srcSet="/img/hero/sebilj-mob.webp" type="image/webp" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                alt={t("imageAlt")}
+                fetchPriority="high"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </picture>
+            <Stage spots={spots} active={active} mode="crop" onEnter={enter} onLeave={leave} onPick={pick} onReset={reset} svgRef={svgCrop} />
+            <Dots spots={spots} box={MOB} active={active} />
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink to-transparent" />
+            <div className="pointer-events-none absolute bottom-14 left-4 sm:bottom-20 sm:left-6">
+              {active ? (
+                <button
+                  type="button"
+                  onClick={reset}
+                  className="pointer-events-auto inline-flex h-8 items-center gap-1.5 rounded-full bg-white/95 pe-2 ps-3 text-[12px] font-semibold text-ink shadow-[0_10px_24px_-12px_rgba(0,0,0,0.6)] motion-safe:animate-[hero-tag_0.3s_cubic-bezier(0.22,1,0.36,1)_both]"
+                >
+                  {t("showAll")}
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              ) : (
+                <span className="pointer-events-none inline-flex h-8 items-center gap-1.5 rounded-full bg-ink/55 px-3 text-[12px] font-semibold text-white ring-1 ring-white/20 backdrop-blur-md">
+                  <MousePointerClick className="h-3.5 w-3.5 text-brand-300" />
+                  {hoverable ? t("pickHint") : t("tapHint")}
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+
+        <div className="pointer-events-none relative z-10 mx-auto -mt-10 flex w-full max-w-6xl flex-col px-5 pb-28 sm:-mt-14 sm:px-6 sm:pb-32 xl:mt-0 xl:flex-1 xl:justify-center xl:pb-32 xl:pt-10">
           <div className="pointer-events-auto max-w-xl text-white xl:max-w-[480px] xl:rtl:self-end 2xl:max-w-[520px]">
             <a
               href={company.map.link ?? "#"}
@@ -326,7 +385,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
 
             <h1
               style={{ animationDelay: "60ms" }}
-              className="motion-safe:animate-rise mt-5 font-display text-[2.2rem] font-semibold leading-[1.03] tracking-[-0.04em] sm:mt-6 sm:text-6xl xl:text-[3.3rem] 2xl:text-[3.7rem]"
+              className="motion-safe:animate-rise mt-4 font-display text-[2.2rem] font-semibold leading-[1.03] tracking-[-0.04em] sm:mt-6 sm:text-6xl xl:text-[3.3rem] 2xl:text-[3.7rem]"
             >
               <span className="block [text-shadow:0_2px_28px_rgba(0,0,0,0.45)]">{t("titleA")}</span>
               <span className="block bg-gradient-to-r from-[#82CEF6] via-[#2BB0F0] to-[#82CEF6] bg-clip-text pb-[0.08em] text-transparent [-webkit-box-decoration-break:clone] [box-decoration-break:clone] [filter:drop-shadow(0_2px_22px_rgba(8,121,184,0.45))] rtl:bg-gradient-to-l">
@@ -337,6 +396,8 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
             <p style={{ animationDelay: "120ms" }} className="motion-safe:animate-rise mt-4 max-w-md text-[15px] leading-relaxed text-white/85 sm:mt-5 sm:text-[17px]">
               {t("subtitle")}
             </p>
+
+            {spots.length > 0 && <div className="mt-6 xl:hidden">{picker}</div>}
 
             <ul style={{ animationDelay: "180ms" }} className="motion-safe:animate-rise mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-white/90">
               {perks.map((x) => (
@@ -360,24 +421,6 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
             )}
           </div>
 
-          {spots.length > 0 && (
-            <div className="pointer-events-auto mt-8 xl:hidden">
-              <div className="relative aspect-[1450/960] overflow-hidden rounded-[22px] ring-1 ring-white/10">
-                <picture>
-                  <source media="(max-width: 1279.98px)" srcSet="/img/hero/sebilj-m.webp" type="image/webp" />
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt={t("imageAlt")} decoding="async" className="absolute inset-0 h-full w-full object-cover" />
-                </picture>
-                <Stage spots={spots} active={active} mode="crop" onEnter={enter} onLeave={leave} onPick={pick} svgRef={svgCrop} />
-                <Dots spots={spots} box={MOB} active={active} />
-                <span className="pointer-events-none absolute bottom-3 start-3 inline-flex items-center gap-1.5 rounded-full bg-ink/60 px-2.5 py-1 text-[11px] font-semibold text-white ring-1 ring-white/15 backdrop-blur-md">
-                  <MousePointerClick className="h-3.5 w-3.5 text-brand-300" />
-                  {hoverable ? t("pickHint") : t("tapHint")}
-                </span>
-              </div>
-              <div className="mt-3">{picker}</div>
-            </div>
-          )}
         </div>
 
         {tag && pos && <Tag s={tag} pos={pos} onEnter={() => enter(tag.key)} onLeave={leave} />}

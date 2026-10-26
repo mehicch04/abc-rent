@@ -362,7 +362,8 @@
       "Alle mit Automatik"
     ],
     "pickHint": "Fahren Sie mit der Maus über ein Auto",
-    "tapHint": "Tippen Sie auf ein Auto"
+    "tapHint": "Tippen Sie auf ein Auto",
+    "showAll": "Alle zeigen"
   },
   "Features": {
     "items": [

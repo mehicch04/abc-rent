@@ -362,7 +362,8 @@
       "Svi automatik"
     ],
     "pickHint": "Pređite mišem preko auta",
-    "tapHint": "Dodirnite auto"
+    "tapHint": "Dodirnite auto",
+    "showAll": "Prikaži sve"
   },
   "Features": {
     "items": [
