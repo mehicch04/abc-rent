@@ -25,7 +25,7 @@ const short = (title: string) => {
 };
 
 const useIso = typeof window === "undefined" ? useEffect : useLayoutEffect;
-const DESK = { x: 150, y: 60, w: 2378, h: 1824 };
+const DESK = { x: 0, y: 0, w: 2528, h: 1884 };
 const MOB = { x: 300, y: 300, w: 2228, h: 1420 };
 
 function Stage({
@@ -48,7 +48,7 @@ function Stage({
   const touch = useRef(false);
   const box = mode === "crop" ? MOB : DESK;
   return (
-    <svg ref={svgRef} viewBox={`${box.x} ${box.y} ${box.w} ${box.h}`} preserveAspectRatio={mode === "crop" ? "xMidYMid slice" : "xMaxYMax meet"} className="absolute inset-0 h-full w-full" aria-hidden>
+    <svg ref={svgRef} viewBox={`${box.x} ${box.y} ${box.w} ${box.h}`} preserveAspectRatio={mode === "crop" ? "xMidYMid slice" : "none"} className="absolute inset-0 h-full w-full" aria-hidden>
       {mode === "crop" && <image href="/img/hero/stage-m.webp" x={MOB.x} y={MOB.y} width={MOB.w} height={MOB.h} preserveAspectRatio="none" />}
       <rect x={box.x} y={box.y} width={box.w} height={box.h} fill="#0B1220" className="pointer-events-none transition-opacity duration-500" opacity={active ? 0.58 : 0} />
       {spots.map((s) => {
@@ -255,21 +255,28 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
     <section className="px-3 pt-3 sm:px-4">
       <div ref={root} className="relative isolate overflow-hidden rounded-[32px] bg-ink xl:flex xl:min-h-[clamp(660px,calc(100vh-120px),820px)] xl:flex-col">
         <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_15%_0%,rgba(8,121,184,0.32),transparent_60%)]" />
-        <div className="absolute bottom-12 right-0 top-0 -z-10 hidden xl:left-[max(520px,33%)] xl:block">
-          <Image
-            src="/img/hero/bascarsija.webp"
-            alt={t("imageAlt")}
-            fill
-            priority
-            sizes="(min-width: 1280px) 66vw, 16px"
-            quality={90}
-            className="object-contain object-right-bottom"
-          />
-          {spots.length > 0 && <Stage spots={spots} active={active} mode="full" onEnter={enter} onLeave={leave} onPick={pick} svgRef={svgFull} />}
+        <div className="absolute inset-0 -z-10 hidden xl:block">
+          <div className="absolute inset-y-0 left-1/2 aspect-[2528/1884] h-full -translate-x-[28.9%]">
+            <Image
+              src="/img/hero/bascarsija.webp"
+              alt={t("imageAlt")}
+              fill
+              priority
+              sizes="(min-width: 1280px) 60vw, 16px"
+              quality={90}
+              className="object-cover"
+            />
+            <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[16%] bg-gradient-to-r from-ink to-transparent" />
+            <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-[12%] bg-gradient-to-l from-ink to-transparent" />
+            {spots.length > 0 && <Stage spots={spots} active={active} mode="full" onEnter={enter} onLeave={leave} onPick={pick} svgRef={svgFull} />}
+          </div>
+          <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-ink via-ink/80 to-transparent" />
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink/70 to-transparent" />
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink via-ink/50 to-transparent" />
         </div>
 
-        <div className="pointer-events-none relative mx-auto flex w-full max-w-6xl flex-col px-5 pb-28 pt-9 sm:px-6 sm:pb-32 sm:pt-14 xl:mx-0 xl:max-w-none xl:flex-1 xl:justify-center xl:px-14 xl:pb-32 xl:pt-10 2xl:px-20">
-          <div className="pointer-events-auto max-w-xl text-white xl:max-w-[500px] xl:rtl:self-end 2xl:max-w-[560px]">
+        <div className="pointer-events-none relative mx-auto flex w-full max-w-6xl flex-col px-5 pb-28 pt-9 sm:px-6 sm:pb-32 sm:pt-14 xl:flex-1 xl:justify-center xl:pb-32 xl:pt-10">
+          <div className="pointer-events-auto max-w-xl text-white xl:max-w-[480px] xl:rtl:self-end 2xl:max-w-[520px]">
             <a
               href={company.map.link ?? "#"}
               target="_blank"
@@ -286,7 +293,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
 
             <h1
               style={{ animationDelay: "60ms" }}
-              className="motion-safe:animate-rise mt-5 font-display text-[2.2rem] font-semibold leading-[1.03] tracking-[-0.04em] sm:mt-6 sm:text-6xl xl:text-[3.4rem] 2xl:text-[3.9rem]"
+              className="motion-safe:animate-rise mt-5 font-display text-[2.2rem] font-semibold leading-[1.03] tracking-[-0.04em] sm:mt-6 sm:text-6xl xl:text-[3.3rem] 2xl:text-[3.7rem]"
             >
               <span className="block [text-shadow:0_2px_28px_rgba(0,0,0,0.45)]">{t("titleA")}</span>
               <span className="block bg-gradient-to-r from-[#82CEF6] via-[#2BB0F0] to-[#82CEF6] bg-clip-text pb-[0.08em] text-transparent [-webkit-box-decoration-break:clone] [box-decoration-break:clone] [filter:drop-shadow(0_2px_22px_rgba(8,121,184,0.45))] rtl:bg-gradient-to-l">
