@@ -26,7 +26,7 @@ const short = (title: string) => {
 };
 
 const useIso = typeof window === "undefined" ? useEffect : useLayoutEffect;
-const DESK = { x: 0, y: 0, w: STAGE.w, h: STAGE.h };
+const DESK = { x: 0, y: 0, w: STAGE.w, h: 1443 };
 const MOB = STAGE_MOB;
 
 function Thumb({ src, on }: { src?: string; on: boolean }) {
@@ -288,12 +288,12 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
 
   return (
     <section className="px-3 pt-3 sm:px-4">
-      <div ref={root} className="relative isolate overflow-hidden rounded-[32px] bg-ink xl:flex xl:min-h-[max(660px,calc(51.7vw-78px))] xl:flex-col">
-        <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_15%_0%,rgba(8,121,184,0.32),transparent_60%)]" />
+      <div ref={root} className="relative isolate overflow-hidden rounded-[32px] bg-ink xl:flex xl:min-h-[max(660px,calc(49vw-100px))] xl:flex-col">
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_15%_0%,rgba(8,121,184,0.32),transparent_60%)] xl:hidden" />
         <div className="absolute inset-0 -z-10 hidden xl:block">
-          <div className="absolute bottom-[110px] left-[calc(4.27%+243px)] aspect-[2576/1093] w-[calc(121.95%-488px)]">
+          <div className="absolute left-[calc(4.27%+243px)] top-0 aspect-[2576/1443] w-[calc(121.95%-488px)]">
             <Image
-              src="/img/hero/sebilj-wide.webp"
+              src="/img/hero/sebilj-hero.webp"
               alt={t("imageAlt")}
               fill
               priority
@@ -301,13 +301,10 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
               quality={90}
               className="object-cover"
             />
-            <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[24%] bg-gradient-to-r from-ink via-ink/70 to-transparent" />
-            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[16%] bg-gradient-to-b from-ink to-transparent" />
-            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-[10%] bg-gradient-to-t from-ink to-transparent" />
             {spots.length > 0 && <Stage spots={spots} active={active} mode="full" onEnter={enter} onLeave={leave} onPick={pick} svgRef={svgFull} />}
             {spots.length > 0 && <Dots spots={spots} box={DESK} active={active} />}
           </div>
-          <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[46%] bg-gradient-to-r from-ink/90 via-ink/45 to-transparent" />
+          <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[48%] bg-[linear-gradient(90deg,rgba(11,18,32,0.7)_0%,rgba(11,18,32,0.45)_45%,rgba(11,18,32,0.18)_75%,rgba(11,18,32,0)_100%)]" />
         </div>
 
         <div className="pointer-events-none relative mx-auto flex w-full max-w-6xl flex-col px-5 pb-28 pt-9 sm:px-6 sm:pb-32 sm:pt-14 xl:flex-1 xl:justify-center xl:pb-32 xl:pt-10">
