@@ -57,7 +57,7 @@ function Block({ b }: { b: GuideBlock }) {
               {b.rows.map(([a, c]) => (
                 <tr key={a} className="bg-surface">
                   <td className="px-4 py-3 text-foreground/90">{a}</td>
-                  <td className="whitespace-nowrap px-4 py-3 text-end font-medium tabular-nums text-foreground">{c}</td>
+                  <td className="px-4 py-3 text-end font-medium tabular-nums text-foreground sm:whitespace-nowrap">{c}</td>
                 </tr>
               ))}
             </tbody>
@@ -122,8 +122,8 @@ export default async function GuidePage({ params }: Props) {
         </p>
       </header>
 
-      <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <div className="max-w-3xl space-y-5">
+      <div className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <div className="min-w-0 max-w-3xl space-y-5">
           {guide.blocks.map((b, i) => (
             <Block key={i} b={b} />
           ))}

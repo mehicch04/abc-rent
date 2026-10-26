@@ -69,18 +69,18 @@ export function HowItWorks() {
             className="mt-14 flex flex-col overflow-hidden rounded-[26px] bg-white text-ink shadow-[0_40px_90px_-40px_rgba(30,164,233,0.55)] lg:flex-row"
           >
             <div className="min-w-0 flex-1">
-              <div className="flex items-center justify-between gap-4 bg-gradient-to-r from-brand-500 to-brand-700 px-6 py-4 text-white rtl:bg-gradient-to-l sm:px-8">
-                <span dir="ltr" className="whitespace-nowrap font-display text-xs font-bold uppercase tracking-[0.18em] sm:text-sm sm:tracking-[0.25em]">
+              <div className="flex items-center justify-between gap-3 bg-gradient-to-r from-brand-500 to-brand-700 px-5 py-4 text-white rtl:bg-gradient-to-l sm:gap-4 sm:px-8">
+                <span dir="ltr" className="whitespace-nowrap font-display text-[11px] font-bold uppercase tracking-[0.12em] sm:text-sm sm:tracking-[0.25em]">
                   ABC Rent a Car
                 </span>
-                <span className={`whitespace-nowrap text-[10px] font-semibold text-white/75 sm:text-[11px] ${caps}`}>{pass.label}</span>
+                <span className={`whitespace-nowrap text-[9px] font-semibold text-white/75 max-[359px]:hidden sm:text-[11px] ${rtl ? "" : "uppercase tracking-[0.12em] sm:tracking-[0.2em]"}`}>{pass.label}</span>
               </div>
 
-              <div className="flex items-center gap-4 px-6 pt-7 sm:gap-6 sm:px-8">
+              <div className="flex items-center gap-3 px-5 pt-7 sm:gap-6 sm:px-8">
                 <div>
                   <p className={`text-[10px] font-semibold text-ink/40 ${caps}`}>{pass.from}</p>
                   <p className="font-display text-3xl font-bold uppercase leading-none sm:text-4xl">{pass.you}</p>
-                  <p className="mt-1 text-[11px] text-ink/50">{pass.youSub}</p>
+                  <p className="mt-1 text-balance text-[11px] text-ink/50">{pass.youSub}</p>
                 </div>
                 <div aria-hidden className="relative h-8 flex-1">
                   <span className="absolute inset-x-0 top-1/2 border-t-2 border-dashed border-ink/15" />
@@ -100,7 +100,7 @@ export function HowItWorks() {
                   <p dir="ltr" className="font-display text-3xl font-bold leading-none sm:text-4xl">
                     SJJ
                   </p>
-                  <p className="mt-1 text-[11px] text-ink/50">{pass.destSub}</p>
+                  <p className="mt-1 text-balance text-[11px] text-ink/50">{pass.destSub}</p>
                 </div>
               </div>
 
@@ -113,7 +113,7 @@ export function HowItWorks() {
                       onMouseEnter={() => setHover(i)}
                       onMouseLeave={() => setHover(null)}
                       onClick={() => stamped > i && setAgain((a) => a.map((v, j) => (j === i ? v + 1 : v)))}
-                      className={`relative p-6 transition-colors duration-300 sm:p-8 ${i > 0 ? "border-t-2 border-dashed border-ink/10 md:border-s-2 md:border-t-0" : ""} ${
+                      className={`relative p-5 transition-colors duration-300 sm:p-8 ${i > 0 ? "border-t-2 border-dashed border-ink/10 md:border-s-2 md:border-t-0" : ""} ${
                         hover === i ? "bg-brand-50/70" : ""
                       }`}
                     >

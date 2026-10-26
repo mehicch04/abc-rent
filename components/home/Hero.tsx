@@ -320,7 +320,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
 
   return (
     <section className="px-3 pt-3 sm:px-4">
-      <div ref={root} className="relative isolate overflow-hidden rounded-[32px] bg-ink xl:flex xl:min-h-[max(660px,calc(49vw-100px))] xl:flex-col">
+      <div ref={root} className="relative isolate overflow-hidden rounded-[32px] bg-ink lg:flex lg:min-h-[calc(45vw+90px)] lg:flex-col xl:min-h-[max(660px,calc(49vw-100px))]">
         <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(80%_40%_at_20%_60%,rgba(8,121,184,0.22),transparent_70%)] xl:hidden" />
         <div className="absolute inset-0 -z-10 hidden xl:block">
           <div className="absolute left-[calc(4.27%+243px)] top-0 aspect-[2576/1443] w-[calc(121.95%-488px)]">
@@ -342,26 +342,37 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
         </div>
 
         {spots.length > 0 && (
-          <div className="relative aspect-[1380/1150] w-full sm:aspect-[16/10] xl:hidden">
-            <picture>
-              <source media="(max-width: 1279.98px)" srcSet="/img/hero/sebilj-mob.webp" type="image/webp" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                alt={t("imageAlt")}
-                fetchPriority="high"
-                decoding="async"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-            </picture>
-            <Stage spots={spots} active={active} mode="crop" onEnter={enter} onLeave={leave} onPick={pick} onReset={reset} svgRef={svgCrop} />
-            <Dots spots={spots} box={MOB} active={active} />
+          <div className="relative aspect-[1380/1150] w-full overflow-hidden sm:aspect-[16/10] lg:absolute lg:end-0 lg:top-0 lg:aspect-[1380/1150] lg:w-[60%] lg:[mask-image:linear-gradient(90deg,transparent,#000_34%)] lg:rtl:[mask-image:linear-gradient(270deg,transparent,#000_34%)] xl:hidden">
+            <div className="absolute inset-0 [container-type:size]">
+              <div
+                className="absolute left-1/2 -translate-x-1/2"
+                style={{
+                  width: `max(100cqw, 100cqh * ${MOB.w / MOB.h})`,
+                  aspectRatio: `${MOB.w} / ${MOB.h}`,
+                  top: `calc((100cqh - max(100cqw * ${MOB.h / MOB.w}, 100cqh)) / 2)`,
+                }}
+              >
+                <picture>
+                  <source media="(max-width: 1279.98px)" srcSet="/img/hero/sebilj-mob.webp" type="image/webp" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                    alt={t("imageAlt")}
+                    fetchPriority="high"
+                    decoding="async"
+                    className="absolute inset-0 h-full w-full"
+                  />
+                </picture>
+                <Stage spots={spots} active={active} mode="crop" onEnter={enter} onLeave={leave} onPick={pick} onReset={reset} svgRef={svgCrop} />
+                <Dots spots={spots} box={MOB} active={active} />
+              </div>
+            </div>
             <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink to-transparent" />
           </div>
         )}
 
-        <div className="pointer-events-none relative z-10 mx-auto -mt-10 flex w-full max-w-6xl flex-col px-5 pb-28 sm:-mt-14 sm:px-6 sm:pb-32 xl:mt-0 xl:flex-1 xl:justify-center xl:pb-32 xl:pt-10">
-          <div className="pointer-events-auto max-w-xl text-white xl:max-w-[480px] xl:rtl:self-end 2xl:max-w-[520px]">
+        <div className="pointer-events-none relative z-10 mx-auto -mt-10 flex w-full max-w-6xl flex-col px-5 pb-28 sm:-mt-14 sm:px-6 sm:pb-32 lg:mt-0 lg:flex-1 lg:justify-center lg:pt-14 xl:pb-32 xl:pt-10">
+          <div className="pointer-events-auto max-w-xl text-white lg:max-w-[470px] xl:max-w-[480px] xl:rtl:self-end 2xl:max-w-[520px]">
             <a
               href={company.map.link ?? "#"}
               target="_blank"
@@ -378,7 +389,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
 
             <h1
               style={{ animationDelay: "60ms" }}
-              className="motion-safe:animate-rise font-display text-[2.2rem] font-semibold leading-[1.03] tracking-[-0.04em] xl:mt-6 sm:text-6xl xl:text-[3.3rem] 2xl:text-[3.7rem]"
+              className="motion-safe:animate-rise font-display text-[2.2rem] font-semibold leading-[1.03] tracking-[-0.04em] xl:mt-6 sm:text-6xl lg:text-[3rem] xl:text-[3.3rem] 2xl:text-[3.7rem]"
             >
               <span className="block [text-shadow:0_2px_28px_rgba(0,0,0,0.45)]">{t("titleA")}</span>
               <span className="block bg-gradient-to-r from-[#82CEF6] via-[#2BB0F0] to-[#82CEF6] bg-clip-text pb-[0.08em] text-transparent [-webkit-box-decoration-break:clone] [box-decoration-break:clone] [filter:drop-shadow(0_2px_22px_rgba(8,121,184,0.45))] rtl:bg-gradient-to-l">

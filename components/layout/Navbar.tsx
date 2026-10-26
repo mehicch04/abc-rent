@@ -158,6 +158,22 @@ export function Navbar() {
     <div className="lg:hidden">
       <MobileTopBar />
     </div>
+    <AnimatePresence>
+      {open && (
+        <motion.button
+          key="scrim"
+          type="button"
+          aria-label={t("menu")}
+          tabIndex={-1}
+          onClick={() => setOpen(false)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-40 bg-ink/30 backdrop-blur-[2px] lg:hidden"
+        />
+      )}
+    </AnimatePresence>
     <header className="sticky top-0 z-50">
       <div
         className={`relative border-b transition-[background-color,box-shadow,border-color] duration-300 ${
@@ -231,27 +247,13 @@ export function Navbar() {
 
         <AnimatePresence>
           {open && (
-            <motion.button
-              key="scrim"
-              type="button"
-              aria-label={t("menu")}
-              tabIndex={-1}
-              onClick={() => setOpen(false)}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-x-0 bottom-0 top-[68px] bg-ink/30 backdrop-blur-[2px] lg:hidden"
-            />
-          )}
-          {open && (
             <motion.div
               key="panel"
               initial={{ opacity: 0, y: -8, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
               transition={{ duration: 0.25, ease: EASE }}
-              className="absolute inset-x-3 top-full mx-auto mt-2 max-h-[calc(100dvh-6rem)] max-w-6xl origin-top overflow-y-auto rounded-[28px] bg-surface p-3 shadow-[0_30px_60px_-30px_rgba(11,18,32,0.55)] ring-1 ring-border sm:inset-x-4 lg:hidden"
+              className="absolute inset-x-3 top-full mx-auto mt-2 max-h-[calc(100dvh-8.5rem)] max-w-6xl origin-top overflow-y-auto rounded-[28px] bg-surface p-3 shadow-[0_30px_60px_-30px_rgba(11,18,32,0.55)] ring-1 ring-border sm:inset-x-4 lg:hidden"
             >
               <ul className="grid gap-1">
                 {NAV_LINKS.map((link, i) => (
