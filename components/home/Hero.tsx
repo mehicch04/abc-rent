@@ -30,14 +30,14 @@ const DESK = { x: 0, y: 0, w: STAGE.w, h: 1443 };
 const MOB = STAGE_MOB;
 
 function Thumb({ src, on }: { src?: string; on: boolean }) {
-  const { frame, ready, onLoad, onError } = useCarFrame(src, 64 / 40);
+  const { frame, ready, onLoad, onError } = useCarFrame(src, 72 / 44);
   const fit = frame && !frame.photo ? frame : null;
   return (
-    <span className={`relative h-10 w-16 shrink-0 overflow-hidden rounded-xl bg-white transition-shadow duration-300 ${on ? "shadow-[inset_0_0_0_1px_rgba(8,121,184,0.25)]" : ""}`}>
+    <span className={`relative h-11 w-[72px] shrink-0 overflow-hidden rounded-xl bg-white transition-shadow duration-300 ${on ? "shadow-[inset_0_0_0_1px_rgba(8,121,184,0.25)]" : ""}`}>
       {src && (
         <span className={`absolute inset-0 transition-[opacity,transform] duration-300 ${ready ? "opacity-100" : "opacity-0"} ${fit ? "" : "p-1"} ${on ? "scale-110" : "group-hover/p:scale-105"}`}>
           <span className="absolute inset-0" style={fit ? { transformOrigin: fit.origin, transform: fit.transform } : undefined}>
-            <Image src={src} alt="" fill sizes="64px" onLoad={onLoad} onError={onError} className={`mix-blend-multiply ${frame?.photo ? "object-cover" : "object-contain"}`} />
+            <Image src={src} alt="" fill sizes="256px" quality={90} onLoad={onLoad} onError={onError} className={`mix-blend-multiply ${frame?.photo ? "object-cover" : "object-contain"}`} />
           </span>
         </span>
       )}
@@ -66,7 +66,6 @@ function Stage({
   const box = mode === "crop" ? MOB : DESK;
   return (
     <svg ref={svgRef} viewBox={`${box.x} ${box.y} ${box.w} ${box.h}`} preserveAspectRatio={mode === "crop" ? "xMidYMid slice" : "none"} className="absolute inset-0 h-full w-full" aria-hidden>
-      {mode === "crop" && <image href="/img/hero/sebilj-m.webp" x={MOB.x} y={MOB.y} width={MOB.w} height={MOB.h} preserveAspectRatio="none" />}
       <rect x={box.x} y={box.y} width={box.w} height={box.h} fill="#0B1220" className="pointer-events-none transition-opacity duration-500" opacity={active ? 0.58 : 0} />
       {spots.map((s) => {
         const on = active === s.key;
@@ -292,15 +291,17 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
         <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_15%_0%,rgba(8,121,184,0.32),transparent_60%)] xl:hidden" />
         <div className="absolute inset-0 -z-10 hidden xl:block">
           <div className="absolute left-[calc(4.27%+243px)] top-0 aspect-[2576/1443] w-[calc(121.95%-488px)]">
-            <Image
-              src="/img/hero/sebilj-hero.webp"
-              alt={t("imageAlt")}
-              fill
-              priority
-              sizes="(min-width: 1280px) 100vw, 16px"
-              quality={90}
-              className="object-cover"
-            />
+            <picture>
+              <source media="(min-width: 1280px)" srcSet="/img/hero/sebilj-1920.webp 1920w, /img/hero/sebilj-2576.webp 2576w" sizes="96vw" type="image/webp" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                alt={t("imageAlt")}
+                fetchPriority="high"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </picture>
             {spots.length > 0 && <Stage spots={spots} active={active} mode="full" onEnter={enter} onLeave={leave} onPick={pick} svgRef={svgFull} />}
             {spots.length > 0 && <Dots spots={spots} box={DESK} active={active} />}
           </div>
@@ -362,6 +363,11 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
           {spots.length > 0 && (
             <div className="pointer-events-auto mt-8 xl:hidden">
               <div className="relative aspect-[1450/960] overflow-hidden rounded-[22px] ring-1 ring-white/10">
+                <picture>
+                  <source media="(max-width: 1279.98px)" srcSet="/img/hero/sebilj-m.webp" type="image/webp" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt={t("imageAlt")} decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+                </picture>
                 <Stage spots={spots} active={active} mode="crop" onEnter={enter} onLeave={leave} onPick={pick} svgRef={svgCrop} />
                 <Dots spots={spots} box={MOB} active={active} />
                 <span className="pointer-events-none absolute bottom-3 start-3 inline-flex items-center gap-1.5 rounded-full bg-ink/60 px-2.5 py-1 text-[11px] font-semibold text-white ring-1 ring-white/15 backdrop-blur-md">
