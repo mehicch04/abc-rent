@@ -64,7 +64,7 @@ export default async function HomePage({
 
   return (
     <>
-      <Hero />
+      <Hero cars={cars} />
 
       <section id="rezervacija" className="relative z-10 mx-auto -mt-20 max-w-6xl scroll-mt-24 px-4 sm:-mt-24 sm:px-6">
         <ReservationSearchForm locations={locations} />

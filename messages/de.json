@@ -353,14 +353,16 @@
     "statFleet": "Autos in der Flotte",
     "statReviews": "Google Bewertungen",
     "statSupport": "per Telefon und WhatsApp",
-    "imageAlt": "Fahrzeuge von ABC Rent a Car in Sarajevo",
+    "imageAlt": "Fahrzeuge von ABC Rent a Car auf der Baščaršija in Sarajevo",
     "available": "Heute verfügbar",
     "trusted": "{count} Bewertungen auf Google",
     "perks": [
       "Keine Vorauszahlung",
       "Kostenlos stornieren bis 24 Std. vorher",
       "Alle mit Automatik"
-    ]
+    ],
+    "pickHint": "Fahren Sie mit der Maus über ein Auto",
+    "tapHint": "Tippen Sie auf ein Auto"
   },
   "Features": {
     "items": [

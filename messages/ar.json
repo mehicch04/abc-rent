@@ -353,14 +353,16 @@
     "statFleet": "سيارة في الأسطول",
     "statReviews": "مراجعة على Google",
     "statSupport": "على الهاتف وواتساب",
-    "imageAlt": "سيارات ABC Rent a Car في سراييفو",
+    "imageAlt": "سيارات ABC Rent a Car في باشتشارشيا، سراييفو",
     "available": "متاح اليوم",
     "trusted": "{count} مراجعة على Google",
     "perks": [
       "بدون دفع مسبق",
       "إلغاء مجاني حتى 24 ساعة",
       "جميع السيارات أوتوماتيك"
-    ]
+    ],
+    "pickHint": "مرّر المؤشر فوق السيارة",
+    "tapHint": "المس السيارة"
   },
   "Features": {
     "items": [
