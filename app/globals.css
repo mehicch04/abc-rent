@@ -287,6 +287,11 @@
   to { transform: scaleX(1); }
 }
 
+@keyframes chat-dot {
+  0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-2px); }
+}
+
 @keyframes cam-flash {
   0% { opacity: 0; }
   12% { opacity: 0.85; }

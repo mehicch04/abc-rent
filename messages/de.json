@@ -255,7 +255,31 @@
     "infoTitle": "Am schnellsten erreichen Sie uns",
     "infoAccent": "per WhatsApp.",
     "whatsapp": "Per WhatsApp schreiben",
-    "hoursValue": "Rund um die Uhr, täglich"
+    "hoursValue": "Rund um die Uhr, täglich",
+    "callLabel": "Anrufen",
+    "chat": "Schreiben Sie uns",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "infoLead": "Fragen Sie uns alles zu Autos, Preisen oder Abholung. Wir antworten schnell, auch am Wochenende.",
+    "chatOnline": "online",
+    "chatGreeting": "Hallo! Wie können wir Ihnen helfen?",
+    "chatChips": [
+      {
+        "label": "Auto buchen",
+        "text": "Hallo, ich möchte ein Auto buchen."
+      },
+      {
+        "label": "Flughafentransfer",
+        "text": "Hallo, ich interessiere mich für einen Flughafentransfer."
+      },
+      {
+        "label": "Auto mit Fahrer",
+        "text": "Hallo, ich interessiere mich für ein Auto mit Fahrer."
+      }
+    ],
+    "mapEyebrow": "Standorte",
+    "mapLead": "Wählen Sie einen Abholort und sehen Sie ihn auf der Karte.",
+    "route": "Route"
   },
   "Common": {
     "from": "ab",

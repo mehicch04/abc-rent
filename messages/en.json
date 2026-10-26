@@ -255,7 +255,31 @@
     "infoTitle": "The fastest way to reach us",
     "infoAccent": "is WhatsApp.",
     "whatsapp": "Message on WhatsApp",
-    "hoursValue": "24/7, every day"
+    "hoursValue": "24/7, every day",
+    "callLabel": "Call us",
+    "chat": "Message us",
+    "copy": "Copy",
+    "copied": "Copied",
+    "infoLead": "Ask us anything about cars, prices or pick up. We reply quickly, weekends too.",
+    "chatOnline": "online",
+    "chatGreeting": "Hi there! How can we help you?",
+    "chatChips": [
+      {
+        "label": "Book a car",
+        "text": "Hi, I would like to book a car."
+      },
+      {
+        "label": "Airport transfer",
+        "text": "Hi, I am interested in an airport transfer."
+      },
+      {
+        "label": "Car with a driver",
+        "text": "Hi, I am interested in renting a car with a driver."
+      }
+    ],
+    "mapEyebrow": "Locations",
+    "mapLead": "Choose a pick up point and see it on the map.",
+    "route": "Directions"
   },
   "Common": {
     "from": "from",

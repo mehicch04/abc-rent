@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ArrowLeft, Clock3, Info } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, Clock3, Info } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { intlLocale, routing } from "@/i18n/routing";
 import { buildPageMetadata, SITE_URL } from "@/lib/seo";
@@ -11,7 +11,7 @@ import { carCategories } from "@/lib/car-categories";
 import { getCompany } from "@/lib/company";
 import { SimilarCars } from "@/components/fleet/SimilarCars";
 import { GuideCard } from "@/components/guides/GuideCard";
-import { PillLink } from "@/components/ui/PillLink";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import type { CarListItem } from "@/lib/types";
 
 type Props = { params: { locale: string; slug: string } };
@@ -79,9 +79,10 @@ export default async function GuidePage({ params }: Props) {
   const guide = getGuide(params.locale, params.slug);
   if (!guide) notFound();
 
-  const [t, tFleet, cars, company] = await Promise.all([
+  const [t, tFleet, tHero, cars, company] = await Promise.all([
     getTranslations("Guides"),
     getTranslations("Fleet"),
+    getTranslations("Hero"),
     getBrowseCars().catch(() => [] as CarListItem[]),
     getCompany(),
   ]);
@@ -130,14 +131,44 @@ export default async function GuidePage({ params }: Props) {
         </div>
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <div className="rounded-[22px] bg-ink p-6 text-white">
-            <p className="font-display text-xl font-semibold">{t("ctaTitle")}</p>
-            <p className="mt-2 text-sm leading-relaxed text-white/70">{t("ctaBody")}</p>
-            <div className="mt-6 flex flex-col gap-2">
-              <PillLink href="/vozila">{t("ctaButton")}</PillLink>
-              <PillLink href={`https://wa.me/${company.whatsapp}`} variant="light">
-                {t("whatsapp")}
-              </PillLink>
+          <div className="relative overflow-hidden rounded-[24px] bg-ink p-6 text-white ring-1 ring-white/5">
+            <span aria-hidden className="pointer-events-none absolute -end-16 -top-20 h-52 w-52 rounded-full bg-[radial-gradient(closest-side,rgba(30,164,233,0.4),transparent)]" />
+            <p className="relative font-display text-xl font-semibold">{t("ctaTitle")}</p>
+            <p className="relative mt-2 text-sm leading-relaxed text-white/70">{t("ctaBody")}</p>
+            <ul className="relative mt-5 space-y-2 text-sm text-white/80">
+              {(tHero.raw("perks") as string[]).slice(0, 2).map((p) => (
+                <li key={p} className="flex items-center gap-2">
+                  <span className="grid h-5 w-5 place-items-center rounded-full bg-brand text-white">
+                    <Check className="h-3 w-3" strokeWidth={3.5} />
+                  </span>
+                  {p}
+                </li>
+              ))}
+            </ul>
+            <div className="relative mt-6 grid gap-2">
+              <Link
+                href="/vozila"
+                className="group flex h-12 items-center justify-between rounded-full bg-brand-gradient pe-1.5 ps-5 text-sm font-semibold text-white shadow-[0_12px_26px_-14px_rgba(8,121,184,0.95)] transition-shadow hover:shadow-[0_16px_32px_-14px_rgba(8,121,184,1)] active:scale-[0.99]"
+              >
+                {t("ctaButton")}
+                <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-brand transition-transform duration-300 group-hover:rotate-45">
+                  <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" />
+                </span>
+              </Link>
+              <a
+                href={`https://wa.me/${company.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex h-12 items-center justify-between rounded-full bg-white/[0.07] pe-1.5 ps-5 text-sm font-semibold text-white ring-1 ring-white/15 transition-colors hover:bg-white/[0.12] active:scale-[0.99]"
+              >
+                <span className="inline-flex items-center gap-2">
+                  <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
+                  {t("whatsapp")}
+                </span>
+                <span className="grid h-9 w-9 place-items-center rounded-full bg-[#25D366] text-ink transition-transform duration-300 group-hover:rotate-45">
+                  <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" />
+                </span>
+              </a>
             </div>
           </div>
         </aside>

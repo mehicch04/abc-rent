@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
-import { Band } from "@/components/ui/Band";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ExternalLink, MapPin } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo";
 import { getCompany } from "@/lib/company";
 import { getLocations } from "@/lib/fleet-data";
-import { SITE } from "@/lib/site-config";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Heading } from "@/components/home/Heading";
 import { InquiryForm } from "@/components/forms/InquiryForm";
-import { PillLink } from "@/components/ui/PillLink";
-import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
+import { ContactCards, type ContactCard } from "@/components/contact/ContactCards";
+import { ChatTeaser } from "@/components/contact/ChatTeaser";
+import { LocationMap, type MapSpot } from "@/components/contact/LocationMap";
 
 export async function generateMetadata({
   params: { locale },
@@ -37,101 +35,68 @@ export default async function ContactPage({
   const company = await getCompany();
   const locations = await getLocations(locale).catch(() => []);
   const t = await getTranslations("Contact");
-  const mapSrc = `https://maps.google.com/maps?q=${company.map.lat},${company.map.lng}&z=16&hl=${locale}&output=embed`;
+  const phone = company.phones[0];
+  const hours = locale === "bs" ? company.hours : t("hoursValue");
 
-  const rows = [
-    {
-      label: t("phonesLabel"),
-      content: company.phones.map((p) => (
-        <a key={p.value} href={p.href} className="block transition-colors hover:text-brand-strong">
-          <bdi dir="ltr">{p.value}</bdi>
-        </a>
-      )),
-    },
-    {
-      label: t("emailLabel"),
-      content: (
-        <a href={`mailto:${company.email}`} className="break-all transition-colors hover:text-brand-strong">
-          <bdi dir="ltr">{company.email}</bdi>
-        </a>
-      ),
-    },
-    { label: t("locationLabel"), content: company.address ?? SITE.address },
-    { label: t("hoursLabel"), content: locale === "bs" ? company.hours : t("hoursValue") },
+  const cards: ContactCard[] = [
+    ...(phone ? [{ kind: "phone" as const, label: t("callLabel"), value: phone.value, href: phone.href, copy: phone.value }] : []),
+    { kind: "whatsapp", label: "WhatsApp", value: t("chat"), href: `https://wa.me/${company.whatsapp}` },
+    { kind: "email", label: t("emailLabel"), value: company.email, href: `mailto:${company.email}`, copy: company.email },
+    { kind: "hours", label: t("hoursLabel"), value: hours },
   ];
+
+  const office = company.map.lat != null && company.map.lng != null ? `${company.map.lat},${company.map.lng}` : null;
+  const spots: MapSpot[] = locations.map((l, i) => {
+    const exact = /\d/.test(l.street);
+    const query = i === 0 && office ? office : exact ? `${l.street}, ${l.city}` : l.city || "Sarajevo";
+    return {
+      slug: l.slug,
+      name: l.name,
+      street: l.street,
+      query,
+      link: i === 0 && company.map.link ? company.map.link : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`,
+    };
+  });
 
   return (
     <>
       <PageHeader eyebrow={company.name} title={t("title")} lead={t("lead")} />
 
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
-        <div className="grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
-          <div>
-            <Heading eyebrow={t("infoEyebrow")} title={t("infoTitle")} accent={t("infoAccent")} />
-            <dl className="mt-10 border-t border-border">
-              {rows.map((r) => (
-                <div key={r.label} className="grid gap-1 border-b border-border py-5 sm:grid-cols-[9rem_1fr] sm:gap-6">
-                  <dt className="text-sm text-muted-foreground">{r.label}</dt>
-                  <dd className="font-display text-lg font-medium text-foreground">{r.content}</dd>
-                </div>
-              ))}
-            </dl>
-            <PillLink
-              href={`https://wa.me/${company.whatsapp}`}
-              variant="dark"
+      <section className="relative z-10 mx-auto -mt-14 max-w-6xl px-4 sm:-mt-16 sm:px-6">
+        <ContactCards cards={cards} copyLabel={t("copy")} copiedLabel={t("copied")} />
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <Heading eyebrow={t("infoEyebrow")} title={t("infoTitle")} accent={t("infoAccent")} subtitle={t("infoLead")} />
+            <ChatTeaser
               className="mt-8"
-              icon={<WhatsAppIcon className="h-4 w-4" />}
-            >
-              {t("whatsapp")}
-            </PillLink>
+              phone={company.whatsapp}
+              name={company.name}
+              online={t("chatOnline")}
+              greeting={t("chatGreeting")}
+              chips={t.raw("chatChips") as { label: string; text: string }[]}
+              cta={t("whatsapp")}
+            />
           </div>
 
           <div>
-            <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">{t("formHeading")}</h2>
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground sm:text-[1.7rem]">{t("formHeading")}</h2>
             <p className="mb-6 mt-2 text-muted-foreground">{t("formLead")}</p>
             <InquiryForm type="contact" />
           </div>
         </div>
       </section>
 
-      <section className="px-3 sm:px-4">
-        <div className="relative h-[420px] overflow-hidden rounded-[28px] bg-surface-muted sm:h-[480px]">
-          <iframe
-            src={mapSrc}
-            title={`${SITE.name}, ${SITE.address}`}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-            className="absolute inset-0 h-full w-full grayscale-[20%] dark:invert-[0.9] dark:hue-rotate-180"
-          />
-          <a
-            href={company.map.link ?? "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="absolute start-4 top-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink"
-          >
-            {t("openMap")}
-            <ExternalLink className="h-4 w-4" />
-          </a>
-        </div>
-      </section>
-
-      <Band className="pt-3">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
-        <h2 className="font-display text-xl font-semibold text-foreground">{t("ourOffices")}</h2>
-        <ul className="mt-6 grid gap-x-8 sm:grid-cols-3">
-          {locations.map((loc) => (
-            <li key={loc.name} className="flex gap-3 border-t border-border py-5">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-strong" />
-              <div>
-                <p className="font-medium text-foreground">{loc.name}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{loc.street}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-        </div>
-      </Band>
+      {spots.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 pb-6 sm:px-6">
+          <Heading eyebrow={t("mapEyebrow")} title={t("mapHeading")} subtitle={t("mapLead")} />
+          <div className="mt-8">
+            <LocationMap spots={spots} locale={locale} openLabel={t("openMap")} routeLabel={t("route")} />
+          </div>
+        </section>
+      )}
     </>
   );
 }

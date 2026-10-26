@@ -255,7 +255,31 @@
     "infoTitle": "Najbrže nas dobijete",
     "infoAccent": "na WhatsApp.",
     "whatsapp": "Pišite na WhatsApp",
-    "hoursValue": "0 do 24h, svaki dan"
+    "hoursValue": "0 do 24h, svaki dan",
+    "callLabel": "Pozovite",
+    "chat": "Pišite nam",
+    "copy": "Kopiraj",
+    "copied": "Kopirano",
+    "infoLead": "Pitajte nas bilo šta o vozilima, cijenama ili preuzimanju. Odgovaramo brzo, i vikendom.",
+    "chatOnline": "na mreži",
+    "chatGreeting": "Pozdrav! Kako vam možemo pomoći?",
+    "chatChips": [
+      {
+        "label": "Rezervacija vozila",
+        "text": "Pozdrav, želim rezervisati vozilo."
+      },
+      {
+        "label": "Transfer sa aerodroma",
+        "text": "Pozdrav, zanima me transfer sa aerodroma."
+      },
+      {
+        "label": "Vozilo sa vozačem",
+        "text": "Pozdrav, zanima me najam vozila sa vozačem."
+      }
+    ],
+    "mapEyebrow": "Lokacije",
+    "mapLead": "Odaberite mjesto preuzimanja i pogledajte ga na mapi.",
+    "route": "Navigacija"
   },
   "Common": {
     "from": "od",
