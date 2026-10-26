@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { ArrowUpRight, Check, MousePointerClick, Star, X } from "lucide-react";
+import { ArrowUpRight, Check, MousePointerClick, Star } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { intlLocale, type AppLocale } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
@@ -193,11 +193,17 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
     clearTimeout(leaveT.current);
     leaveT.current = setTimeout(() => setActive(pinned.current), 160);
   }, []);
+  const userPick = useRef(false);
   const pick = useCallback((k: Key) => {
     clearTimeout(leaveT.current);
     pinned.current = k;
+    userPick.current = true;
     setActive(k);
     setFocus((n) => n + 1);
+    requestAnimationFrame(() => {
+      const ul = [...(root.current?.querySelectorAll<HTMLUListElement>("[data-picker]") ?? [])].find((u) => u.offsetParent);
+      ul?.querySelector<HTMLElement>(`[data-key="${k}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    });
   }, []);
   const reset = useCallback(() => {
     clearTimeout(leaveT.current);
@@ -257,6 +263,10 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
 
   useEffect(() => {
     if (hoverable) return;
+    if (userPick.current) {
+      userPick.current = false;
+      return;
+    }
     root.current?.querySelectorAll<HTMLUListElement>("[data-picker]").forEach((ul) => {
       if (!ul.offsetParent || dragging.current) return;
       if (!active) return ul.scrollTo({ left: 0, behavior: "smooth" });
@@ -347,23 +357,6 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
             <Stage spots={spots} active={active} mode="crop" onEnter={enter} onLeave={leave} onPick={pick} onReset={reset} svgRef={svgCrop} />
             <Dots spots={spots} box={MOB} active={active} />
             <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink to-transparent" />
-            <div className="pointer-events-none absolute bottom-14 left-4 sm:bottom-20 sm:left-6">
-              {active ? (
-                <button
-                  type="button"
-                  onClick={reset}
-                  className="pointer-events-auto inline-flex h-8 items-center gap-1.5 rounded-full bg-white/95 pe-2 ps-3 text-[12px] font-semibold text-ink shadow-[0_10px_24px_-12px_rgba(0,0,0,0.6)] motion-safe:animate-[hero-tag_0.3s_cubic-bezier(0.22,1,0.36,1)_both]"
-                >
-                  {t("showAll")}
-                  <X className="h-3.5 w-3.5" />
-                </button>
-              ) : (
-                <span className="pointer-events-none inline-flex h-8 items-center gap-1.5 rounded-full bg-ink/55 px-3 text-[12px] font-semibold text-white ring-1 ring-white/20 backdrop-blur-md">
-                  <MousePointerClick className="h-3.5 w-3.5 text-brand-300" />
-                  {hoverable ? t("pickHint") : t("tapHint")}
-                </span>
-              )}
-            </div>
           </div>
         )}
 
@@ -373,7 +366,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
               href={company.map.link ?? "#"}
               target="_blank"
               rel="noopener noreferrer"
-              className="motion-safe:animate-rise inline-flex items-center gap-2.5 rounded-full bg-white/[0.08] px-3.5 py-1.5 text-xs font-semibold text-white ring-1 ring-white/15 backdrop-blur-md transition-colors hover:bg-white/[0.14]"
+              className="motion-safe:animate-rise hidden items-center gap-2.5 rounded-full bg-white/[0.08] px-3.5 py-1.5 text-xs font-semibold xl:inline-flex text-white ring-1 ring-white/15 backdrop-blur-md transition-colors hover:bg-white/[0.14]"
             >
               <span className="flex gap-0.5" aria-hidden>
                 {Array.from({ length: 5 }, (_, i) => (
@@ -385,7 +378,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
 
             <h1
               style={{ animationDelay: "60ms" }}
-              className="motion-safe:animate-rise mt-4 font-display text-[2.2rem] font-semibold leading-[1.03] tracking-[-0.04em] sm:mt-6 sm:text-6xl xl:text-[3.3rem] 2xl:text-[3.7rem]"
+              className="motion-safe:animate-rise font-display text-[2.2rem] font-semibold leading-[1.03] tracking-[-0.04em] xl:mt-6 sm:text-6xl xl:text-[3.3rem] 2xl:text-[3.7rem]"
             >
               <span className="block [text-shadow:0_2px_28px_rgba(0,0,0,0.45)]">{t("titleA")}</span>
               <span className="block bg-gradient-to-r from-[#82CEF6] via-[#2BB0F0] to-[#82CEF6] bg-clip-text pb-[0.08em] text-transparent [-webkit-box-decoration-break:clone] [box-decoration-break:clone] [filter:drop-shadow(0_2px_22px_rgba(8,121,184,0.45))] rtl:bg-gradient-to-l">

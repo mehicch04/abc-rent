@@ -63,6 +63,29 @@ function TopBar() {
   );
 }
 
+function MobileTopBar() {
+  const t = useTranslations("Nav");
+  const company = useCompany();
+  const score = company.rating.score ?? SITE.rating.score;
+  const count = company.rating.count ?? SITE.rating.count;
+  return (
+    <a
+      href={company.map.link ?? SITE.map.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex h-9 items-center justify-center gap-2 bg-ink px-4 text-xs text-white/70"
+    >
+      <span className="flex gap-0.5" aria-hidden>
+        {Array.from({ length: 5 }, (_, i) => (
+          <Star key={i} className="h-3 w-3 fill-[#F5A524] text-[#F5A524]" />
+        ))}
+      </span>
+      <span className="font-semibold text-white">{score.toFixed(1).replace(".", ",")}</span>
+      <span>{t("rating", { count })}</span>
+    </a>
+  );
+}
+
 export function Navbar() {
   const t = useTranslations("Nav");
   const pathname = usePathname();
@@ -131,6 +154,9 @@ export function Navbar() {
     <>
     <div className="hidden lg:block">
       <TopBar />
+    </div>
+    <div className="lg:hidden">
+      <MobileTopBar />
     </div>
     <header className="sticky top-0 z-50">
       <div
