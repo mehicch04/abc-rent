@@ -125,8 +125,6 @@
       "wagon": "{name} je praktičan izbor kad je prtljag važan, sa velikim prtljažnikom za duža putovanja.",
       "spec": "Ima {gearbox}, {seats} sjedišta i mjesta za {bags, plural, one {# kofer} few {# kofera} other {# kofera}}."
     },
-    "video": "Pogledajte vozilo",
-    "videoNote": "Ovo je tačno vozilo koje dobijate, a ne slično.",
     "need": "Šta vam treba",
     "needLicence": "Važeća vozačka dozvola",
     "needId": "Lična karta ili pasoš",

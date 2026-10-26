@@ -125,8 +125,6 @@
       "wagon": "{name} is the practical choice when luggage matters, with a long boot for longer trips.",
       "spec": "It comes with {gearbox}, {seats} seats and room for {bags, plural, one {# bag} other {# bags}}."
     },
-    "video": "Watch the car",
-    "videoNote": "This is the exact car you get, not a similar one.",
     "need": "What you need",
     "needLicence": "A valid driving licence",
     "needId": "ID card or passport",

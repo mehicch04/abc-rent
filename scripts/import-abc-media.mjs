@@ -37,13 +37,11 @@ async function grab(url, dest) {
 }
 
 await mkdir(path.join(ROOT, "cars"), { recursive: true });
-await mkdir(path.join(ROOT, "videos"), { recursive: true });
 
 const jobs = [];
 for (const [theirs, ours] of Object.entries(CARS)) {
   jobs.push([`${BASE}/img/cars/${theirs}-b-1200.webp`, path.join(ROOT, "cars", `${ours}-2.webp`)]);
   jobs.push([`${BASE}/img/cars/${theirs}-c-1200.webp`, path.join(ROOT, "cars", `${ours}-3.webp`)]);
-  jobs.push([`${BASE}/video/${theirs}.mp4`, path.join(ROOT, "videos", `${theirs}.mp4`)]);
 }
 
 let ok = 0, skip = 0, fail = 0;

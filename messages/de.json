@@ -125,8 +125,6 @@
       "wagon": "Der {name} ist die praktische Wahl, wenn Gepäck zählt, mit großem Kofferraum für längere Reisen.",
       "spec": "Mit {gearbox}, {seats} Sitzen und Platz für {bags, plural, one {# Koffer} other {# Koffer}}."
     },
-    "video": "Das Auto im Video",
-    "videoNote": "Genau dieses Auto bekommen Sie, kein ähnliches.",
     "need": "Das brauchen Sie",
     "needLicence": "Gültiger Führerschein",
     "needId": "Personalausweis oder Reisepass",

@@ -15,7 +15,6 @@ import {
   CircleCheck,
   DoorOpen,
   Fuel,
-  PlayCircle,
   Settings2,
   Snowflake,
   Users,
@@ -31,7 +30,6 @@ import { SimilarCars } from "@/components/fleet/SimilarCars";
 import { CLASS_LABELS, FUEL_LABELS, TRANSMISSION_LABELS, label as pick } from "@/lib/car-labels";
 import type { AppLocale } from "@/i18n/routing";
 import { carDescription } from "@/lib/car-copy";
-import { carVideo } from "@/lib/car-media";
 import { carCategories } from "@/lib/car-categories";
 import { splitLocal, type BusyRange } from "@/lib/booking";
 import { addDays, shortDate, todayISO } from "@/lib/dates";
@@ -140,7 +138,6 @@ export function CarDetail({
   }, [bar]);
 
   const description = carDescription(car, locale, (k, v) => t(k as never, v as never));
-  const video = carVideo(car.slug);
   const included = t.raw("included") as string[];
   const cats = carCategories(car);
 
@@ -233,27 +230,6 @@ export function CarDetail({
           </section>
 
           <RentalRules deposit={car.deposit} />
-
-          {video && (
-            <section>
-              <div className="flex flex-wrap items-end justify-between gap-2">
-                <h2 className="flex items-center gap-2 font-display text-lg font-semibold text-foreground">
-                  <PlayCircle className="h-5 w-5 text-brand-strong" />
-                  {t("video")}
-                </h2>
-                <p className="text-sm text-muted-foreground">{t("videoNote")}</p>
-              </div>
-              <video
-                src={video}
-                poster={car.images?.[0]}
-                controls
-                muted
-                playsInline
-                preload="none"
-                className="mt-4 aspect-video w-full rounded-[22px] bg-ink object-cover"
-              />
-            </section>
-          )}
 
           {car.isAvailable && (
             <AvailabilityCalendar
