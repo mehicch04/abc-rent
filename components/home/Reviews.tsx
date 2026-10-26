@@ -101,6 +101,7 @@ function Slot({
     let raf = 0;
     let last = performance.now();
     let shown = -1;
+    let drawn = -1;
     let vis = true;
     let checked = 0;
     const tick = (now: number) => {
@@ -115,9 +116,12 @@ function Slot({
         if (elapsed.current >= dur.current) void swap();
       }
       const left = Math.max(0, dur.current - elapsed.current);
-      const frac = left / dur.current;
-      if (ring.current) ring.current.style.strokeDashoffset = String(C * (1 - frac));
-      if (bar.current) bar.current.style.transform = `scaleX(${frac})`;
+      const frac = Math.round((left / dur.current) * 1000) / 1000;
+      if (vis && live.current && frac !== drawn) {
+        drawn = frac;
+        if (ring.current) ring.current.style.strokeDashoffset = String(C * (1 - frac));
+        if (bar.current) bar.current.style.transform = `scaleX(${frac})`;
+      }
       const s = Math.ceil(left / 1000);
       if (s !== shown && secs.current) {
         shown = s;

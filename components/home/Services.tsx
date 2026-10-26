@@ -134,8 +134,10 @@ export function Services() {
                         </span>
                         <span aria-hidden className="relative h-6 min-w-14 flex-1 sm:mx-1">
                           <span className="absolute inset-x-0 top-1/2 border-t-2 border-dashed border-brand/30" />
-                          <span className="absolute top-1/2 grid h-6 w-6 -translate-y-1/2 place-items-center rounded-full bg-surface text-brand-strong shadow-sm ring-1 ring-border motion-safe:animate-[route-drive_4.5s_cubic-bezier(0.65,0,0.35,1)_infinite]">
-                            <Car className="h-3.5 w-3.5 rtl:-scale-x-100" />
+                          <span className="absolute inset-0 will-change-transform rtl:[--dir:-1] motion-safe:animate-[route-drive_4.5s_cubic-bezier(0.65,0,0.35,1)_infinite]">
+                            <span className="absolute start-0 top-1/2 grid h-6 w-6 -translate-y-1/2 place-items-center rounded-full bg-surface text-brand-strong shadow-sm ring-1 ring-border">
+                              <Car className="h-3.5 w-3.5 rtl:-scale-x-100" />
+                            </span>
                           </span>
                           <span className="absolute inset-x-0 -bottom-3 whitespace-nowrap text-center text-[11px] font-medium text-muted-foreground">{t("transfer.eta")}</span>
                         </span>

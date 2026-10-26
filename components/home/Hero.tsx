@@ -86,13 +86,25 @@ function Stage({
           onClick={() => onPick(s, touch.current)}
         />
       ))}
-      {spots.map((s) => (
-        <g key={s.key} className={`pointer-events-none transition-opacity duration-300 ${active ? "opacity-0" : "opacity-100"}`}>
-          <circle cx={s.tag[0]} cy={s.tag[1] + 46} r={mode === "crop" ? 15 : 11} fill="#1EA4E9" stroke="#fff" strokeWidth={mode === "crop" ? 5 : 4} />
-          <circle cx={s.tag[0]} cy={s.tag[1] + 46} r={mode === "crop" ? 15 : 11} fill="none" stroke="#7FD0F7" strokeWidth={3} className="origin-center [transform-box:fill-box] motion-safe:animate-[hero-ping_2.2s_cubic-bezier(0,0,0.2,1)_infinite]" />
-        </g>
-      ))}
     </svg>
+  );
+}
+
+function Dots({ spots, box, active }: { spots: Spot[]; box: { x: number; y: number; w: number; h: number }; active: Key | null }) {
+  return (
+    <>
+      {spots.map((s) => (
+        <span
+          key={s.key}
+          aria-hidden
+          style={{ left: `${((s.tag[0] - box.x) / box.w) * 100}%`, top: `${((s.tag[1] + 46 - box.y) / box.h) * 100}%` }}
+          className={`pointer-events-none absolute grid h-5 w-5 -translate-x-1/2 -translate-y-1/2 place-items-center transition-opacity duration-300 ${active ? "opacity-0" : "opacity-100"}`}
+        >
+          <span className="absolute inset-0 rounded-full bg-brand-300/60 motion-safe:animate-ping" />
+          <span className="relative h-3.5 w-3.5 rounded-full border-[3px] border-white bg-brand shadow-[0_2px_8px_rgba(0,0,0,0.4)]" />
+        </span>
+      ))}
+    </>
   );
 }
 
@@ -150,6 +162,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
   const svgFull = useRef<SVGSVGElement>(null);
   const svgCrop = useRef<SVGSVGElement>(null);
   const leaveT = useRef<ReturnType<typeof setTimeout>>();
+  const dragging = useRef(false);
 
   const enter = useCallback((k: Key) => {
     clearTimeout(leaveT.current);
@@ -167,7 +180,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
   const place = useCallback(() => {
     const box = root.current?.getBoundingClientRect();
     const s = spots.find((x) => x.key === active);
-    const svg = [svgFull.current, svgCrop.current].find((el) => el && el.getBoundingClientRect().width > 0);
+    const svg = svgFull.current && svgFull.current.getBoundingClientRect().width > 0 ? svgFull.current : null;
     const m = svg?.getScreenCTM();
     if (!box || !s || !svg || !m) return setPos(null);
     const p = new DOMPoint(s.tag[0], s.tag[1]).matrixTransform(m);
@@ -189,7 +202,14 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
     const keys = spots.map((s) => s.key);
     let i = 0;
     let id: ReturnType<typeof setTimeout>;
+    let seen = true;
+    const io = new IntersectionObserver(([e]) => (seen = e.isIntersecting), { threshold: 0.35 });
+    if (root.current) io.observe(root.current);
     const step = () => {
+      if (!seen) {
+        id = setTimeout(step, 1200);
+        return;
+      }
       if (canHover && i >= keys.length) return setActive(null);
       setActive(keys[i % keys.length]);
       i++;
@@ -197,12 +217,12 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
     };
     id = setTimeout(step, 1400);
     const stop = () => clearTimeout(id);
-    window.addEventListener("pointerdown", stop, { once: true });
-    window.addEventListener("wheel", stop, { once: true, passive: true });
+    const events = ["pointerdown", "touchstart", "wheel", "keydown"] as const;
+    events.forEach((ev) => window.addEventListener(ev, stop, { once: true, passive: true }));
     return () => {
       stop();
-      window.removeEventListener("pointerdown", stop);
-      window.removeEventListener("wheel", stop);
+      io.disconnect();
+      events.forEach((ev) => window.removeEventListener(ev, stop));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -211,14 +231,14 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
     if (!active || hoverable) return;
     root.current?.querySelectorAll<HTMLUListElement>("[data-picker]").forEach((ul) => {
       const li = ul.querySelector<HTMLElement>(`[data-key="${active}"]`);
-      if (ul.offsetParent && li) ul.scrollTo({ left: li.offsetLeft - ul.offsetLeft - 8, behavior: "smooth" });
+      if (ul.offsetParent && li && !dragging.current) ul.scrollTo({ left: li.offsetLeft - ul.offsetLeft - 8, behavior: "smooth" });
     });
   }, [active, hoverable]);
 
   const tag = spots.find((s) => s.key === active);
 
   const picker = (
-    <ul data-picker className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] xl:overflow-visible xl:pb-0">
+    <ul data-picker onTouchStart={() => (dragging.current = true)} onTouchEnd={() => (dragging.current = false)} className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] xl:mx-0 xl:overflow-visible xl:px-0 xl:pb-0">
       {spots.map((s) => {
         const on = active === s.key;
         return (
@@ -229,8 +249,8 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
               onPointerLeave={(e) => e.pointerType === "mouse" && leave()}
               onFocus={() => enter(s.key)}
               onBlur={leave}
-              className={`group/p flex items-center gap-2.5 rounded-2xl py-1.5 pe-3.5 ps-2 ring-1 transition-all duration-300 ${
-                on ? "bg-white text-ink ring-white" : "bg-white/[0.07] text-white ring-white/15 backdrop-blur-md hover:bg-white/[0.12]"
+              className={`group/p flex items-center gap-2.5 rounded-2xl py-1.5 pe-3.5 ps-2 ring-1 transition-[background-color,color,box-shadow] duration-300 ${
+                on ? "bg-white text-ink ring-white" : "bg-white/[0.08] text-white ring-white/15 hover:bg-white/[0.13]"
               }`}
             >
               <span className={`relative h-10 w-16 shrink-0 rounded-xl transition-colors duration-300 ${on ? "bg-[radial-gradient(closest-side,rgba(8,121,184,0.18),transparent)]" : "bg-[radial-gradient(closest-side,rgba(255,255,255,0.42),transparent)]"}`}>
@@ -269,6 +289,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
             <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[16%] bg-gradient-to-r from-ink to-transparent" />
             <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-[12%] bg-gradient-to-l from-ink to-transparent" />
             {spots.length > 0 && <Stage spots={spots} active={active} mode="full" onEnter={enter} onLeave={leave} onPick={pick} svgRef={svgFull} />}
+            {spots.length > 0 && <Dots spots={spots} box={DESK} active={active} />}
           </div>
           <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-ink via-ink/80 to-transparent" />
           <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink/70 to-transparent" />
@@ -331,6 +352,7 @@ export function Hero({ cars }: { cars: CarListItem[] }) {
             <div className="pointer-events-auto mt-8 xl:hidden">
               <div className="relative aspect-[2228/1420] overflow-hidden rounded-[22px] ring-1 ring-white/10">
                 <Stage spots={spots} active={active} mode="crop" onEnter={enter} onLeave={leave} onPick={pick} svgRef={svgCrop} />
+                <Dots spots={spots} box={MOB} active={active} />
                 <span className="pointer-events-none absolute bottom-3 start-3 inline-flex items-center gap-1.5 rounded-full bg-ink/60 px-2.5 py-1 text-[11px] font-semibold text-white ring-1 ring-white/15 backdrop-blur-md">
                   <MousePointerClick className="h-3.5 w-3.5 text-brand-300" />
                   {hoverable ? t("pickHint") : t("tapHint")}
