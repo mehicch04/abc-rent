@@ -182,8 +182,8 @@ export function Navbar() {
             : "border-border/70 bg-surface"
         }`}
       >
-        <nav className="mx-auto flex h-[68px] max-w-[1320px] items-center justify-between gap-3 px-4 sm:px-6">
-          <Link href="/" className="flex shrink-0 items-center" aria-label={SITE.name}>
+        <nav className="mx-auto flex h-[68px] max-w-[1320px] items-center justify-between gap-3 px-4 sm:px-6 lg:grid lg:grid-cols-[minmax(max-content,1fr)_auto_minmax(max-content,1fr)] lg:gap-4">
+          <Link href="/" className="flex shrink-0 items-center lg:justify-self-start" aria-label={SITE.name}>
             <Image src="/logo.png" alt={SITE.name} width={86} height={40} loading="eager" className="h-9 w-[77px] sm:h-10 sm:w-[86px]" />
           </Link>
 
@@ -204,7 +204,7 @@ export function Navbar() {
                   onFocus={() => setHover(i)}
                   onBlur={() => setHover(null)}
                   aria-current={i === active ? "page" : undefined}
-                  className={`relative z-10 block rounded-full px-4 py-2 text-[13px] font-medium transition-colors duration-200 ${
+                  className={`relative z-10 block rounded-full px-3 py-2 text-[13px] font-medium transition-colors duration-200 xl:px-4 ${
                     target === i ? "text-white" : "text-foreground/70 hover:text-foreground"
                   }`}
                 >
@@ -214,7 +214,7 @@ export function Navbar() {
             ))}
           </ul>
 
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 lg:justify-self-end">
             <div className="flex items-center rounded-full bg-surface-muted p-0.5">
               <LanguageToggle />
               <span aria-hidden className="h-4 w-px bg-border" />
