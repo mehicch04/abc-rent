@@ -12,10 +12,10 @@ import type { Currency } from "@/lib/currency";
 type Ctx = { currency: Currency; setCurrency: (c: Currency) => void };
 
 const CurrencyContext = createContext<Ctx | null>(null);
-const STORAGE_KEY = "abc-currency";
+const STORAGE_KEY = "abc-currency-session";
 
 export function CurrencyProvider({
-  defaultCurrency = "BAM",
+  defaultCurrency = "EUR",
   children,
 }: {
   defaultCurrency?: Currency;
@@ -24,17 +24,17 @@ export function CurrencyProvider({
   const [currency, setCurrencyState] = useState<Currency>(defaultCurrency);
 
   useEffect(() => {
-    const saved =
-      typeof window !== "undefined"
-        ? window.localStorage.getItem(STORAGE_KEY)
-        : null;
+    let saved: string | null = null;
+    try {
+      saved = window.sessionStorage.getItem(STORAGE_KEY);
+    } catch {}
     if (saved === "BAM" || saved === "EUR") setCurrencyState(saved);
   }, []);
 
   const setCurrency = (c: Currency) => {
     setCurrencyState(c);
     try {
-      window.localStorage.setItem(STORAGE_KEY, c);
+      window.sessionStorage.setItem(STORAGE_KEY, c);
     } catch {
       /* ignore (private mode etc.) */
     }

@@ -8,9 +8,9 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { NAV_LINKS, SITE } from "@/lib/site-config";
 import { useCompany } from "@/components/company/CompanyProvider";
-import { CurrencyChips, CurrencySwitch } from "@/components/currency/CurrencySwitch";
+import { CurrencySwitch } from "@/components/currency/CurrencySwitch";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { LanguageChips, LanguageToggle } from "./LanguageToggle";
+import { LanguageToggle } from "./LanguageToggle";
 
 const useIso = typeof window === "undefined" ? useEffect : useLayoutEffect;
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -173,14 +173,14 @@ export function Navbar() {
           </ul>
 
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <div className="hidden items-center rounded-full bg-surface-muted p-0.5 sm:flex">
+            <div className="flex items-center rounded-full bg-surface-muted p-0.5">
               <LanguageToggle />
               <span aria-hidden className="h-4 w-px bg-border" />
               <CurrencySwitch />
             </div>
             <Link
               href="/vozila"
-              className="group relative inline-flex h-11 items-center gap-2 overflow-hidden rounded-full bg-brand-gradient pe-1.5 ps-4 text-sm font-semibold text-white shadow-[0_12px_26px_-14px_rgba(8,121,184,0.95)] transition-[transform,box-shadow] duration-300 hover:shadow-[0_16px_32px_-14px_rgba(8,121,184,1)] active:scale-[0.98] sm:ps-5"
+              className="group relative hidden h-11 items-center gap-2 overflow-hidden rounded-full bg-brand-gradient pe-1.5 ps-4 text-sm sm:inline-flex font-semibold text-white shadow-[0_12px_26px_-14px_rgba(8,121,184,0.95)] transition-[transform,box-shadow] duration-300 hover:shadow-[0_16px_32px_-14px_rgba(8,121,184,1)] active:scale-[0.98] sm:ps-5"
             >
               <span aria-hidden className="pointer-events-none absolute inset-y-0 -start-1/2 w-1/3 -skew-x-12 bg-white/25 opacity-0 transition-[transform,opacity] duration-700 group-hover:translate-x-[420%] group-hover:opacity-100 rtl:group-hover:-translate-x-[420%]" />
               {t("book")}
@@ -242,20 +242,15 @@ export function Navbar() {
                   </motion.li>
                 ))}
               </ul>
-              <div className="mt-3 grid gap-2 sm:hidden">
-                <div>
-                  <p className="mb-1.5 px-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground rtl:normal-case">{t("language")}</p>
-                  <div className="rounded-2xl bg-surface-muted p-1">
-                    <LanguageChips />
-                  </div>
-                </div>
-                <div>
-                  <p className="mb-1.5 px-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground rtl:normal-case">{t("currency")}</p>
-                  <div className="rounded-2xl bg-surface-muted p-1">
-                    <CurrencyChips />
-                  </div>
-                </div>
-              </div>
+              <Link
+                href="/vozila"
+                className="mt-3 flex h-14 items-center justify-between rounded-full bg-brand-gradient pe-2 ps-6 text-base font-semibold text-white shadow-[0_14px_30px_-16px_rgba(8,121,184,0.95)] active:scale-[0.99] sm:hidden"
+              >
+                {t("book")}
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-brand">
+                  <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" />
+                </span>
+              </Link>
               <div className="mt-3 grid grid-cols-2 gap-2">
                 <a
                   href={company.phones[0]?.href}
