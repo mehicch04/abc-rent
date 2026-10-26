@@ -5,6 +5,15 @@ import { routing } from "@/i18n/routing";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? `https://${SITE.domain}`;
 
+export const ASSET_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : SITE_URL;
+
+export function ogImage(locale: string) {
+  const l = (routing.locales as readonly string[]).includes(locale) ? locale : routing.defaultLocale;
+  return { url: `${ASSET_URL}/og/${l}.jpg`, width: 1200, height: 630, alt: `${SITE.name} | Rent a Car Sarajevo`, type: "image/jpeg" };
+}
+
 const OG_LOCALE: Record<string, string> = { bs: "bs_BA", en: "en_US", de: "de_DE", ar: "ar_AR" };
 
 export function buildAlternates(locale: string, path: string) {
@@ -41,11 +50,13 @@ export function buildPageMetadata({
       title,
       description,
       locale: OG_LOCALE[locale] ?? "bs_BA",
+      images: [ogImage(locale)],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [ogImage(locale).url],
     },
   };
 }

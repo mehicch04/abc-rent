@@ -8,7 +8,7 @@ import { getCarBySlug, getSimilarCars } from "@/lib/car-detail";
 import { getLocations } from "@/lib/fleet-data";
 import { getActiveExtras } from "@/lib/extras";
 import { getCarBusy } from "@/lib/car-busy";
-import { SITE_URL, buildAlternates } from "@/lib/seo";
+import { SITE_URL, buildAlternates, ogImage } from "@/lib/seo";
 import { carDescription } from "@/lib/car-copy";
 import { SITE } from "@/lib/site-config";
 import { CarDetail } from "@/components/fleet/CarDetail";
@@ -34,8 +34,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: car.title,
       description: description.slice(0, 160),
       url,
-      images: car.images?.length ? [{ url: car.images[0] }] : undefined,
+      siteName: SITE.name,
+      images: [ogImage(params.locale)],
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: car.title,
+      description: description.slice(0, 160),
+      images: [ogImage(params.locale).url],
     },
   };
 }

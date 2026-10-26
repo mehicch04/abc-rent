@@ -8,6 +8,7 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import "../globals.css";
 import { isRtl, routing, type AppLocale } from "@/i18n/routing";
 import { SITE } from "@/lib/site-config";
+import { ASSET_URL } from "@/lib/seo";
 import { CurrencyProvider } from "@/components/currency/CurrencyProvider";
 import { CompanyProvider } from "@/components/company/CompanyProvider";
 import { getCompany } from "@/lib/company";
@@ -98,7 +99,7 @@ export const metadata: Metadata = {
       "Rent a car Sarajevo s besplatnom dostavom na aerodrom i adresu.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: `${ASSET_URL}/og/en.jpg`,
         width: 1200,
         height: 630,
         alt: `${SITE.name} | Rent a Car Sarajevo`,
@@ -110,7 +111,7 @@ export const metadata: Metadata = {
     title: `${SITE.name} | Rent a Car Sarajevo`,
     description:
       "Rent a car Sarajevo s besplatnom dostavom na aerodrom i adresu.",
-    images: ["/og-image.jpg"],
+    images: [`${ASSET_URL}/og/en.jpg`],
   },
 };
 
