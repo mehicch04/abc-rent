@@ -539,7 +539,23 @@
         "title": "Get the keys",
         "body": "The car waits at the airport, at your address or at our office."
       }
-    ]
+    ],
+    "pass": {
+      "label": "Boarding pass",
+      "from": "From",
+      "to": "To",
+      "you": "You",
+      "youSub": "Wherever you are",
+      "destSub": "Sarajevo Airport",
+      "step": "Step",
+      "payLabel": "Payment",
+      "pay": "On pickup",
+      "stamps": [
+        "Picked",
+        "Sent",
+        "Ready"
+      ]
+    }
   },
   "Requirements": {
     "eyebrow": "Before pick-up",

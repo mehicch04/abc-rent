@@ -539,7 +539,23 @@
         "title": "Schlüssel abholen",
         "body": "Das Auto wartet am Flughafen, an Ihrer Adresse oder in unserem Büro."
       }
-    ]
+    ],
+    "pass": {
+      "label": "Bordkarte",
+      "from": "Von",
+      "to": "Nach",
+      "you": "Sie",
+      "youSub": "Wo auch immer Sie sind",
+      "destSub": "Flughafen Sarajevo",
+      "step": "Schritt",
+      "payLabel": "Zahlung",
+      "pay": "Bei Abholung",
+      "stamps": [
+        "Gewählt",
+        "Gesendet",
+        "Bereit"
+      ]
+    }
   },
   "Requirements": {
     "eyebrow": "Vor der Abholung",

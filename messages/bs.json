@@ -539,7 +539,23 @@
         "title": "Preuzmite ključeve",
         "body": "Auto vas čeka na aerodromu, na vašoj adresi ili kod nas u poslovnici."
       }
-    ]
+    ],
+    "pass": {
+      "label": "Ukrcajna karta",
+      "from": "Od",
+      "to": "Do",
+      "you": "Vi",
+      "youSub": "Gdje god da ste",
+      "destSub": "Aerodrom Sarajevo",
+      "step": "Korak",
+      "payLabel": "Plaćanje",
+      "pay": "Pri preuzimanju",
+      "stamps": [
+        "Odabrano",
+        "Poslano",
+        "Spremno"
+      ]
+    }
   },
   "Requirements": {
     "eyebrow": "Prije preuzimanja",
