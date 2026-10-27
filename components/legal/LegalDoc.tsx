@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { ChevronDown } from "lucide-react";
 import type { TermsBlock, TermsContent } from "@/lib/rental-terms";
+import { LegalBar, LegalList } from "./LegalNav";
 
 function Block({ block }: { block: TermsBlock }) {
   if (block.type === "p") {
@@ -30,56 +30,48 @@ function Block({ block }: { block: TermsBlock }) {
   );
 }
 
-export function LegalDoc({ c, children }: { c: TermsContent; children?: ReactNode }) {
-  const toc = (
-    <ol className="space-y-0.5">
-      {c.articles.map((a) => (
-        <li key={a.n}>
-          <a
-            href={`#clanak-${a.n}`}
-            className="flex gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-surface-muted hover:text-brand"
-          >
-            <span className="font-medium text-brand-strong">{String(a.n).padStart(2, "0")}</span>
-            {a.topic}
-          </a>
-        </li>
-      ))}
-    </ol>
+export function LegalDoc({ c, children, summary, help }: { c: TermsContent; children?: ReactNode; summary?: ReactNode; help?: ReactNode }) {
+  const items = c.articles.map((a) => ({ id: `clanak-${a.n}`, n: a.n, topic: a.topic }));
+  const extra = (
+    <>
+      {help}
+      {children}
+    </>
   );
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
-      <div className="mt-16 grid gap-10 lg:grid-cols-[15rem_1fr] lg:gap-16">
-        <aside className="lg:sticky lg:top-28 lg:self-start">
-          <details className="group rounded-2xl bg-surface-muted p-2 lg:hidden">
-            <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold text-foreground">
-              {c.indexLabel}
-              <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-180" />
-            </summary>
-            <nav className="px-1 pb-1">{toc}</nav>
-          </details>
-          <nav className="hidden lg:block">
-            <p className="px-3 text-sm font-semibold text-foreground">{c.indexLabel}</p>
-            <div className="mt-3">{toc}</div>
-          </nav>
-          {children && <div className="mt-6 hidden lg:block">{children}</div>}
-        </aside>
+      {summary && <div className="relative z-10 -mt-12 sm:-mt-14">{summary}</div>}
+      <div className={summary ? "mt-10 sm:mt-14" : "mt-12 sm:mt-16"}>
+        <LegalBar items={items} container="legal-articles" />
+        <div className="grid gap-10 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-14">
+          <aside className="hidden lg:sticky lg:top-28 lg:block lg:self-start">
+            <LegalList items={items} container="legal-articles" label={c.indexLabel} />
+            {(help || children) && <div className="mt-6 space-y-3">{extra}</div>}
+          </aside>
 
-        <div>
-          {c.articles.map((a) => (
-            <section key={a.n} id={`clanak-${a.n}`} className="scroll-mt-28 border-t border-border py-8 first:border-t-0 first:pt-0">
-              <div className="flex items-baseline gap-4">
-                <span className="font-display text-sm font-semibold text-brand-strong">{String(a.n).padStart(2, "0")}</span>
-                <h2 className="font-display text-xl font-semibold tracking-tight text-foreground sm:text-2xl">{a.topic}</h2>
-              </div>
-              <div className="mt-4 space-y-4 ps-9">
-                {a.blocks.map((block, i) => (
-                  <Block key={i} block={block} />
-                ))}
-              </div>
-            </section>
-          ))}
-          {children && <div className="mt-4 lg:hidden">{children}</div>}
+          <div id="legal-articles" className="min-w-0 space-y-4">
+            {c.articles.map((a) => (
+              <section
+                key={a.n}
+                id={`clanak-${a.n}`}
+                className="scroll-mt-[148px] rounded-[24px] bg-surface p-5 ring-1 ring-border sm:p-7 lg:scroll-mt-28"
+              >
+                <div className="flex items-center gap-3.5 sm:gap-4">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-brand/10 font-display text-sm font-semibold tabular-nums text-brand-strong">
+                    {String(a.n).padStart(2, "0")}
+                  </span>
+                  <h2 className="font-display text-lg font-semibold tracking-tight text-foreground sm:text-2xl">{a.topic}</h2>
+                </div>
+                <div className="mt-4 space-y-4 sm:ps-14">
+                  {a.blocks.map((block, i) => (
+                    <Block key={i} block={block} />
+                  ))}
+                </div>
+              </section>
+            ))}
+            {(help || children) && <div className="space-y-3 pt-2 lg:hidden">{extra}</div>}
+          </div>
         </div>
       </div>
     </div>
