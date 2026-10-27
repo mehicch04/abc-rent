@@ -210,7 +210,8 @@
       "clientsLabel": "Zadovoljnih klijenata",
       "carsLabel": "Vozila u floti",
       "supportLabel": "Podrška",
-      "depositLabel": "Depozit"
+      "depositLabel": "Depozit",
+      "ratingLabel": "Ocjena na Googleu"
     },
     "storyTitle": "Ko smo mi",
     "storyP1": "Vozilo vas čeka na Aerodromu Sarajevo ili u našoj poslovnici, bez doplate, a možemo ga dovesti i na vašu adresu. Sva vozila su osigurana i redovno održavana.",
@@ -237,7 +238,34 @@
     "imageAlt": "Vozač ABC Rent a Car otvara vrata putniku",
     "featuresEyebrow": "Zašto mi",
     "featuresTitle": "Ono na šta",
-    "featuresAccent": "možete računati."
+    "featuresAccent": "možete računati.",
+    "collageMainAlt": "Vozila ABC Rent a Car kod Sebilja u Sarajevu",
+    "collageSideAlt": "Aerodrom Sarajevo",
+    "journeyEyebrow": "Vaš put",
+    "journeyTitle": "Od slijetanja",
+    "journeyAccent": "do povratka ključeva.",
+    "journey": [
+      {
+        "t": "Sletite",
+        "d": "Čekamo vas na Aerodromu Sarajevo, i noću."
+      },
+      {
+        "t": "Preuzmite ključeve",
+        "d": "Bez čekanja u redu, auto je čist i spreman."
+      },
+      {
+        "t": "Vozite bez brige",
+        "d": "Pomoć na putu 0 do 24h, na četiri jezika."
+      },
+      {
+        "t": "Vratite auto",
+        "d": "Na aerodromu, u poslovnici ili na vašoj adresi."
+      }
+    ],
+    "fleetEyebrow": "Vozni park",
+    "fleetTitle": "Od gradskog auta",
+    "fleetAccent": "do kombija za devet putnika.",
+    "fleetCta": "Pogledaj sva vozila"
   },
   "Contact": {
     "title": "Kontakt",

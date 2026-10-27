@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
-import { Band } from "@/components/ui/Band";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { CalendarCheck, Heart, MapPin, ShieldCheck } from "lucide-react";
+import { CalendarCheck, Globe, Heart, MapPin, ShieldCheck } from "lucide-react";
+import { Band } from "@/components/ui/Band";
 import { buildPageMetadata } from "@/lib/seo";
 import { getBrowseCars } from "@/lib/fleet-data";
+import { getCompany } from "@/lib/company";
 import { SITE } from "@/lib/site-config";
+import { intlLocale } from "@/i18n/routing";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Heading } from "@/components/home/Heading";
 import { Visit } from "@/components/home/Visit";
 import { CtaBand } from "@/components/home/CtaBand";
+import { PillLink } from "@/components/ui/PillLink";
+import { StoryCollage } from "@/components/about/StoryCollage";
+import { CountStats, type Stat } from "@/components/about/CountStats";
+import { Journey } from "@/components/about/Journey";
+import { FleetMarquee } from "@/components/about/FleetMarquee";
 
 export async function generateMetadata({
   params: { locale },
@@ -33,14 +40,22 @@ export default async function AboutPage({
   params: { locale: string };
 }) {
   setRequestLocale(locale);
-  const t = await getTranslations("About");
-  const cars = await getBrowseCars().catch(() => []);
+  const [t, tFooter, tNav, cars, company] = await Promise.all([
+    getTranslations("About"),
+    getTranslations("Footer"),
+    getTranslations("Nav"),
+    getBrowseCars().catch(() => []),
+    getCompany(),
+  ]);
+  const score = company.rating.score ?? SITE.rating.score;
+  const count = company.rating.count ?? SITE.rating.count;
+  const nf = intlLocale(locale);
 
-  const stats = [
-    { value: "500+", label: t("stats.clientsLabel") },
-    { value: String(cars.length || 19), label: t("stats.carsLabel") },
-    { value: "24/7", label: t("stats.supportLabel") },
-    { value: `${SITE.deposit.standard} €`, label: t("stats.depositLabel") },
+  const stats: Stat[] = [
+    { icon: "users", to: 500, suffix: "+", label: t("stats.clientsLabel") },
+    { icon: "car", to: cars.length || 19, label: t("stats.carsLabel") },
+    { icon: "star", to: score, decimals: 1, label: t("stats.ratingLabel") },
+    { icon: "headset", to: 24, fixed: "24/7", label: t("stats.supportLabel") },
   ];
 
   const features = [
@@ -54,49 +69,87 @@ export default async function AboutPage({
     <>
       <PageHeader eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
 
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
-          <Heading eyebrow={t("storyTitle")} title={t("storyHeadline")} accent={t("storyAccent")} />
-          <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
-            <p className="text-foreground">{t("intro2")}</p>
-            <p>{t("storyP1")}</p>
-            <p>{t("storyP2")}</p>
-          </div>
-        </div>
-
-        <div className="mt-16 grid grid-cols-2 gap-px border-y border-border bg-border lg:grid-cols-4">
-          {stats.map((s) => (
-            <div key={s.label} className="bg-background py-8 ps-6 odd:ps-0 lg:ps-8 lg:odd:ps-8 lg:first:ps-0">
-              <p className="font-display text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">{s.value}</p>
-              <p className="mt-2 text-sm text-muted-foreground">{s.label}</p>
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
+        <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <Heading eyebrow={t("storyTitle")} title={t("storyHeadline")} accent={t("storyAccent")} />
+            <div className="mt-8 space-y-5 text-[17px] leading-relaxed text-muted-foreground">
+              <p className="text-foreground">{t("intro2")}</p>
+              <p>{t("storyP1")}</p>
+              <p>{t("storyP2")}</p>
             </div>
-          ))}
+            <p className="mt-8 inline-flex items-center gap-2.5 rounded-full bg-surface px-4 py-2.5 text-sm font-medium text-foreground ring-1 ring-border">
+              <Globe className="h-4 w-4 shrink-0 text-brand-strong" />
+              {tFooter("languages")}
+            </p>
+          </div>
+          <StoryCollage
+            main="/img/hero/sebilj-mob.webp"
+            side="/img/service-airport.webp"
+            mainAlt={t("collageMainAlt")}
+            sideAlt={t("collageSideAlt")}
+            score={score.toLocaleString(nf, { minimumFractionDigits: 1 })}
+            reviews={tNav("rating", { count })}
+            badge={t("features.f1Title")}
+          />
+        </div>
+        <div className="mt-20 sm:mt-24">
+          <CountStats stats={stats} locale={nf} />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 sm:pb-28">
+        <Heading eyebrow={t("journeyEyebrow")} title={t("journeyTitle")} accent={t("journeyAccent")} />
+        <div className="mt-12 sm:mt-14">
+          <Journey steps={t.raw("journey") as { t: string; d: string }[]} />
         </div>
       </section>
 
       <Band>
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[4/5]">
-            <Image src="/img/chauffeur.webp" alt={t("imageAlt")} fill sizes="(max-width: 1023px) 100vw, 50vw" className="object-cover" />
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center lg:gap-16">
+          <div className="group relative aspect-[4/3] overflow-hidden rounded-[28px] lg:aspect-[4/5]">
+            <Image
+              src="/img/chauffeur.webp"
+              alt={t("imageAlt")}
+              fill
+              sizes="(max-width: 1023px) 100vw, 45vw"
+              className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+            />
+            <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/70 to-transparent" />
           </div>
           <div>
-            <Heading eyebrow={t("featuresEyebrow")} title={t("featuresTitle")} accent={t("featuresAccent")} />
-            <ul className="mt-8 border-t border-border">
+            <Heading eyebrow={t("featuresEyebrow")} title={t("featuresTitle")} accent={t("featuresAccent")} tone="dark" />
+            <ul className="mt-10 grid gap-3 sm:grid-cols-2">
               {features.map(({ icon: Icon, title, text }) => (
-                <li key={title} className="flex gap-4 border-b border-border py-5">
-                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-brand-strong ring-1 ring-white/10">
+                <li
+                  key={title}
+                  className="group rounded-[22px] bg-white/[0.04] p-5 ring-1 ring-white/10 transition-[background-color,transform] duration-300 hover:-translate-y-1 hover:bg-white/[0.07] sm:p-6"
+                >
+                  <span className="grid h-11 w-11 place-items-center rounded-2xl bg-brand/20 text-brand-300 transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
                     <Icon className="h-5 w-5" />
                   </span>
-                  <div>
-                    <h3 className="font-display text-base font-semibold text-foreground">{title}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{text}</p>
-                  </div>
+                  <h3 className="mt-5 font-display text-base font-semibold text-white">{title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-white/60">{text}</p>
                 </li>
               ))}
             </ul>
           </div>
         </div>
       </Band>
+
+      {cars.length > 3 && (
+        <section className="py-20 sm:py-28">
+          <div className="mx-auto flex max-w-6xl flex-col justify-between gap-6 px-4 sm:flex-row sm:items-end sm:px-6">
+            <Heading eyebrow={t("fleetEyebrow")} title={t("fleetTitle")} accent={t("fleetAccent")} />
+            <PillLink href="/vozila" variant="dark" className="self-start sm:self-auto">
+              {t("fleetCta")}
+            </PillLink>
+          </div>
+          <div className="mx-auto mt-10 max-w-[1400px] px-3 sm:px-4">
+            <FleetMarquee cars={cars} />
+          </div>
+        </section>
+      )}
 
       <Visit address={SITE.address} />
       <CtaBand />

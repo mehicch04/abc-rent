@@ -210,7 +210,8 @@
       "clientsLabel": "Happy clients",
       "carsLabel": "Vehicles in the fleet",
       "supportLabel": "Support",
-      "depositLabel": "Deposit"
+      "depositLabel": "Deposit",
+      "ratingLabel": "Google rating"
     },
     "storyTitle": "Who we are",
     "storyP1": "Your car waits at Sarajevo Airport or our office at no extra cost, and we can also bring it to your address. Every vehicle is insured and regularly serviced.",
@@ -237,7 +238,34 @@
     "imageAlt": "ABC Rent a Car driver opening the door for a passenger",
     "featuresEyebrow": "Why us",
     "featuresTitle": "What you can",
-    "featuresAccent": "count on."
+    "featuresAccent": "count on.",
+    "collageMainAlt": "ABC Rent a Car vehicles at the Sebilj in Sarajevo",
+    "collageSideAlt": "Sarajevo Airport",
+    "journeyEyebrow": "Your trip",
+    "journeyTitle": "From landing",
+    "journeyAccent": "to handing back the keys.",
+    "journey": [
+      {
+        "t": "Land",
+        "d": "We wait for you at Sarajevo Airport, at night too."
+      },
+      {
+        "t": "Get the keys",
+        "d": "No queue. The car is clean and ready."
+      },
+      {
+        "t": "Drive worry free",
+        "d": "Help on the road 24/7, in four languages."
+      },
+      {
+        "t": "Return the car",
+        "d": "At the airport, at our office or at your address."
+      }
+    ],
+    "fleetEyebrow": "Our fleet",
+    "fleetTitle": "From a city car",
+    "fleetAccent": "to a van for nine.",
+    "fleetCta": "See all cars"
   },
   "Contact": {
     "title": "Contact",
